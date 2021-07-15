@@ -1,3 +1,6 @@
+# open zsh with tmux
+if [ "$TMUX" = "" ]; then tmux; fi
+
 alias emp-celery='EMPIRE_API_URL="https://celery-empire.lystit.com" emp'
 alias emp-microservices='EMPIRE_API_URL="https://microservices-empire.lystit.com" emp'
 alias emp-previews='EMPIRE_API_URL="https://previews-empire.lystit.com" emp'
