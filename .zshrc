@@ -16,3 +16,6 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 # ctrl-r not working in Mac Terminal, this makes it work
 bindkey '^R' history-incremental-search-backward
+
+# pyenv
+eval "$(pyenv init -)"
