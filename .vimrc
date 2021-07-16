@@ -101,20 +101,3 @@ set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutt
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['help']
-" let g:indentLine_fileTypeExclude = ['help', 'gitcommit', 'json']
-
-
-" tmux
-" reload tmux config
-" $ tmux source-file ~/.tmux.conf
-
-" $ cat .tmux.conf
-" # Copy/Paste
-" if-shell -b '[[ "$OSTYPE" == "darwin"* ]]' \
-"         'COPY_CMD="pbcopy"' \
-"         'COPY_CMD="xclip -i -f -selection primary | xclip -i -selection clipboard"'
-" set-window-option -g mode-keys vi
-" bind P paste-buffer
-" bind-key -T copy-mode-vi v send-keys -X begin-selection
-" bind-key -T copy-mode-vi y send-keys -X copy-selection
-" bind -T copy-mode-vi y send -X copy-pipe-and-cancel "#{COPY_CMD}"
