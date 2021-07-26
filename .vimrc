@@ -72,7 +72,7 @@ nnoremap Y y$
 
 " shortcuts to edit certain files
 nnoremap <silent> <leader>eu :e ~/Dropbox/vimwiki/USEFUL COMMANDS.txt<cr>
-nnoremap <silent> <leader>ev :e ~/Documents/tiger_vimrc/.vimrc<cr>
+nnoremap <silent> <leader>ev :e ~/Documents/dotfiles/.vimrc<cr>
 
 " copy/paste
 set clipboard+=unnamed " vim uses system clipboard
