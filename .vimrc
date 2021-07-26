@@ -103,3 +103,8 @@ set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutt
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['help']
+
+" folding all classes method and functions in python
+" set foldmethod=indent
+" set foldnestmax=2
+" set foldlevel=1
