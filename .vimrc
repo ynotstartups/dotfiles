@@ -15,6 +15,7 @@ Plug 'google/vim-searchindex' " shows number of search
 Plug 'jremmen/vim-ripgrep' " add :Rg command to vim
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
+Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tpope/vim-commentary' " add shortcut gc for making a line comment
 Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-unimpaired' " adds mapping like [q ]q
@@ -58,6 +59,7 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " color
 syntax on
+colorscheme molokai
 
 " search
 set ignorecase
