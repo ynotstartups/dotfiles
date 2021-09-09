@@ -1,3 +1,6 @@
+# installation
+# ln -s ~/Documents/dotfiles/i3status-config ~/.config/i3status/config
+
 general {
         output_format = "none"
         colors = false
