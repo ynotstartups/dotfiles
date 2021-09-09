@@ -1,0 +1,50 @@
+general {
+        output_format = "none"
+        colors = false
+        interval = 5
+}
+
+order += "wireless wlp3s0"
+order += "path_exists VPN"
+order += "volume master"
+order += "disk /"
+order += "load"
+order += "memory"
+order += "time"
+
+
+wireless wlp3s0 {
+        format_up = "%quality, %bitrate, %ip"
+        format_down = "Wifi: down"
+}
+
+path_exists VPN {
+        # path exists when a VPN tunnel launched by nmcli/nm-applet is active
+        path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+load {
+        format = "%1min %5min %15min"
+}
+
+memory {
+        format = "%free %available (%used)"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+disk "/" {
+        format = "%free"
+}
+
+volume master {
+        format = "♪: %volume"
+        format_muted = "♪: muted (%volume)"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+time {
+        format = "%m-%d %H:%M:%S"
+}
