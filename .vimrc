@@ -65,10 +65,6 @@ set smartcase
 " Y to yank to the end of the line, mimic other capital commands
 nnoremap Y y$
 
-" shortcuts to edit certain files
-nnoremap <silent> <leader>eu :e ~/Dropbox/vimwiki/USEFUL COMMANDS.txt<cr>
-nnoremap <silent> <leader>ev :e ~/Documents/dotfiles/.vimrc<cr>
-
 " copy/paste
 set clipboard+=unnamed " vim uses system clipboard
 
