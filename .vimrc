@@ -1,18 +1,13 @@
 set nocompatible
 filetype off
-" Autoinstall vim-plug
-if empty(glob('~/.nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall
-endif
+" please install vim-plug https://github.com/junegunn/vim-plug#installation 
+" if Plug not working, please use nvim :checkhealth
 
-call plug#begin('~/.nvim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'Yggdroot/indentLine' " hightlight indentations
 Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
 Plug 'google/vim-searchindex' " shows number of search
-Plug 'jremmen/vim-ripgrep' " add :Rg command to vim
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 Plug 'tomasr/molokai' " molokar color scheme
@@ -108,3 +103,15 @@ let g:indentLine_fileTypeExclude = ['help']
 " set foldmethod=indent
 " set foldnestmax=2
 " set foldlevel=1
+
+" use G for git grep
+function! GitGrep(arg)
+  setlocal grepprg=git\ grep\ --no-color\ -n\ $*
+  silent execute ':grep '.a:arg
+  " setlocal grepprg=git\ --no-pager\ submodule\ --quiet\ foreach\ 'git\ grep\ --full-name\ -n\ --no-color\ $*\ ;true'
+  " silent execute ':grepadd '.a:arg
+  silent cwin
+  redraw!
+endfunction
+
+command -nargs=? G call GitGrep(<f-args>)
