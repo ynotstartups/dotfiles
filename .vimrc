@@ -1,9 +1,13 @@
 set nocompatible
 filetype off
-" please install vim-plug https://github.com/junegunn/vim-plug#installation 
-" if Plug not working, please use nvim :checkhealth
 
-call plug#begin(stdpath('data') . '/plugged')
+" auto install vim plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'Yggdroot/indentLine' " hightlight indentations
 Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
