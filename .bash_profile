@@ -9,3 +9,6 @@ export EDITOR="$VISUAL"
 
 # use vim mode keymapping in bash shell
 set -o vi
+
+alias monitor_on="xrandr --output DP2 --auto --output eDP1 --off"
+alias monitor_off="xrandr --output DP2 --off --output eDP1 --auto"

@@ -9,4 +9,7 @@ mkdir -p $XDG_CONFIG_HOME/i3status
 ln -sf $PWD/i3-status $XDG_CONFIG_HOME/i3status/config
 
 echo install vim configs
-ln -s $PWD/.vimrc $HOME/.vimrc
+ln -sf $PWD/.vimrc $HOME/.vimrc
+
+echo install bash profile
+ln -sf $PWD/.bash_profile $HOME/.bash_profile
