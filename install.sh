@@ -8,6 +8,10 @@ echo soft linking i3status config
 mkdir -p $XDG_CONFIG_HOME/i3status
 ln -sf $PWD/i3status-config $XDG_CONFIG_HOME/i3status/config
 
+echo install ctags configs
+mkdir -p $XDG_CONFIG_HOME/git
+ln -sf $PWD/.gitignore $XDG_CONFIG_HOME/git/ignore
+
 echo install vim configs
 ln -sf $PWD/.vimrc $HOME/.vimrc
 
