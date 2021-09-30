@@ -56,7 +56,8 @@ hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
 set ignorecase
 set smartcase
 
-" qq to record, @q to replay
+" qq to record, Q to replay
+nnoremap Q @q
 
 " Y to yank to the end of the line, mimic other capital commands
 nnoremap Y y$
