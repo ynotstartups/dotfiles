@@ -65,18 +65,6 @@ nnoremap Y y$
 " copy/paste
 set clipboard+=unnamed " vim uses system clipboard
 
-" ctags
-" ctags -R **/*.py    " create ctags for python file only
-" <ctrl>]       " jump to tag
-" % cat ~/.ctags 
-" --recurse=yes
-" --exclude=.git
-" --exclude=vendor/*
-" --exclude=node_modules/*
-" --exclude=db/*
-" --exclude=log/*
-" --python-kinds=-i
-
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
