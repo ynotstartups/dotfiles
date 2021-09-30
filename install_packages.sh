@@ -8,7 +8,7 @@ sudo apt install jq
 sudo apt install google-chrome-stable
 
 # Vim with clipboard support
-sudo apt install vim-gtks
+sudo apt install vim-gtk3
 
 # ctags
 sudo apt install exuberant-ctags
