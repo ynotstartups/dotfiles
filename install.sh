@@ -20,3 +20,7 @@ ln -sf $PWD/.bash_profile $HOME/.bash_profile
 
 echo install ctags configs
 ln -sf $PWD/.ctags $HOME/.ctags
+
+echo install X Window System files
+ln -sf $PWD/.xinitrc $HOME/.xinitrc
+ln -sf $PWD/.Xresources $HOME/.Xresources
