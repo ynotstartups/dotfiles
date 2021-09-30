@@ -1,13 +1,9 @@
-# installation
-# ln -s ~/Documents/dotfiles/i3status-config ~/.config/i3status/config
-
 general {
         output_format = "none"
         colors = false
         interval = 5
 }
 
-order += "wireless wlp3s0"
 order += "path_exists VPN"
 order += "volume master"
 order += "disk /"
@@ -15,12 +11,6 @@ order += "load"
 order += "cpu_usage"
 order += "memory"
 order += "time"
-
-
-wireless wlp3s0 {
-        format_up = "%quality, %ip"
-        format_down = "Wifi: down"
-}
 
 path_exists VPN {
         # path exists when a VPN tunnel launched by nmcli/nm-applet is active
