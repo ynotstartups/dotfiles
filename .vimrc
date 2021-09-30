@@ -44,23 +44,6 @@ set expandtab " In Insert mode: Use the appropriate number of spaces to insert a
 " finding files
 set path+=** " recursive by default when using :find
 
-" file browsing
-let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=4  " open in prior window
-let g:netrw_altv=1          " open splits to the right
-let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-
-" find key binding with netrw-browse-maps
-" :e .  Open netrw
-" D    Attempt to remove the file(s)/directory(ies)
-" gh   Quick hide/unhide of dot-files
-" o    Enter the file/directory under the cursor in a new browser window. A horizontal split is used.
-" R    Rename the designated file(s)/directory(ies)
-" p    Preview the file
-" %    Open a new file in netrw's current directory
-
 " color
 syntax on
 colorscheme molokai
