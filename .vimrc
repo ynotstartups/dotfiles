@@ -47,6 +47,10 @@ set path+=** " recursive by default when using :find
 " color
 syntax on
 colorscheme molokai
+" better Match parentheses, otherwise it looks like the current cursor is on
+" the matched parenthesis
+hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
+
 
 " search
 set ignorecase
