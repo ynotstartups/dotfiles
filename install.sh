@@ -23,6 +23,8 @@ ln -sf $PWD/.bash_profile $HOME/.bash_profile
 echo install ctags configs
 ln -sf $PWD/.ctags $HOME/.ctags
 
+# the dpi settings will be likely wrong in other laptops
+# you can tweak it and git ignore locally this files
 echo install X Window System files
 ln -sf $PWD/.xinitrc $HOME/.xinitrc
 ln -sf $PWD/.Xresources $HOME/.Xresources
