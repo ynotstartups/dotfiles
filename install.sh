@@ -1,3 +1,5 @@
+set -euxo pipefail
+
 XDG_CONFIG_HOME="$HOME/.config"
 
 echo soft linking i3 config

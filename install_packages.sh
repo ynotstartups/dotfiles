@@ -1,17 +1,26 @@
-# a window manager
-sudo apt install i3
-   
-# formats json string from standard input
-sudo apt install jq
+set -euxo pipefail
 
-# chrome browser
-sudo apt install google-chrome-stable
+sudo apt-get update
+
+sudo apt-get install --yes git
+
+# a window manager
+sudo apt-get install --yes i3
+
+# formats json string from standard input
+sudo apt-get install --yes jq
 
 # Vim with clipboard support
-sudo apt install vim-gtk3
+sudo apt-get install --yes vim-gtk3
 
 # ctags
-sudo apt install exuberant-ctags
+sudo apt-get install --yes exuberant-ctags
 
-# media player and a terminal version
-sudo apt install vlc
+# media player
+sudo apt-get install --yes vlc
+
+# system monitor
+sudo apt-get install --yes htop
+
+# You might also want to install
+# 1password, chrome
