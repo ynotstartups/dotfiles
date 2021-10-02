@@ -4,6 +4,7 @@ general {
         interval = 5
 }
 
+order += "battery 0"
 order += "path_exists VPN"
 order += "volume master"
 order += "disk /"
@@ -11,6 +12,11 @@ order += "load"
 order += "cpu_usage"
 order += "memory"
 order += "time"
+
+battery 0 {
+       format = "BAT: %percentage"
+       path = "/sys/class/power_supply/BAT%d/uevent"
+}
 
 path_exists VPN {
         # path exists when a VPN tunnel launched by nmcli/nm-applet is active
