@@ -21,28 +21,27 @@ function btspeaker() {
    pactl set-default-sink $bluetooth_sink_index
 }
 
-function earphone() {
+function use_internal_sound_card_sink() {
    # turn off HDMI output
    pactl set-card-profile alsa_card.pci-0000_00_1f.3 off
 
    # set to use internal sound card sink
    sound_card_sink_index=$(pactl list short sinks | grep alsa | grep -o ^[1-9]*)
    pactl set-default-sink $sound_card_sink_index
+}
+
+function earphone() {
+   use_internal_sound_card_sink
 
    # set to use earphone
    sound_card_index=$(pactl list cards | grep -B10 "Apple T2 Audio" | head -n1 | cut -d "#" -f2)
-   pactl set-card-profile 0 output:codec-output+input:codec-input
+   pactl set-card-profile $sound_card_index output:codec-output+input:codec-input
 }
 
 function speaker() {
-   # turn off HDMI output
-   pactl set-card-profile alsa_card.pci-0000_00_1f.3 off
-
-   # set to use internal sound card sink
-   sound_card_sink_index=$(pactl list short sinks | grep alsa | grep -o ^[1-9]*)
-   pactl set-default-sink $sound_card_sink_index
+   use_internal_sound_card_sink
 
    # set to use speaker
    sound_card_index=$(pactl list cards | grep -B10 "Apple T2 Audio" | head -n1 | cut -d "#" -f2)
-   pactl set-card-profile 0 output:builtin-speaker+input:builtin-mic
+   pactl set-card-profile $sound_card_index output:builtin-speaker+input:builtin-mic
 }
