@@ -22,5 +22,8 @@ sudo apt-get install --yes vlc
 # system monitor
 sudo apt-get install --yes htop
 
+# ssh server to allow ssh access from other computers
+sudo apt-get install --yes openssh-server
+
 # You might also want to install
 # 1password, chrome
