@@ -116,6 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+if [ -f ~/.lyst_bash_profile ]; then
+    . ~/.lyst_bash_profile
+fi
+
 # use vim as default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
