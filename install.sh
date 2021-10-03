@@ -19,7 +19,10 @@ ln -sf $PWD/.vimrc $HOME/.vimrc
 
 echo install bash profile
 ln -sf $PWD/.bash_profile $HOME/.bash_profile
-source $HOME/.bash_profile
+
+echo install bashrc
+ln -sf $PWD/.bashrc $HOME/.bashrc
+source $HOME/.bashrc
 
 echo install ctags configs
 ln -sf $PWD/.ctags $HOME/.ctags
