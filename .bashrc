@@ -116,8 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -f ~/.lyst_bash_profile ]; then
-    . ~/.lyst_bash_profile
+if [ -f ~/.lyst_bashrc ]; then
+    . ~/.lyst_bashrc
 fi
 
 # use vim as default editor
