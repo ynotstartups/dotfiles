@@ -3,6 +3,7 @@ set -euxo pipefail
 sudo apt-get update
 
 sudo apt-get install --yes git
+# also remember to add ssh key to github
 
 # a window manager
 sudo apt-get install --yes i3
@@ -26,4 +27,9 @@ sudo apt-get install --yes htop
 sudo apt-get install --yes openssh-server
 
 # You might also want to install
-# 1password, chrome
+# 1password - https://1password.com/downloads/linux/
+# chrome - https://www.google.com/intl/en_uk/chrome/
+# docker - https://docs.docker.com/engine/install/ubuntu/
+# openvpn3 - https://docs.docker.com/engine/install/ubuntu/
+# slack - sudo snap install slack --classic
+# zoom - https://zoom.us/download
