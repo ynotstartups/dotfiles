@@ -14,9 +14,11 @@ set -o vi
 shopt -s globstar
 
 # ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+# Add colors for filetype and  human-readable sizes by default on 'ls':
+alias ls='ls -h --color'
+# directories first, with alphanumeric sorting
+alias ll='ls -al --group-directories-first'
+alias la='ls -A' # Show hidden files
 
 # git aliases
 alias gs='git status'
