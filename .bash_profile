@@ -13,6 +13,15 @@ set -o vi
 # the pattern ** used in a pathname expansion context will match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
+# ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# git aliases
+alias gs='git status'
+alias gd='git diff'
+
 alias exteral_monitor="xrandr --output DP2 --auto --output eDP1 --off"
 alias internal_monitor="xrandr --output DP2 --off --output eDP1 --auto"
 
