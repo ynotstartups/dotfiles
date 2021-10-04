@@ -141,8 +141,32 @@ alias la='ls -A' # Show hidden files
 alias gs='git status'
 alias gd='git diff'
 
-alias exteral_monitor="xrandr --output DP2 --auto --output eDP1 --off"
-alias internal_monitor="xrandr --output DP2 --off --output eDP1 --auto"
+# alias exteral_monitor="xrandr --output DP2 --auto --output eDP1 --off"
+# alias internal_monitor="xrandr --output DP2 --off --output eDP1 --auto"
+toggle_monitor() {
+    current_monitor=$(xrandr | grep \* -B 1 | head -n1 | cut -d " " -f 1)
+    available_external_monitor=$(xrandr | grep "^DP[12] connected" | cut -d " " -f 1)
+    internal_monitor='eDP1'
+
+    # if there is not available_external_monitor, always use internal_monitor
+    [ -z "$available_external_monitor" ] && \
+            xrandr --output $internal_monitor --auto && \
+            return
+
+
+    # DP2 is the external monitor
+    # eDP1 is the internal monitor
+    case $current_monitor in
+        DP*) # external monitor
+            # use internal monitor
+            xrandr --output $current_monitor --off --output $internal_monitor --auto
+            ;;
+        $internal_monitor) # internal monitor
+            # use external monitor
+            xrandr --output $available_external_monitor --auto --output $internal_monitor --off
+            ;;
+    esac
+}
 
 function btspeaker() {
    bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o ^[1-9]*)
