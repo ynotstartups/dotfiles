@@ -39,3 +39,4 @@ ln -sf $PWD/.Xresources $HOME/.Xresources
 echo install custom scripts
 mkdir -p $HOME/.bin
 ln -sf $PWD/toggle_monitor $HOME/.bin/toggle_monitor
+ln -sf $PWD/toggle_sound $HOME/.bin/toggle_sound
