@@ -1,4 +1,4 @@
-set -euxo pipefail
+set -o errexit -o nounset -o xtrace -o pipefail
 
 XDG_CONFIG_HOME="$HOME/.config"
 
