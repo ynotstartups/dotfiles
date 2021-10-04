@@ -7,7 +7,7 @@ internal_monitor='eDP1'
 # if there is not available_external_monitor, always use internal_monitor
 [ -z "$available_external_monitor" ] && \
     xrandr --output $internal_monitor --auto && \
-    return
+    exit 0
 
 
 # DP2 is the external monitor
