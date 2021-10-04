@@ -35,3 +35,7 @@ ln -sf $PWD/.ctags $HOME/.ctags
 echo install X Window System files
 ln -sf $PWD/.xinitrc $HOME/.xinitrc
 ln -sf $PWD/.Xresources $HOME/.Xresources
+
+echo install custom scripts
+mkdir -p $HOME/.bin
+ln -sf $PWD/toggle_monitor $HOME/.bin/toggle_monitor

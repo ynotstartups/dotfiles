@@ -185,3 +185,6 @@ bindsym $mod+minus scratchpad show
 
 # use Print key to screenshot with area selection
 bindsym --release Print exec gnome-screenshot --area
+
+# TODO fix such that ~/.bin is in PATH for i3
+bindsym Scroll_Lock exec ~/.bin/toggle_monitor
