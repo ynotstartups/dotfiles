@@ -172,3 +172,16 @@ function speaker() {
    sound_card_index=$(pactl list cards | grep -B10 "Apple T2 Audio" | head -n1 | cut -d "#" -f2)
    pactl set-card-profile $sound_card_index output:builtin-speaker+input:builtin-mic
 }
+
+function toggle_sound() {
+    active_output=$(pactl list | grep Active.Profile | grep -v off | grep -v hdmi | cut -d " " -f 3)
+
+    case $active_output in
+        output:builtin-speaker+input:builtin-mic)
+            earphone
+            ;;
+        output:codec-output+input:codec-input)
+            speaker
+            ;;
+    esac
+}
