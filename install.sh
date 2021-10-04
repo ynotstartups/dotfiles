@@ -17,6 +17,9 @@ ln -sf $PWD/.gitignore $XDG_CONFIG_HOME/git/ignore
 echo install vim configs
 ln -sf $PWD/.vimrc $HOME/.vimrc
 
+echo install inputrc
+ln -sf $PWD/.inputrc $HOME/.inputrc
+
 echo install bash profile
 ln -sf $PWD/.bash_profile $HOME/.bash_profile
 
