@@ -29,6 +29,11 @@ sudo apt-get install --yes openssh-server
 # gimp image editor tool
 sudo apt-get install --yes gimp
 
+# install python3
+sudo apt-get install --yes python3
+# symlink python to python3
+sudo apt-get install --yes python-is-python3
+
 # You might also want to install
 # 1password - https://1password.com/downloads/linux/
 # chrome - https://www.google.com/intl/en_uk/chrome/
