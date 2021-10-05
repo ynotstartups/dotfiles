@@ -26,6 +26,9 @@ sudo apt-get install --yes htop
 # ssh server to allow ssh access from other computers
 sudo apt-get install --yes openssh-server
 
+# gimp image editor tool
+sudo apt-get install --yes gimp
+
 # You might also want to install
 # 1password - https://1password.com/downloads/linux/
 # chrome - https://www.google.com/intl/en_uk/chrome/
