@@ -1,4 +1,5 @@
-set -o errexit -o nounset -o xtrace -o pipefail
+#!/bin/sh
+set -o errexit -o nounset -o xtrace
 
 XDG_CONFIG_HOME="$HOME/.config"
 
@@ -25,7 +26,7 @@ ln -sf $PWD/.bash_profile $HOME/.bash_profile
 
 echo install bashrc
 ln -sf $PWD/.bashrc $HOME/.bashrc
-source $HOME/.bashrc
+. $HOME/.bashrc
 
 echo install ctags configs
 ln -sf $PWD/.ctags $HOME/.ctags
@@ -40,3 +41,12 @@ echo install custom scripts
 mkdir -p $HOME/.bin
 ln -sf $PWD/toggle_monitor $HOME/.bin/toggle_monitor
 ln -sf $PWD/toggle_sound $HOME/.bin/toggle_sound
+
+# https://askubuntu.com/questions/362914/how-to-prevent-the-power-button-to-shutdown-directly-the-system
+echo avoid power button shutting down computer
+filename=/etc/systemd/logind.conf
+# https://stackoverflow.com/questions/4749330/how-to-test-if-string-exists-in-file-with-bash
+if ! grep -Fxq 'HandlePowerKey=ignore' $filename
+then
+    echo 'HandlePowerKey=ignore' | sudo tee -a $filename > /dev/null
+fi 
