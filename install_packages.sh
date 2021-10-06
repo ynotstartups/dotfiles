@@ -1,3 +1,4 @@
+#!/bin/sh
 set -o errexit -o nounset -o xtrace -o pipefail
 
 sudo apt-get update
