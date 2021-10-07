@@ -35,14 +35,18 @@ set shortmess+=IWA " ignore Intro, Written and swapfile exists
 set laststatus=2 " status bar always on
 set wildmenu
 set wildignore=*.class,*.o,*~,*.pyc,.git  " Ignore certain files when finding files
-set autoread " automatically apply changes from outside of Vim
 set hidden " files leave the screen become hidden buffer
 set backspace=indent,eol,start
 set number " add line number before each line in vim
 set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
+set hlsearch " highlight search result such as when using *
 
 " finding files
 set path+=** " recursive by default when using :find
+
+set autoread " automatically apply changes from outside of Vim
+" this makes autoread work
+au CursorHold * checktime " check one time after 4s of inactivity in normal mode
 
 " color
 syntax on
