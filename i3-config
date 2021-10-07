@@ -190,6 +190,9 @@ bindsym --release Print exec gnome-screenshot --area
 bindsym Scroll_Lock exec ~/.bin/toggle_monitor
 bindsym Pause exec ~/.bin/toggle_sound
 
+# disable ethernet right after boot
+exec --no-startup-id nmcli device disconnect enxacde48001122
+
 # put a terminal into scratchpad upon startup, doesn't work
 # for_window [instance="^scratchpad$"] move scratchpad
 # exec --no-startup-id i3-sensible-terminal -name scratchpad
