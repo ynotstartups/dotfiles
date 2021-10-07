@@ -189,3 +189,7 @@ bindsym --release Print exec gnome-screenshot --area
 # TODO fix such that ~/.bin is in PATH for i3
 bindsym Scroll_Lock exec ~/.bin/toggle_monitor
 bindsym Pause exec ~/.bin/toggle_sound
+
+# put a terminal into scratchpad upon startup, doesn't work
+# for_window [instance="^scratchpad$"] move scratchpad
+# exec --no-startup-id i3-sensible-terminal -name scratchpad
