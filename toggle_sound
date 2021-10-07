@@ -6,8 +6,9 @@ use_internal_sound_card_sink() {
    pactl set-card-profile alsa_card.pci-0000_00_1f.3 off
 
    # set to use internal sound card sink
-   sound_card_sink_index=$(pactl list short sinks | grep alsa | grep -o ^[1-9]*)
-   pactl set-default-sink $sound_card_sink_index
+   # this is only needed when setting up bluetooth speaker, commented out for now
+   # sound_card_index=$(pactl list cards | grep -B10 "Apple T2 Audio" | head -n1 | cut -d "#" -f2)
+   # pactl set-default-sink $sound_card_index
 }
 
 earphone() {
