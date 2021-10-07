@@ -142,6 +142,7 @@ alias la='ls -A' # Show hidden files
 # git aliases
 alias gs='git status'
 alias gd='git diff'
+alias gdeletebranches='git branch | grep -v "master" | grep -v "*" | xargs git branch -D'
 
 function btspeaker() {
    bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o ^[1-9]*)
