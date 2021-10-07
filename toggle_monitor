@@ -1,5 +1,5 @@
 #!/bin/sh
-set -o errexit -o nounset
+set -o errexit -o nounset -o xtrace
 
 current_monitor=$(xrandr | grep \* -B 1 | head -n1 | cut -d " " -f 1)
 available_external_monitor=$(xrandr | grep "^DP[12] connected" | cut -d " " -f 1)
