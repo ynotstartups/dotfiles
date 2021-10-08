@@ -21,6 +21,7 @@ Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-tex
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tpope/vim-commentary' " add shortcut gc for making a line comment
+Plug 'tpope/vim-repeat' " repeat vim-surround with .
 Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-unimpaired' " adds mapping like [q ]q
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
