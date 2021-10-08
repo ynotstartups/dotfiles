@@ -187,8 +187,8 @@ bindsym $mod+minus scratchpad show
 bindsym --release Print exec gnome-screenshot --area
 
 # TODO fix such that ~/.bin is in PATH for i3
-bindsym Scroll_Lock exec ~/.bin/toggle_monitor
-bindsym Pause exec ~/.bin/toggle_sound
+bindsym Scroll_Lock exec --no-startup-id ~/.bin/toggle_monitor
+bindsym Pause exec --no-startup-id ~/.bin/toggle_sound
 
 # disable ethernet right after boot
 exec --no-startup-id nmcli device disconnect enxacde48001122
