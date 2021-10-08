@@ -18,7 +18,7 @@ DP*) # external monitor
     # use internal monitor
     xrandr --output "$current_monitor" --off --output "$internal_monitor" --auto
     ;;
-$internal_monitor) # internal monitor
+"$internal_monitor") # internal monitor
     # use external monitor
     xrandr --output "$available_external_monitor" --auto --output "$internal_monitor" --off
     ;;
