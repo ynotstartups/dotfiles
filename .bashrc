@@ -141,6 +141,7 @@ alias gd='git diff'
 alias gg='git grep'
 alias gdeletebranches='git branch | grep -v "master" | grep -v "*" | xargs git branch -D'
 
+# use bluetoothctl to connect to bluetooth devices
 function btspeaker() {
    bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o "^[1-9]*")
    pactl set-default-sink "$bluetooth_sink_index"
