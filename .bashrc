@@ -138,6 +138,7 @@ alias la='ls -A' # Show hidden files
 # git aliases
 alias gs='git status'
 alias gd='git diff'
+alias gg='git grep'
 alias gdeletebranches='git branch | grep -v "master" | grep -v "*" | xargs git branch -D'
 
 function btspeaker() {
