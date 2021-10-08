@@ -1,5 +1,5 @@
 #!/bin/sh
-set -o errexit -o nounset -o xtrace -o pipefail
+set -o errexit -o nounset -o xtrace
 
 sudo apt-get update
 
@@ -35,7 +35,9 @@ sudo apt-get install --yes python3
 # symlink python to python3
 sudo apt-get install --yes python-is-python3
 
-# install gh cli if it doesn't exist
+# install shellcheck
+sudo apt-get install --yes shellcheck
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
