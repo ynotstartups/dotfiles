@@ -38,6 +38,9 @@ sudo apt-get install --yes python-is-python3
 # install shellcheck
 sudo apt-get install --yes shellcheck
 
+# use xbacklight -set 50, the range is 0 - 100
+sudo apt-get install --yes xbacklight
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
