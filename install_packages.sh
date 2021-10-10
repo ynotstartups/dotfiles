@@ -41,6 +41,9 @@ sudo apt-get install --yes shellcheck
 # use xbacklight -set 50, the range is 0 - 100
 sudo apt-get install --yes xbacklight
 
+# dictionary, for example `dict tiger`
+sudo apt-get install --yes dict dictd dict-gcide
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
