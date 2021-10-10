@@ -7,7 +7,7 @@ internal_monitor=$(xrandr | grep '\bconnected' | grep eDP | cut -d " " -f 1)
 
 # if there is not available_external_monitor, always use internal_monitor
 [ -z "$available_external_monitor" ] && \
-    xrandr --output $internal_monitor --auto --primary && \
+    xrandr --output "$internal_monitor" --auto --primary && \
     exit 0
 
 
@@ -16,10 +16,10 @@ internal_monitor=$(xrandr | grep '\bconnected' | grep eDP | cut -d " " -f 1)
 case $current_monitor in
 $available_external_monitor) # external monitor
     # use internal monitor
-    xrandr --output $current_monitor --off --output $internal_monitor --auto --primary
+    xrandr --output "$current_monitor" --off --output "$internal_monitor" --auto --primary
     ;;
 "$internal_monitor") # internal monitor
     # use external monitor
-    xrandr --output $available_external_monitor --auto --primary --output $internal_monitor --off
+    xrandr --output "$available_external_monitor" --auto --primary --output "$internal_monitor" --off
     ;;
 esac
