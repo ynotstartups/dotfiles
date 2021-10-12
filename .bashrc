@@ -136,6 +136,7 @@ alias ll='ls -al --group-directories-first'
 alias la='ls -A' # Show hidden files
 
 # git aliases
+alias gc='git commit'
 alias gs='git status'
 alias gd='git diff'
 alias gg='git grep'
