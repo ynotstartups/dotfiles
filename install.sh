@@ -51,3 +51,6 @@ if ! grep -Fxq 'HandlePowerKey=ignore' "$filename"
 then
     echo 'HandlePowerKey=ignore' | sudo tee -a "$filename" > /dev/null
 fi 
+
+# set Blank Screen as never, never turn off screen
+gsettings set org.gnome.desktop.session idle-delay 0
