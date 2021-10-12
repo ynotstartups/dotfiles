@@ -19,6 +19,7 @@ Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
+Plug 'plasticboy/vim-markdown' " add markdown syntax
 Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tpope/vim-commentary' " add shortcut gc for making a line comment
 Plug 'tpope/vim-repeat' " repeat vim-surround with .
@@ -99,3 +100,8 @@ function! GitGrep(arg)
 endfunction
 
 command -nargs=? G call GitGrep(<f-args>)
+
+" vim-markdown
+" don't hide/conceal characters
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
