@@ -138,9 +138,18 @@ alias la='ls -A' # Show hidden files
 # git aliases
 alias gc='git commit'
 alias gs='git status'
+
 alias gd='git diff'
+alias gdu='git diff upstream/master...'
+
 alias gg='git grep'
+
 alias gdeletebranches='git branch | grep -v "master" | grep -v "*" | xargs git branch -D'
+
+alias gfu='git fetch upstream'
+alias gfru='git fetch upstream && git rebase -i upstream/master'
+
+alias g_set_no_push='git remote set-url --push upstream nopush'
 
 # use bluetoothctl to connect to bluetooth devices
 function btspeaker() {
