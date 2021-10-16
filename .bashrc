@@ -159,3 +159,8 @@ function btspeaker() {
    bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o "^[1-9]*")
    pactl set-default-sink "$bluetooth_sink_index"
 }
+
+# disable dunst notification service temporarily
+# https://wiki.archlinux.org/title/Dunst
+alias notification_disable='killall -SIGUSR1 dunst'
+alias notification_enable='killall -SIGUSR2 dunst'
