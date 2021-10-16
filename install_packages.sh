@@ -47,6 +47,9 @@ sudo apt-get install --yes dict dictd dict-gcide
 # automatically change display setting when connected to external monitor
 sudo apt-get install --yes autorandr
 
+# a faster way to navigate your filesystem, usage `j foo`
+sudo apt-get install --yes autojump
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then

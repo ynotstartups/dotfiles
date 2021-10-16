@@ -161,3 +161,7 @@ function btspeaker() {
 # https://wiki.archlinux.org/title/Dunst
 alias notification_disable='killall -SIGUSR1 dunst'
 alias notification_enable='killall -SIGUSR2 dunst'
+
+# source autojump, usage `j foo`
+. /usr/share/autojump/autojump.sh
+
