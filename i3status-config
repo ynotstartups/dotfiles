@@ -38,7 +38,7 @@ disk "/" {
 }
 
 volume master {
-        format = "VOLUME: %volume"
+        format = "♪: %volume"
         format_muted = "♪: muted (%volume)"
         device = "default"
         mixer = "Master"
@@ -51,4 +51,6 @@ time {
 
 cpu_usage {
         format = "CPU: %usage"
+        max_threshold = 99
+        format_above_threshold = "CPU: HI"
 }
