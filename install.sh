@@ -52,5 +52,11 @@ then
     echo 'HandlePowerKey=ignore' | sudo tee -a "$logind_config" > /dev/null
 fi 
 
+echo enable DNS over TLS
+resolved_config=/etc/systemd/resolved.conf
+if ! grep -Fxq 'DNSOverTLS=yes' "$resolved_config"
+then
+    echo 'DNSOverTLS=yes' | sudo tee -a "$resolved_config" > /dev/null
+fi
 # set Blank Screen as never, never turn off screen
 gsettings set org.gnome.desktop.session idle-delay 0
