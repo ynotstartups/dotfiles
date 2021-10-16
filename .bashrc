@@ -127,10 +127,10 @@ set -o vi
 
 # ls aliases
 # Add colors for filetype and  human-readable sizes by default on 'ls':
-alias ls='ls -h --color'
+alias ls='ls --human-readable --color --classify'
 # directories first, with alphanumeric sorting
-alias ll='ls -al --group-directories-first'
-alias la='ls -A' # Show hidden files
+alias ll='ls --all -l --group-directories-first'
+alias la='ls --almost-all' # Show hidden files but not . and ..
 
 # git aliases
 alias gc='git commit -v'
