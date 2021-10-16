@@ -14,7 +14,7 @@ internal_monitor=$(xrandr | grep '\bconnected' | grep eDP | cut -d " " -f 1)
 # DP2 is the external monitor
 # eDP1 is the internal monitor
 case $current_monitor in
-$available_external_monitor) # external monitor
+"$available_external_monitor") # external monitor
     # use internal monitor
     xrandr --output "$current_monitor" --off --output "$internal_monitor" --auto --primary
     ;;
