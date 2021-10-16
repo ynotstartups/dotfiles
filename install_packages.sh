@@ -44,6 +44,9 @@ sudo apt-get install --yes xbacklight
 # dictionary, for example `dict tiger`
 sudo apt-get install --yes dict dictd dict-gcide
 
+# automatically change display setting when connected to external monitor
+sudo apt-get install --yes autorandr
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
