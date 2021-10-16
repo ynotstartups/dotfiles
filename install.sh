@@ -45,11 +45,11 @@ ln -sf "$PWD"/toggle_sound "$HOME"/.bin/toggle_sound
 
 # https://askubuntu.com/questions/362914/how-to-prevent-the-power-button-to-shutdown-directly-the-system
 echo avoid power button shutting down computer
-filename=/etc/systemd/logind.conf
+logind_config=/etc/systemd/logind.conf
 # https://stackoverflow.com/questions/4749330/how-to-test-if-string-exists-in-file-with-bash
-if ! grep -Fxq 'HandlePowerKey=ignore' "$filename"
+if ! grep -Fxq 'HandlePowerKey=ignore' "$logind_config"
 then
-    echo 'HandlePowerKey=ignore' | sudo tee -a "$filename" > /dev/null
+    echo 'HandlePowerKey=ignore' | sudo tee -a "$logind_config" > /dev/null
 fi 
 
 # set Blank Screen as never, never turn off screen
