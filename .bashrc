@@ -9,6 +9,9 @@ case $- in
       *) return;;
 esac
 
+# disable C-s which freezes the terminal, C-s is used for search forward in histtory
+stty -ixon
+
 PATH=~/.bin:$PATH
 
 # don't put duplicate lines or lines starting with space in the history.
