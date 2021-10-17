@@ -41,6 +41,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
+bindsym XF86AudioPlay exec --no-startup-id ~/.bin/toggle_sound
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
