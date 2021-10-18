@@ -136,6 +136,7 @@ alias ll='ls --all -l --group-directories-first'
 alias la='ls --almost-all' # Show hidden files but not . and ..
 
 # git aliases
+alias gb='git branch'
 alias gc='git commit -v'
 alias gca='git commit -v -a'
 alias gs='git status'
