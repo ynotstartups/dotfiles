@@ -191,8 +191,7 @@ bindsym $mod+minus scratchpad show
 # use Print key to screenshot with area selection
 bindsym --release Print exec gnome-screenshot --area
 
-# TODO fix such that ~/.bin is in PATH for i3
-bindsym Scroll_Lock exec --no-startup-id ~/.bin/toggle_monitor
+# bindsym Scroll_Lock exec --no-startup-id ~/.bin/toggle_monitor
 bindsym Pause exec --no-startup-id ~/.bin/toggle_sound
 
 # disable ethernet right after boot
