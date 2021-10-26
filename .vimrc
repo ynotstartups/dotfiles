@@ -19,6 +19,7 @@ Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
+Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
 Plug 'plasticboy/vim-markdown' " add markdown syntax
 Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tpope/vim-commentary' " add shortcut gc for making a line comment
