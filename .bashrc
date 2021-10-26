@@ -99,7 +99,7 @@ alias gduw='git diff --word-diff=color upstream/master...'
 
 alias gg='git grep'
 
-alias gdeletebranches='git branch | grep -v "master" | grep -v "*" | xargs git branch -D'
+alias g_delete_branches='git branch | grep -v "master" | grep -v "*" | xargs git branch -D'
 
 alias gfu='git fetch upstream'
 alias gfru='git fetch upstream && git rebase -i upstream/master'
