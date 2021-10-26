@@ -50,6 +50,9 @@ sudo apt-get install --yes autorandr
 # a faster way to navigate your filesystem, usage `j foo`
 sudo apt-get install --yes autojump
 
+# converts markdown files to html, usage `pandoc foo.md -o foo.html`
+sudo apt-get install --yes pandoc
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
