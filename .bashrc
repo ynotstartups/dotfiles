@@ -99,12 +99,14 @@ alias gduw='git diff --word-diff=color upstream/master...'
 
 alias gg='git grep'
 
-alias g_delete_branches='git branch | grep -v "master" | grep -v "*" | xargs git branch -D'
+alias g_delete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
 alias gfu='git fetch upstream'
 alias gfru='git fetch upstream && git rebase -i upstream/master'
 
 alias g_set_no_push='git remote set-url --push upstream nopush'
+
+alias gl='git log'
 
 # use bluetoothctl to connect to bluetooth devices
 function btspeaker() {
@@ -120,3 +122,5 @@ alias notification_enable='killall -SIGUSR2 dunst'
 # source autojump, usage `j foo`
 . /usr/share/autojump/autojump.sh
 
+
+complete -C /usr/local/bin/terraform terraform
