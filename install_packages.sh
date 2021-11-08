@@ -53,6 +53,9 @@ sudo apt-get install --yes autojump
 # converts markdown files to html, usage `pandoc foo.md -o foo.html`
 sudo apt-get install --yes pandoc
 
+# use clipboard in terminal, I want to copy image to clipboard from terminal, for example `xclip -selection clipboard -t image/png -i 'foo.png'`
+sudo apt-get install --yes xclip
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
