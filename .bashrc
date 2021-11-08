@@ -108,6 +108,11 @@ alias g_set_no_push='git remote set-url --push upstream nopush'
 
 alias gl='git log'
 
+# gimp
+
+# TODO: think about how to do it without the cd
+alias gimp_last_screenshot='cd ~/Pictures/ && gimp "$(ls ~/Pictures/ -t | head -n 1)" && cd -'
+
 # use bluetoothctl to connect to bluetooth devices
 function btspeaker() {
    bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o "^[1-9]*")
