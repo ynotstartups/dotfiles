@@ -127,10 +127,9 @@ alias notification_enable='killall -SIGUSR2 dunst'
 . /usr/share/autojump/autojump.sh
 
 # xclip
-
 alias xclip='xclip -selection clipboard'
 alias xclip_png='xclip -selection clipboard -t image/png'
-alias xclip_png_last='xclip -selection clipboard -t image/png $(ls -t | head -n 1)'
+alias xclip_png_last='xclip -selection clipboard -t image/png "$(ls -t *.png | head -n 1)"'
 
 
 complete -C /usr/local/bin/terraform terraform
