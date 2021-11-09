@@ -71,7 +71,8 @@ nnoremap Q @q
 nnoremap Y y$
 
 " copy/paste
-set clipboard+=unnamed " vim uses system clipboard
+" https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
+set clipboard=unnamedplus " vim uses system clipboard
 
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
