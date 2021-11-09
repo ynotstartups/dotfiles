@@ -27,8 +27,8 @@ sudo apt-get install --yes htop
 # ssh server to allow ssh access from other computers
 sudo apt-get install --yes openssh-server
 
-# gimp image editor tool
-sudo apt-get install --yes gimp
+# pinta image editor tool, lighter weight than gimp
+sudo apt-get install --yes pinta
 
 # install python3
 sudo apt-get install --yes python3

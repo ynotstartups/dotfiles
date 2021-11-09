@@ -108,10 +108,9 @@ alias g_set_no_push='git remote set-url --push upstream nopush'
 
 alias gl='git log'
 
-# gimp
+# pinta
 
-# TODO: think about how to do it without the cd
-alias gimp_last_screenshot='cd ~/Pictures/ && gimp "$(ls ~/Pictures/ -t | head -n 1)" && cd -'
+alias pinta_last='pinta "$(ls -t | head -n 1)"'
 
 # use bluetoothctl to connect to bluetooth devices
 function btspeaker() {
@@ -126,6 +125,12 @@ alias notification_enable='killall -SIGUSR2 dunst'
 
 # source autojump, usage `j foo`
 . /usr/share/autojump/autojump.sh
+
+# xclip
+
+alias xclip='xclip -selection clipboard'
+alias xclip_png='xclip -selection clipboard -t image/png'
+alias xclip_png_last='xclip -selection clipboard -t image/png $(ls -t | head -n 1)'
 
 
 complete -C /usr/local/bin/terraform terraform
