@@ -86,6 +86,10 @@ alias ll='ls --all -l --group-directories-first'
 alias la='ls --almost-all' # Show hidden files but not . and ..
 
 # git aliases
+function g_get_main_branch_name() {
+    main_branch_name=$(git branch | grep --only-matching -e 'master' -e 'main')
+    echo $main_branch_name
+}
 alias ga='git add'
 alias gb='git branch'
 alias gc='git commit -v'
@@ -94,15 +98,22 @@ alias gs='git status'
 
 alias gd='git diff'
 alias gdw='git diff --word-diff=color'
-alias gdu='git diff upstream/master...'
-alias gduw='git diff --word-diff=color upstream/master...'
+function gdu() {
+    git diff "upstream/$(g_get_main_branch_name)"...
+}
+function gduw() {
+    git diff --word-diff=color "upstream/$(g_get_main_branch_name)"...
+}
 
 alias gg='git grep'
 
 alias g_delete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
 alias gfu='git fetch upstream'
-alias gfru='git fetch upstream && git rebase -i upstream/master'
+function gfru() {
+    git fetch upstream
+    git rebase -i "upstream/$(g_get_main_branch_name)"
+}
 
 alias g_set_no_push='git remote set-url --push upstream nopush'
 
