@@ -117,6 +117,18 @@ function gfru() {
 
 alias g_set_no_push='git remote set-url --push upstream nopush'
 
+
+function g_new_branch() {
+    has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
+    if [ $has_changes == "1" ]; then
+        echo "Current branch has changes. Stopping!"
+        return
+    fi
+    git fetch upstream
+    git switch -c $1
+    git reset --hard upstream/$(g_get_main_branch_name)
+}
+
 alias gl='git log'
 
 # pinta
