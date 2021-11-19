@@ -95,14 +95,26 @@ let g:indentLine_fileTypeExclude = ['help']
 " set foldlevel=1
 
 " use G for git grep
-function! GitGrep(arg)
-  setlocal grepprg=git\ grep\ --no-color\ -n\ $*
-  silent execute ':grep '.a:arg
+func GitGrep(...)
+  let save = &grepprg
+  set grepprg=git\ grep\ -n\ $*
+  let s = 'grep'
+  for i in a:000
+    let s = s . ' ' . i
+  endfor
+  silent execute s
   silent cwin
   redraw!
-endfunction
-
+  let &grepprg = save
+endfun
 command -nargs=? G call GitGrep(<f-args>)
+
+function! GrepWord()
+  normal! "zyiw
+  call GitGrep('-w -e ', getreg('z'))
+endf
+
+command -nargs=? GW call GrepWord()
 
 " vim-markdown
 
