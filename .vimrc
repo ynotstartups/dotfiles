@@ -23,7 +23,7 @@ Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
 Plug 'plasticboy/vim-markdown' " add markdown syntax
 Plug 'tomasr/molokai' " molokar color scheme
-Plug 'tpope/vim-commentary' " add shortcut gc for making a line comment
+Plug 'tpope/vim-commentary' " add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive' " using git in vim
 Plug 'tpope/vim-repeat' " repeat vim-surround with .
 Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
