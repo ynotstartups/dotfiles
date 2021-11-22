@@ -191,7 +191,10 @@ bindsym $mod+minus scratchpad show
 # use Print key to screenshot with area selection
 bindsym --release Print exec gnome-screenshot --area
 
-# bindsym Scroll_Lock exec --no-startup-id ~/.bin/toggle_monitor
+# use ScrLk key to open diary
+bindsym Scroll_Lock exec --no-startup-id gnome-terminal -- vim ~/Documents/private-docs/diary.md
+
+# use Pause key to toggle output sound source
 bindsym Pause exec --no-startup-id ~/.bin/toggle_sound
 
 # disable ethernet right after boot
