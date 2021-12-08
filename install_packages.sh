@@ -34,6 +34,8 @@ sudo apt-get install --yes pinta
 sudo apt-get install --yes python3
 # symlink python to python3
 sudo apt-get install --yes python-is-python3
+# install ipython
+sudo apt-get install --yes ipython3
 
 # install shellcheck
 sudo apt-get install --yes shellcheck
