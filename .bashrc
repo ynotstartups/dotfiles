@@ -124,9 +124,8 @@ function g_new_branch() {
         echo "Current branch has changes. Stopping!"
         return
     fi
-    git fetch upstream
-    git switch -c $1
-    git reset --hard upstream/$(g_get_main_branch_name)
+    git fetch upstream $(g_get_main_branch_name):$1
+    git switch $1
 }
 
 alias gl='git log'
