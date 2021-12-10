@@ -26,6 +26,7 @@ Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tpope/vim-commentary' " add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive' " using git in vim
 Plug 'tpope/vim-repeat' " repeat vim-surround with .
+Plug 'tpope/vim-rhubarb' " supports github enterprise
 Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-unimpaired' " adds mapping like [q ]q
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
@@ -124,3 +125,6 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 " disable folding
 let g:vim_markdown_folding_disabled = 1
+
+" required by tpope/vim-rhubarb for github enterprice, for GBrowse
+let g:github_enterprise_urls = ['https://git.lystit.com']
