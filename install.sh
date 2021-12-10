@@ -42,6 +42,7 @@ echo install custom scripts
 mkdir -p "$HOME"/.bin
 ln -sf "$PWD"/toggle_monitor "$HOME"/.bin/toggle_monitor
 ln -sf "$PWD"/toggle_sound "$HOME"/.bin/toggle_sound
+ln -sf "$PWD"/copy_last_to_today.py "$HOME"/.bin/copy_last_to_today
 
 # https://askubuntu.com/questions/362914/how-to-prevent-the-power-button-to-shutdown-directly-the-system
 echo avoid power button shutting down computer
