@@ -121,10 +121,18 @@ command -nargs=? GW call GrepWord()
 " vim-markdown
 
 " don't hide/conceal characters
-let g:vim_markdown_conceal = 0
+" let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 " disable folding
 let g:vim_markdown_folding_disabled = 1
 
 " required by tpope/vim-rhubarb for github enterprice, for GBrowse
 let g:github_enterprise_urls = ['https://git.lystit.com']
+
+" spell check for markdown and git commit message
+autocmd FileType markdown setlocal spell
+autocmd FileType gitcommit setlocal spell
+
+" Enable dictionary auto-completion in Markdown files and Git Commit Messages
+autocmd FileType markdown setlocal complete+=kspell
+autocmd FileType gitcommit setlocal complete+=kspell
