@@ -136,3 +136,9 @@ autocmd FileType gitcommit setlocal spell
 " Enable dictionary auto-completion in Markdown files and Git Commit Messages
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType gitcommit setlocal complete+=kspell
+
+" If you are using the 'indentLine' plugin or other plugins that can change 'conceal' features in vim. It is because these plugin enables the Vim 'conceal' feature which automatically hides stretches of text based on syntax highlighting. This setting will apply to all syntax items. Specifically, in 'indentLine' plugin, it will overwrite "concealcursor" and "conceallevel" to:
+" let g:indentLine_concealcursor = 'inc'
+" let g:indentLine_conceallevel = 2
+let g:indentLine_concealcursor = "n"
+
