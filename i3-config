@@ -191,9 +191,11 @@ bindsym $mod+minus scratchpad show
 # use Print key to screenshot with area selection
 bindsym --release Print exec gnome-screenshot --area
 
-# use Shift+Print key to screenshot with area selection and send to clipboard directly
-# TODO: do I want to open in pinta too?
-bindsym --release Control+Print exec gnome-screenshot --area -f /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
+# use Shift+Print key to screenshot with area selection and send to clipboard
+bindsym --release Control+Print exec gnome-screenshot --area -f /tmp/test.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png
+
+# use Control+Shift+Print key to screenshot, open pinta to edit and send to clipboard
+bindsym --release Control+Shift+Print exec gnome-screenshot --area -f /tmp/test.png && pinta /tmp/test.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png
 
 # use ScrLk key to open diary
 bindsym Scroll_Lock exec --no-startup-id gnome-terminal -- vim ~/Documents/private-docs/diary.md
