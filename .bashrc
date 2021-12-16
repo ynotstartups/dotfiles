@@ -153,5 +153,20 @@ alias xclip='xclip -selection clipboard'
 alias xclip_png='xclip -selection clipboard -t image/png'
 alias xclip_last_png='xclip -selection clipboard -t image/png "$(ls -t *.png | head -n 1)"'
 
+# openvpn
+alias openvpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.ovpn'
+alias openvpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/openvpn/client.ovpn'
+
+# gh
+alias mypr='gh api -X GET search/issues -f q="author:tigerhuang state:open type:pr" | jq ".items[].title"'
+
+# make alias
+alias mfl='make format && make lint'
+# make all
+alias ma='make format && make lint && make pytest'
+# make pytest last failed
+alias mpf='make pytest TEST_ARGS="-vvv --last-failed"'
+
+export PATH="$HOME/.poetry/bin:$PATH"
 
 complete -C /usr/local/bin/terraform terraform
