@@ -20,8 +20,8 @@ pactl set-card-profile "$sound_card_index" output:builtin-speaker+input:builtin-
 # unmute audio
 pactl set-sink-mute @DEFAULT_SINK@ false
 
-# set volume to 10 percent perfect for watching video
-pactl set-sink-volume @DEFAULT_SINK@ 50%
+# set volume to 70 percent perfect for watching video
+pactl set-sink-volume @DEFAULT_SINK@ 70%
 
 i3-msg 'workspace 1:Video; exec google-chrome --new-window https://www.olevod.com/index.php/vod/detail/id/30705.html'
 
