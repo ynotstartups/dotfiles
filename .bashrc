@@ -131,13 +131,16 @@ function g_new_branch() {
 alias gl='git log'
 
 # pinta
-
 alias pinta_last='pinta "$(ls -t | head -n 1)"'
 
 # use bluetoothctl to connect to bluetooth devices
 function btspeaker() {
-   bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o "^[1-9]*")
+    bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o "^[1-9]*")
    pactl set-default-sink "$bluetooth_sink_index"
+}
+
+function set_mic_volume() {
+    pactl set-source-volume $(pactl list sources | grep -B3 "Mic" | head -n1 | cut -d"#" -f2) 300000
 }
 
 # disable dunst notification service temporarily
