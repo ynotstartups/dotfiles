@@ -203,6 +203,14 @@ bindsym Scroll_Lock exec --no-startup-id gnome-terminal -- vim ~/Documents/priva
 # use Pause key to toggle output sound source
 bindsym Pause exec --no-startup-id ~/.bin/toggle_sound
 
+# shortcut to open video mode
+bindsym $mod+Shift+F1 exec --no-startup-id ~/.bin/video_mode
+
+# shortcut to open video mode
+bindsym $mod+Shift+F2 exec --no-startup-id ~/.bin/music_mode
+
+# use $mod+Control+F2 key to open music mode
+
 # disable ethernet right after boot
 exec --no-startup-id nmcli device disconnect enxacde48001122
 
