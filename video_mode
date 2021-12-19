@@ -20,9 +20,11 @@ pactl set-card-profile "$sound_card_index" output:builtin-speaker+input:builtin-
 # unmute audio
 pactl set-sink-mute @DEFAULT_SINK@ false
 
-# set volume to 75 percent
-pactl set-sink-volume @DEFAULT_SINK@ 75%
+# video_mode.txt is private, the first line will be volume (60%), the second line will be url (https://...)
+video_mode_volume=$(sed -n '1p' "$HOME/Documents/dotfiles/video_mode.txt")
+video_mode_url=$(sed -n '2p' "$HOME/Documents/dotfiles/video_mode.txt")
 
-i3-msg 'workspace 1:Video; exec google-chrome --new-window https://www.olevod.com/index.php/vod/detail/id/30705.html'
+pactl set-sink-volume @DEFAULT_SINK@ $video_mode_volume
+i3-msg "workspace 1:Video; exec google-chrome --new-window $video_mode_url"
 
 notify-send 'Using Video Mode'
