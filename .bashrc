@@ -170,6 +170,9 @@ alias ma='make format && make lint && make pytest'
 # make pytest last failed
 alias mpf='make pytest TEST_ARGS="-vvv --last-failed"'
 
+# shortcut to start venv
+alias activate='source .venv/bin/activate'
+
 export PATH="$HOME/.poetry/bin:$PATH"
 
 complete -C /usr/local/bin/terraform terraform
