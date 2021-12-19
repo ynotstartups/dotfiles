@@ -58,6 +58,9 @@ sudo apt-get install --yes pandoc
 # use clipboard in terminal, I want to copy image to clipboard from terminal, for example `xclip -selection clipboard -t image/png -i 'foo.png'`
 sudo apt-get install --yes xclip
 
+# Exiv2 removes Exif (GPS) data from images, used in blog
+sudo apt-get install --yes exiv2
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
