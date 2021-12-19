@@ -129,6 +129,7 @@ let g:vim_markdown_folding_disabled = 1
 " required by tpope/vim-rhubarb for github enterprice, for GBrowse
 let g:github_enterprise_urls = ['https://git.lystit.com']
 
+set spellfile=$HOME/Documents/private_dotfiles/spell/en.utf-8.add
 " spell check for markdown and git commit message
 autocmd FileType markdown setlocal spell
 autocmd FileType gitcommit setlocal spell
@@ -140,5 +141,5 @@ autocmd FileType gitcommit setlocal complete+=kspell
 " If you are using the 'indentLine' plugin or other plugins that can change 'conceal' features in vim. It is because these plugin enables the Vim 'conceal' feature which automatically hides stretches of text based on syntax highlighting. This setting will apply to all syntax items. Specifically, in 'indentLine' plugin, it will overwrite "concealcursor" and "conceallevel" to:
 " let g:indentLine_concealcursor = 'inc'
 " let g:indentLine_conceallevel = 2
-let g:indentLine_concealcursor = "n"
+let g:indentLine_concealcursor = ""
 
