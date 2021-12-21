@@ -24,7 +24,7 @@ pactl set-sink-mute @DEFAULT_SINK@ false
 video_mode_volume=$(sed -n '1p' "$HOME/Documents/dotfiles/video_mode.txt")
 video_mode_url=$(sed -n '2p' "$HOME/Documents/dotfiles/video_mode.txt")
 
-pactl set-sink-volume @DEFAULT_SINK@ $video_mode_volume
+pactl set-sink-volume @DEFAULT_SINK@ "$video_mode_volume"
 i3-msg "workspace 1:Video; exec google-chrome --new-window $video_mode_url"
 
 notify-send 'Using Video Mode'

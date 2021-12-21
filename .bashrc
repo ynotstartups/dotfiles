@@ -88,7 +88,7 @@ alias la='ls --almost-all' # Show hidden files but not . and ..
 # git aliases
 function g_get_main_branch_name() {
     main_branch_name=$(git branch | grep --only-matching -e 'master' -e 'main')
-    echo $main_branch_name
+    echo "$main_branch_name"
 }
 alias ga='git add'
 alias gb='git branch'
@@ -120,12 +120,12 @@ alias g_set_no_push='git remote set-url --push upstream nopush'
 
 function g_new_branch() {
     has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
-    if [ $has_changes == "1" ]; then
+    if [ "$has_changes" == "1" ]; then
         echo "Current branch has changes. Stopping!"
         return
     fi
-    git fetch upstream $(g_get_main_branch_name):$1
-    git switch $1
+    git fetch upstream "$(g_get_main_branch_name):$1"
+    git switch "$1"
 }
 
 alias gl='git log'
@@ -137,10 +137,6 @@ alias pinta_last='pinta "$(ls -t | head -n 1)"'
 function btspeaker() {
     bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o "^[1-9]*")
    pactl set-default-sink "$bluetooth_sink_index"
-}
-
-function set_mic_volume() {
-    pactl set-source-volume $(pactl list sources | grep -B3 "Mic" | head -n1 | cut -d"#" -f2) 300000
 }
 
 # disable dunst notification service temporarily
