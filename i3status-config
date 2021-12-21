@@ -62,8 +62,8 @@ cpu_usage {
 path_exists dunst {
         # path exists when alias `notification_diable` runs
         path = "/tmp/notification_disable"
-        format = "DUNST: OFF"
-        format_down = "DUNST: ON"
+        format = "NOTI: OFF"
+        format_down = "NOTI: ON"
 }
 
 path_exists earphone_enable {
