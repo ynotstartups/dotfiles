@@ -4,13 +4,14 @@ general {
         interval = 5
 }
 
-order += "battery 0"
+order += "path_exists dunst"
+# order += "battery 0"
 order += "path_exists VPN"
 order += "volume master"
-order += "disk /"
-order += "load"
-order += "cpu_usage"
-order += "memory"
+# order += "disk /"
+# order += "load"
+# order += "cpu_usage"
+# order += "memory"
 order += "time"
 
 battery 0 {
@@ -53,4 +54,11 @@ cpu_usage {
         format = "CPU: %usage"
         max_threshold = 99
         format_above_threshold = "CPU: HI"
+}
+
+path_exists dunst {
+        # path exists when alias `notification_diable` runs
+        path = "/tmp/notification_disable"
+        format = "Notification: Off"
+        format_down = "Notification: On"
 }

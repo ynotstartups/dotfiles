@@ -145,8 +145,10 @@ function set_mic_volume() {
 
 # disable dunst notification service temporarily
 # https://wiki.archlinux.org/title/Dunst
-alias notification_disable='killall -SIGUSR1 dunst'
-alias notification_enable='killall -SIGUSR2 dunst'
+# add file for exsitence check in i3 status bar
+# Update i3 status
+alias notification_disable='killall -SIGUSR1 dunst && touch /tmp/notification_disable && killall -SIGUSR1 i3status'
+alias notification_enable='killall -SIGUSR2 dunst && rm /tmp/notification_disable && killall -SIGUSR1 i3status'
 
 # source autojump, usage `j foo`
 . /usr/share/autojump/autojump.sh

@@ -179,8 +179,11 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status
+    position top
+    tray_output none
 }
+
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -215,5 +218,10 @@ bindsym $mod+Shift+F2 exec --no-startup-id ~/.bin/music_mode
 exec --no-startup-id nmcli device disconnect enxacde48001122
 
 # put a terminal into scratchpad upon startup, doesn't work
-# for_window [instance="^scratchpad$"] move scratchpad
 # exec --no-startup-id i3-sensible-terminal -name scratchpad
+# for_window [instance="^scratchpad$"] move scratchpad
+
+# use `i3-msg -t get_tree to find the class of applications`
+# Set Zoom and Slack default workspace to be 3
+for_window [class="zoom"] move to workspace $ws3
+for_window [class="Slack"] move to workspace $ws3
