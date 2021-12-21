@@ -4,6 +4,7 @@ general {
         interval = 5
 }
 
+order += "path_exists earphone_enable"
 order += "path_exists dunst"
 # order += "battery 0"
 order += "path_exists VPN"
@@ -61,6 +62,13 @@ cpu_usage {
 path_exists dunst {
         # path exists when alias `notification_diable` runs
         path = "/tmp/notification_disable"
-        format = "DUNST: ON"
-        format_down = "DUNST: OFF"
+        format = "DUNST: OFF"
+        format_down = "DUNST: ON"
+}
+
+path_exists earphone_enable {
+        # path exists when alias `toggle_sound` runs
+        path = "/tmp/earphone_enable"
+        format = "SOUND: EARPHONE"
+        format_down = "SOUND: SPEAKER"
 }

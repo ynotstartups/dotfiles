@@ -17,7 +17,9 @@ earphone() {
    # set to use earphone
    sound_card_index=$(pactl list cards | grep -B10 "Apple T2 Audio" | head -n1 | cut -d "#" -f2)
    pactl set-card-profile "$sound_card_index" output:codec-output+input:codec-input
-   notify-send 'Using earphone'
+   touch /tmp/earphone_enable
+   # refresh i3 status
+   killall -SIGUSR1 i3status
 }
 
 speaker() {
@@ -26,7 +28,10 @@ speaker() {
    # set to use speaker
    sound_card_index=$(pactl list cards | grep -B10 "Apple T2 Audio" | head -n1 | cut -d "#" -f2)
    pactl set-card-profile "$sound_card_index" output:builtin-speaker+input:builtin-mic
-   notify-send 'Using speaker'
+   rm /tmp/earphone_enable
+
+   # refresh i3 status
+   killall -SIGUSR1 i3status
 }
 
 active_output=$(pactl list | grep Active.Profile | grep -v off | grep -v hdmi | cut -d " " -f 3)
