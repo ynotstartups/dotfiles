@@ -22,6 +22,8 @@ battery 0 {
 path_exists VPN {
         # path exists when a VPN tunnel launched by nmcli/nm-applet is active
         path = "/proc/sys/net/ipv4/conf/tun0"
+        format = "VPN: ON"
+        format_down = "VPN: OFF"
 }
 
 load {
@@ -59,6 +61,6 @@ cpu_usage {
 path_exists dunst {
         # path exists when alias `notification_diable` runs
         path = "/tmp/notification_disable"
-        format = "Notification: Off"
-        format_down = "Notification: On"
+        format = "DUNST: ON"
+        format_down = "DUNST: OFF"
 }
