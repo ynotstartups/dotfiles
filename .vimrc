@@ -148,3 +148,5 @@ autocmd FileType gitcommit setlocal complete+=kspell
 " let g:indentLine_conceallevel = 2
 let g:indentLine_concealcursor = ""
 
+" use leader h to clear search highlight
+nnoremap <silent> <leader>l :nohlsearch<CR>
