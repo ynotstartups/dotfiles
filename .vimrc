@@ -50,6 +50,7 @@ set hlsearch " highlight search result such as when using *
 set scrolloff=1 " shows one more line above and below the cursor
 set sidescrolloff=5 " similar to above but on the right
 set display+=lastline " otherwise last line that doesn't fit is replaced with @ lines, see :help 'display'
+set formatoptions+=j " Delete comment character when joining commented lines
 
 " finding files
 set path+=** " recursive by default when using :find
