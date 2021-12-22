@@ -42,8 +42,8 @@ disk "/" {
 }
 
 volume master {
-        format = "♪: %volume"
-        format_muted = "♪: muted (%volume)"
+        format = "%volume"
+        format_muted = "MUTED (%volume)"
         device = "default"
         mixer = "Master"
         mixer_idx = 0
@@ -69,6 +69,6 @@ path_exists dunst {
 path_exists earphone_enable {
         # path exists when alias `toggle_sound` runs
         path = "/tmp/earphone_enable"
-        format = "SOUND: EARPHONE"
-        format_down = "SOUND: SPEAKER"
+        format = "EARPHONE"
+        format_down = "SPEAKER"
 }
