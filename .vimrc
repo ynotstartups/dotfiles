@@ -47,6 +47,8 @@ set backspace=indent,eol,start
 set number " add line number before each line in vim
 set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set hlsearch " highlight search result such as when using *
+set scrolloff=1 " shows one more line above and below the cursor
+set sidescrolloff=5 " similar to above but on the right
 
 " finding files
 set path+=** " recursive by default when using :find
