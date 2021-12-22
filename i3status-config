@@ -50,7 +50,7 @@ volume master {
 }
 
 time {
-        format = "%m-%d %H:%M:%S"
+        format = "%m-%d %H:%M"
 }
 
 cpu_usage {
