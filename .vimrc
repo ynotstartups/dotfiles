@@ -40,7 +40,7 @@ let mapleader = " "
 set shortmess+=IWA " ignore Intro, Written and swapfile exists
 set laststatus=2 " status bar always on
 set wildmenu
-set wildmode=longest:full,full " start scrolling if you hit tab
+set wildmode=longest:full,full " start on the longest option when you hit tab
 set wildignore=*.class,*.o,*~,*.pyc,.git  " Ignore certain files when finding files
 set hidden " files leave the screen become hidden buffer
 set backspace=indent,eol,start
