@@ -41,7 +41,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
-bindsym XF86AudioPlay exec --no-startup-id ~/.bin/toggle_sound
+bindsym XF86AudioPlay exec --no-startup-id toggle_sound
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -204,13 +204,16 @@ bindsym --release Control+Shift+Print exec gnome-screenshot --area -f /tmp/test.
 bindsym Scroll_Lock exec --no-startup-id gnome-terminal -- vim ~/Documents/private-docs/diary.md
 
 # use Pause key to toggle output sound source
-bindsym Pause exec --no-startup-id ~/.bin/toggle_sound
+bindsym Pause exec --no-startup-id toggle_sound
 
 # shortcut to open video mode
-bindsym $mod+Shift+F1 exec --no-startup-id ~/.bin/video_mode
+bindsym $mod+Shift+F1 exec --no-startup-id video_mode
 
 # shortcut to open video mode
-bindsym $mod+Shift+F2 exec --no-startup-id ~/.bin/music_mode
+bindsym $mod+Shift+F2 exec --no-startup-id music_mode
+
+# Testing $PATH
+# bindsym $mod+Shift+F12 exec --no-startup-id "notify-send \\" $PATH \\" "
 
 # use $mod+Control+F2 key to open music mode
 

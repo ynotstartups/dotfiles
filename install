@@ -29,6 +29,9 @@ ln -sf "$PWD"/.bashrc "$HOME"/.bashrc
 # shellcheck source=.bashrc
 . "$HOME"/.bashrc
 
+echo install .profile, i3 exec replies on it
+ln -sf "$PWD"/.profile "$HOME"/.profile
+
 echo install ctags configs
 ln -sf "$PWD"/.ctags "$HOME"/.ctags
 
@@ -45,7 +48,7 @@ logind_config=/etc/systemd/logind.conf
 if ! grep -Fxq 'HandlePowerKey=ignore' "$logind_config"
 then
     echo 'HandlePowerKey=ignore' | sudo tee -a "$logind_config" > /dev/null
-fi 
+fi
 
 echo enable DNS over TLS
 resolved_config=/etc/systemd/resolved.conf
