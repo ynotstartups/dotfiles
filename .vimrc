@@ -49,6 +49,7 @@ set expandtab " In Insert mode: Use the appropriate number of spaces to insert a
 set hlsearch " highlight search result such as when using *
 set scrolloff=1 " shows one more line above and below the cursor
 set sidescrolloff=5 " similar to above but on the right
+set display+=lastline " otherwise last line that doesn't fit is replaced with @ lines, see :help 'display'
 
 " finding files
 set path+=** " recursive by default when using :find
