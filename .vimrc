@@ -151,3 +151,5 @@ let g:indentLine_concealcursor = ""
 
 " use leader h to clear search highlight
 nnoremap <silent> <leader>l :nohlsearch<CR>
+nnoremap <silent> <leader>s :w<CR>
+nnoremap <silent> <leader>z 1z=<CR>g;
