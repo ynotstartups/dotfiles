@@ -13,7 +13,7 @@ order += "volume master"
 # order += "load"
 # order += "cpu_usage"
 # order += "memory"
-order += "time"
+# order += "time"
 
 battery 0 {
        format = "BAT: %percentage"
@@ -24,7 +24,7 @@ path_exists VPN {
         # path exists when a VPN tunnel launched by nmcli/nm-applet is active
         path = "/proc/sys/net/ipv4/conf/tun0"
         format = "VPN: ON"
-        format_down = "VPN: OFF"
+        format_down = ""
 }
 
 load {
@@ -63,7 +63,7 @@ path_exists dunst {
         # path exists when alias `notification_diable` runs
         path = "/tmp/notification_disable"
         format = "NOTI: OFF"
-        format_down = "NOTI: ON"
+        format_down = ""
 }
 
 path_exists earphone_enable {
