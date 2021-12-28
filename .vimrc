@@ -52,6 +52,7 @@ set scrolloff=1 " shows one more line above and below the cursor
 set sidescrolloff=5 " similar to above but on the right
 set display+=lastline " otherwise last line that doesn't fit is replaced with @ lines, see :help 'display'
 set formatoptions+=j " Delete comment character when joining commented lines
+set linebreak " prevents breaking up the last word in lines exceeding the vim window width
 
 " finding files
 set path+=** " recursive by default when using :find
