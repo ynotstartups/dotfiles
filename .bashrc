@@ -100,6 +100,7 @@ alias gca='git commit -v -a'
 alias gs='git status'
 
 alias gd='git diff'
+alias gdc='git diff --cached'
 alias gdw='git diff --word-diff=color'
 function gdu() {
     git diff "upstream/$(g_get_main_branch_name)"...
@@ -176,4 +177,7 @@ alias activate='source .venv/bin/activate'
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
+alias todo='ranger ~/Documents/private-docs/todos-system/todo'
+
 complete -C /usr/local/bin/terraform terraform
+
