@@ -69,6 +69,6 @@ path_exists dunst {
 path_exists earphone_enable {
         # path exists when alias `toggle_sound` runs
         path = "/tmp/earphone_enable"
-        format = "EARPHONE"
+        format = ""
         format_down = "SPEAKER"
 }
