@@ -52,14 +52,17 @@ set scrolloff=1 " shows one more line above and below the cursor
 set sidescrolloff=5 " similar to above but on the right
 set display+=lastline " otherwise last line that doesn't fit is replaced with @ lines, see :help 'display'
 set formatoptions+=j " Delete comment character when joining commented lines
-set linebreak " prevents breaking up the last word in lines exceeding the vim window width
-
-" finding files
+set linebreak " prevents breaking up the last word in lines exceeding the vim window width, useful for writing and reading in markdown
+set splitright " when using ctrl-w, split the window to the right
 set path+=** " recursive by default when using :find
-
 set autoread " automatically apply changes from outside of Vim
 " this makes autoread work
 au CursorHold * checktime " check one time after 4s of inactivity in normal mode
+
+" might want to `:autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir` to limit this
+" this makes file autocomplete in notes completes other notes even when I am in the root directory `~/notes`
+set autochdir " change current directory to the path of current buffer
+
 
 " color
 syntax on
@@ -86,6 +89,7 @@ set clipboard=unnamedplus " vim uses system clipboard
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
+let g:gitgutter_map_keys = 0
 " <Leader>hp              Preview the hunk under the cursor.
 " <Leader>hs              Stage the hunk under the cursor.
 " <Leader>hu              Undo the hunk under the cursor.
@@ -151,6 +155,15 @@ autocmd FileType gitcommit setlocal complete+=kspell
 let g:indentLine_concealcursor = ""
 
 " use leader h to clear search highlight
-nnoremap <silent> <leader>l :nohlsearch<CR>
+" nnoremap <silent> <leader>l :nohlsearch<CR>
 nnoremap <silent> <leader>s :w<CR>
-nnoremap <silent> <leader>z 1z=<CR>g;
+nnoremap <silent> <leader>z 1z=<CR>g;e
+
+" open file under cursor in vertical window
+nnoremap <C-W><C-F> <C-W>vgf
+
+" Simulate Ranger Interface
+" leader l to open link undercursor in the right window
+nnoremap <silent> <leader>l <C-W>vgf
+" leader h to quit the link
+nnoremap <silent> <leader>h :q<CR>
