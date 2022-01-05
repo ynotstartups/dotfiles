@@ -58,11 +58,7 @@ set path+=** " recursive by default when using :find
 set autoread " automatically apply changes from outside of Vim
 " this makes autoread work
 au CursorHold * checktime " check one time after 4s of inactivity in normal mode
-
-" might want to `:autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir` to limit this
-" this makes file autocomplete in notes completes other notes even when I am in the root directory `~/notes`
-set autochdir " change current directory to the path of current buffer
-
+set complete-=i " remove included files, it is slow
 
 " color
 syntax on
@@ -167,3 +163,6 @@ nnoremap <C-W><C-F> <C-W>vgf
 nnoremap <silent> <leader>l <C-W>vgf
 " leader h to quit the link
 nnoremap <silent> <leader>h :q<CR>
+
+" this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
+autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
