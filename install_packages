@@ -64,6 +64,9 @@ sudo apt-get install --yes exiv2
 # console file manager with VI key bindings
 sudo apt-get install --yes ranger
 
+# google calender command line
+sudo apt-get install --yes gcalcli
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
