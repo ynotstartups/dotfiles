@@ -177,7 +177,11 @@ alias activate='source .venv/bin/activate'
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
+# open todo system
 alias todo='ranger ~/Documents/private-docs/todos-system/todo'
+
+# find meeting today
+alias agenda='date && gcalcli agenda 09:00 18:00 --nostarted --nodeclined'
 
 complete -C /usr/local/bin/terraform terraform
 
