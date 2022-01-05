@@ -158,9 +158,9 @@ alias xclip='xclip -selection clipboard'
 alias xclip_png='xclip -selection clipboard -t image/png'
 alias xclip_last_png='xclip -selection clipboard -t image/png "$(ls -t *.png | head -n 1)"'
 
-# openvpn
-alias openvpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.ovpn'
-alias openvpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/openvpn/client.ovpn'
+# vpn
+alias vpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.ovpn'
+alias vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/openvpn/client.ovpn'
 
 # gh
 alias mypr='gh api -X GET search/issues -f q="author:tigerhuang state:open type:pr" | jq ".items[].title"'
