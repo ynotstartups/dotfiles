@@ -179,7 +179,7 @@ bindsym --release Control+Shift+Print exec gnome-screenshot --area -f /tmp/test.
 bindsym Scroll_Lock exec --no-startup-id gnome-terminal -- vim ~/Documents/private-docs/diary.md
 
 # use Pause key to toggle output sound source
-bindsym Pause exec --no-startup-id toggle_sound
+bindsym Shift+Pause exec --no-startup-id toggle_sound
 
 # shortcut to open video mode
 bindsym $mod+Shift+F1 exec --no-startup-id video_mode
