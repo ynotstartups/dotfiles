@@ -183,5 +183,7 @@ alias todo='ranger ~/Documents/private-docs/todos-system/todo'
 # find meeting today
 alias agenda='date && gcalcli agenda 09:00 18:00 --nostarted --nodeclined'
 
+alias focus='rvlc -Z ~/Music/jaychou'
+
 complete -C /usr/local/bin/terraform terraform
 
