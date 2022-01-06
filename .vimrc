@@ -168,3 +168,11 @@ nnoremap <silent> <leader>h :q<CR>
 
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
+
+" <leader>it - insert filename in title case, used for notes
+" "%p - paste current filename (in register %)
+" gst - gst uses vim-caser to turn word in title mode
+" il  - il uses kana/vim-textobj-line to apply on whole line
+" <delete><delete> - remove the md in markdown file extension
+" I#  - adds markdown title with a space at the front
+nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
