@@ -178,7 +178,7 @@ alias activate='source .venv/bin/activate'
 export PATH="$HOME/.poetry/bin:$PATH"
 
 # open todo system
-alias todo='ranger ~/Documents/private-docs/todos-system/todo'
+alias todo='ls -1 -R ~/Documents/private-docs/todos-system/todo/**/*.md | cut -d "/" -f 8,9 --output-delimiter "/" | column -s "/" -c 1 -t'
 
 # find meeting today
 alias agenda='date && gcalcli agenda 09:00 18:00 --nostarted --nodeclined'
