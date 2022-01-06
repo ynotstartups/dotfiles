@@ -70,8 +70,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -f ~/.lyst_bashrc ]; then
-    . ~/.lyst_bashrc
+if [ -f ~/Documents/personal-docs/.lyst_bashrc ]; then
+    . ~/Documents/personal-docs/.lyst_bashrc
 fi
 
 # use vim as default editor
