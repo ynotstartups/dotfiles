@@ -108,7 +108,6 @@ function gdu() {
 function gduw() {
     git diff --word-diff=color "upstream/$(g_get_main_branch_name)"...
 }
-
 alias gg='git grep'
 
 alias g_delete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
@@ -133,6 +132,23 @@ function g_new_branch() {
 }
 
 alias gl='git log'
+
+function gsdocs() {
+    CYAN='\033[0;36m'
+    RESET='\033[0m'
+
+    printf "\n${CYAN}personal-docs${RESET}\n"
+    git -C ~/Documents/personal-docs/ status --short
+
+    printf "\n${CYAN}notes${RESET}\n"
+    git -C ~/Documents/notes/ status --short
+
+    printf "\n${CYAN}private_dotfiles${RESET}\n"
+    git -C ~/Documents/private_dotfiles/ status --short
+
+    printf "\n${CYAN}private-docs${RESET}\n"
+    git -C ~/Documents/private-docs/ status --short
+}
 
 # pinta
 alias pinta_last='pinta "$(ls -t | head -n 1)"'
