@@ -16,9 +16,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 " Plug 'Yggdroot/indentLine' " hightlight indentations
 Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
+Plug 'arthurxavierx/vim-caser' " changes word to Title Case `gst`
 Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
+Plug 'junegunn/vim-peekaboo' " see contents of registers
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
