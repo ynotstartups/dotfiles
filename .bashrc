@@ -204,5 +204,12 @@ alias agenda='date && gcalcli agenda 09:00 18:00 --nostarted --nodeclined'
 
 alias focus='rvlc -Z ~/Music/jaychou'
 
+## Neomutt
+alias neomutt-work='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work'
+alias neomutt-personal='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-personal'
+## ----
+
+alias reminder='cat ~/Documents/notes/notes/what-am-i-doing-now.md'
+
 complete -C /usr/local/bin/terraform terraform
 
