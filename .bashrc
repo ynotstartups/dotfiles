@@ -133,7 +133,7 @@ function g_new_branch() {
 
 alias gl='git log'
 
-function gsdocs() {
+function gsall() {
     CYAN='\033[0;36m'
     RESET='\033[0m'
 
@@ -148,6 +148,9 @@ function gsdocs() {
 
     printf "\n${CYAN}private-docs${RESET}\n"
     git -C ~/Documents/private-docs/ status --short
+
+    printf "\n${CYAN}dotfiles${RESET}\n"
+    git -C ~/Documents/dotfiles/ status --short
 }
 
 # pinta
