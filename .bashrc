@@ -70,8 +70,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -f ~/Documents/personal-docs/.lyst_bashrc ]; then
-    . ~/Documents/personal-docs/.lyst_bashrc
+if [ -f ~/.lyst_bashrc ]; then
+    . ~/.lyst_bashrc
 fi
 
 # use vim as default editor
@@ -197,7 +197,7 @@ alias activate='source .venv/bin/activate'
 export PATH="$HOME/.poetry/bin:$PATH"
 
 # open todo system
-alias todo='ls -1 -R ~/Documents/private-docs/todos-system/todo/**/*.md | cut -d "/" -f 8,9 --output-delimiter "/" | column -s "/" -c 1 -t'
+alias todo='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/private-docs/todos-system'
 
 # find meeting today
 alias agenda='date && gcalcli agenda 09:00 18:00 --nostarted --nodeclined'
@@ -209,7 +209,16 @@ alias neomutt-work='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work'
 alias neomutt-personal='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-personal'
 ## ----
 
-alias reminder='cat ~/Documents/notes/notes/what-am-i-doing-now.md'
+alias reminder='vim ~/Documents/notes/notes/what-am-i-doing-now.md'
+
+## utils
+
+# Example, open last file with vim, vim $(last)
+alias last='ls -t -1 | head -n 1'
+
+## ----
+
 
 complete -C /usr/local/bin/terraform terraform
+
 
