@@ -11,7 +11,17 @@ TODO:
 import glob
 import os
 from datetime import date
+import datetime
 import shutil
+
+def get_next_week_day(day_now):
+    if day_now.isoweekday()== 5:
+        day_now += datetime.timedelta(days=3)
+    elif day_now.isoweekday()== 6:
+        day_now += datetime.timedelta(days=2)
+    else:
+        day_now += datetime.timedelta(days=1)
+    return day_now
 
 list_directory = glob.glob('./*')
 list_of_files = [f for f in list_directory if os.path.isfile(f)]
@@ -21,12 +31,26 @@ _, file_extension = os.path.splitext(latest_file)
 
 # use [2:] to remove the "20" from year result in 21-12-10.md
 today_date_string = str(date.today())[2:]
+next_date_string = str(get_next_week_day(date.today()))[2:]
 
 today_date_filename = os.path.join(".", f"{today_date_string}{file_extension}")
+next_date_filename = os.path.join(".", f"{next_date_string}{file_extension}")
 
-if os.path.exists(today_date_filename):
-    print(f"Exiting! destination file {today_date_filename} already exists")
-    exit(1)
+if not os.path.exists(today_date_filename):
+    # today's filename doesn't exist, just copy to today's filename
+    print(f"copying {latest_file} to {today_date_filename}")
+    shutil.copy(latest_file, today_date_filename)
+elif os.path.exists(today_date_filename) and not os.path.exists(next_date_filename):
+    # today's filename exists, ask if user wants to copy to next business day's
+    input_text = f"{today_date_filename}\nDo you want to copy today's to next business date {next_date_filename}?\nInput y for Yes, anything else is No: "
+    user_input = input(input_text)
 
-print(f"copying {latest_file} to {today_date_filename}")
-shutil.copy(latest_file, today_date_filename)
+    if user_input == "y":
+        print(f"copying {today_date_filename} to {next_date_filename}")
+        shutil.copy(today_date_filename, next_date_filename)
+    else:
+        print(f"Exiting! destination file {today_date_filename} already exists")
+        exit(1)
+else:
+    # Both today's and next business day's filename exists already
+    print(f"Exiting! {today_date_filename} and {next_date_filename} already exists")
