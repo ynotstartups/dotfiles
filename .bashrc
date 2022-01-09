@@ -17,6 +17,8 @@ source $HOME/.profile
 
 PATH=~/.bin:$PATH
 
+export PATH="$HOME/.poetry/bin:$PATH"
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -194,8 +196,6 @@ alias mpf='make pytest TEST_ARGS="-vvv --last-failed"'
 # shortcut to start venv
 alias activate='source .venv/bin/activate'
 
-export PATH="$HOME/.poetry/bin:$PATH"
-
 # open todo system
 alias todo='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/private-docs/todos-system'
 
@@ -204,9 +204,9 @@ alias agenda='date && gcalcli agenda 09:00 18:00 --nostarted --nodeclined'
 
 alias focus='rvlc -Z ~/Music/jaychou'
 
-## Neomutt
-alias neomutt-work='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work'
-alias neomutt-personal='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-personal'
+## Email
+alias email-work='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work'
+alias email='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-personal'
 ## ----
 
 alias reminder='vim ~/Documents/notes/notes/what-am-i-doing-now.md'
