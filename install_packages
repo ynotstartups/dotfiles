@@ -64,8 +64,10 @@ sudo apt-get install --yes exiv2
 # console file manager with VI key bindings
 sudo apt-get install --yes ranger
 
-# google calender command line
-sudo apt-get install --yes gcalcli
+# google calender command line, this installs 4.2.0, but I want 4.3.0
+# sudo apt-get install --yes gcalcli
+sudo apt-get install --yes python3-pip
+pip install gcalcli
 
 # gh auth login --web --hostname abc.com
 if ! command -v gh
