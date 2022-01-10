@@ -152,9 +152,15 @@ autocmd FileType gitcommit setlocal complete+=kspell
 " let g:indentLine_conceallevel = 2
 let g:indentLine_concealcursor = ""
 
-" use leader h to clear search highlight
-" nnoremap <silent> <leader>l :nohlsearch<CR>
-nnoremap <silent> <leader>s :w<CR>
+" use leader c to clear search highlight
+nnoremap <silent> <leader>c :nohlsearch<CR>
+
+" use leader w to save
+nnoremap <silent> <leader>w :w<CR>
+" use leader x to save and close
+nnoremap <silent> <leader>x :x<CR>
+
+" leader z to autocorrect words and move cursor to the end of the word
 nnoremap <silent> <leader>z 1z=<CR>g;e
 
 " open file under cursor in vertical window
@@ -178,6 +184,5 @@ autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
 "" Surround
-" 42 is '*', see `:echo char2nr("*")`
 autocmd FileType markdown let b:surround_{char2nr("*")} = "**\r**"
 autocmd FileType markdown let b:surround_{char2nr("l")} = "[\r]()"
