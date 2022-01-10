@@ -179,4 +179,5 @@ nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
 "" Surround
 " 42 is '*', see `:echo char2nr("*")`
-autocmd FileType markdown let b:surround_42 = "**\r**"
+autocmd FileType markdown let b:surround_{char2nr("*")} = "**\r**"
+autocmd FileType markdown let b:surround_{char2nr("l")} = "[\r]()"
