@@ -176,3 +176,7 @@ autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 " <delete><delete> - remove the md in markdown file extension
 " I#  - adds markdown title with a space at the front
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
+
+"" Surround
+" 42 is '*', see `:echo char2nr("*")`
+autocmd FileType markdown let b:surround_42 = "**\r**"
