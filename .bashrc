@@ -200,7 +200,8 @@ alias activate='source .venv/bin/activate'
 alias todo='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/private-docs/todos-system'
 
 # find meeting today
-alias agenda='date && gcalcli agenda 09:00 18:00 --nostarted --nodeclined'
+alias agenda='date && gcalcli agenda 09:00 18:00 --detail conference --nodeclined'
+
 
 alias focus='rvlc -Z ~/Music/jaychou'
 
