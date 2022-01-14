@@ -221,10 +221,11 @@ alias reminder='vim ~/Documents/notes/notes/what-am-i-doing-now.md'
 
 # Example, open last file with vim, vim $(last)
 alias last='ls -t -1 | head -n 1'
-
 ## ----
 
 
+## Autocomplete
+
 complete -C /usr/local/bin/terraform terraform
 
-
+complete -W "calw calm" gcalcli
