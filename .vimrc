@@ -13,6 +13,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 \| endif
 
 call plug#begin('~/.vim/plugged')
+Plug '~/Documents/vim-slack-format' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 " Plug 'Yggdroot/indentLine' " hightlight indentations
 Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
@@ -140,12 +141,15 @@ let g:github_enterprise_urls = ['https://git.lystit.com']
 
 set spellfile=$HOME/Documents/private_dotfiles/spell/en.utf-8.add
 " spell check for markdown and git commit message
-autocmd FileType markdown setlocal spell
+
 autocmd FileType gitcommit setlocal spell
+autocmd FileType markdown setlocal spell
+autocmd FileType slack setlocal spell
 
 " Enable dictionary auto-completion in Markdown files and Git Commit Messages
-autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType gitcommit setlocal complete+=kspell
+autocmd FileType markdown setlocal complete+=kspell
+autocmd FileType slack setlocal complete+=kspell
 
 " If you are using the 'indentLine' plugin or other plugins that can change 'conceal' features in vim. It is because these plugin enables the Vim 'conceal' feature which automatically hides stretches of text based on syntax highlighting. This setting will apply to all syntax items. Specifically, in 'indentLine' plugin, it will overwrite "concealcursor" and "conceallevel" to:
 " let g:indentLine_concealcursor = 'inc'
@@ -184,5 +188,9 @@ autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
 "" Surround
-autocmd FileType markdown let b:surround_{char2nr("*")} = "**\r**"
-autocmd FileType markdown let b:surround_{char2nr("l")} = "[\r]()"
+" Works globally, because it won't affect any other filetype really
+" Useful in markdown and git commit messages
+let b:surround_{char2nr("*")} = "**\r**"
+let b:surround_{char2nr("l")} = "[\r]()"
+
+autocmd FileType slack let b:surround_{char2nr("*")} = "*\r*"
