@@ -1,0 +1,16 @@
+[push]
+	default = current
+[alias]
+        a = add
+        ac = !git add . && git commit -v -a
+        b = branch
+        bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:cyan)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+        c = commit -v
+        ca = commit -v -a
+        d = diff
+        dc = diff --cached
+        fu = fetch upstream
+        g = grep
+        l = log
+        p = push
+        s = status
