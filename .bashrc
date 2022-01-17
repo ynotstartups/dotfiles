@@ -91,31 +91,35 @@ alias ll='ls --all -l --group-directories-first'
 alias la='ls --almost-all' # Show hidden files but not . and ..
 
 # git aliases
+alias g='git'
+source /usr/share/bash-completion/completions/git 2>/dev/null
+__git_complete g __git_main
+
 function g_get_main_branch_name() {
     main_branch_name=$(git branch | grep --only-matching -e 'master' -e 'main')
     echo "$main_branch_name"
 }
-alias ga='git add'
-alias gb='git branch'
-alias gc='git commit -v'
-alias gca='git commit -v -a'
-alias gs='git status'
+# alias ga='git add'
+# alias gb='git branch'
+# alias gc='git commit -v'
+# alias gca='git commit -v -a'
+# alias gs='git status'
 
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gdw='git diff --word-diff=color'
-function gdu() {
+# alias gd='git diff'
+# alias gdc='git diff --cached'
+# alias gdw='git diff --word-diff=color'
+function g_du() {
     git diff "upstream/$(g_get_main_branch_name)"...
 }
-function gduw() {
+function g_duw() {
     git diff --word-diff=color "upstream/$(g_get_main_branch_name)"...
 }
-alias gg='git grep'
+# alias gg='git grep'
 
 alias g_delete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
-alias gfu='git fetch upstream'
-function gfru() {
+# alias gfu='git fetch upstream'
+function g_fru() {
     git fetch upstream
     git rebase -i "upstream/$(g_get_main_branch_name)"
 }
@@ -133,9 +137,9 @@ function g_new_branch() {
     git switch "$1"
 }
 
-alias gl='git log'
+# alias gl='git log'
 
-function gsall() {
+function g_sall() {
     CYAN='\033[0;36m'
     RESET='\033[0m'
 
