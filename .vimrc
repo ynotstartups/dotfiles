@@ -159,6 +159,8 @@ let g:indentLine_concealcursor = ""
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<CR>
 
+" use leader q to quit
+nnoremap <silent> <leader>q :q<CR>
 " use leader w to save
 nnoremap <silent> <leader>w :w<CR>
 " use leader x to save and close
