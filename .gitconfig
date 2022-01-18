@@ -4,7 +4,7 @@
         a = add
         ac = !git add . && git commit -v -a
         b = branch
-        bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:cyan)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+        bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
         c = commit -v
         ca = commit -v -a
         d = diff
@@ -12,5 +12,6 @@
         fu = fetch upstream
         g = grep
         l = log
+        ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
         p = push
         s = status
