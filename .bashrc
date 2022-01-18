@@ -227,6 +227,13 @@ alias reminder='vim ~/Documents/notes/notes/what-am-i-doing-now.md'
 alias last='ls -t -1 | head -n 1'
 ## ----
 
+## Vim
+
+alias vmarkdown="vim -c 'set filetype=markdown'"
+alias vslack="vim -c 'set filetype=slack'"
+
+## ----
+
 
 ## Autocomplete
 
