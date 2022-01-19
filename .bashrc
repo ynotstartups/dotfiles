@@ -137,26 +137,26 @@ function g_new_branch() {
     git switch "$1"
 }
 
-# alias gl='git log'
 
 function g_sall() {
+    # --branch to show if local repo is ahead of origin
     CYAN='\033[0;36m'
     RESET='\033[0m'
 
-    printf "\n${CYAN}personal-docs${RESET}\n"
-    git -C ~/Documents/personal-docs/ status --short
+    printf "\n%bpersonal-docs%b\n" "$CYAN" "$RESET"
+    git -C ~/Documents/personal-docs/ status --short --branch
 
-    printf "\n${CYAN}notes${RESET}\n"
-    git -C ~/Documents/notes/ status --short
+    printf "\n%bnotes%b\n" "$CYAN" "$RESET"
+    git -C ~/Documents/notes/ status --short --branch
 
-    printf "\n${CYAN}private_dotfiles${RESET}\n"
-    git -C ~/Documents/private_dotfiles/ status --short
+    printf "\n%bprivate-dotfiles%b\n" "$CYAN" "$RESET"
+    git -C ~/Documents/private_dotfiles/ status --short --branch
 
-    printf "\n${CYAN}private-docs${RESET}\n"
-    git -C ~/Documents/private-docs/ status --short
+    printf "\n%bprivate-docs%b\n" "$CYAN" "$RESET"
+    git -C ~/Documents/private-docs/ status --short --branch
 
-    printf "\n${CYAN}dotfiles${RESET}\n"
-    git -C ~/Documents/dotfiles/ status --short
+    printf "\n%bdotfiles%b\n" "$CYAN" "$RESET"
+    git -C ~/Documents/dotfiles/ status --short --branch
 }
 
 # pinta
