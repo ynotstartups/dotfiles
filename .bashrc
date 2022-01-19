@@ -230,8 +230,17 @@ alias last='ls -t -1 | head -n 1'
 
 ## Vim
 
-alias vmarkdown="vim -c 'set filetype=markdown'"
-alias vslack="vim -c 'set filetype=slack'"
+vmarkdown() {
+    cd ~/Documents/prose/messages || exit
+
+    vim "$(date --iso-8601=minutes)".md
+}
+
+vslack() {
+    cd ~/Documents/prose/messages || exit
+
+    vim "$(date --iso-8601=minutes)".slack
+}
 
 ## ----
 
