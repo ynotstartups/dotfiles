@@ -18,6 +18,7 @@ Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets
 " Plug 'Yggdroot/indentLine' " hightlight indentations
 Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser' " changes word to Title Case `gst`
+Plug 'dense-analysis/ale' " linters and fixers
 Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
@@ -49,6 +50,7 @@ set wildignore=*.class,*.o,*~,*.pyc,.git  " Ignore certain files when finding fi
 set hidden " files leave the screen become hidden buffer
 set backspace=indent,eol,start
 set number " add line number before each line in vim
+set relativenumber
 set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set hlsearch " highlight search result such as when using *
 set scrolloff=1 " shows one more line above and below the cursor
@@ -200,3 +202,12 @@ let b:surround_{char2nr("b")} = "**\r**"
 let b:surround_{char2nr("l")} = "[\r]()"
 
 autocmd FileType slack let b:surround_{char2nr("b")} = "*\r*"
+
+"" ale
+
+" Uses markdown linter such as write-good for slack files
+let g:ale_linter_aliases = {'slack': ['markdown']}
+
+" addes name of linter to lint messages
+let g:ale_echo_msg_format = '[%linter%] %s'
+
