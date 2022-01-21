@@ -130,6 +130,9 @@ endf
 
 command -nargs=? GW call GrepWord()
 
+" Put swapfiles `$HOME/.vim/tmp//`
+set directory^=$HOME/.vim/tmp//
+
 " vim-markdown
 
 " don't hide/conceal characters
