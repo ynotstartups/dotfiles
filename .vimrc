@@ -183,8 +183,6 @@ nnoremap <C-W><C-F> <C-W>vgf
 " Simulate Ranger Interface
 " leader l to open link undercursor in the right window
 nnoremap <silent> <leader>l <C-W>vgf
-" leader h to quit the link
-nnoremap <silent> <leader>h :q<CR>
 
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
