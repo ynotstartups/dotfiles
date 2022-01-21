@@ -198,12 +198,14 @@ nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 "" Surround
 " Works globally, because it won't affect any other filetype really
 " Useful in markdown and git commit messages
-" code
+" `code`
 let b:surround_{char2nr("c")} = "`\r`"
-" bold
+" **bold**
 let b:surround_{char2nr("b")} = "**\r**"
-" link
+" [link](url)
 let b:surround_{char2nr("l")} = "[\r]()"
+" _italic_
+let b:surround_{char2nr("i")} = "_\r_"
 
 autocmd FileType slack let b:surround_{char2nr("b")} = "*\r*"
 
