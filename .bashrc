@@ -243,3 +243,5 @@ vslack() {
 complete -C /usr/local/bin/terraform terraform
 
 complete -W "calw calm" gcalcli
+
+eval "$(gh completion -s bash)"
