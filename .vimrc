@@ -42,7 +42,7 @@ nnoremap <SPACE> <nop>
 let mapleader = " "
 
 " better setting
-set shortmess+=IWA " ignore Intro, Written and swapfile exists
+set shortmess+=IW " ignore Intro, Written
 set laststatus=2 " status bar always on
 set wildmenu
 set wildmode=longest:full,full " start on the longest option when you hit tab
