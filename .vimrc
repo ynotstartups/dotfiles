@@ -217,3 +217,7 @@ let g:ale_linter_aliases = {'slack': ['markdown']}
 " addes name of linter to lint messages
 let g:ale_echo_msg_format = '[%linter%] %s'
 
+"" mobile-api
+
+autocmd BufRead,BufNewFile */mobile_api/**/*.py set textwidth=100
+
