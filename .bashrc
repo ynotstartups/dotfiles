@@ -224,13 +224,13 @@ alias last='ls -t -1 | head -n 1'
 ## Vim
 
 vmarkdown() {
-    cd ~/Documents/prose/messages || exit
+    cd ~/Documents/personal-docs/messages || exit
 
     vim "$(date --iso-8601=minutes)".md
 }
 
 vslack() {
-    cd ~/Documents/prose/messages || exit
+    cd ~/Documents/personal-docs/messages || exit
 
     vim "$(date --iso-8601=minutes)".slack
 }
