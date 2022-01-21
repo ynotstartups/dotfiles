@@ -99,18 +99,11 @@ function g_get_main_branch_name() {
     main_branch_name=$(git branch | grep --only-matching -e 'master' -e 'main')
     echo "$main_branch_name"
 }
-# alias ga='git add'
-# alias gb='git branch'
-# alias gc='git commit -v'
-# alias gca='git commit -v -a'
-# alias gs='git status'
 
-# alias gd='git diff'
-# alias gdc='git diff --cached'
-# alias gdw='git diff --word-diff=color'
 function g_du() {
     git diff "upstream/$(g_get_main_branch_name)"...
 }
+
 function g_duw() {
     git diff --word-diff=color "upstream/$(g_get_main_branch_name)"...
 }
