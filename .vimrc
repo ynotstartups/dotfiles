@@ -90,7 +90,7 @@ set clipboard=unnamedplus " vim uses system clipboard
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
-let g:gitgutter_map_keys = 0
+let g:gitgutter_map_keys = 1 " enable gitgutter map
 " <Leader>hp              Preview the hunk under the cursor.
 " <Leader>hs              Stage the hunk under the cursor.
 " <Leader>hu              Undo the hunk under the cursor.
