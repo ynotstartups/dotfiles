@@ -221,3 +221,12 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 
 autocmd BufRead,BufNewFile */mobile_api/**/*.py set textwidth=100
 
+"" vim-textobj-user
+
+" use al to represent a link in markdown
+call textobj#user#plugin('link', {
+\   'angle': {
+\     'pattern': ['[', ')'],
+\     'select-a': 'al',
+\   },
+\ })
