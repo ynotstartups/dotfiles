@@ -143,7 +143,8 @@ let g:vim_markdown_folding_disabled = 1
 " diable indent on new list item
 let g:vim_markdown_new_list_item_indent = 0
 
-" required by tpope/vim-rhubarb for github enterprice, for GBrowse
+" vim-rhubarb
+" for GBrowse github enterprice
 let g:github_enterprise_urls = ['https://git.lystit.com']
 
 set spellfile=$HOME/Documents/private_dotfiles/spell/en.utf-8.add
