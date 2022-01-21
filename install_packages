@@ -61,13 +61,14 @@ sudo apt-get install --yes xclip
 # Exiv2 removes Exif (GPS) data from images, used in blog
 sudo apt-get install --yes exiv2
 
-# console file manager with VI key bindings
-sudo apt-get install --yes ranger
-
 # google calender command line, this installs 4.2.0, but I want 4.3.0
 # sudo apt-get install --yes gcalcli
 sudo apt-get install --yes python3-pip
 pip install gcalcli
+
+# write-good prose linter for vim ale
+sudo apt-get install --yes npm
+sudo npm install -g write-good
 
 # gh auth login --web --hostname abc.com
 if ! command -v gh
