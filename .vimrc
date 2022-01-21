@@ -140,6 +140,8 @@ set directory^=$HOME/.vim/tmp//
 let g:vim_markdown_conceal_code_blocks = 0
 " disable folding
 let g:vim_markdown_folding_disabled = 1
+" diable indent on new list item
+let g:vim_markdown_new_list_item_indent = 0
 
 " required by tpope/vim-rhubarb for github enterprice, for GBrowse
 let g:github_enterprise_urls = ['https://git.lystit.com']
