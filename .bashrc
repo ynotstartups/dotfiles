@@ -13,7 +13,7 @@ esac
 stty -ixon
 
 # `.profile` sets PATH
-source $HOME/.profile
+source "$HOME/.profile"
 
 PATH=~/.bin:$PATH
 
@@ -235,6 +235,15 @@ vslack() {
     vim "$(date --iso-8601=minutes)".slack
 }
 
+## ----
+
+## Bookmarks
+
+# open bookmarks
+alias bm='vim ~/Documents/notes/notes/bookmarks.md'
+
+# open work related bookmarks
+alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 ## ----
 
 
