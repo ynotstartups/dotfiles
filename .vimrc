@@ -116,9 +116,13 @@ let g:indentLine_fileTypeExclude = ['help']
 
 " use G for git grep
 func GitGrep(...)
+  " search for string, populate quickfix window with cursor at the begining
+  " of search pattern
   let save = &grepprg
-  set grepprg=git\ grep\ -n\ $*
-  let s = 'grep'
+  set grepprg=git\ grep\ --line-number\ --column\ $*
+  " grep format is file name:line number:column number:error message
+  set grepformat=%f:%l:%c:%m
+  let s = 'grep!' " ! to not jump to first result
   for i in a:000
     let s = s . ' ' . i
   endfor
@@ -131,7 +135,7 @@ command -nargs=? G call GitGrep(<f-args>)
 
 function! GrepWord()
   normal! "zyiw
-  call GitGrep('-w -e ', getreg('z'))
+  call GitGrep('--word-regexp', getreg('z'))
 endf
 
 command -nargs=? GW call GrepWord()
