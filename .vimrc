@@ -22,7 +22,6 @@ Plug 'dense-analysis/ale' " linters and fixers
 Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
-Plug 'junegunn/vim-peekaboo' " see contents of registers
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
