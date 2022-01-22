@@ -87,6 +87,12 @@ nnoremap Y y$
 " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 set clipboard=unnamedplus " vim uses system clipboard
 
+" copy GBrowse to clipboard
+" taken from https://codeinthehole.com/tips/easy-github-urls-from-vim/
+vnoremap <leader>cg :GBrowse! :%<cr>
+" copy path to file
+nmap <leader>cp :let @+=expand("%")<CR>
+
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
