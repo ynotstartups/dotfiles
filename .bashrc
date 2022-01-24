@@ -183,12 +183,8 @@ alias vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/
 # gh
 alias mypr='gh api -X GET search/issues -f q="author:tigerhuang state:open type:pr" | jq ".items[].title"'
 
-# make alias
-alias mfl='make format && make lint'
 # make all
-alias ma='make format && make lint && make pytest'
-# make pytest last failed
-alias mpf='make pytest TEST_ARGS="-vvv --last-failed"'
+alias ma='make format-diff && make lint && make coverage-report-terminal'
 
 # shortcut to start venv
 alias activate='source .venv/bin/activate'
@@ -213,7 +209,6 @@ alias email-work='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work'
 alias email='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-personal'
 ## ----
 
-alias reminder='vim ~/Documents/notes/notes/what-am-i-doing-now.md'
 
 ## utils
 
@@ -246,6 +241,16 @@ alias bm='vim ~/Documents/notes/notes/bookmarks.md'
 alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 ## ----
 
+## Reminders
+
+# open bookmarks
+alias reminders='vim ~/Documents/notes/notes/reminders.md'
+
+# open work related bookmarks
+alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
+## ----
+
+alias touch-type='nohup eog ~/Documents/touch-type.png &'
 
 ## Autocomplete
 
