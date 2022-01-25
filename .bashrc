@@ -107,17 +107,13 @@ function g_du() {
 function g_duw() {
     git diff --word-diff=color "upstream/$(g_get_main_branch_name)"...
 }
-# alias gg='git grep'
 
 alias g_delete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
-# alias gfu='git fetch upstream'
 function g_fru() {
     git fetch upstream
     git rebase -i "upstream/$(g_get_main_branch_name)"
 }
-
-alias g_set_no_push='git remote set-url --push upstream nopush'
 
 
 function g_new_branch() {
@@ -128,6 +124,10 @@ function g_new_branch() {
     fi
     git fetch upstream "$(g_get_main_branch_name):$1"
     git switch "$1"
+}
+
+function g_root() {
+    cd "$(git rev-parse --show-toplevel)" || exit
 }
 
 
