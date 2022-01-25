@@ -84,9 +84,9 @@ set clipboard=unnamedplus " vim uses system clipboard
 
 " copy GBrowse to clipboard
 " taken from https://codeinthehole.com/tips/easy-github-urls-from-vim/
-vnoremap <leader>cg :GBrowse! :%<cr>
+vnoremap <leader>yg :GBrowse! :%<cr>
 " copy path to file
-nmap <leader>cp :let @+=expand("%")<CR>
+nmap <leader>yp :let @+=expand("%")<CR>
 
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
