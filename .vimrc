@@ -35,7 +35,7 @@ Plug 'tpope/vim-unimpaired' " adds mapping like [q ]q
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
 call plug#end()
 
-" change leader to space, this setting needs to be in the beginning
+" change default leader \ to space, this setting needs to be in the beginning
 nnoremap <SPACE> <nop>
 let mapleader = " "
 
