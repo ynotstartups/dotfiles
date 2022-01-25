@@ -70,6 +70,10 @@ pip install gcalcli
 sudo apt-get install --yes npm
 sudo npm install -g write-good
 
+# fd - simpler find
+sudo apt-get install --yes fd-find
+ln -s "$(command -v fdfind)" ~/.bin/fd # ~/.bin is added to PATH in .bashrc
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
