@@ -100,23 +100,23 @@ function g_get_main_branch_name() {
     echo "$main_branch_name"
 }
 
-function g_du() {
+function gdu() {
     git diff "upstream/$(g_get_main_branch_name)"...
 }
 
-function g_duw() {
+function gduw() {
     git diff --word-diff=color "upstream/$(g_get_main_branch_name)"...
 }
 
-alias g_delete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
+alias gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
-function g_fru() {
+function gfru() {
     git fetch upstream
     git rebase -i "upstream/$(g_get_main_branch_name)"
 }
 
 
-function g_new_branch() {
+function gnew_branch() {
     has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
     if [ "$has_changes" == "1" ]; then
         echo "Current branch has changes. Stopping!"
@@ -126,12 +126,12 @@ function g_new_branch() {
     git switch "$1"
 }
 
-function g_root() {
+function groot() {
     cd "$(git rev-parse --show-toplevel)" || exit
 }
 
 
-function g_sall() {
+function gsall() {
     # --branch to show if local repo is ahead of origin
     CYAN='\033[0;36m'
     RESET='\033[0m'
@@ -151,6 +151,8 @@ function g_sall() {
     printf "\n%bdotfiles%b\n" "$CYAN" "$RESET"
     git -C ~/Documents/dotfiles/ status --short --branch
 }
+
+alias gcopylog='git log -1 --pretty=%B | xclip'
 
 # pinta
 alias pinta_last='pinta "$(ls -t | head -n 1)"'
