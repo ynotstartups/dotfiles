@@ -44,9 +44,6 @@ set wildmode=longest:full,full " start on the longest option when you hit tab
 set wildignore=*.class,*.o,*~,*.pyc,.git  " Ignore certain files when finding files
 set hidden " files leave the screen become hidden buffer
 set backspace=indent,eol,start
-" disabled line number to force myself to use jump
-" set number " add line number before each line in vim
-" set relativenumber
 set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set hlsearch " highlight search result such as when using *
 set scrolloff=1 " shows one more line above and below the cursor
