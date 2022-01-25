@@ -53,7 +53,6 @@ set scrolloff=1 " shows one more line above and below the cursor
 set sidescrolloff=5 " similar to above but on the right
 set display+=lastline " otherwise last line that doesn't fit is replaced with @ lines, see :help 'display'
 set formatoptions+=j " Delete comment character when joining commented lines
-set linebreak " prevents breaking up the last word in lines exceeding the vim window width, useful for writing and reading in markdown
 set splitright " when using ctrl-w, split the window to the right
 set path+=** " recursive by default when using :find
 set autoread " automatically apply changes from outside of Vim
@@ -141,7 +140,6 @@ let g:github_enterprise_urls = ['https://git.lystit.com']
 
 set spellfile=$HOME/Documents/private_dotfiles/spell/en.utf-8.add
 " spell check for markdown and git commit message
-
 autocmd FileType gitcommit setlocal spell
 autocmd FileType markdown setlocal spell
 autocmd FileType slack setlocal spell
@@ -150,6 +148,11 @@ autocmd FileType slack setlocal spell
 autocmd FileType gitcommit setlocal complete+=kspell
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType slack setlocal complete+=kspell
+
+" don't break a word in the middle
+autocmd FileType gitcommit setlocal linebreak
+autocmd FileType markdown setlocal linebreak
+autocmd FileType slack setlocal linebreak
 
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<CR>
