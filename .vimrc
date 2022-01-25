@@ -89,22 +89,9 @@ nmap <leader>cp :let @+=expand("%")<CR>
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
 let g:gitgutter_map_keys = 1 " enable gitgutter map
-" <Leader>hp              Preview the hunk under the cursor.
-" <Leader>hs              Stage the hunk under the cursor.
-" <Leader>hu              Undo the hunk under the cursor.
-" ]c                      Jump to the next [count] hunk.
-" [c                      Jump to the previous [count] hunk.
-" Hunk text object:
-" 'ic' operates on the current hunk's lines.  'ac' does the same but also includes
-" trailing empty lines.
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['help']
-
-" folding all classes method and functions in python
-" set foldmethod=indent
-" set foldnestmax=2
-" set foldlevel=1
 
 " use G for git grep
 func GitGrep(...)
@@ -138,7 +125,6 @@ set directory^=$HOME/.vim/tmp//
 " vim-markdown
 
 " don't hide/conceal characters
-" let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 " disable folding
 let g:vim_markdown_folding_disabled = 1
@@ -161,20 +147,8 @@ autocmd FileType gitcommit setlocal complete+=kspell
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType slack setlocal complete+=kspell
 
-" If you are using the 'indentLine' plugin or other plugins that can change 'conceal' features in vim. It is because these plugin enables the Vim 'conceal' feature which automatically hides stretches of text based on syntax highlighting. This setting will apply to all syntax items. Specifically, in 'indentLine' plugin, it will overwrite "concealcursor" and "conceallevel" to:
-" let g:indentLine_concealcursor = 'inc'
-" let g:indentLine_conceallevel = 2
-let g:indentLine_concealcursor = ""
-
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<CR>
-
-" use leader q to quit
-nnoremap <silent> <leader>q :q<CR>
-" use leader w to save
-nnoremap <silent> <leader>w :w<CR>
-" use leader x to save and close
-nnoremap <silent> <leader>x :x<CR>
 
 " leader z to autocorrect words and move cursor to the end of the word
 nnoremap <silent> <leader>z 1z=<CR>g;e
@@ -225,7 +199,7 @@ autocmd BufRead,BufNewFile */mobile_api/**/*.py set textwidth=100
 
 "" vim-textobj-user
 
-" use al to represent a link in markdown
+" use `al` to represent a link in markdown
 call textobj#user#plugin('link', {
 \   'angle': {
 \     'pattern': ['[', ')'],
