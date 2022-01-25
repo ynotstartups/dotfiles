@@ -15,7 +15,6 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 call plug#begin('~/.vim/plugged')
 Plug '~/Documents/vim-slack-format' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
-" Plug 'Yggdroot/indentLine' " hightlight indentations
 Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser' " changes word to Title Case `gst`
 Plug 'dense-analysis/ale' " linters and fixers
