@@ -130,8 +130,11 @@ endf
 
 command -nargs=? GW call GrepWord()
 
-" Put swapfiles `$HOME/.vim/tmp//`
-set directory^=$HOME/.vim/tmp//
+" Put swapfiles `$HOME/.vim/tmp/`
+if !isdirectory($HOME."/.vim/tmp")
+    call mkdir($HOME."/.vim/tmp", "", 0700)
+endif
+set directory^=$HOME/.vim/tmp/
 
 " vim-markdown
 
