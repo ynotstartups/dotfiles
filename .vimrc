@@ -60,6 +60,14 @@ set autoread " automatically apply changes from outside of Vim
 " au CursorHold * checktime " check one time after 4s of inactivity in normal mode
 set complete-=i " remove included files, it is slow
 
+" https://vi.stackexchange.com/questions/6/how-can-i-use-the-undofile
+" keep undo history after file is closed
+if !isdirectory($HOME."/.vim/undo-dir")
+    call mkdir($HOME."/.vim/undo-dir", "", 0700)
+endif
+set undodir=~/.vim/undo-dir
+set undofile
+
 " color
 syntax on
 colorscheme molokai
