@@ -232,6 +232,7 @@ vslack() {
     vim "$(date --iso-8601=minutes)".slack
 }
 
+alias vlast='vim $(ls -t -1 | head -n 1)'
 ## ----
 
 ## Bookmarks
