@@ -56,8 +56,8 @@ set formatoptions+=j " Delete comment character when joining commented lines
 set splitright " when using ctrl-w, split the window to the right
 set path+=** " recursive by default when using :find
 set autoread " automatically apply changes from outside of Vim
-" this makes autoread work
-au CursorHold * checktime " check one time after 4s of inactivity in normal mode
+" this makes autoread work, doesn't work on command-line window
+" au CursorHold * checktime " check one time after 4s of inactivity in normal mode
 set complete-=i " remove included files, it is slow
 
 " color
@@ -143,16 +143,19 @@ set spellfile=$HOME/Documents/private_dotfiles/spell/en.utf-8.add
 autocmd FileType gitcommit setlocal spell
 autocmd FileType markdown setlocal spell
 autocmd FileType slack setlocal spell
+autocmd FileType txt setlocal spell
 
 " Enable dictionary auto-completion in Markdown files and Git Commit Messages
 autocmd FileType gitcommit setlocal complete+=kspell
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType slack setlocal complete+=kspell
+autocmd FileType txt setlocal complete+=kspell
 
 " don't break a word in the middle
 autocmd FileType gitcommit setlocal linebreak
 autocmd FileType markdown setlocal linebreak
 autocmd FileType slack setlocal linebreak
+autocmd FileType txt setlocal linebreak
 
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<CR>
