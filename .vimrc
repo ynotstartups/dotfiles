@@ -1,5 +1,4 @@
 set nocompatible
-filetype off
 
 " auto install vim plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -38,6 +37,12 @@ call plug#end()
 " change default leader \ to space, this setting needs to be in the beginning
 nnoremap <SPACE> <nop>
 let mapleader = " "
+
+" detect filetype
+" use plugins for that filetype
+" turn on indent files
+" see more in `:help vimrc-filetype`
+filetype plugin indent on
 
 " better setting
 set shortmess+=IW " ignore Intro, Written
