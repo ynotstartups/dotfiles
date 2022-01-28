@@ -86,6 +86,11 @@ hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
 set ignorecase
 set smartcase
 
+" make the single quote works like a backtick
+" puts the cursor on the column of a mark, instead of first non-blank
+" character
+nnoremap ' `
+
 " qq to record, Q to replay
 nnoremap Q @q
 
