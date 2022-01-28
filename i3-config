@@ -208,9 +208,10 @@ exec --no-startup-id nmcli device disconnect enxacde48001122
 # for_window [instance="^scratchpad$"] move scratchpad
 
 # use `i3-msg -t get_tree to find the class of applications`
-# Set Zoom and Slack default workspace to be 3
-for_window [class="zoom"] move to workspace $ws3
+# Set Slack default workspace to be 3
 for_window [class="Slack"] move to workspace $ws3
+# Set Zoom default workspace to be 4
+for_window [class="zoom"] move to workspace $ws4
 
 # Color
 # class                 border  bground text    indicator child_border
