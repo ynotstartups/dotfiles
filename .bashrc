@@ -50,6 +50,9 @@ fi
 PS1='\[\033[01;34m\]\w\[\033[00m\]\$ ' # this is used
 
 # enable color support of ls and also add handy aliases
+alias e='exit'
+
+# enable color support of ls and also add handy aliases
 alias ls='ls --color=auto'
 
 alias grep='grep --color=auto'
