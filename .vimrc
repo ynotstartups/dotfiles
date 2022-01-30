@@ -252,4 +252,4 @@ autocmd BufReadPost *
   \ | endif
 
 " abbreviates
-autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|\|\|<cr>\|\|\|
+autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
