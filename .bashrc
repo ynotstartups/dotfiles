@@ -207,7 +207,7 @@ agenda-mail() {
 }
 
 
-alias focus='nvlc -Z ~/Music/jaychou'
+alias focus='cvlc -Z ~/Music/jaychou'
 
 ## Email
 alias email-work='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work'
