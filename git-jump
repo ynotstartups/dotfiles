@@ -19,7 +19,7 @@ EOF
 }
 
 open_editor() {
-	editor=`git var GIT_EDITOR`
+        editor=$(git var GIT_EDITOR)
 	eval "$editor -q \$1"
 }
 
@@ -42,7 +42,7 @@ mode_merge() {
 	git ls-files -u "$@" |
 	perl -pe 's/^.*?\t//' |
 	sort -u |
-	while IFS= read fn; do
+	while IFS= read -r fn; do
 		grep -Hn '^<<<<<<<' "$fn"
 	done
 }
@@ -71,7 +71,7 @@ fi
 mode=$1; shift
 
 trap 'rm -f "$tmp"' 0 1 2 3 15
-tmp=`mktemp -t git-jump.XXXXXX` || exit 1
+tmp=$(mktemp -t git-jump.XXXXXX) || exit 1
 type "mode_$mode" >/dev/null 2>&1 || { usage >&2; exit 1; }
 "mode_$mode" "$@" >"$tmp"
 test -s "$tmp" || exit 0
