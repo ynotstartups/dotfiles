@@ -268,6 +268,8 @@ alias touch-type='nohup eog ~/Documents/touch-type.png &'
 
 complete -C /usr/local/bin/terraform terraform
 
+complete -W "-L -Z" cvlc rvlc
+
 complete -W "calw calm" gcalcli
 
 complete -W "--extract-audio --yes-playlist" youtube-dl
