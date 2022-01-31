@@ -179,6 +179,9 @@ autocmd FileType markdown setlocal linebreak
 autocmd FileType slack setlocal linebreak
 autocmd FileType txt setlocal linebreak
 
+" set textwidth
+autocmd FileType markdown set textwidth=80
+
 " use ctrl j to scroll down one line
 nnoremap <C-J> <C-E>
 " use ctrl k to scroll up one line
