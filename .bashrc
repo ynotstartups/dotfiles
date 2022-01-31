@@ -264,4 +264,6 @@ complete -C /usr/local/bin/terraform terraform
 
 complete -W "calw calm" gcalcli
 
+complete -W "--extract-audio --yes-playlist" youtube-dl
+
 eval "$(gh completion -s bash)"
