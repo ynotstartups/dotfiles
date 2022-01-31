@@ -182,6 +182,9 @@ autocmd FileType txt setlocal linebreak
 " set textwidth
 autocmd FileType markdown set textwidth=80
 
+" set shiftwidth
+autocmd FileType sh set shiftwidth=4
+
 " use ctrl j to scroll down one line
 nnoremap <C-J> <C-E>
 " use ctrl k to scroll up one line
