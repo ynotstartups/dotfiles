@@ -4,10 +4,10 @@
 # for examples
 
 # If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+# case $- in
+#     *i*) ;;
+#       *) return;;
+# esac
 
 # disable C-s which freezes the terminal, C-s is used for search forward in histtory
 stty -ixon
@@ -199,7 +199,13 @@ alias todo='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/privat
 alias todow='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/personal-docs/todos-system'
 
 # find meeting today
-alias agenda='date && gcalcli agenda 09:00 18:00 --detail conference --detail location --nodeclined'
+
+agenda() {
+    date
+    gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined
+}
+
+export -f agenda
 
 # depends on having email address alias `me`
 agenda-mail() {
