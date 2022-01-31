@@ -1,5 +1,9 @@
-Instuctions for setting up a new ubuntu
-====
+## Notes
+
+`.profile` adds executable files in this directory to path.
+
+
+## Instuctions for setting up a new ubuntu
 
 1. download 1password and login
 1. `sudo apt-get update && sudo apt-get upgrade`
