@@ -52,6 +52,7 @@ set wildmode=longest:full,full " start on the longest option when you hit tab
 set wildignore=*.class,*.o,*~,*.pyc,.git  " Ignore certain files when finding files
 set hidden " files leave the screen become hidden buffer
 set backspace=indent,eol,start
+set tabstop=4 " show existing tab with 4 spaces width
 set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
 set hlsearch " highlight search result such as when using *
 set scrolloff=1 " shows one more line above and below the cursor
@@ -183,7 +184,8 @@ autocmd FileType txt setlocal linebreak
 autocmd FileType markdown set textwidth=80
 
 " set shiftwidth
-autocmd FileType sh set shiftwidth=4
+autocmd FileType markdown setlocal shiftwidth=4
+autocmd FileType sh setlocal shiftwidth=4
 
 " use ctrl j to scroll down one line
 nnoremap <C-J> <C-E>
