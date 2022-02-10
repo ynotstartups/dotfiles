@@ -58,9 +58,6 @@ sudo apt-get install --yes pandoc
 # use clipboard in terminal, I want to copy image to clipboard from terminal, for example `xclip -selection clipboard -t image/png -i 'foo.png'`
 sudo apt-get install --yes xclip
 
-# Exiv2 removes Exif (GPS) data from images, used in blog
-sudo apt-get install --yes exiv2
-
 # google calender command line, this installs 4.2.0, but I want 4.3.0
 # sudo apt-get install --yes gcalcli
 sudo apt-get install --yes python3-pip
@@ -69,6 +66,9 @@ pip install gcalcli
 # write-good prose linter for vim ale
 sudo apt-get install --yes npm
 sudo npm install -g write-good
+
+# fast grep
+sudo apt-get install --yes ripgrep
 
 # fd - simpler find
 sudo apt-get install --yes fd-find
