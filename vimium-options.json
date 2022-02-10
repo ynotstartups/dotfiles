@@ -3,13 +3,17 @@
   "exclusionRules": [
     {
       "pattern": "https?://www.youtube.com/watch*",
-      "passKeys": "f><"
+      "passKeys": "f><1234567890"
+    },
+    {
+      "pattern": "https?://www.apronus.com/*",
+      "passKeys": ""
     }
   ],
   "filterLinkHints": true,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.",
+  "keyMappings": "# Insert your preferred key mappings here.\n\nmap c closeOtherTabs\nmap C closeTabsOnRight\n\nunmap H\nunmap J\nunmap K\nunmap L\n\nmap H previousTab\nmap J goBack\nmap K goForward\nmap L nextTab\n\nmap <c-f> scrollFullPageDown\nmap <c-u> scrollFullPageUp",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
