@@ -189,7 +189,7 @@ alias vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/
 alias mypr='gh api -X GET search/issues -f q="author:tigerhuang state:open type:pr" | jq ".items[].title"'
 
 # make all
-alias ma='make format-diff && make lint && make coverage-report-terminal'
+alias ma='make format && make lint && make coverage-report-terminal'
 
 # shortcut to start venv
 alias activate='source .venv/bin/activate'
@@ -263,6 +263,8 @@ alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 ## ----
 
 alias touch-type='nohup eog ~/Documents/touch-type.png &'
+
+alias light_set='xbacklight =30'
 
 ## Autocomplete
 
