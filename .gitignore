@@ -1,6 +1,11 @@
+# Note: this file is also used for global git ignore
+
+# ctags
 tags
 # vim swap files
 *.swp
+# vim session files
+*.vim
 
 # the info will be changed constantly, no need to be tracked in git
 video_mode.txt
