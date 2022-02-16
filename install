@@ -29,8 +29,6 @@ ln -sf "$PWD"/.bash_profile "$HOME"/.bash_profile
 
 echo install bashrc
 ln -sf "$PWD"/.bashrc "$HOME"/.bashrc
-# shellcheck source=.bashrc
-. "$HOME"/.bashrc
 
 echo install .profile, i3 exec replies on it
 ln -sf "$PWD"/.profile "$HOME"/.profile
