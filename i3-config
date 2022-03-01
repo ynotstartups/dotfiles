@@ -192,16 +192,14 @@ bindsym Shift+Pause exec --no-startup-id toggle_sound
 # shortcut to open video mode
 bindsym $mod+Shift+F1 exec --no-startup-id video_mode
 
-# shortcut to open video mode
+# use $mod+Control+F2 key to open music mode
 bindsym $mod+Shift+F2 exec --no-startup-id music_mode
 
-# Testing $PATH
-# bindsym $mod+Shift+F12 exec --no-startup-id "notify-send \\" $PATH \\" "
-
-# use $mod+Control+F2 key to open music mode
-
-# disable ethernet right after boot
+# disable ethernet after boot
 exec --no-startup-id nmcli device disconnect enxacde48001122
+
+# set monitor backlight after boot
+exec --no-startup-id xbacklight =40
 
 # put a terminal into scratchpad upon startup, doesn't work
 # exec --no-startup-id i3-sensible-terminal -name scratchpad
