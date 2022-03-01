@@ -181,7 +181,7 @@ autocmd FileType slack setlocal linebreak
 autocmd FileType txt setlocal linebreak
 
 " set textwidth
-autocmd FileType markdown set textwidth=80
+" autocmd FileType markdown set textwidth=80
 
 " set shiftwidth
 autocmd FileType markdown setlocal shiftwidth=4
@@ -240,7 +240,7 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 
 "" mobile-api
 
-autocmd BufRead,BufNewFile */mobile_api/**/*.py set textwidth=100
+" autocmd BufRead,BufNewFile */mobile_api/**/*.py set textwidth=100
 
 "" vim-textobj-user
 
