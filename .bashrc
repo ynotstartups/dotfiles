@@ -85,6 +85,8 @@ export EDITOR="$VISUAL"
 
 # use vim mode keymapping in bash shell
 set -o vi
+# reset cursor to normal before other programs run
+PS0="\e[2 q\2"
 
 # ls aliases
 # Add colors for filetype and  human-readable sizes by default on 'ls':
