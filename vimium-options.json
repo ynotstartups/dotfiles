@@ -3,17 +3,33 @@
   "exclusionRules": [
     {
       "pattern": "https?://www.youtube.com/watch*",
-      "passKeys": "f><1234567890"
+      "passKeys": "><1234567890cf"
     },
     {
       "pattern": "https?://www.apronus.com/*",
       "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.edclub.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.twitch.tv/*",
+      "passKeys": "f"
+    },
+    {
+      "pattern": "https?://www.typing.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.coursera.org/*",
+      "passKeys": "f"
     }
   ],
   "filterLinkHints": true,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\n\nmap c closeOtherTabs\nmap C closeTabsOnRight\n\nunmap H\nunmap J\nunmap K\nunmap L\n\nmap H previousTab\nmap J goBack\nmap K goForward\nmap L nextTab\n\nmap <c-f> scrollFullPageDown\nmap <c-u> scrollFullPageUp",
+  "keyMappings": "# Insert your preferred key mappings here.\n\nmap c closeOtherTabs\nmap C closeTabsOnRight\n\nunmap H\nunmap J\nunmap K\nunmap L\n\nmap H previousTab\nmap J goBack\nmap K goForward\nmap L nextTab",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
