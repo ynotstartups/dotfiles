@@ -95,6 +95,8 @@ alias ls='ls --human-readable --color --classify'
 alias ll='ls --all -l --group-directories-first'
 alias la='ls --almost-all' # Show hidden files but not . and ..
 
+alias d='date'
+
 # git aliases
 alias g='git'
 source /usr/share/bash-completion/completions/git 2>/dev/null
