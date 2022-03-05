@@ -10,7 +10,7 @@
         d = diff
         dc = diff --cached
         fu = fetch upstream
-        g = grep
+        g = grep --ignore-case
         l = log
         ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
         p = push
