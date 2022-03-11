@@ -274,7 +274,8 @@ alias light_set='xbacklight =30'
 
 complete -C /usr/local/bin/terraform terraform
 
-complete -W "-L -Z" cvlc rvlc
+# -f for autocomplete file
+complete -f -W "-L -Z" cvlc rvlc
 
 complete -W "calw calm" gcalcli
 
