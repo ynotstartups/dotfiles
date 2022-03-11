@@ -44,4 +44,7 @@ output:builtin-speaker+input:builtin-mic)
 output:codec-output+input:codec-input)
     speaker
     ;;
+*) # if unknown, such as web cam, we always use earphone
+    earphone
+    ;;
 esac
