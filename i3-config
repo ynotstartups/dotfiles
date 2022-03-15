@@ -64,6 +64,8 @@ bindsym $mod+Shift+g exec google-chrome-stable --profile-directory='Default' # p
 
 bindsym $mod+Shift+w exec google-chrome-stable --profile-directory='Profile 1' # work
 
+bindsym $mod+Shift+t exec gnome-control-center
+
 # start slack
 bindsym $mod+Shift+s exec slack
 # There also is the (new) i3-dmenu-desktop which only displays applications
