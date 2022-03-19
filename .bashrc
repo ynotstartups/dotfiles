@@ -266,9 +266,7 @@ alias reminders='vim ~/Documents/notes/notes/reminders.md'
 alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 ## ----
 
-alias touch-type='nohup eog ~/Documents/touch-type.png &'
-
-alias light_set='xbacklight =30'
+alias music-dl='youtube-dl --extract-audio --audio-quality 0'
 
 ## Autocomplete
 
