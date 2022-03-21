@@ -266,7 +266,7 @@ alias reminders='vim ~/Documents/notes/notes/reminders.md'
 alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 ## ----
 
-alias music-dl='youtube-dl --extract-audio --audio-quality 0'
+alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part'
 
 ## Autocomplete
 
