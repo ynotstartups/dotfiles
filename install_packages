@@ -83,6 +83,21 @@ then
     sudo apt install gh
 fi
 
+# install javascript package manager yarn
+if ! command -v yarn
+then
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt update
+    sudo apt install yarn
+fi
+
+# install nvm
+if ! command -v nvm
+then
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+fi
+
 # You might also want to install
 # 1password - https://1password.com/downloads/linux/
 # chrome - https://www.google.com/intl/en_uk/chrome/
