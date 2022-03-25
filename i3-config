@@ -183,23 +183,17 @@ bindsym --release Control+Print exec gnome-screenshot --area -f /tmp/test.png &&
 # use Control+Shift+Print key to screenshot, open pinta to edit and send to clipboard
 bindsym --release Control+Shift+Print exec gnome-screenshot --area -f /tmp/test.png && pinta /tmp/test.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png
 
-# use ScrLk key to open diary
-bindsym Scroll_Lock exec --no-startup-id gnome-terminal -- vim ~/Documents/private-docs/diary.md
-
 # use Pause key to toggle output sound source
 bindsym Shift+Pause exec --no-startup-id toggle_sound
 
-# shortcut to open video mode
-bindsym $mod+Shift+F1 exec --no-startup-id video_mode
-
-# use $mod+Control+F2 key to open music mode
-bindsym $mod+Shift+F2 exec --no-startup-id music_mode
+# shortcut to open music mode
+bindsym $mod+Shift+v exec --no-startup-id vlc
 
 # disable ethernet after boot
 exec --no-startup-id nmcli device disconnect enxacde48001122
 
 # set monitor backlight after boot
-exec --no-startup-id xbacklight =40
+exec --no-startup-id xbacklight =30
 
 # put a terminal into scratchpad upon startup, doesn't work
 # exec --no-startup-id i3-sensible-terminal -name scratchpad
