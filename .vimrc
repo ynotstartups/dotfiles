@@ -16,7 +16,6 @@ Plug '~/Documents/vim-slack-format' " automatic closing of quotes, parenthesis, 
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser' " changes word to Title Case `gst`
-Plug 'dense-analysis/ale' " linters and fixers
 Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
