@@ -211,6 +211,8 @@ agenda() {
 
 export -f agenda
 
+alias a='agenda'
+
 # depends on having email address alias `me`
 agenda-mail() {
     gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined | neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work -s "agenda-$(date | sed 's/\ /-/g')" me
