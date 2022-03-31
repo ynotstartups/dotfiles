@@ -268,6 +268,8 @@ alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 
 alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part'
 
+alias crawl-tiles='crawl-tiles -rc ~/Documents/dotfiles/.crawlrc'
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform

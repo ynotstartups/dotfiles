@@ -1,0 +1,10 @@
+tile_cell_pixels=64
+tile_window_width=0
+tile_window_height=0
+tile_font_crt_size = 24
+tile_font_stat_size = 24
+tile_font_msg_size = 24
+tile_font_tip_size = 24
+tile_font_lbl_size = 24
+
+
