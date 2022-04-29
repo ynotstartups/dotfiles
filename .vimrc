@@ -192,6 +192,9 @@ nnoremap <C-J> <C-E>
 " use ctrl k to scroll up one line
 nnoremap <C-K> <C-Y>
 
+" use leader f to :find
+nnoremap <silent> <leader>f <ESC>:find<space>
+
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<CR>
 
