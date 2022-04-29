@@ -264,3 +264,4 @@ autocmd BufReadPost *
 
 " abbreviates
 autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
+autocmd FileType python abbreviate pparam @pytest.mark.parametrize()
