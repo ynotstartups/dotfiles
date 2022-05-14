@@ -7,6 +7,7 @@
         bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
         c = commit -v
         ca = commit -v -a
+        caa = commit -v -a --amend --no-edit
         d = diff
         dc = diff --cached
         fu = fetch upstream
