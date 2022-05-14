@@ -195,6 +195,8 @@ nnoremap <C-K> <C-Y>
 
 " use leader f to :find
 nnoremap <silent> <leader>f <ESC>:find<space>
+" Abbreviation for vertical split find
+cabbrev vsf vert sfind
 
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<CR>
