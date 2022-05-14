@@ -3,6 +3,7 @@
 [alias]
         a = add
         ac = !git add . && git commit -v -a
+        ap = add --patch
         b = branch
         bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
         c = commit -v
