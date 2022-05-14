@@ -117,6 +117,7 @@ let g:gitgutter_map_keys = 1 " enable gitgutter map
 let g:indentLine_fileTypeExclude = ['help']
 
 " use G for git grep
+" TODO: figure out how to slient the output to terminal
 func GitGrep(...)
   " search for string, populate quickfix window with cursor at the begining
   " of search pattern
@@ -125,7 +126,7 @@ func GitGrep(...)
   " grep format is file name:line number:column number:error message
   set grepformat=%f:%l:%c:%m
   let s = 'grep!' " ! to not jump to first result
-  for i in a:000
+  for i in a:000 " arguments in array
     let s = s . ' ' . i
   endfor
   silent execute s
