@@ -74,6 +74,9 @@ sudo apt-get install --yes ripgrep
 sudo apt-get install --yes fd-find
 # ln -s "$(command -v fdfind)" ~/.bin/fd # ~/.bin is added to PATH in .bashrc
 
+# audio editor
+sudo apt-get install --yes audacity
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
