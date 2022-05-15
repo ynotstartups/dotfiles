@@ -35,7 +35,7 @@ Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
-nnoremap <SPACE> <nop>
+nnoremap <space> <nop>
 let mapleader = " "
 
 " detect filetype
@@ -106,7 +106,7 @@ set clipboard=unnamedplus " vim uses system clipboard
 " taken from https://codeinthehole.com/tips/easy-github-urls-from-vim/
 vnoremap <leader>yg :GBrowse! :%<cr>
 " copy path to file
-nmap <leader>yp :let @+=expand("%")<CR>
+nmap <leader>yp :let @+=expand("%")<cr>
 
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
@@ -194,15 +194,15 @@ nnoremap <C-J> <C-E>
 nnoremap <C-K> <C-Y>
 
 " use leader f to :find
-nnoremap <silent> <leader>f <ESC>:find<space>
+nnoremap <silent> <leader>f <esc>:find<space>
 " Abbreviation for vertical split find
 cabbrev vsf vert sfind
 
 " use leader c to clear search highlight
-nnoremap <silent> <leader>c :nohlsearch<CR>
+nnoremap <silent> <leader>c :nohlsearch<cr>
 
 " leader z to autocorrect words and move cursor to the end of the word
-nnoremap <silent> <leader>z 1z=<CR>g;e
+nnoremap <silent> <leader>z 1z=<cr>g;e
 
 " sort this paragraph
 nnoremap <silent> <leader>s Vip:sort<cr>
