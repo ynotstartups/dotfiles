@@ -273,7 +273,8 @@ alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part'
 alias crawl-tiles='crawl-tiles -rc ~/Documents/dotfiles/.crawlrc'
 
 ## get weather
-alias weather='curl wttr.in/?0'
+alias w='curl wttr.in/?0' # weather now
+alias wa='curl wttr.in/' # weather today and forecast for next two days
 
 ## get local ip
 alias ip-local='ifconfig -a | grep -A 1 wlan0'
