@@ -204,6 +204,9 @@ nnoremap <silent> <leader>c :nohlsearch<CR>
 " leader z to autocorrect words and move cursor to the end of the word
 nnoremap <silent> <leader>z 1z=<CR>g;e
 
+" sort this paragraph
+nnoremap <silent> <leader>s Vip:sort<cr>
+
 " open file under cursor in vertical window
 nnoremap <C-W><C-F> <C-W>vgf
 
