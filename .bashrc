@@ -235,6 +235,8 @@ alias last='ls -t -1 | head -n 1'
 
 ## Vim
 
+alias v='vim'
+
 vmarkdown() {
     cd ~/Documents/personal-docs/messages || exit
 
