@@ -252,7 +252,10 @@ function! OpenJIRA()
     echo "No Ticket found in line."
   endif
 endfunction
-map <leader>j :call OpenJIRA()<cr>
+nnoremap <leader>j :call OpenJIRA()<cr>
+
+" insert jira ticket by extracting from git branch name, e.g. FOO-123-bar
+nnoremap <leader>t :read !git rev-parse --abbrev-ref HEAD \| cut -d "-" -f 1,2<cr>
 
 " abbreviates
 autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
