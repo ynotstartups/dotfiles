@@ -240,6 +240,20 @@ autocmd BufReadPost *
   \ |   exe "normal! g`\""
   \ | endif
 
+
+function! OpenJIRA()
+  " open jira ticket under cursor
+  let l:ticket = matchstr(expand("<cWORD>"), "[A-Z]*-[1-9]*")
+  if l:ticket != ""
+    silent execute "!google-chrome-stable https://jira.lystit.com/browse/'".l:ticket."'"
+    redraw!
+    echo "Open Ticket ".l:ticket
+  else
+    echo "No Ticket found in line."
+  endif
+endfunction
+map <leader>j :call OpenJIRA()<cr>
+
 " abbreviates
 autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
 autocmd FileType python abbreviate pparam @pytest.mark.parametrize()
