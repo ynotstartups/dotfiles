@@ -270,7 +270,7 @@ alias reminders='vim ~/Documents/notes/notes/reminders.md'
 alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 ## ----
 
-alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part'
+alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
 
 alias crawl-tiles='crawl-tiles -rc ~/Documents/dotfiles/.crawlrc'
 
