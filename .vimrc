@@ -102,9 +102,6 @@ nnoremap Y y$
 " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 set clipboard=unnamedplus " vim uses system clipboard
 
-" copy GBrowse to clipboard
-" taken from https://codeinthehole.com/tips/easy-github-urls-from-vim/
-vnoremap <leader>yg :GBrowse! :%<cr>
 " copy path to file
 nmap <leader>yp :let @+=expand("%")<cr>
 
@@ -112,9 +109,6 @@ nmap <leader>yp :let @+=expand("%")<cr>
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
 let g:gitgutter_map_keys = 1 " enable gitgutter map
-
-" indentLine
-let g:indentLine_fileTypeExclude = ['help']
 
 " use G for git grep
 " TODO: figure out how to slient the output to terminal
@@ -181,9 +175,6 @@ autocmd FileType markdown setlocal linebreak
 autocmd FileType slack setlocal linebreak
 autocmd FileType txt setlocal linebreak
 
-" set textwidth
-" autocmd FileType markdown set textwidth=80
-
 " set shiftwidth
 autocmd FileType markdown setlocal shiftwidth=4
 autocmd FileType sh setlocal shiftwidth=4
@@ -206,13 +197,6 @@ nnoremap <silent> <leader>z 1z=<cr>g;e
 
 " sort this paragraph
 nnoremap <silent> <leader>s Vip:sort<cr>
-
-" open file under cursor in vertical window
-nnoremap <C-W><C-F> <C-W>vgf
-
-" Simulate Ranger Interface
-" leader l to open link undercursor in the right window
-nnoremap <silent> <leader>l <C-W>vgf
 
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
@@ -238,18 +222,6 @@ let b:surround_{char2nr("l")} = "[\r]()"
 let b:surround_{char2nr("i")} = "_\r_"
 
 autocmd FileType slack let b:surround_{char2nr("b")} = "*\r*"
-
-"" ale
-
-" Uses markdown linter such as write-good for slack files
-let g:ale_linter_aliases = {'slack': ['markdown']}
-
-" addes name of linter to lint messages
-let g:ale_echo_msg_format = '[%linter%] %s'
-
-"" mobile-api
-
-" autocmd BufRead,BufNewFile */mobile_api/**/*.py set textwidth=100
 
 "" vim-textobj-user
 
