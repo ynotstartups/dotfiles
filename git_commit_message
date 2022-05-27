@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+import subprocess
+result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], stdout=subprocess.PIPE)
+branch_name = result.stdout.decode('utf-8').strip()
+
+jira_board, jira_ticket, *raw_message = branch_name.split('-')
+
+print(" ".join(raw_message))
+print() # empty line
+print(f"{jira_board.upper()}-{jira_ticket}")
+
