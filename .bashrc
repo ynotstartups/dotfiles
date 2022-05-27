@@ -111,10 +111,6 @@ function gdu() {
     git diff "upstream/$(g_get_main_branch_name)"...
 }
 
-function gduw() {
-    git diff --word-diff=color "upstream/$(g_get_main_branch_name)"...
-}
-
 alias gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
 function gfru() {
@@ -137,45 +133,8 @@ function groot() {
     cd "$(git rev-parse --show-toplevel)" || exit
 }
 
-
-function gsall() {
-    # --branch to show if local repo is ahead of origin
-    CYAN='\033[0;36m'
-    RESET='\033[0m'
-
-    printf "\n%bpersonal-docs%b\n" "$CYAN" "$RESET"
-    git -C ~/Documents/personal-docs/ status --short --branch
-
-    printf "\n%bnotes%b\n" "$CYAN" "$RESET"
-    git -C ~/Documents/notes/ status --short --branch
-
-    printf "\n%bprivate-dotfiles%b\n" "$CYAN" "$RESET"
-    git -C ~/Documents/private_dotfiles/ status --short --branch
-
-    printf "\n%bprivate-docs%b\n" "$CYAN" "$RESET"
-    git -C ~/Documents/private-docs/ status --short --branch
-
-    printf "\n%bdotfiles%b\n" "$CYAN" "$RESET"
-    git -C ~/Documents/dotfiles/ status --short --branch
-}
-
-alias gcopylog='git log -1 --pretty=%B | xclip'
-
 # pinta
 alias pinta_last='pinta "$(ls -t | head -n 1)"'
-
-# use bluetoothctl to connect to bluetooth devices
-function btspeaker() {
-    bluetooth_sink_index=$(pactl list short sinks | grep blue | grep -o "^[1-9]*")
-   pactl set-default-sink "$bluetooth_sink_index"
-}
-
-# disable dunst notification service temporarily
-# https://wiki.archlinux.org/title/Dunst
-# add file for exsitence check in i3 status bar
-# Update i3 status
-alias notification_disable='killall -SIGUSR1 dunst && touch /tmp/notification_disable && killall -SIGUSR1 i3status'
-alias notification_enable='killall -SIGUSR2 dunst && rm /tmp/notification_disable && killall -SIGUSR1 i3status'
 
 # source autojump, usage `j foo`
 . /usr/share/autojump/autojump.sh
@@ -189,9 +148,6 @@ alias xclip_last_png='xclip -selection clipboard -t image/png "$(ls -t *.png | h
 alias vpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.ovpn'
 alias vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/openvpn/client.ovpn'
 
-# gh
-alias mypr='gh api -X GET search/issues -f q="author:tigerhuang state:open type:pr" | jq ".items[].title"'
-
 # make all
 alias ma='make format && make lint && make coverage-report-terminal'
 
@@ -204,50 +160,14 @@ alias todow='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/perso
 
 # find meeting today
 
-agenda() {
+a() {
     date
     gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined
 }
 
-export -f agenda
-
-alias a='agenda'
-
-# depends on having email address alias `me`
-agenda-mail() {
-    gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined | neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work -s "agenda-$(date | sed 's/\ /-/g')" me
-}
-
-
-alias focus='cvlc -Z ~/Music/'
-
-## Email
-alias email-work='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-work'
-alias email='neomutt -F ~/Documents/private_dotfiles/.neomuttrc-personal'
-## ----
-
-
-## utils
-
-# Example, open last file with vim, vim $(last)
-alias last='ls -t -1 | head -n 1'
-## ----
-
 ## Vim
 
 alias v='vim'
-
-vmarkdown() {
-    cd ~/Documents/personal-docs/messages || exit
-
-    vim "$(date --iso-8601=minutes)".md
-}
-
-vslack() {
-    cd ~/Documents/personal-docs/messages || exit
-
-    vim "$(date --iso-8601=minutes)".slack
-}
 
 alias vlast='vim $(ls -t -1 | head -n 1)'
 ## ----
@@ -264,10 +184,7 @@ alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 ## Reminders
 
 # open bookmarks
-alias reminders='vim ~/Documents/notes/notes/reminders.md'
-
-# open work related bookmarks
-alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
+alias r='vim ~/Documents/notes/notes/reminders.md'
 ## ----
 
 alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
@@ -284,13 +201,6 @@ alias ip-local='ifconfig -a | grep -A 1 wlan0'
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
-
-# -f for autocomplete file
-complete -f -W "-L -Z" cvlc rvlc
-
-complete -W "calw calm" gcalcli
-
-complete -W "--extract-audio --yes-playlist" youtube-dl
 
 eval "$(gh completion -s bash)"
 
