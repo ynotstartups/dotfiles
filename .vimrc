@@ -274,3 +274,9 @@ inoremap <c-u> <esc>gUiwea
 " upper case word under cursor in normal mode
 nnoremap <c-u> gUiwe
 
+" edit vimrc
+nnoremap <leader>ev :edit $MYVIMRC<cr>
+
+" source vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
