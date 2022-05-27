@@ -247,7 +247,6 @@ function! OpenJIRA()
   if l:ticket != ""
     silent execute "!google-chrome-stable https://jira.lystit.com/browse/'".l:ticket."'"
     redraw!
-    echo "Open Ticket ".l:ticket
   else
     echo "No Ticket found in line."
   endif
@@ -260,3 +259,18 @@ nnoremap <leader>t :read !git rev-parse --abbrev-ref HEAD \| cut -d "-" -f 1,2<c
 " abbreviates
 autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
 autocmd FileType python abbreviate pparam @pytest.mark.parametrize()
+
+" exercises from learn vim script the hard way
+
+" move current line upward 1 line
+noremap - ddp
+
+" move current line downward 1 line
+noremap _ ddkP
+
+" upper case word under cursor in insert mode
+inoremap <c-u> <esc>gUiwea
+
+" upper case word under cursor in normal mode
+nnoremap <c-u> gUiwe
+
