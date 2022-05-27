@@ -4,10 +4,10 @@ general {
         interval = 5
 }
 
-order += "path_exists dunst"
+# order += "path_exists dunst"
 # order += "battery 0"
 order += "path_exists VPN"
-order += "path_exists earphone_enable"
+# order += "path_exists earphone_enable"
 # order += "volume master"
 # order += "disk /"
 # order += "load"
