@@ -212,6 +212,11 @@ nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 " insert agenda
 nnoremap <silent> <leader>ia :read !agenda<cr>
 
+" insert formatted git branch as git commit message
+" 0 in 0read to insert on the same line with cursor otherwise the message is
+" added to line below cursor
+nnoremap <silent> <leader>ib :0read !git_commit_message<cr>
+
 "" Surround
 " Works globally, because it won't affect any other filetype really
 " Useful in markdown and git commit messages
