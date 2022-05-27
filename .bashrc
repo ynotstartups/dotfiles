@@ -203,6 +203,9 @@ alias wa='curl wttr.in/' # weather today and forecast for next two days
 ## get local ip
 alias ip-local='ifconfig -a | grep -A 1 wlan0'
 
+## open some links
+alias k='google-chrome-stable https://keep.google.com/'
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
