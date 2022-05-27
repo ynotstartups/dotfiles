@@ -160,10 +160,15 @@ alias todow='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/perso
 
 # find meeting today
 
-a() {
+agenda() {
     date
     gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined
 }
+
+# export it for usage in vim
+export -f agenda
+
+alias a='agenda'
 
 ## Vim
 
