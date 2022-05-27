@@ -160,7 +160,7 @@ alias todow='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/perso
 
 # find meeting today
 
-agenda() {
+function agenda() {
     date
     gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined
 }
@@ -205,6 +205,11 @@ alias ip-local='ifconfig -a | grep -A 1 wlan0'
 
 ## open some links
 alias k='google-chrome-stable https://keep.google.com/'
+
+## get cheatsheet from cheat.sh e.g. cheatsheet sed
+cheatsheet() {
+    curl cheat.sh/"$1"
+}
 
 ## Autocomplete
 
