@@ -204,7 +204,7 @@ alias wa='curl wttr.in/' # weather today and forecast for next two days
 alias ip-local='ifconfig -a | grep -A 1 wlan0'
 
 ## get cheatsheet from cheat.sh e.g. cheatsheet sed
-cheatsheet() {
+function cheatsheet() {
     curl cheat.sh/"$1"
 }
 
