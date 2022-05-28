@@ -208,6 +208,10 @@ function cheatsheet() {
     curl cheat.sh/"$1"
 }
 
+## image viewer
+
+alias image='eog'
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
