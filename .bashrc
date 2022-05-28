@@ -140,9 +140,9 @@ alias pinta_last='pinta "$(ls -t | head -n 1)"'
 . /usr/share/autojump/autojump.sh
 
 # xclip
-alias xclip='xclip -selection clipboard'
-alias xclip_png='xclip -selection clipboard -t image/png'
-alias xclip_last_png='xclip -selection clipboard -t image/png "$(ls -t *.png | head -n 1)"'
+alias copy='xclip -selection clipboard'
+alias copy_png='xclip -selection clipboard -t image/png'
+alias copy_last_png='xclip -selection clipboard -t image/png "$(ls -t *.png | head -n 1)"'
 
 # vpn
 alias vpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.ovpn'
