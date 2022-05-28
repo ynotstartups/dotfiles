@@ -102,7 +102,7 @@ nnoremap Y y$
 " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 set clipboard=unnamedplus " vim uses system clipboard
 
-" copy path to file
+" copy file path
 nmap <leader>yp :let @+=expand("%")<cr>
 
 " GitGutter
@@ -215,7 +215,7 @@ nnoremap <silent> <leader>ia :read !agenda<cr>
 " insert formatted git branch as git commit message
 " 0 in 0read to insert on the same line with cursor otherwise the message is
 " added to line below cursor
-nnoremap <silent> <leader>ib :0read !git_commit_message<cr>
+nnoremap <silent> <leader>im :0read !git_commit_message<cr>
 
 "" Surround
 " Works globally, because it won't affect any other filetype really
@@ -261,8 +261,9 @@ function! OpenJIRA()
 endfunction
 nnoremap <leader>j :call OpenJIRA()<cr>
 
+" Deprecated by git_commit_message
 " insert jira ticket by extracting from git branch name, e.g. FOO-123-bar
-nnoremap <leader>t :read !git rev-parse --abbrev-ref HEAD \| cut -d "-" -f 1,2<cr>
+" nnoremap <leader>t :read !git rev-parse --abbrev-ref HEAD \| cut -d "-" -f 1,2<cr>
 
 " abbreviates
 autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
@@ -282,8 +283,9 @@ inoremap <c-u> <esc>gUiwea
 " upper case word under cursor in normal mode
 nnoremap <c-u> gUiwe
 
-" edit vimrc
+" edit
 nnoremap <leader>ev :edit $MYVIMRC<cr>
+nnoremap <leader>eb :edit ~/.bashrc<cr>
 
 " source vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
