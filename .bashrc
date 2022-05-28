@@ -212,6 +212,13 @@ function cheatsheet() {
 
 alias image='eog'
 
+## alarm
+
+# e.g. alarm 1m 'do foo'
+function alarm() {
+    nohup sleep "$1" && notify-send "$2" &
+}
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
