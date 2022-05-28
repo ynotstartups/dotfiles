@@ -203,9 +203,6 @@ alias wa='curl wttr.in/' # weather today and forecast for next two days
 ## get local ip
 alias ip-local='ifconfig -a | grep -A 1 wlan0'
 
-## open some links
-alias k='google-chrome-stable https://keep.google.com/'
-
 ## get cheatsheet from cheat.sh e.g. cheatsheet sed
 cheatsheet() {
     curl cheat.sh/"$1"

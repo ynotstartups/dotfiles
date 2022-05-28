@@ -59,6 +59,7 @@ bindsym $mod+d exec "dmenu_run -sb '#009999'"
 
 # start google-chrome
 bindsym $mod+Shift+g exec google-chrome-stable --profile-directory='Default' # personal
+bindsym $mod+Shift+k exec google-chrome-stable --profile-directory='Default' 'https://keep.google.com/' # personal
 
 bindsym $mod+Shift+w exec google-chrome-stable --profile-directory='Profile 1' # work
 
@@ -79,8 +80,6 @@ bindsym $mod+l focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
