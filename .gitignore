@@ -6,6 +6,3 @@ tags
 *.swp
 # vim session files
 *.vim
-
-# the info will be changed constantly, no need to be tracked in git
-video_mode.txt

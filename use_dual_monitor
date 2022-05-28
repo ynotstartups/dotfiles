@@ -1,4 +1,0 @@
-#!/bin/sh
-set -o errexit -o nounset -o xtrace
-
-xrandr --output DP1 --primary --auto --right-of eDP1 --output eDP1 --auto
