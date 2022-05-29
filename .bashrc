@@ -224,7 +224,12 @@ function speaker() {
     sink_index=$(pactl list short sinks | grep 'pci-0000_02_00.3' | grep --only-matching '^[1-9]*')
     pactl set-default-sink "$sink_index"
     pactl set-card-profile alsa_card.pci-0000_02_00.3 output:builtin-speaker+input:builtin-mic
+    PULSE_SINK=$sink_index
 }
+
+# music is not played if I close the terminal window with command+shift+q
+# but using exit is okay
+# exit is used to avoid me using command+shift+q
 
 # e.g. alarm 1m meeting planning in 5 minutes
 function alarm() {
@@ -232,6 +237,8 @@ function alarm() {
     message=$(printf '%s ' "${@:3}")
 
     nohup sleep "$1" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
+
+    exit
 }
 
 # e.g. alarm 14:55 meeting planning in 5 minutes
@@ -244,6 +251,8 @@ function alarm_at() {
     sleep_seconds=$(( $target_epoch - $current_epoch ))
 
     nohup sleep $sleep_seconds && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
+
+    exit
 }
 
 ## Autocomplete
