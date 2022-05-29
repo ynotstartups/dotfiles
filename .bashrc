@@ -212,11 +212,26 @@ function cheatsheet() {
 
 alias image='eog'
 
-## alarm
+## alarm with sound
 
-# e.g. alarm 1m 'do foo'
+function speaker() {
+    # set sound output to speaker
+    # pci-0000_02_00.3 is the soundcard
+    # test cases
+    # 1. output device non mac internal sound card such as hdmi
+    # 2. output device mac internal sound card codec-output / earphone
+    # 3. output device mac internal sound card builtin-speaker
+    sink_index=$(pactl list short sinks | grep 'pci-0000_02_00.3' | grep --only-matching '^[1-9]*')
+    pactl set-default-sink "$sink_index"
+    pactl set-card-profile alsa_card.pci-0000_02_00.3 output:builtin-speaker+input:builtin-mic
+}
+
+# e.g. alarm 1m meeting planning in 5 minutes
 function alarm() {
-    nohup sleep "$1" && notify-send "$2" &
+    subject=$2
+    message=$(printf '%s ' "${@:3}")
+
+    nohup sleep "$1" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
 }
 
 ## Autocomplete
