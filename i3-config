@@ -203,6 +203,8 @@ exec --no-startup-id xbacklight =30
 for_window [class="Slack"] move to workspace $ws3
 # Set Zoom default workspace to be 4
 for_window [class="zoom"] move to workspace $ws4
+# Set Vlc default workspace to be 10
+for_window [class="vlc"] move to workspace $ws10
 
 # Color
 # class                 border  bground text    indicator child_border
