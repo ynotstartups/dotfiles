@@ -215,16 +215,18 @@ alias image='eog'
 ## alarm with sound
 
 function speaker() {
-    # set sound output to speaker
-    # pci-0000_02_00.3 is the soundcard
-    # test cases
-    # 1. output device non mac internal sound card such as hdmi
-    # 2. output device mac internal sound card codec-output / earphone
-    # 3. output device mac internal sound card builtin-speaker
-    sink_index=$(pactl list short sinks | grep 'pci-0000_02_00.3' | grep --only-matching '^[1-9]*')
-    pactl set-default-sink "$sink_index"
-    pactl set-card-profile alsa_card.pci-0000_02_00.3 output:builtin-speaker+input:builtin-mic
-    PULSE_SINK=$sink_index
+   internal_sound_card='alsa_card.pci-0000_02_00.3'
+
+   readarray -t other_card_indexs < <(pactl list cards short | grep -v "$internal_sound_card" | grep --only-matching ^[1-9]*)
+
+   # turn off non internal sound card, could be HDMI, ps controller ...
+   for card_index in "${other_card_indexs[@]}"
+   do
+       pactl set-card-profile $card_index off
+   done
+
+    # set internal sound card to use speaker
+    pactl set-card-profile "$internal_sound_card" output:builtin-speaker+input:builtin-mic
 }
 
 # music is not played if I close the terminal window with command+shift+q
@@ -250,7 +252,7 @@ function alarm_at() {
     target_epoch=$(date -d "$1" +%s)
     sleep_seconds=$(( $target_epoch - $current_epoch ))
 
-    nohup sleep $sleep_seconds && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
+    nohup sleep "$sleep_seconds" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
 
     exit
 }
