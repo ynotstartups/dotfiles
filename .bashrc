@@ -234,6 +234,18 @@ function alarm() {
     nohup sleep "$1" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
 }
 
+# e.g. alarm 14:55 meeting planning in 5 minutes
+function alarm_at() {
+    subject=$2
+    message=$(printf '%s ' "${@:3}")
+
+    current_epoch=$(date +%s) # +%s is required for the sleep second calculation
+    target_epoch=$(date -d "$1" +%s)
+    sleep_seconds=$(( $target_epoch - $current_epoch ))
+
+    nohup sleep $sleep_seconds && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
+}
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
