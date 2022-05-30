@@ -49,7 +49,7 @@ echo install .gitconfig configs
 ln -sf "$PWD"/.gitconfig "$HOME"/.gitconfig
 
 echo install newsboat configs
-ln -sf "$PWD"/config "$HOME"/snap/newsboat/current/.newsboat/
+ln -sf "$PWD"/config "$HOME"/.newsboat/
 
 # https://askubuntu.com/questions/362914/how-to-prevent-the-power-button-to-shutdown-directly-the-system
 echo avoid power button shutting down computer
