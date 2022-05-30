@@ -49,11 +49,7 @@ fi
 # set the title to just `dir$`
 PS1='\[\033[01;34m\]\w\[\033[00m\]\$ ' # this is used
 
-# enable color support of ls and also add handy aliases
 alias e='exit'
-
-# enable color support of ls and also add handy aliases
-alias ls='ls --color=auto'
 
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -89,11 +85,11 @@ set -o vi
 PS0="\e[2 q\2"
 
 # ls aliases
-# Add colors for filetype and  human-readable sizes by default on 'ls':
-alias ls='ls --human-readable --color --classify'
+# Add colors for filetype, human-readable sizes by default on 'ls', shows dot files
+alias ls='ls --human-readable --color --classify --almost-all'
 # directories first, with alphanumeric sorting
-alias ll='ls --all -l --group-directories-first'
-alias la='ls --almost-all' # Show hidden files but not . and ..
+alias ll='ls --almost-all -l --group-directories-first'
+alias lt='ls --almost-all -l --group-directories-first -t'
 
 alias d='date'
 
