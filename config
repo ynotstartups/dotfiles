@@ -1,0 +1,16 @@
+# Newsboat config file
+
+# reload all feeds on startup
+auto-reload yes
+
+browser "google-chrome-stable %u"
+
+unbind-key h
+unbind-key j
+unbind-key k
+unbind-key l
+
+bind-key h quit
+bind-key j down
+bind-key k up
+bind-key l open

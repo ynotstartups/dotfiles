@@ -208,6 +208,10 @@ function cheatsheet() {
 
 alias image='eog'
 
+## newsboat
+
+alias n='newsboat'
+
 ## alarm with sound
 
 function speaker() {
