@@ -108,7 +108,18 @@ nmap <leader>yp :let @+=expand("%")<cr>
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
-let g:gitgutter_map_keys = 1 " enable gitgutter map
+let g:gitgutter_map_keys = 0 " disable gitgutter map
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap hp <Plug>(GitGutterPreviewHunk)
+nmap hs <Plug>(GitGutterStageHunk)
+nmap hu <Plug>(GitGutterUndoHunk)
+
+" hunk text object
+omap ih <Plug>(GitGutterTextObjectInnerPending)
+omap ah <Plug>(GitGutterTextObjectOuterPending)
+xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 
 " use G for git grep
 " TODO: figure out how to slient the output to terminal
