@@ -257,6 +257,17 @@ function alarm_at() {
     exit
 }
 
+## Docker
+
+# drop into bash within container with vi readline keymappings
+function mb(){
+    user_id=$(id -u)
+    current_directory=$(pwd)
+    base_directory=$(basename "$current_directory")
+
+    docker-compose run --user "$user_id:$user_id" --rm "$base_directory" bash -o vi
+}
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
