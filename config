@@ -1,8 +1,5 @@
 # Newsboat config file
 
-# reload all feeds on startup
-auto-reload yes
-
 browser "google-chrome %u"
 
 unbind-key j
