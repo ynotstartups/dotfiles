@@ -93,6 +93,11 @@ alias lt='ls --almost-all -l --group-directories-first -t'
 
 alias d='date'
 
+# jq aliases
+
+# color json output using jq with pager
+alias jqless='jq -C | less -r'
+
 # git aliases
 alias g='git'
 source /usr/share/bash-completion/completions/git 2>/dev/null
