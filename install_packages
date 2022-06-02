@@ -77,6 +77,9 @@ sudo apt-get install --yes fd-find
 # audio editor
 sudo apt-get install --yes audacity
 
+# rss feed client
+sudo apt-get install --yes newsboat
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
