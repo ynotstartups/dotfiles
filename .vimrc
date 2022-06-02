@@ -111,9 +111,9 @@ set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutt
 let g:gitgutter_map_keys = 0 " disable gitgutter map
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
-nmap hp <Plug>(GitGutterPreviewHunk)
-nmap hs <Plug>(GitGutterStageHunk)
-nmap hu <Plug>(GitGutterUndoHunk)
+nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <leader>hs <Plug>(GitGutterStageHunk)
+nmap <leader>hu <Plug>(GitGutterUndoHunk)
 
 " hunk text object
 omap ih <Plug>(GitGutterTextObjectInnerPending)
