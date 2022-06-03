@@ -8,3 +8,8 @@ unbind-key k
 
 bind-key j down
 bind-key k up
+
+articlelist-format "%f %-8D %?T?|%-17T| ?%t"
+articlelist-title-format "Articles in feed '%T'"
+datetime-format "%d %b"
+feedlist-title-format "Feeds (%u unread)"
