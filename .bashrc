@@ -220,6 +220,8 @@ alias n='newsboat'
 # download podcasts
 alias p='podboat'
 
+alias restart_display_manager='sudo systemctl restart display-manager'
+
 ## alarm with sound
 
 function speaker() {
