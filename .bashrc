@@ -217,6 +217,9 @@ alias image='eog'
 
 alias n='newsboat'
 
+# download podcasts
+alias p='podboat'
+
 ## alarm with sound
 
 function speaker() {
