@@ -208,6 +208,7 @@ nnoremap <silent> <leader>z 1z=<cr>g;e
 
 " sort this paragraph
 nnoremap <silent> <leader>s Vip:sort<cr>
+vnoremap <silent> <leader>s :sort<cr>
 
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
