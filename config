@@ -13,3 +13,7 @@ articlelist-format "%f %-8D %?T?|%-17T| ?%t"
 articlelist-title-format "Articles in feed '%T'"
 datetime-format "%d %b"
 feedlist-title-format "Feeds (%u unread)"
+feedlist-format "%4i %10T %n %2U %t"
+
+# Podboat podcast download path
+download-path "~/Music/podcast/"
