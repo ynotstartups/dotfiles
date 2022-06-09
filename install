@@ -3,6 +3,10 @@ set -o errexit -o nounset -o xtrace
 
 XDG_CONFIG_HOME="$HOME/.config"
 
+echo soft linking dunst notification service config
+mkdir -p "$XDG_CONFIG_HOME"/dunst
+ln -sf "$PWD"/dunstrc "$XDG_CONFIG_HOME"/dunst/dunstrc
+
 echo soft linking i3 config
 mkdir -p "$XDG_CONFIG_HOME"/i3
 ln -sf "$PWD"/i3-config "$XDG_CONFIG_HOME"/i3/config
@@ -35,9 +39,6 @@ ln -sf "$PWD"/.profile "$HOME"/.profile
 
 echo install ctags configs
 ln -sf "$PWD"/.ctags "$HOME"/.ctags
-
-echo install .neomutt_config configs
-ln -sf "$PWD"/.neomutt_config "$HOME"/.neomutt_config
 
 # the dpi settings will be likely wrong in other laptops
 # you can tweak it and git ignore locally this files
