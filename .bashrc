@@ -245,12 +245,18 @@ function speaker() {
 
 # e.g. alarm 1m meeting planning in 5 minutes
 function alarm() {
-    subject=$2
-    message=$(printf '%s ' "${@:3}")
+    if [[ $# -eq 1 ]] ;
+    then
+        echo 'Missing notification message!'
+        echo "e.g. alarm $1 FOO"
+    else
+        subject=$2
+        message=$(printf '%s ' "${@:3}")
 
-    nohup sleep "$1" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
-
-    exit
+        nohup sleep "$1" && notify-send $subject "$message" &
+        # nohup sleep "$1" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
+        exit
+    fi
 }
 
 # e.g. alarm 14:55 meeting planning in 5 minutes
