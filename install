@@ -55,6 +55,10 @@ ln -sf "$PWD"/config "$HOME"/.newsboat/
 echo replace crontab with crontab in this repo
 crontab "$PWD"/crontab
 
+echo install vim jira syntax
+mkdir -p "$HOME"/.vim/syntax/
+ln -sf "$PWD"/.vim/syntax/jira.vim "$HOME"/.vim/syntax/
+
 # https://askubuntu.com/questions/362914/how-to-prevent-the-power-button-to-shutdown-directly-the-system
 echo avoid power button shutting down computer
 logind_config=/etc/systemd/logind.conf

@@ -277,6 +277,9 @@ nnoremap <leader>j :call OpenJIRA()<cr>
 " insert jira ticket by extracting from git branch name, e.g. FOO-123-bar
 " nnoremap <leader>t :read !git rev-parse --abbrev-ref HEAD \| cut -d "-" -f 1,2<cr>
 
+" jira filetype
+autocmd BufNewFile,BufRead *.jira set filetype=jira
+
 " abbreviates
 autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
 autocmd FileType python abbreviate pparam @pytest.mark.parametrize()
