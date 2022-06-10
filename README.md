@@ -11,3 +11,7 @@
 1. login to github, add ssh key, clone this repo
 1. `./install_packages.sh`
 1. `./install.sh`
+
+## Installing 1 Password
+
+follow this [link](https://support.1password.com/install-linux/#debian-or-ubuntu)
