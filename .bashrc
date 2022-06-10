@@ -170,6 +170,8 @@ function agenda() {
 export -f agenda
 
 alias a='agenda'
+alias aw='gcalcli calw'
+alias am='gcalcli calm'
 
 ## Vim
 
