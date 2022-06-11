@@ -173,6 +173,15 @@ alias a='agenda'
 alias aw='gcalcli calw'
 alias am='gcalcli calm'
 
+## Duck Duck Go
+# q for query
+alias q='ddgr --num 5 --noprompt --expand'
+alias qo='ddgr --num 5 --noprompt --expand -j'
+
+# query python docs
+alias qp='ddgr --num 5 --noprompt --expand site:https://docs.python.org/3/'
+alias qop='ddgr --num 5 --noprompt --expand -j site:https://docs.python.org/3/'
+
 ## Vim
 
 alias v='vim'
