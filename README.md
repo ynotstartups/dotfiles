@@ -12,6 +12,12 @@
 1. `./install_packages.sh`
 1. `./install.sh`
 
-## Installing 1 Password
+## Other Installations
 
-follow this [link](https://support.1password.com/install-linux/#debian-or-ubuntu)
+These software are out of date in the package manager.
+
+|Software|Link|
+|-|-|
+|1 Password|[link](https://support.1password.com/install-linux/#debian-or-ubuntu)|
+|ddgr|[link](https://github.com/jarun/ddgr)|
+
