@@ -30,6 +30,12 @@ shopt -s histappend
 HISTSIZE=10000
 HISTFILESIZE=20000
 
+# Turn off history expansion for using DuckDuckGo bang ! in terminal
+# Example for history expansion
+# !! expand to the last command
+# !n expand the command with history number "n"
+set +H
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
