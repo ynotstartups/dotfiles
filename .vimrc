@@ -32,6 +32,7 @@ Plug 'tpope/vim-rhubarb' " supports github enterprise
 Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-unimpaired' " adds mapping like [q ]q
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
+Plug 'wellle/targets.vim' " adds textobjects e.g. i*, i_ usefll in markdown
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
