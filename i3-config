@@ -58,7 +58,7 @@ bindsym $mod+Shift+g exec google-chrome-stable --profile-directory='Default' # p
 bindsym $mod+Shift+k exec google-chrome-stable --profile-directory='Default' 'https://keep.google.com/' # personal
 
 bindsym $mod+Shift+w exec google-chrome-stable --profile-directory='Profile 1' # work
-bindsym $mod+Shift+j exec google-chrome-stable --profile-directory='Profile' 'https://jira.lystit.com/secure/RapidBoard.jspa?rapidView=356&projectKey=APPLE' # personal
+bindsym $mod+Shift+j exec google-chrome-stable --profile-directory='Profile 1' 'https://jira.lystit.com/secure/RapidBoard.jspa?rapidView=356&projectKey=APPLE' # personal
 
 bindsym $mod+Shift+t exec gnome-control-center
 
