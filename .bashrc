@@ -114,6 +114,9 @@ function g_get_main_branch_name() {
     echo "$main_branch_name"
 }
 
+# I always mistype `g s` to `gs`, set `gs` to an alias too
+alias gs="git status"
+
 function gdu() {
     git diff "upstream/$(g_get_main_branch_name)"...
 }
@@ -181,8 +184,8 @@ alias am='gcalcli calm'
 
 ## Duck Duck Go
 # q for query
-alias q='ddgr --num 5 --noprompt --expand'
-alias qo='ddgr --num 5 --noprompt --expand -j'
+alias q='ddgr --num 5 --noprompt --expand --reverse'
+alias qo='ddgr --num 1 --ducky'
 
 ## Vim
 
@@ -202,8 +205,9 @@ alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
 
 ## Reminders
 
-# open bookmarks
+# open files
 alias r='vim ~/Documents/notes/notes/reminders.md'
+alias i='vim ~/Documents/notes/notes/ideas.md'
 ## ----
 
 alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
@@ -231,7 +235,7 @@ alias image='eog'
 alias n='newsboat'
 
 # download podcasts
-alias p='podboat'
+# alias p='podboat'
 
 alias restart_display_manager='sudo systemctl restart display-manager'
 
