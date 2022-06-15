@@ -264,7 +264,7 @@ autocmd BufReadPost *
 
 function! OpenJIRA()
   " open jira ticket under cursor
-  let l:ticket = matchstr(expand("<cWORD>"), "[A-Z]*-[1-9]*")
+  let l:ticket = matchstr(expand("<cWORD>"), "[A-Z]*-[0-9]*")
   if l:ticket != ""
     silent execute "!google-chrome-stable https://jira.lystit.com/browse/'".l:ticket."'"
     redraw!
@@ -285,24 +285,16 @@ autocmd BufNewFile,BufRead *.jira set filetype=jira
 autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
 autocmd FileType python abbreviate pparam @pytest.mark.parametrize()
 
-" exercises from learn vim script the hard way
+abbreviate :+1: 👍
+abbreviate :-1: 👎
+abbreviate :idea: 💡
+abbreviate :tada: 🎉
+abbreviate :focus: 🔎
 
-" move current line upward 1 line
-noremap - ddp
+" show table of content for markdown file
+nnoremap <leader>t :Toch<cr>
 
-" move current line downward 1 line
-noremap _ ddkP
-
-" upper case word under cursor in insert mode
-inoremap <c-u> <esc>gUiwea
-
-" upper case word under cursor in normal mode
-nnoremap <c-u> gUiwe
-
-" edit
+" vimrc
 nnoremap <leader>ev :edit $MYVIMRC<cr>
-nnoremap <leader>eb :edit ~/.bashrc<cr>
-
-" source vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
