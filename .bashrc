@@ -290,6 +290,12 @@ function alarm_at() {
     exit
 }
 
+## Notification
+
+alias notification_disable='killall -SIGUSR1 dunst && touch /tmp/notification_disable && killall -SIGUSR1 i3status'
+alias notification_enable='killall -SIGUSR2 dunst && rm /tmp/notification_disable && killall -SIGUSR1 i3status'
+
+
 ## Docker
 
 # drop into bash within container with vi readline keymappings
