@@ -282,14 +282,14 @@ nnoremap <leader>j :call OpenJIRA()<cr>
 autocmd BufNewFile,BufRead *.jira set filetype=jira
 
 " abbreviates
-autocmd FileType markdown abbreviate ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
-autocmd FileType python abbreviate pparam @pytest.mark.parametrize()
+autocmd FileType markdown inoreabbrev ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
+autocmd FileType python inoreabbrev pparam @pytest.mark.parametrize()
 
-abbreviate :+1: 👍
-abbreviate :-1: 👎
-abbreviate :idea: 💡
-abbreviate :tada: 🎉
-abbreviate :focus: 🔎
+inoreabbrev :+1: 👍
+inoreabbrev :-1: 👎
+inoreabbrev :idea: 💡
+inoreabbrev :tada: 🎉
+inoreabbrev :focus: 🔎
 
 " show table of content for markdown file
 nnoremap <leader>t :Toch<cr>
