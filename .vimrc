@@ -290,7 +290,8 @@ inoreabbrev :+1: 👍
 inoreabbrev :-1: 👎
 inoreabbrev :idea: 💡
 inoreabbrev :tada: 🎉
-inoreabbrev :focus: 🔎
+inoreabbrev :focus: 🔍
+inoreabbrev :block: 🚫
 
 " show table of content for markdown file
 nnoremap <leader>t :Toch<cr>
