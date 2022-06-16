@@ -25,6 +25,7 @@ Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
 Plug 'plasticboy/vim-markdown' " add markdown syntax
 Plug 'tomasr/molokai' " molokar color scheme
+Plug 'tommcdo/vim-exchange' " cxiw to exchange work
 Plug 'tpope/vim-commentary' " add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive' " using git in vim
 Plug 'tpope/vim-repeat' " repeat vim-surround with .
