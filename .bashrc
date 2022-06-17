@@ -192,6 +192,32 @@ alias qo='ddgr --num 1 --ducky'
 alias v='vim'
 
 alias vlast='vim $(ls -t -1 | head -n 1)'
+
+# type vn to autocomplete notes
+NOTES_DIR="$HOME/Documents/notes/notes/"
+alias vn="cd $NOTES_DIR && vim"
+
+_notes () {
+    IFS=$'\n' tmp=( $(compgen -W "$(ls "$NOTES_DIR")" -- "${COMP_WORDS[$COMP_CWORD]}" ))
+    COMPREPLY=( "${tmp[@]// /\ }" )
+}
+complete -F _notes vn
+
+WORK_NOTES_DIR="$HOME/Documents/personal-docs/"
+alias vp="cd $WORK_NOTES_DIR && vim"
+_work_notes () {
+    IFS=$'\n' tmp=( $(compgen -W "$(ls "$WORK_NOTES_DIR")" -- "${COMP_WORDS[$COMP_CWORD]}" ))
+    COMPREPLY=( "${tmp[@]// /\ }" )
+}
+complete -F _work_notes vp
+
+DOTFILES_DIR="$HOME/Documents/dotfiles/"
+alias vd="cd $DOTFILES_DIR && vim"
+_dotfiles () {
+    IFS=$'\n' tmp=( $(compgen -W "$(ls "$DOTFILES_DIR")" -- "${COMP_WORDS[$COMP_CWORD]}" ))
+    COMPREPLY=( "${tmp[@]// /\ }" )
+}
+complete -F _dotfiles vd
 ## ----
 
 ## Bookmarks
