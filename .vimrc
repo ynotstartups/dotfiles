@@ -20,6 +20,7 @@ Plug 'djoshea/vim-autoread' " auto load changed file
 Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
+Plug 'junegunn/vim-after-object' " ca# to change after # used in markdown
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
@@ -300,3 +301,6 @@ nnoremap <leader>t :Toch<cr>
 nnoremap <leader>ev :edit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" vim-after-object
+
+autocmd VimEnter * call after_object#enable('=', '#', '/')
