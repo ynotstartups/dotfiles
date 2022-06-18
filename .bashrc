@@ -333,6 +333,9 @@ function mb(){
     docker-compose run --user "$user_id:$user_id" --rm "$base_directory" bash -o vi
 }
 
+alias linux_sandbox_root='docker run --rm --tty --interactive busybox'
+alias linux_sandbox='docker run --rm --user nobody --tty --interactive busybox'
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
