@@ -294,8 +294,16 @@ inoreabbrev :tada: 🎉
 inoreabbrev :focus: 🔍
 inoreabbrev :block: 🚫
 
+"" tab
+" open current file in new tab
+nnoremap <leader>n :tabedit %<cr>
+" next tab
+nnoremap ]t gt
+" previous tab
+nnoremap [t gT
+
 " show table of content for markdown file
-nnoremap <leader>t :Toch<cr>
+autocmd FileType markdown nnoremap <leader>t :Toch<cr>
 
 " vimrc
 nnoremap <leader>ev :edit $MYVIMRC<cr>
