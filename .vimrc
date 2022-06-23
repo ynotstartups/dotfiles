@@ -198,8 +198,6 @@ nnoremap <C-J> <C-E>
 " use ctrl k to scroll up one line
 nnoremap <C-K> <C-Y>
 
-" use leader f to :find
-nnoremap <silent> <leader>f <esc>:find<space>
 " Abbreviation for vertical split find
 cabbrev vsf vert sfind
 
