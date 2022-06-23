@@ -336,6 +336,13 @@ function mb(){
 alias linux_sandbox_root='docker run --rm --tty --interactive busybox'
 alias linux_sandbox='docker run --rm --user nobody --tty --interactive busybox'
 
+## manual pages
+
+# open manual page in vim read only mode and set filetype to man
+function vman() {
+    man "$1" | vim -R '-c silent bufdo set filetype=man'  -
+}
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
