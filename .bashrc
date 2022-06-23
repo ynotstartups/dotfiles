@@ -57,9 +57,9 @@ PS1='\[\033[01;34m\]\w\[\033[00m\]\$ ' # this is used
 
 alias e='exit'
 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+alias grep='grep --color=auto --ignore-case'
+# alias fgrep='fgrep --color=auto'
+# alias egrep='egrep --color=auto'
 
 
 # Add an "alert" alias for long running commands.  Use like so:
