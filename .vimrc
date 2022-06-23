@@ -303,4 +303,4 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " vim-after-object
 
-autocmd VimEnter * call after_object#enable('=', '#', '/')
+autocmd VimEnter * call after_object#enable('=', '#', '/', ' ')
