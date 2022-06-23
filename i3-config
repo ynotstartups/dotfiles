@@ -53,6 +53,9 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec "dmenu_run -sb '#009999'"
 
 
+# start a terminal
+bindsym $mod+Shift+n exec nautilus ~/Downloads/
+
 # start google-chrome
 bindsym $mod+Shift+g exec google-chrome-stable --profile-directory='Default' # personal
 # bindsym $mod+Shift+k exec google-chrome-stable --profile-directory='Default' 'https://keep.google.com/' # personal
