@@ -285,7 +285,7 @@ autocmd BufNewFile,BufRead *.jira set filetype=jira
 
 " abbreviates
 autocmd FileType markdown inoreabbrev ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
-autocmd FileType python inoreabbrev pparam @pytest.mark.parametrize()
+autocmd FileType python inoreabbrev pparam @pytest.mark.parametrize([],[])
 
 inoreabbrev :+1: 👍
 inoreabbrev :-1: 👎
