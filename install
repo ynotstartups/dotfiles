@@ -5,59 +5,59 @@ XDG_CONFIG_HOME="$HOME/.config"
 
 echo soft linking dunst notification service config
 mkdir -p "$XDG_CONFIG_HOME"/dunst
-ln -sf "$PWD"/dunstrc "$XDG_CONFIG_HOME"/dunst/dunstrc
+ln --symbolic --force "$PWD"/dunstrc "$XDG_CONFIG_HOME"/dunst/dunstrc
 
 echo soft linking i3 config
 mkdir -p "$XDG_CONFIG_HOME"/i3
-ln -sf "$PWD"/i3-config "$XDG_CONFIG_HOME"/i3/config
+ln --symbolic --force "$PWD"/i3-config "$XDG_CONFIG_HOME"/i3/config
 
 echo soft linking i3status config
 mkdir -p "$XDG_CONFIG_HOME"/i3status
-ln -sf "$PWD"/i3status-config "$XDG_CONFIG_HOME"/i3status/config
+ln --symbolic --force "$PWD"/i3status-config "$XDG_CONFIG_HOME"/i3status/config
 
 echo install git global ignores
 mkdir -p "$XDG_CONFIG_HOME"/git
-ln -sf "$PWD"/.gitignore_global "$XDG_CONFIG_HOME"/git/ignore
+ln --symbolic --force "$PWD"/.gitignore_global "$XDG_CONFIG_HOME"/git/ignore
 
 echo install autorandr configs
-ln -sf "$PWD"/autorandr "$XDG_CONFIG_HOME"/autorandr
+ln --symbolic --force "$PWD"/autorandr "$XDG_CONFIG_HOME"/autorandr
 
 echo install vim configs
-ln -sf "$PWD"/.vimrc "$HOME"/.vimrc
+ln --symbolic --force "$PWD"/.vimrc "$HOME"/.vimrc
 
 echo install inputrc
-ln -sf "$PWD"/.inputrc "$HOME"/.inputrc
+ln --symbolic --force "$PWD"/.inputrc "$HOME"/.inputrc
 
 echo install bash profile
-ln -sf "$PWD"/.bash_profile "$HOME"/.bash_profile
+ln --symbolic --force "$PWD"/.bash_profile "$HOME"/.bash_profile
 
 echo install bashrc
-ln -sf "$PWD"/.bashrc "$HOME"/.bashrc
+ln --symbolic --force "$PWD"/.bashrc "$HOME"/.bashrc
 
 echo install .profile, i3 exec replies on it
-ln -sf "$PWD"/.profile "$HOME"/.profile
+ln --symbolic --force "$PWD"/.profile "$HOME"/.profile
 
 echo install ctags configs
-ln -sf "$PWD"/.ctags "$HOME"/.ctags
+ln --symbolic --force "$PWD"/.ctags "$HOME"/.ctags
 
 # the dpi settings will be likely wrong in other laptops
 # you can tweak it and git ignore locally this files
 echo install X Window System files
-ln -sf "$PWD"/.xinitrc "$HOME"/.xinitrc
-ln -sf "$PWD"/.Xresources "$HOME"/.Xresources
+ln --symbolic --force "$PWD"/.xinitrc "$HOME"/.xinitrc
+ln --symbolic --force "$PWD"/.Xresources "$HOME"/.Xresources
 
 echo install .gitconfig configs
-ln -sf "$PWD"/.gitconfig "$HOME"/.gitconfig
+ln --symbolic --force "$PWD"/.gitconfig "$HOME"/.gitconfig
 
 echo install newsboat configs
-ln -sf "$PWD"/config "$HOME"/.newsboat/
+ln --symbolic --force "$PWD"/config "$HOME"/.newsboat/
 
 echo replace crontab with crontab in this repo
 crontab "$PWD"/crontab
 
 echo install vim jira syntax
 mkdir -p "$HOME"/.vim/syntax/
-ln -sf "$PWD"/.vim/syntax/jira.vim "$HOME"/.vim/syntax/
+ln --symbolic --force "$PWD"/.vim/syntax/jira.vim "$HOME"/.vim/syntax/
 
 # https://askubuntu.com/questions/362914/how-to-prevent-the-power-button-to-shutdown-directly-the-system
 echo avoid power button shutting down computer
