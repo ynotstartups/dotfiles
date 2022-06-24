@@ -343,6 +343,14 @@ function vman() {
     man "$1" | vim -R '-c silent bufdo set filetype=man'  -
 }
 
+## Github
+
+# My Open PRs
+alias p="gh api -X GET search/issues -f q='is:open state:open author:tigerhuang' | jq '.items[] | {title, html_url}'"
+
+# Open PRs Waiting For My Review
+alias pw="gh api -X GET search/issues -f q='is:open review:none review-requested:tigerhuang' | jq '.items[] | {title, html_url}'"
+
 ## Autocomplete
 
 complete -C /usr/local/bin/terraform terraform
