@@ -21,6 +21,7 @@ Plug 'ekalinin/Dockerfile.vim' " dockerfile syntax
 Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
+Plug 'jremmen/vim-ripgrep' " Rg to use ripgrep in vim
 Plug 'junegunn/vim-after-object' " ca# to change after # used in markdown
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
@@ -124,33 +125,6 @@ omap ih <Plug>(GitGutterTextObjectInnerPending)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-
-" use G for git grep
-" TODO: figure out how to slient the output to terminal
-func GitGrep(...)
-  " search for string, populate quickfix window with cursor at the begining
-  " of search pattern
-  let save = &grepprg
-  set grepprg=git\ grep\ --line-number\ --column\ $*
-  " grep format is file name:line number:column number:error message
-  set grepformat=%f:%l:%c:%m
-  let s = 'grep!' " ! to not jump to first result
-  for i in a:000 " arguments in array
-    let s = s . ' ' . i
-  endfor
-  silent execute s
-  silent cwin
-  redraw!
-  let &grepprg = save
-endfun
-command -nargs=? G call GitGrep(<f-args>)
-
-function! GrepWord()
-  normal! "zyiw
-  call GitGrep('--word-regexp', getreg('z'))
-endf
-
-command -nargs=? GW call GrepWord()
 
 " Put swapfiles `$HOME/.vim/tmp/`
 if !isdirectory($HOME."/.vim/tmp")
