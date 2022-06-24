@@ -201,12 +201,12 @@ autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
 " insert agenda
-nnoremap <silent> <leader>ia :read !agenda<cr>
+autocmd FileType markdown nnoremap <silent> <leader>ia :read !agenda<cr>
 
 " insert formatted git branch as git commit message
 " 0 in 0read to insert on the same line with cursor otherwise the message is
 " added to line below cursor
-nnoremap <silent> <leader>im :0read !git_commit_message<cr>
+autocmd FileType gitcommit nnoremap <silent> <leader>im :0read !git_commit_message<cr>
 
 "" Surround
 " Works globally, because it won't affect any other filetype really
@@ -250,7 +250,7 @@ function! OpenJIRA()
     echo "No Ticket found in line."
   endif
 endfunction
-nnoremap <leader>j :call OpenJIRA()<cr>
+autocmd FileType markdown nnoremap <leader>j :call OpenJIRA()<cr>
 
 " Deprecated by git_commit_message
 " insert jira ticket by extracting from git branch name, e.g. FOO-123-bar
