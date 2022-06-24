@@ -174,7 +174,10 @@ nnoremap <C-J> <C-E>
 nnoremap <C-K> <C-Y>
 
 " Abbreviation for vertical split find
-cabbrev vsf vert sfind
+cnoreabbrev vsf vert sfind
+
+" Abbreviation word search
+cnoreabbrev ww \<\><left><left>
 
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<cr>
