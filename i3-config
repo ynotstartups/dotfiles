@@ -182,13 +182,13 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
-# use Print key to screenshot with area selection
-bindsym --release Print exec gnome-screenshot --area
+# use Print key to
+# - screenshot
+# - save a copy to Downloads
+# - send to clipboard
+bindsym --release Print exec "gnome-screenshot --area -f /tmp/test.png && cp /tmp/test.png ~/Downloads/`date +%F-%T`.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png"
 
-# use Shift+Print key to screenshot with area selection and send to clipboard
-bindsym --release Control+Print exec gnome-screenshot --area -f /tmp/test.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png
-
-# use Control+Shift+Print key
+# use Control+Shift+Print key to
 # - screenshot
 # - edit image
 # - save a copy to Downloads
