@@ -12,9 +12,6 @@
 # disable C-s which freezes the terminal, C-s is used for search forward in histtory
 stty -ixon
 
-# `.profile` sets PATH
-source "$HOME/.profile"
-
 PATH=~/.bin:$PATH
 
 export PATH="$HOME/.poetry/bin:$PATH"
