@@ -201,9 +201,6 @@ bindsym Shift+Pause exec --no-startup-id toggle_sound
 # shortcut to open vlc
 bindsym $mod+Shift+v exec --no-startup-id vlc
 
-# The middle button over title bar to kill the window
-bindsym --release button2 kill
-
 # disable ethernet after boot
 exec --no-startup-id nmcli device disconnect enxacde48001122
 
