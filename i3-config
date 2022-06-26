@@ -188,8 +188,12 @@ bindsym --release Print exec gnome-screenshot --area
 # use Shift+Print key to screenshot with area selection and send to clipboard
 bindsym --release Control+Print exec gnome-screenshot --area -f /tmp/test.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png
 
-# use Control+Shift+Print key to screenshot, open pinta to edit and send to clipboard
-bindsym --release Control+Shift+Print exec gnome-screenshot --area -f /tmp/test.png && pinta /tmp/test.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png
+# use Control+Shift+Print key
+# - screenshot
+# - edit image
+# - save a copy to Downloads
+# - send to clipboard
+bindsym --release Control+Shift+Print exec "gnome-screenshot --area -f /tmp/test.png && pinta /tmp/test.png && cp /tmp/test.png ~/Downloads/`date +%F-%T`.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png"
 
 # use Pause key to toggle output sound source
 bindsym Shift+Pause exec --no-startup-id toggle_sound
