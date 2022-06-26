@@ -1,0 +1,8 @@
+# search file and directories starts with `.`
+--hidden
+
+# don't search in .git directory
+--glob=!.git/
+
+
+--smart-case

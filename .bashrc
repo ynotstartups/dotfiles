@@ -354,6 +354,9 @@ complete -C /usr/local/bin/terraform terraform
 
 eval "$(gh completion -s bash)"
 
+## Rg
+export RIPGREP_CONFIG_PATH=~/Documents/dotfiles/.rgrc
+
 ## nvm - node version manager
 
 # export NVM_DIR="$HOME/.nvm"
