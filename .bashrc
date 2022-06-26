@@ -339,8 +339,8 @@ alias linux_sandbox='docker run --rm --user nobody --tty --interactive busybox'
 ## manual pages
 
 # open manual page in vim read only mode and set filetype to man
-function vman() {
-    man "$1" | vim -R '-c silent bufdo set filetype=man'  -
+function man() {
+    /usr/bin/man "$1" | vim -R '-c silent bufdo set filetype=man'  -
 }
 
 ## Github
