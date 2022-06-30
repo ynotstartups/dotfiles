@@ -270,6 +270,7 @@ inoreabbrev :idea: 💡
 inoreabbrev :tada: 🎉
 inoreabbrev :focus: 🔍
 inoreabbrev :block: 🚫
+inoreabbrev :!: ⚠️
 
 "" tab
 " open current file in new tab
