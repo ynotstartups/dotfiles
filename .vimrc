@@ -280,6 +280,10 @@ nnoremap ]t gt
 " previous tab
 nnoremap [t gT
 
+" L, H are just jump to bottom or top of screen, not very useful
+nnoremap L gt
+nnoremap H gT
+
 " show table of content for markdown file
 autocmd FileType markdown nnoremap <leader>t :Toch<cr>
 
