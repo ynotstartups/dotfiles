@@ -196,7 +196,10 @@ bindsym --release Print exec "gnome-screenshot --area -f /tmp/test.png && cp /tm
 bindsym --release Control+Shift+Print exec "gnome-screenshot --area -f /tmp/test.png && pinta /tmp/test.png && cp /tmp/test.png ~/Downloads/`date +%F-%T`.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png"
 
 # use Pause key to toggle output sound source
-bindsym Shift+Pause exec --no-startup-id toggle_sound
+bindsym Shift+Pause exec --no-startup-id toggle_monitor
+
+# use Pause key to toggle output sound source
+bindsym Pause exec --no-startup-id toggle_sound
 
 # shortcut to open vlc
 bindsym $mod+Shift+v exec --no-startup-id vlc
