@@ -24,6 +24,22 @@
     {
       "pattern": "https?://www.coursera.org/*",
       "passKeys": "f"
+    },
+    {
+      "pattern": "https?://crawl.xtahua.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://taiko.bui.pm/*",
+      "passKeys": "d,f,j,k"
+    },
+    {
+      "pattern": "https?://keep.google.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://play.cid.capcom.com/*",
+      "passKeys": ""
     }
   ],
   "filterLinkHints": true,
