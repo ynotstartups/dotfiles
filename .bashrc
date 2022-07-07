@@ -139,9 +139,11 @@ function gnew_branch() {
     git switch "$1"
 }
 
-function groot() {
+function g_root() {
     cd "$(git rev-parse --show-toplevel)" || exit
 }
+
+alias g_copy_log_body='git --no-pager log -1 --pretty=format:%b | copy'
 
 # pinta
 alias pinta_last='pinta "$(ls -t | head -n 1)"'
