@@ -204,6 +204,10 @@ bindsym Pause exec --no-startup-id toggle_sound
 # shortcut to open vlc
 bindsym $mod+Shift+v exec --no-startup-id vlc
 
+# shortcut to open evince, ubuntu's pdf reader
+# b stands for books
+bindsym $mod+Shift+b exec --no-startup-id evince
+
 # disable ethernet after boot
 exec --no-startup-id nmcli device disconnect enxacde48001122
 
