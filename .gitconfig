@@ -9,6 +9,7 @@
         c = commit -v
         ca = commit -v -a
         caa = commit -v -a --amend --no-edit
+        cp = commit -v --patch
         d = diff
         dc = diff --cached
         fu = fetch upstream
