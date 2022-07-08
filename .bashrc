@@ -260,7 +260,8 @@ alias image='eog'
 
 ## newsboat
 
-alias n='newsboat'
+alias n='newsboat -u ~/Documents/private_dotfiles/urls'
+alias nw='newsboat -u ~/Documents/private_dotfiles/urls-work'
 
 # download podcasts
 # alias p='podboat'
