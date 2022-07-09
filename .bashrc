@@ -268,62 +268,10 @@ alias nw='newsboat --url-file ~/Documents/private_dotfiles/urls-work --cache-fil
 
 alias restart_display_manager='sudo systemctl restart display-manager'
 
-## alarm with sound
-
-function speaker() {
-   internal_sound_card='alsa_card.pci-0000_02_00.3'
-
-   readarray -t other_card_indexs < <(pactl list cards short | grep -v "$internal_sound_card" | grep --only-matching ^[1-9]*)
-
-   # turn off non internal sound card, could be HDMI, ps controller ...
-   for card_index in "${other_card_indexs[@]}"
-   do
-       pactl set-card-profile $card_index off
-   done
-
-    # set internal sound card to use speaker
-    pactl set-card-profile "$internal_sound_card" output:builtin-speaker+input:builtin-mic
-}
-
-# music is not played if I close the terminal window with command+shift+q
-# but using exit is okay
-# exit is used to avoid me using command+shift+q
-
-# e.g. alarm 1m meeting planning in 5 minutes
-function alarm() {
-    if [[ $# -eq 1 ]] ;
-    then
-        echo 'Missing notification message!'
-        echo "e.g. alarm $1 FOO"
-    else
-        subject=$2
-        message=$(printf '%s ' "${@:3}")
-
-        nohup sleep "$1" && notify-send $subject "$message" &
-        # nohup sleep "$1" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
-        exit
-    fi
-}
-
-# e.g. alarm 14:55 meeting planning in 5 minutes
-function alarm_at() {
-    subject=$2
-    message=$(printf '%s ' "${@:3}")
-
-    current_epoch=$(date +%s) # +%s is required for the sleep second calculation
-    target_epoch=$(date -d "$1" +%s)
-    sleep_seconds=$(( $target_epoch - $current_epoch ))
-
-    nohup sleep "$sleep_seconds" && speaker && notify-send $subject "$message" && vlc ~/Music/Franz\ Liszt\ -\ Liebestraum\ -\ Love\ Dream.m4a &
-
-    exit
-}
-
 ## Notification
 
 alias notification_disable='killall -SIGUSR1 dunst && touch /tmp/notification_disable && killall -SIGUSR1 i3status'
 alias notification_enable='killall -SIGUSR2 dunst && rm /tmp/notification_disable && killall -SIGUSR1 i3status'
-
 
 ## Docker
 
