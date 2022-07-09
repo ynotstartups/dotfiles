@@ -109,7 +109,10 @@ nnoremap Y y$
 set clipboard=unnamedplus " vim uses system clipboard
 
 " copy file path
-nmap <leader>yp :let @+=expand("%")<cr>
+nnoremap <leader>yp :let @+=expand("%")<cr>
+" copy python function name
+" use with pytest -k FUNCTION NAME
+nnoremap <leader>yf ?def<space>test_<cr>wyiw<c-o>:nohlsearch<cr>
 
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
