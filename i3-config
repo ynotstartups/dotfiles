@@ -202,7 +202,7 @@ bindsym Shift+Pause exec --no-startup-id toggle_monitor
 bindsym Pause exec --no-startup-id toggle_sound
 
 # shortcut to open vlc
-bindsym $mod+Shift+v exec --no-startup-id vlc
+bindsym $mod+Shift+v exec --no-startup-id vlc ~/Music/
 
 # shortcut to open evince, ubuntu's pdf reader
 # b stands for books
