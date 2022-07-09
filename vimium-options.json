@@ -45,7 +45,7 @@
   "filterLinkHints": true,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\n\nmap c closeOtherTabs\nmap C closeTabsOnRight\n\nunmap H\nunmap J\nunmap K\nunmap L\n\nmap H previousTab\nmap J goBack\nmap K goForward\nmap L nextTab",
+  "keyMappings": "# Insert your preferred key mappings here.\n\nmap c closeOtherTabs\nmap C closeTabsOnRight\n\nunmap H\nunmap J\nunmap K\nunmap L\nunmap j\n\nmap H previousTab\nmap J goBack\nmap K goForward\nmap L nextTab\nmap a LinkHints.activateMode",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
