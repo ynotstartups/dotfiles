@@ -19,6 +19,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # Add path for krew, kubectl plugin manager
 export PATH="$PATH:$HOME/.krew/bin"
 
+# Add path for .local bin
+export PATH="$PATH:$HOME/.local/bin"
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
