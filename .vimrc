@@ -207,6 +207,9 @@ nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 " insert agenda
 autocmd FileType markdown nnoremap <silent> <leader>ia :read !agenda<cr>
 
+" insert jira tickets
+autocmd FileType markdown nnoremap <silent> <leader>ij :read !jira<cr>
+
 " insert formatted git branch as git commit message
 " 0 in 0read to insert on the same line with cursor otherwise the message is
 " added to line below cursor

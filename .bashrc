@@ -322,3 +322,12 @@ alias lock='i3lock'
 
 ## turnoff
 alias turnoff='poweroff'
+
+## jira
+
+jira() {
+    /home/tiger/Documents/jira/myjira.py
+}
+
+# export for use in vim
+export -f jira
