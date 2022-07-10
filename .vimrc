@@ -204,7 +204,7 @@ autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 " I#  - adds markdown title with a space at the front
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
-" insert agenda
+" insert today's agenda/meetings from google calender
 autocmd FileType markdown nnoremap <silent> <leader>ia :read !agenda<cr>
 
 " insert jira tickets
