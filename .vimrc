@@ -32,6 +32,7 @@ Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tommcdo/vim-exchange' " cxiw to exchange work
 Plug 'tpope/vim-commentary' " add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive' " using git in vim
+Plug 'tpope/vim-obsession' " use :Obsession SESSION_FILENAME to record vim session
 Plug 'tpope/vim-repeat' " repeat vim-surround with .
 Plug 'tpope/vim-rhubarb' " supports github enterprise
 Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
