@@ -142,6 +142,8 @@ function gnew_branch() {
     git switch "$1"
 }
 
+complete -o nospace -W "APPLE-" gnew_branch
+
 function g_root() {
     cd "$(git rev-parse --show-toplevel)" || exit
 }
