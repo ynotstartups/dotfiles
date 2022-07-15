@@ -143,16 +143,18 @@ function gnew_branch() {
 }
 
 _jira_branch_name () {
+    # `jira -b` prints out todo jira tickets in branch format
+    # see more in ~/Documents/jira
     IFS=$'\n' tmp=( $(compgen -W "$(jira -b)" -- "${COMP_WORDS[$COMP_CWORD]}" ))
     COMPREPLY=( "${tmp[@]// /\ }" )
 }
 complete -F _jira_branch_name gnew_branch
 
-function g_root() {
+function groot() {
     cd "$(git rev-parse --show-toplevel)" || exit
 }
 
-alias g_copy_log_body='git --no-pager log -1 --pretty=format:%b | copy'
+alias gcopy_log_body='git --no-pager log -1 --pretty=format:%b | copy'
 
 # pinta
 alias pinta_last='pinta "$(ls -t | head -n 1)"'
