@@ -331,8 +331,14 @@ alias turnoff='poweroff'
 ## jira
 
 jira() {
-    /home/tiger/Documents/jira/myjira.py
+    /home/tiger/Documents/jira/myjira.py $1
 }
 
 # export for use in vim
 export -f jira
+
+## dict
+
+dict() {
+    /usr/bin/dict "$1" | less
+}
