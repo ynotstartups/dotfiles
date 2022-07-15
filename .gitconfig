@@ -7,6 +7,7 @@
         b = branch
         bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
         c = commit -v
+        camend = commit --amend
         ca = commit -v -a
         caa = commit -v -a --amend --no-edit
         cp = commit -v --patch
@@ -16,6 +17,7 @@
         g = grep --ignore-case
         l = log
         l1 = log -1 -p
+        lg = log --graph
         ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
         p = push
         s = status
