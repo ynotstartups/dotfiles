@@ -190,7 +190,6 @@ alias todow='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/perso
 # find meeting today
 
 function agenda() {
-    date
     # `cut` is used to remove
     # the date in position 1,3
     # the unnecessary video string in position 5
