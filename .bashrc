@@ -337,11 +337,6 @@ export RIPGREP_CONFIG_PATH=~/Documents/dotfiles/.rgrc
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-## i3
-
-# lock with tiling tiger image
-alias lock='i3lock --image ~/Documents/dotfiles/tiger.png --tiling'
-
 ## turnoff
 alias turnoff='poweroff'
 
