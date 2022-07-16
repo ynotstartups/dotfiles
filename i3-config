@@ -226,3 +226,6 @@ for_window [class="vlc"] move to workspace $ws10
 # Color
 # class                 border  bground text    indicator child_border
 client.focused          #009999 #007777 #FFFFFF #00F4F4   #007777
+
+# rename workspace
+bindsym $mod+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
