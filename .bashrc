@@ -194,7 +194,7 @@ function agenda() {
     # the date in position 1,3
     # the unnecessary video string in position 5
     # no delimiter used in `cut` because cut uses TAB by default
-    gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined | cut -f 2,4,6,7,8,9
+    gcalcli agenda 09:00 18:00 --tsv --details conference --details location --nodeclined | cut --fields 2,4,6,7,8,9
 }
 
 # export it for usage in vim
