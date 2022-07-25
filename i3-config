@@ -212,6 +212,9 @@ exec --no-startup-id xbacklight =30
 exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 
+# run autorandr after boot
+exec --no-startup-id autorandr --change
+
 # put a terminal into scratchpad upon startup, doesn't work
 # exec --no-startup-id i3-sensible-terminal -name scratchpad
 # for_window [instance="^scratchpad$"] move scratchpad
