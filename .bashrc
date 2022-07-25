@@ -126,8 +126,11 @@ function gdu() {
 
 alias gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
+alias gdelete_branches_origin='git branch -r |  grep "^  origin/" | sed "s|^  origin/||" | grep -v "^master$" | grep -v "^main$" | xargs git push origin --delete'
+
 function gfru() {
-    git fetch upstream
+    git fetch --prune origin
+    git fetch --prune upstream
     git rebase -i "upstream/$(g_get_main_branch_name)"
 }
 
