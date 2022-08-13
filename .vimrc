@@ -30,13 +30,16 @@ Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
 Plug 'plasticboy/vim-markdown' " add markdown syntax
 Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tommcdo/vim-exchange' " cxiw to exchange work
+Plug 'tommcdo/vim-lion' " use gl<motion>: to align sentences with :
 Plug 'tpope/vim-commentary' " add shortcut gc for making a comment
+Plug 'tpope/vim-eunuch' " :Move to rename buffer
 Plug 'tpope/vim-fugitive' " using git in vim
 Plug 'tpope/vim-obsession' " use :Obsession SESSION_FILENAME to record vim session
 Plug 'tpope/vim-repeat' " repeat vim-surround with .
 Plug 'tpope/vim-rhubarb' " supports github enterprise
 Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-unimpaired' " adds mapping like [q ]q
+Plug 'tpope/vim-vinegar' " add shortcut gc for making a comment
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
 Plug 'wellle/targets.vim' " adds textobjects e.g. i*, i_ usefll in markdown
 call plug#end()
