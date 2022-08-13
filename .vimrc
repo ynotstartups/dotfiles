@@ -164,18 +164,21 @@ autocmd FileType gitcommit setlocal spell
 autocmd FileType markdown setlocal spell
 autocmd FileType slack setlocal spell
 autocmd FileType txt setlocal spell
+autocmd FileType jira setlocal spell
 
 " Enable dictionary auto-completion in Markdown files and Git Commit Messages
 autocmd FileType gitcommit setlocal complete+=kspell
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType slack setlocal complete+=kspell
 autocmd FileType txt setlocal complete+=kspell
+autocmd FileType jira setlocal complete+=kspell
 
 " don't break a word in the middle
 autocmd FileType gitcommit setlocal linebreak
 autocmd FileType markdown setlocal linebreak
 autocmd FileType slack setlocal linebreak
 autocmd FileType txt setlocal linebreak
+autocmd FileType jira setlocal linebreak
 
 " set shiftwidth
 autocmd FileType markdown setlocal shiftwidth=4
