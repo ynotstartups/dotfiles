@@ -285,13 +285,19 @@ autocmd BufNewFile,BufRead *.jira set filetype=jira
 autocmd FileType markdown inoreabbrev ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
 autocmd FileType python inoreabbrev pparam @pytest.mark.parametrize([],[])
 
-inoreabbrev :+1: 👍
-inoreabbrev :-1: 👎
-inoreabbrev :idea: 💡
-inoreabbrev :tada: 🎉
+inoreabbrev :+1:    👍
+inoreabbrev :+:     👍
+inoreabbrev :-1:    👎
+inoreabbrev :-:     👎
+inoreabbrev :idea:  💡
+inoreabbrev :i:     💡
+inoreabbrev :tada:  🎉
+inoreabbrev :t:     🎉
 inoreabbrev :focus: 🔍
+inoreabbrev :f:     🔍
 inoreabbrev :block: 🚫
-inoreabbrev :!: ⚠️
+inoreabbrev :b:     🚫
+inoreabbrev :!:     ⚠️
 
 "" tab
 " open current file in new tab
