@@ -108,6 +108,11 @@ nnoremap Q @q
 " Y to yank to the end of the line, mimic other capital commands
 nnoremap Y y$
 
+" jump to tags
+" prompt to select if there are multiple matching tags
+" jump to the only tag
+nnoremap <C-]> g<C-]>
+
 " copy/paste
 " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 set clipboard=unnamedplus " vim uses system clipboard
