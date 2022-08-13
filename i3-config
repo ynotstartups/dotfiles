@@ -220,16 +220,21 @@ exec --no-startup-id autorandr --change
 
 # put a terminal in scratchpad after boot
 # probably doesn't work, not tested
-exec --no-startup-id i3-sensible-terminal --name scratchpad_terminal
 for_window [instance="scratchpad_terminal"] move scratchpad
+exec --no-startup-id i3-sensible-terminal --name scratchpad_terminal
 
 # use `i3-msg -t get_tree to find the class of applications`
-# Set Slack default workspace to be 3
-for_window [class="Slack"] move to workspace $ws3
+#
+# Set Slack default workspace to be 8
+for_window [class="^Slack$"] move to workspace $ws8
+# Set Slack default workspace to be 8
+for_window [class="^Thunderbird$"] move to workspace $ws7
+
 # Set Zoom default workspace to be 4
 for_window [class="zoom"] move to workspace $ws4
 # Set Vlc default workspace to be 10
 for_window [class="vlc"] move to workspace $ws10
+
 
 # Tiger's Note:
 # - Bar Color and Color is copied from
