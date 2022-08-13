@@ -209,7 +209,7 @@ alias am='gcalcli calm'
 
 ## Duck Duck Go
 # q for query
-alias q='ddgr --num 5 --noprompt --expand --reverse'
+alias q='ddgr --num 3 --noprompt --expand --reverse'
 alias qo='ddgr --num 1 --ducky'
 
 ## Vim
