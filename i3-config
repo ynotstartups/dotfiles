@@ -218,9 +218,10 @@ exec --no-startup-id xset -dpms
 # run autorandr after boot
 exec --no-startup-id autorandr --change
 
-# put a terminal into scratchpad upon startup, doesn't work
-# exec --no-startup-id i3-sensible-terminal -name scratchpad
-# for_window [instance="^scratchpad$"] move scratchpad
+# put a terminal in scratchpad after boot
+# probably doesn't work, not tested
+exec --no-startup-id i3-sensible-terminal --name scratchpad_terminal
+for_window [instance="scratchpad_terminal"] move scratchpad
 
 # use `i3-msg -t get_tree to find the class of applications`
 # Set Slack default workspace to be 3
