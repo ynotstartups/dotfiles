@@ -65,6 +65,9 @@ bindsym $mod+Shift+w exec google-chrome-stable --profile-directory='Profile 1' #
 
 bindsym $mod+Shift+t exec gnome-control-center
 
+# start thunderbird email client
+bindsym $mod+Shift+m exec thunderbird
+
 # start slack
 bindsym $mod+Shift+s exec slack
 # There also is the (new) i3-dmenu-desktop which only displays applications
