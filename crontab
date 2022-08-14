@@ -24,7 +24,3 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
-
-# Reload all feeds in newsboat every 20 minutes
-*/20 * * * * /usr/bin/newsboat --url-file ~/Documents/private_dotfiles/urls-work --cache-file ~/.newsboat/cache-work.db --execute reload
-*/20 * * * * /usr/bin/newsboat --url-file ~/Documents/private_dotfiles/urls --cache-file ~/.newsboat/cache.db --execute reload
