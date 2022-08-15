@@ -358,3 +358,5 @@ export -f jira
 dict() {
     /usr/bin/dict "$1" | less
 }
+
+alias open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
