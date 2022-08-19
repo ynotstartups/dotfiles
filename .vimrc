@@ -185,7 +185,7 @@ autocmd FileType markdown setlocal shiftwidth=4
 autocmd FileType sh setlocal shiftwidth=4
 
 " set indent
-autocmd FileType markdown setlocal foldmethod=indent
+autocmd FileType markdown setlocal foldmethod=manual
 
 " use ctrl j to scroll down one line
 nnoremap <C-J> <C-E>
