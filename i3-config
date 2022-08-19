@@ -196,7 +196,7 @@ bindsym --release Print exec "gnome-screenshot --area -f /tmp/test.png && cp /tm
 # - edit image
 # - save a copy to Downloads
 # - send to clipboard
-bindsym --release Control+Shift+Print exec "gnome-screenshot --area -f /tmp/test.png && pinta /tmp/test.png && cp /tmp/test.png ~/Downloads/`date +%F-%T`.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png"
+bindsym --release Control+Shift+Print exec "gnome-screenshot --area -f /tmp/test.png && pinta /tmp/test.png && cp /tmp/test.png ~/Downloads/`date +%Y-%m-%d-%H-%M-%S`.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png"
 
 # shortcut to open vlc
 bindsym $mod+Shift+v exec --no-startup-id vlc ~/Music/
