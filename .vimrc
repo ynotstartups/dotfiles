@@ -286,6 +286,9 @@ autocmd FileType markdown nnoremap <leader>j :call OpenJIRA()<cr>
 " jira filetype
 autocmd BufNewFile,BufRead *.jira set filetype=jira
 
+" formatter
+autocmd FileType python set formatprg=python\ -m\ black\ --quiet\ -
+
 " abbreviates
 autocmd FileType markdown inoreabbrev ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
 autocmd FileType python inoreabbrev pparam @pytest.mark.parametrize([],[])
