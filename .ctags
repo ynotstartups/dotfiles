@@ -5,3 +5,6 @@
 --exclude=db/*
 --exclude=log/*
 --python-kinds=-i
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^#+[ ](.*$)/\1/h,heading,headings/
