@@ -347,7 +347,7 @@ alias turnoff='poweroff'
 ## jira
 
 jira() {
-    /home/tiger/Documents/myjira/myjira.py $1
+    /home/tiger/Documents/myjira/myjira.py "$@"
 }
 
 # export for use in vim
