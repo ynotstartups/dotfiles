@@ -360,3 +360,5 @@ dict() {
 }
 
 alias open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
