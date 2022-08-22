@@ -340,3 +340,12 @@ nnoremap J <c-w>w
 " distracting
 " alternative use :help <c-r><c-w> to get help with word under cursor
 nnoremap K <c-w>w
+
+"" fzf
+
+nnoremap <leader>ff :GFiles<cr>
+nnoremap <leader>fl :Lines<cr>
+nnoremap <leader>ft :Tags<cr>
+
+" disable preview window
+let g:fzf_preview_window = []
