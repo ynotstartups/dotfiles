@@ -122,11 +122,11 @@ set $ws2 "2"
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
-set $ws6 "6: Zoom"
-set $ws7 "7: Email"
-set $ws8 "8: Slack"
-set $ws9 "9: Standup"
-set $ws10 "10: Music"
+set $ws6 "6:Zoom"
+set $ws7 "7:Email"
+set $ws8 "8:Slack"
+set $ws9 "9:Standup"
+set $ws10 "10:Music"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -243,7 +243,11 @@ for_window [class="vlc"] move to workspace $ws10
 client.focused          #009999 #007777 #FFFFFF #00F4F4   #007777
 
 # rename workspace
-bindsym $mod+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+# bindsym $mod+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+bindsym $mod+r exec i3-input -F "rename workspace to "$(i3-msg -t get_workspaces | jq -r "map(select(.focused))[0].num"):%s"" -P "New name: "
+
+# Enable auto back and forth
+workspace_auto_back_and_forth yes
 
 # lock with tiling tiger image
 bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/tiger.png --tiling
