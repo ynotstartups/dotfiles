@@ -341,7 +341,7 @@ nnoremap K <c-w>w
 nnoremap <leader>ff :GFiles<cr>
 nnoremap <leader>fl :Lines<cr>
 nnoremap <leader>ft :Tags<cr>
-nnoremap <leader>ft :Helptags<cr>
+nnoremap <leader>fh :Helptags<cr>
 
 " disable preview window
 let g:fzf_preview_window = []
