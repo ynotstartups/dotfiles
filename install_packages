@@ -65,6 +65,13 @@ sudo apt-get install --yes xclip
 sudo apt-get install --yes python3-pip
 pip install gcalcli
 
+# python script bash autocomplete https://kislyuk.github.io/argcomplete/
+pip install argcomplete
+# activate-global-python-argcomplete --user
+
+pip install requests
+
+
 # write-good prose linter for vim ale
 sudo apt-get install --yes npm
 sudo npm install -g write-good
