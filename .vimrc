@@ -190,14 +190,9 @@ autocmd FileType sh setlocal shiftwidth=4
 autocmd FileType markdown setlocal foldmethod=manual
 
 " use ctrl j to scroll down one line
-" nnoremap <C-J> <C-E>
+nnoremap <C-J> <C-E>
 " use ctrl k to scroll up one line
-" nnoremap <C-K> <C-Y>
-
-" use tab to scroll down one line
-nnoremap <tab> <C-E>
-" use shift tab to scroll up one line
-nnoremap <s-tab> <C-Y>
+nnoremap <C-K> <C-Y>
 
 " Abbreviation for vertical split find
 cnoreabbrev vsf vert sfind
