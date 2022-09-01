@@ -176,6 +176,10 @@ bar {
     colors {
       focused_workspace  #009999 #007777 #FFFFFF
     }
+
+    # disable scroll wheel switching workspace
+    bindsym button4 nop
+    bindsym button5 nop
 }
 
 
