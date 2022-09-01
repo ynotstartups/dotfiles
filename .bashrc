@@ -361,8 +361,12 @@ dict() {
 
 alias open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
 
+# fzf
+export FZF_DEFAULT_OPTS="--multi --bind 'ctrl-a:select-all'"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+
+# python argcomplete
 __python_argcomplete_expand_tilde_by_ref () {
     if [ "${!1:0:1}" = "~" ]; then
         if [ "${!1}" != "${!1//\/}" ]; then
