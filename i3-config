@@ -179,12 +179,6 @@ bar {
 }
 
 
-# Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
-
-# Show the first scratchpad window
-bindsym $mod+minus scratchpad show
-
 # use Print key to
 # - screenshot
 # - save a copy to Downloads
@@ -222,9 +216,15 @@ exec --no-startup-id autorandr --change
 # for_window [instance="scratchpad_terminal"] move scratchpad
 # exec --no-startup-id i3-sensible-terminal --name scratchpad_terminal
 
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show; sticky enable
+
+bindsym $mod+t exec --no-startup-id i3-sensible-terminal --name scratchpad
 for_window [title="^scratchpad$"] border 1pixel, floating enable, move scratchpad
-bindsym $mod+x [instance="scratchpad"] scratchpad show; sticky enable
-exec --no-startup-id i3-sensible-terminal --name scratchpad
+# bindsym $mod+x [instance="scratchpad"] scratchpad show; sticky enable
 
 # use `i3-msg -t get_tree to find the class of applications`
 #
