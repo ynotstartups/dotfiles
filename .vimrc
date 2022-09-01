@@ -339,6 +339,7 @@ nnoremap K <c-w>w
 "" fzf
 
 nnoremap <leader>ff :GFiles<cr>
+nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fl :Lines<cr>
 nnoremap <leader>ft :Tags<cr>
 nnoremap <leader>fh :Helptags<cr>
