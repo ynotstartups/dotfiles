@@ -205,8 +205,8 @@ exec --no-startup-id nmcli device disconnect enxacde48001122
 # set monitor backlight after boot
 exec --no-startup-id xbacklight =30
 
-# turn off screen after 60 minutes of no activity
-exec --no-startup-id xset s 60
+# turn off screen after 30 minutes of no activity
+exec --no-startup-id xset s 1800
 
 # run autorandr after boot
 exec --no-startup-id autorandr --change
