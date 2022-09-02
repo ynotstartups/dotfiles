@@ -181,10 +181,6 @@ alias ma='make format && make lint && make coverage-report-terminal'
 # shortcut to start venv
 alias activate='source .venv/bin/activate'
 
-# open todo system
-alias todo='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/private-docs/todos-system'
-alias todow='~/Documents/private-docs/todos-system/bin/todo.py ~/Documents/personal-docs/todos-system'
-
 # find meeting today
 
 function agenda() {
