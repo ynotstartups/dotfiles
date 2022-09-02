@@ -126,8 +126,6 @@ function gdu() {
 
 alias gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
-alias gdelete_branches_origin='git branch -r |  grep "^  origin/" | sed "s|^  origin/||" | grep -v "^master$" | grep -v "^main$" | xargs git push origin --delete'
-
 function gfru() {
     git fetch --prune origin
     git fetch --prune upstream
@@ -141,17 +139,10 @@ function gnew_branch() {
         echo "Current branch has changes. Stopping!"
         return
     fi
-    git fetch upstream "$(g_get_main_branch_name):$1"
+    new_branch_name=$(jira -b | fzf)
+    git fetch upstream "$(g_get_main_branch_name):$new_branch_name"
     git switch "$1"
 }
-
-_jira_branch_name () {
-    # `jira -b` prints out todo jira tickets in branch format
-    # see more in ~/Documents/jira
-    IFS=$'\n' tmp=( $(compgen -W "$(jira -b)" -- "${COMP_WORDS[$COMP_CWORD]}" ))
-    COMPREPLY=( "${tmp[@]// /\ }" )
-}
-complete -F _jira_branch_name gnew_branch
 
 function groot() {
     cd "$(git rev-parse --show-toplevel)" || exit
