@@ -227,6 +227,9 @@ autocmd FileType markdown nnoremap <silent> <leader>ia :read !agenda<cr>
 " insert jira tickets
 autocmd FileType markdown nnoremap <silent> <leader>ij :read !jira<cr>
 
+" insert automated checklist for the day
+autocmd FileType markdown nnoremap <silent> <leader>ic :read !automation<cr>
+
 " insert formatted git branch as git commit message
 " 0 in 0read to insert on the same line with cursor otherwise the message is
 " added to line below cursor
