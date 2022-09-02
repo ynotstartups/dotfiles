@@ -293,19 +293,21 @@ autocmd FileType python set formatprg=python\ -m\ black\ --quiet\ -
 autocmd FileType markdown inoreabbrev ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
 autocmd FileType python inoreabbrev pparam @pytest.mark.parametrize([],[])
 
-inoreabbrev :+1:    👍
-inoreabbrev :+:     👍
-inoreabbrev :-1:    👎
-inoreabbrev :-:     👎
-inoreabbrev :idea:  💡
-inoreabbrev :i:     💡
-inoreabbrev :tada:  🎉
-inoreabbrev :t:     🎉
-inoreabbrev :focus: 🔍
-inoreabbrev :f:     🔍
-inoreabbrev :block: 🚫
-inoreabbrev :b:     🚫
-inoreabbrev :!:     ⚠️
+" emojis
+inoreabbrev :+1:     👍
+inoreabbrev :+:      👍
+inoreabbrev :-1:     👎
+inoreabbrev :-:      👎
+inoreabbrev :idea:   💡
+inoreabbrev :i:      💡
+inoreabbrev :tada:   🎉
+inoreabbrev :t:      🎉
+inoreabbrev :focus:  🔍
+inoreabbrev :f:      🔍
+inoreabbrev :block:  🚫
+inoreabbrev :b:      🚫
+inoreabbrev :!:      ⚠️
+inoreabbrev :ticket: 🎫
 
 "" tab
 " open current file in new tab
