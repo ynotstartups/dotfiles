@@ -139,9 +139,9 @@ function gnew_branch() {
         echo "Current branch has changes. Stopping!"
         return
     fi
-    new_branch_name=$(jira -b | fzf)
+    new_branch_name=$(jira -b | fzf --height 20 --header 'jira tickets')
     git fetch upstream "$(g_get_main_branch_name):$new_branch_name"
-    git switch "$1"
+    git switch "$new_branch_name"
 }
 
 function groot() {
