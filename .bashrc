@@ -317,6 +317,10 @@ jira() {
 # export for use in vim
 export -f jira
 
+## use qalc to calculate
+
+alias calculate='qalc'
+
 ## dict
 
 dict() {
