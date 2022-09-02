@@ -365,6 +365,11 @@ alias open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --nu
 export FZF_DEFAULT_OPTS="--multi --bind 'ctrl-a:select-all'"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+## python programmer alias for bash functions
+
+# python "string"[0:] - bash slice 1-
+alias slice='cut -c'
+
 
 # python argcomplete
 __python_argcomplete_expand_tilde_by_ref () {
