@@ -330,7 +330,12 @@ dict() {
 alias open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
 
 # fzf
-export FZF_DEFAULT_OPTS="--multi --bind 'ctrl-a:select-all'"
+export FZF_DEFAULT_OPTS="--multi
+    --bind 'ctrl-a:select-all' \
+    --bind up:ignore \
+    --bind down:ignore
+"
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 ## python programmer alias for bash functions
