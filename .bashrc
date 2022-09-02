@@ -148,6 +148,10 @@ function groot() {
     cd "$(git rev-parse --show-toplevel)" || exit
 }
 
+function gswitch() {
+    git switch $(git for-each-ref refs/heads/ --format='%(refname:short)' | fzf)
+}
+
 alias gcopy_log_body='git --no-pager log -1 --pretty=format:%b | copy'
 
 ## github alias
