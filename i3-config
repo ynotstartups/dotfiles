@@ -57,11 +57,11 @@ bindsym $mod+d exec "dmenu_run -sb '#009999'"
 bindsym $mod+Shift+n exec nautilus ~/Downloads/
 
 # start google-chrome
-bindsym $mod+Shift+g exec google-chrome-stable --profile-directory='Default' # personal
-# bindsym $mod+Shift+k exec google-chrome-stable --profile-directory='Default' 'https://keep.google.com/' # personal
+# bindsym $mod+Shift+g exec google-chrome-stable --profile-directory='Default' # personal
+bindsym $mod+Shift+f exec firefox
 
-bindsym $mod+Shift+w exec google-chrome-stable --profile-directory='Profile 1' # work
-# bindsym $mod+Shift+j exec google-chrome-stable --profile-directory='Profile 1' 'https://jira.lystit.com/secure/RapidBoard.jspa?rapidView=356&projectKey=APPLE' # personal
+# bindsym $mod+Shift+w exec google-chrome-stable --profile-directory='Profile 1' # work
+# bindsym $mod+Shift+w exec firefox
 
 bindsym $mod+Shift+t exec gnome-control-center
 
