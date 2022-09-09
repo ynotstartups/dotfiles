@@ -340,6 +340,8 @@ dict() {
 
 alias open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
 
+alias ,internet='ping 1.1.1.1'
+
 # fzf
 export FZF_DEFAULT_OPTS="--multi
     --bind 'ctrl-a:select-all' \
