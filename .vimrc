@@ -267,18 +267,6 @@ autocmd BufReadPost *
   \ | endif
 
 
-function! OpenJIRA()
-  " open jira ticket under cursor
-  let l:ticket = matchstr(expand("<cWORD>"), "[A-Z]*-[0-9]*")
-  if l:ticket != ""
-    silent execute "!google-chrome-stable https://jira.lystit.com/browse/'".l:ticket."'"
-    redraw!
-  else
-    echo "No Ticket found in line."
-  endif
-endfunction
-autocmd FileType markdown nnoremap <leader>j :call OpenJIRA()<cr>
-
 " Deprecated by git_commit_message
 " insert jira ticket by extracting from git branch name, e.g. FOO-123-bar
 " nnoremap <leader>t :read !git rev-parse --abbrev-ref HEAD \| cut -d "-" -f 1,2<cr>

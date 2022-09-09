@@ -1,7 +1,7 @@
 # Newsboat config file
 # Docs https://newsboat.org/releases/2.21/docs/newsboat.html
 
-browser "google-chrome %u"
+browser "firefox %u"
 
 unbind-key j
 unbind-key k
