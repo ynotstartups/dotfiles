@@ -133,7 +133,7 @@ function gfru() {
 }
 
 
-function gnew_branch() {
+function gnew_branch_jira() {
     has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
     if [ "$has_changes" == "1" ]; then
         echo "Current branch has changes. Stopping!"
@@ -142,6 +142,17 @@ function gnew_branch() {
     new_branch_name=$(jira -b | fzf --height 20 --header 'jira tickets')
     git fetch upstream "$(g_get_main_branch_name):$new_branch_name"
     git switch "$new_branch_name"
+}
+
+# todo if $1 is not provided use jira ticket instead
+function gnew_branch() {
+    has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
+    if [ "$has_changes" == "1" ]; then
+        echo "Current branch has changes. Stopping!"
+        return
+    fi
+    git fetch upstream "$(g_get_main_branch_name):$1"
+    git switch "$1"
 }
 
 function groot() {
