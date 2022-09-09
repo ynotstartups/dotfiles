@@ -1,11 +1,13 @@
+# documentation `man i3status`
+
 general {
         output_format = "none"
         colors = false
         interval = 5
 }
 
-order += "path_exists notification"
-# order += "battery 0"
+# order += "path_exists notification"
+order += "battery 0"
 order += "path_exists VPN"
 # order += "path_exists earphone_enable"
 # order += "volume master"
@@ -16,8 +18,13 @@ order += "path_exists VPN"
 # order += "time"
 
 battery 0 {
-       format = "BAT: %percentage"
-       path = "/sys/class/power_supply/BAT%d/uevent"
+        format = "%status %percentage"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        integer_battery_capacity = true
+        status_chr = "⚡ CHARGING"
+        status_bat = "BATTERY REMAINING"
+        status_full = "BATTERY REMAINING"
+        last_full_capacity = true
 }
 
 path_exists VPN {
