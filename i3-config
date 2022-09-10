@@ -258,6 +258,9 @@ bindsym $mod+r exec i3-input -F "rename workspace to "$(i3-msg -t get_workspaces
 workspace_auto_back_and_forth yes
 bindsym $mod+Tab workspace back_and_forth
 
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
+
 # lock with tiling tiger image
 bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/tiger.png --tiling
 
