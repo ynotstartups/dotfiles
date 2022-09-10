@@ -240,6 +240,7 @@ for_window [class="^Thunderbird$"] move to workspace $ws7
 for_window [class="^zoom$" title="^Zoom$"] floating disable, move to workspace $ws6
 for_window [class="^zoom$" title="^Zoom - Licensed Account$"] floating disable, move to workspace $ws6
 for_window [class="^zoom$" title="^Zoom Meeting$"] floating disable, move to workspace $ws6
+for_window [class="^zoom$" title="^Chat$"] move to workspace $ws6
 
 # Set Vlc default workspace to be 10
 for_window [class="vlc"] move to workspace $ws10
