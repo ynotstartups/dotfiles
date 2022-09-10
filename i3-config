@@ -266,3 +266,6 @@ bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/tiger.png 
 # remove system title bar
 default_border none
 default_floating_border none
+
+# use dmenu to open certain files to edit in vim
+bindsym $mod+c exec fdfind --maxdepth 1 --hidden . /home/tiger/Documents/dotfiles/ /home/tiger/Documents/notes/notes/ /home/tiger/Documents/personal-docs/ | dmenu | xargs -I {} gnome-terminal -- vim {}
