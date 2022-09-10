@@ -107,7 +107,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -263,6 +263,8 @@ bindsym $mod+Tab workspace back_and_forth
 
 bindsym $mod+n workspace next
 bindsym $mod+p workspace prev
+
+bindsym $mod+space exec ~/Documents/dotfiles/i3-container-commander.py --group-by none
 
 # lock with tiling tiger image
 bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/tiger.png --tiling
