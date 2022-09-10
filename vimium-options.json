@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.67",
+  "settingsVersion": "1.67.1",
   "exclusionRules": [
     {
       "pattern": "https?://www.youtube.com/watch*",
@@ -45,7 +45,7 @@
   "filterLinkHints": true,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\n\nmap c closeOtherTabs\nmap C closeTabsOnRight\n\nunmap H\nunmap J\nunmap K\nunmap L\nunmap f\nunmap F\nunmap <a-f>\n\nmap H previousTab\nmap J goBack\nmap K goForward\nmap L nextTab\nmap a LinkHints.activateMode\nmap A LinkHints.activateModeToOpenInNewTab\nmap <a-a> LinkHints.activateModeWithQueue",
+  "keyMappings": "# Insert your preferred key mappings here.\n\nmap c closeOtherTabs\nmap C closeTabsOnRight\n\nunmap H\nunmap J\nunmap K\nunmap L\nunmap f\nunmap F\nunmap <a-f>\nunmap `\n\nmap H previousTab\nmap J goBack\nmap K goForward\nmap L nextTab\nmap a LinkHints.activateMode\nmap A LinkHints.activateModeToOpenInNewTab\nmap <a-a> LinkHints.activateModeWithQueue\nmap ' Marks.activateGotoMode",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
