@@ -222,7 +222,7 @@ autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
 " insert today's agenda/meetings from google calender
-autocmd FileType markdown nnoremap <silent> <leader>ia :read !agenda<cr>
+autocmd FileType markdown nnoremap <silent> <leader>ia :read !automation --meetings<cr>
 
 " insert jira tickets
 autocmd FileType markdown nnoremap <silent> <leader>ij :read !jira<cr>
