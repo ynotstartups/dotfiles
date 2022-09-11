@@ -1,0 +1,6 @@
+#!/bin/bash
+
+meeting_link=$(/home/tiger/Documents/automation/automation.py --meetings | dmenu -l 20 | grep --only-matching --extended-regexp 'https://[[:alnum:]./]*')
+
+firefox "$meeting_link"
+

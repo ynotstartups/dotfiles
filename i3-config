@@ -270,3 +270,6 @@ default_floating_border none
 # use dmenu to open certain files to edit in vim
 # -I {} means to replace string "{}" with line in stdin e.g. "{}" in vim {}
 bindsym $mod+c exec fdfind --maxdepth 1 --hidden . ~/Documents/dotfiles/ ~/Documents/notes/notes/ ~/Documents/personal-docs/ | dmenu | xargs -I {} gnome-terminal -- vim {}
+
+# launch meeting with dmenu
+bindsym $mod+m exec ~/Documents/dotfiles/dmenu_launch_meeting
