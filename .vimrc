@@ -225,7 +225,7 @@ nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 autocmd FileType markdown nnoremap <silent> <leader>ia :read !automation --meetings<cr>
 
 " insert jira tickets
-autocmd FileType markdown nnoremap <silent> <leader>ij :read !jira<cr>
+autocmd FileType markdown nnoremap <silent> <leader>ij :read !automation --tickets<cr>
 
 " insert automated checklist for the day
 autocmd FileType markdown nnoremap <silent> <leader>ic :read !automation<cr>

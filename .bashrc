@@ -139,7 +139,7 @@ function gnew_branch_jira() {
         echo "Current branch has changes. Stopping!"
         return
     fi
-    new_branch_name=$(jira -b | fzf --height 20 --header 'jira tickets')
+    new_branch_name=$(automation --tickets-branch-format | fzf --height 20 --header 'jira tickets')
     git fetch upstream "$(g_get_main_branch_name):$new_branch_name"
     git switch "$new_branch_name"
 }
@@ -306,15 +306,6 @@ export RIPGREP_CONFIG_PATH=~/Documents/dotfiles/.rgrc
 
 ## turnoff
 alias turnoff='poweroff'
-
-## jira
-
-jira() {
-    /home/tiger/Documents/myjira/myjira.py "$@"
-}
-
-# export for use in vim
-export -f jira
 
 ## use qalc to calculate
 
