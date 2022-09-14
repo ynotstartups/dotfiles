@@ -2,6 +2,6 @@
 
 set -o errexit -o nounset -o xtrace
 
-meeting_link=$(/home/tiger/Documents/automation/automation.py --meetings | dmenu -l 20 | grep --only-matching --extended-regexp 'https://[[:alnum:]./]*')
+meeting_link=$(/home/tiger/Documents/automation/automation.py --meetings | dmenu -l 20 -i | grep --only-matching --extended-regexp 'https://[[:alnum:]./?=]*')
 
 firefox "$meeting_link"
