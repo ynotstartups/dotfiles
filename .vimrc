@@ -235,6 +235,9 @@ autocmd FileType markdown nnoremap <silent> <leader>ic :read !automation<cr>
 " added to line below cursor
 autocmd FileType gitcommit nnoremap <silent> <leader>im :0read !git_commit_message<cr>
 
+" complete
+autocmd FileType markdown nnoremap <silent> <cr> ^f[lrx
+
 "" Surround
 " Works globally, because it won't affect any other filetype really
 " Useful in markdown and git commit messages
