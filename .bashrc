@@ -190,7 +190,8 @@ alias vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/
 alias ma='make format && make lint && make coverage-report-terminal'
 
 # shortcut to start venv
-alias activate='source .venv/bin/activate'
+alias ,activate='source .venv/bin/activate'
+alias ,virtualenv-setup='python3 -m venv .venv'
 
 # find meeting today
 alias a='automation --meetings'
@@ -226,14 +227,14 @@ alias r='vim ~/Documents/notes/notes/reminders.md'
 alias i='vim ~/Documents/notes/notes/ideas.md'
 ## ----
 
-alias music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
+alias ,music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
 
 ## get weather
 alias w='curl wttr.in/?0' # weather now
 alias wa='curl wttr.in/' # weather today and forecast for next two days
 
 ## get local ip
-alias ip-local='ifconfig -a | grep -A 1 wlan0'
+alias ,ip-local='ifconfig -a | grep -A 1 wlan0'
 
 ## get cheatsheet from cheat.sh e.g. cheatsheet sed
 function cheatsheet() {
@@ -317,9 +318,10 @@ dict() {
     /usr/bin/dict "$1" | less
 }
 
-alias open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
+alias ,open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
 
 alias ,internet='ping 1.1.1.1'
+alias ,ethernet-disconnect='nmcli device disconnect enxacde48001122'
 
 # fzf
 export FZF_DEFAULT_OPTS="--multi
