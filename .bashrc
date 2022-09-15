@@ -253,8 +253,8 @@ alias nw='newsboat --url-file ~/Documents/private_dotfiles/urls-work --cache-fil
 # download podcasts
 # alias p='podboat'
 
-alias restart_display_manager='sudo systemctl restart display-manager'
-alias restart_network_manager='sudo service network-manager restart'
+alias ,restart_display_manager='sudo systemctl restart display-manager'
+alias ,restart_network_manager='sudo service network-manager restart'
 
 ## Notification
 
