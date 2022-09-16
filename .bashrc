@@ -254,8 +254,8 @@ function mb(){
     docker-compose run --user "$user_id:$user_id" --rm "$base_directory" bash -o vi
 }
 
-alias linux_sandbox_root='docker run --rm --tty --interactive busybox'
-alias linux_sandbox='docker run --rm --user nobody --tty --interactive busybox'
+alias ,linux_sandbox_root='docker run --rm --tty --interactive busybox'
+alias ,linux_sandbox='docker run --rm --user nobody --tty --interactive busybox'
 
 ## manual pages
 
@@ -263,14 +263,6 @@ alias linux_sandbox='docker run --rm --user nobody --tty --interactive busybox'
 function man() {
     /usr/bin/man "$1" | vim -R '-c silent bufdo set filetype=man'  -
 }
-
-## Github
-
-# My Open PRs
-alias p="gh api -X GET search/issues -f q='is:open state:open author:tigerhuang' | jq '.items[] | {title, html_url}'"
-
-# Open PRs Waiting For My Review
-alias pw="gh api -X GET search/issues -f q='is:open review:none review-requested:tigerhuang' | jq '.items[] | {title, html_url}'"
 
 ## Autocomplete
 
