@@ -3,7 +3,7 @@
 general {
         output_format = "none"
         colors = false
-        interval = 5
+        interval = 1
 }
 
 # order += "path_exists notification"
@@ -15,15 +15,15 @@ order += "path_exists VPN"
 # order += "load"
 # order += "cpu_usage"
 # order += "memory"
-# order += "time"
+order += "time"
 
 battery 0 {
         format = "%status %percentage"
         path = "/sys/class/power_supply/BAT%d/uevent"
         integer_battery_capacity = true
         status_chr = "⚡ CHARGING"
-        status_bat = "BATTERY REMAINING"
-        status_full = "BATTERY REMAINING"
+        status_bat = "BATTERY"
+        status_full = "BATTERY"
         last_full_capacity = true
 }
 
@@ -57,7 +57,7 @@ volume master {
 }
 
 time {
-        format = "%m-%d %H:%M"
+        format = "%m/%d %H:%M"
 }
 
 cpu_usage {
