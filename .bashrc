@@ -61,9 +61,6 @@ PS1='\[\033[01;34m\]\w\[\033[00m\]\$ ' # this is used
 alias e='exit'
 
 alias grep='grep --color=auto --ignore-case'
-# alias fgrep='fgrep --color=auto'
-# alias egrep='egrep --color=auto'
-
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -198,27 +195,12 @@ alias a='automation --meetings'
 alias aw='gcalcli calw'
 alias am='gcalcli calm'
 
-## Duck Duck Go
-# q for query
-alias q='ddgr --num 3 --noprompt --expand --reverse'
-alias qo='ddgr --num 1 --ducky'
-
 ## Vim
 
 alias v='vim'
 
 alias vlast='vim $(ls -t -1 | head -n 1)'
 
-## ----
-
-## Bookmarks
-
-# open bookmarks
-alias bm='vim ~/Documents/notes/notes/bookmarks.md'
-
-# open work related bookmarks
-alias bmw='vim ~/Documents/personal-docs/bookmarks.md'
-## ----
 
 ## Reminders
 
@@ -241,10 +223,6 @@ function cheatsheet() {
     curl cheat.sh/"$1"
 }
 
-## image viewer
-
-alias image='eog'
-
 ## newsboat
 
 alias n='newsboat --url-file ~/Documents/private_dotfiles/urls --cache-file ~/.newsboat/cache-work.db --refresh-on-start'
@@ -255,6 +233,10 @@ alias nw='newsboat --url-file ~/Documents/private_dotfiles/urls-work --cache-fil
 
 alias ,restart_display_manager='sudo systemctl restart display-manager'
 alias ,restart_network_manager='sudo service network-manager restart'
+
+# kill zoom
+
+alias ,killzoom='killall zoom'
 
 ## Notification
 
@@ -299,12 +281,6 @@ eval "$(gh completion -s bash)"
 ## Rg
 export RIPGREP_CONFIG_PATH=~/Documents/dotfiles/.rgrc
 
-## nvm - node version manager
-
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 ## turnoff
 alias turnoff='poweroff'
 
@@ -336,7 +312,6 @@ export FZF_DEFAULT_OPTS="--multi
 
 # python "string"[0:] - bash slice 1-
 alias slice='cut -c'
-
 
 # python argcomplete
 __python_argcomplete_expand_tilde_by_ref () {
