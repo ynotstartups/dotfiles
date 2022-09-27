@@ -323,14 +323,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 autocmd VimEnter * call after_object#enable('=', '#', '/', ' ')
 
-"" window
-" move to next window
-" alternative use gJ to join lines
-nnoremap J <c-w>w
-" I accidentally type K when editing python files which opens terminal very
-" distracting
 " alternative use :help <c-r><c-w> to get help with word under cursor
-nnoremap K <c-w>w
+nnoremap K <nop>
 
 "" fzf
 
