@@ -169,19 +169,19 @@ alias gcopy_log_body='git --no-pager log -1 --pretty=format:%b | copy'
 alias gupdate_pr_description='git --no-pager log -1 --pretty=format:%b | gh pr edit --body-file -'
 
 # pinta
-alias pinta_last='pinta "$(ls -t | head -n 1)"'
+alias ,pinta_last='pinta "$(ls -t | head -n 1)"'
 
 # source autojump, usage `j foo`
 . /usr/share/autojump/autojump.sh
 
 # xclip
-alias copy='xclip -selection clipboard'
-alias copy_png='xclip -selection clipboard -t image/png'
-alias copy_last_png='xclip -selection clipboard -t image/png "$(ls -t *.png | head -n 1)"'
+alias ,copy='xclip -selection clipboard'
+alias ,copy_png='xclip -selection clipboard -t image/png'
+alias ,copy_last_png='xclip -selection clipboard -t image/png "$(ls -t *.png | head -n 1)"'
 
 # vpn
-alias vpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.ovpn'
-alias vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/openvpn/client.ovpn'
+alias ,vpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.ovpn'
+alias ,vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/openvpn/client.ovpn'
 
 # make all
 alias ma='make format && make lint && make coverage-report-terminal'
@@ -240,8 +240,8 @@ alias ,killzoom='killall zoom'
 
 ## Notification
 
-alias notification_disable='killall -SIGUSR1 dunst && touch /tmp/notification_disable && killall -SIGUSR1 i3status'
-alias notification_enable='killall -SIGUSR2 dunst && rm /tmp/notification_disable && killall -SIGUSR1 i3status'
+alias ,notification_disable='killall -SIGUSR1 dunst && touch /tmp/notification_disable && killall -SIGUSR1 i3status'
+alias ,notification_enable='killall -SIGUSR2 dunst && rm /tmp/notification_disable && killall -SIGUSR1 i3status'
 
 ## Docker
 
@@ -274,11 +274,11 @@ eval "$(gh completion -s bash)"
 export RIPGREP_CONFIG_PATH=~/Documents/dotfiles/.rgrc
 
 ## turnoff
-alias turnoff='poweroff'
+alias ,turnoff='poweroff'
 
 ## use qalc to calculate
 
-alias calculate='qalc'
+alias ,calculate='qalc'
 
 ## dict
 
@@ -303,7 +303,9 @@ export FZF_DEFAULT_OPTS="--multi
 ## python programmer alias for bash functions
 
 # python "string"[0:] - bash slice 1-
-alias slice='cut -c'
+alias ,slice='cut -c'
+
+alias ,ctags_generate_for_python='ctags **/*.py'
 
 # python argcomplete
 __python_argcomplete_expand_tilde_by_ref () {
