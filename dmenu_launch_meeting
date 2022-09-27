@@ -4,4 +4,9 @@ set -o errexit -o nounset -o xtrace
 
 meeting_link=$(/home/tiger/Documents/automation/automation.py --meetings | dmenu -l 20 -i | grep --only-matching --extended-regexp 'https://[[:alnum:]./?=]*')
 
+if pgrep zoom; then
+    pkill zoom
+fi
+
 firefox "$meeting_link"
+# echo "$meeting_link"
