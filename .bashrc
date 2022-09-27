@@ -184,7 +184,7 @@ alias ,vpn_connect='openvpn3 session-start --config ~/Documents/openvpn/client.o
 alias ,vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents/openvpn/client.ovpn'
 
 # make all
-alias ma='make format && make lint && make coverage-report-terminal'
+alias ma='make format && make lint && make coverage-report-terminal; notify-send "make done"'
 
 # shortcut to start venv
 alias ,activate='source .venv/bin/activate'
@@ -195,19 +195,9 @@ alias a='automation --meetings'
 alias aw='gcalcli calw'
 alias am='gcalcli calm'
 
-## Vim
-
-alias v='vim'
-
-alias vlast='vim $(ls -t -1 | head -n 1)'
-
-
-## Reminders
-
 # open files
 alias r='vim ~/Documents/notes/notes/reminders.md'
 alias i='vim ~/Documents/notes/notes/ideas.md'
-## ----
 
 alias ,music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
 
