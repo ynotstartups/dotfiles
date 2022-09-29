@@ -195,6 +195,12 @@ alias a='automation --meetings'
 alias aw='gcalcli calw'
 alias am='gcalcli calm'
 
+
+## Vim
+
+# used in `sn` standup new
+alias vlast='vim $(ls -t -1 | head -n 1)'
+
 # open files
 alias r='vim ~/Documents/notes/notes/reminders.md'
 alias i='vim ~/Documents/notes/notes/ideas.md'
