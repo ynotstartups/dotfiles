@@ -188,7 +188,7 @@ alias ma='make format && make lint && make coverage-report-terminal; notify-send
 
 # shortcut to start venv
 alias ,activate='source .venv/bin/activate'
-alias ,virtualenv-setup='python3 -m venv .venv'
+alias ,virtualenv_setup='python3 -m venv .venv'
 
 # find meeting today
 alias a='automation --meetings'
@@ -205,14 +205,14 @@ alias vlast='vim $(ls -t -1 | head -n 1)'
 alias r='vim ~/Documents/notes/notes/reminders.md'
 alias i='vim ~/Documents/notes/notes/ideas.md'
 
-alias ,music-dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
+alias ,music_dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
 
 ## get weather
 alias w='curl wttr.in/?0' # weather now
 alias wa='curl wttr.in/' # weather today and forecast for next two days
 
 ## get local ip
-alias ,ip-local='ifconfig -a | grep -A 1 wlan0'
+alias ,ip_local='ifconfig -a | grep -A 1 wlan0'
 
 ## get cheatsheet from cheat.sh e.g. cheatsheet sed
 function cheatsheet() {
@@ -224,11 +224,10 @@ function cheatsheet() {
 alias n='newsboat --url-file ~/Documents/private_dotfiles/urls --cache-file ~/.newsboat/cache-work.db --refresh-on-start'
 alias nw='newsboat --url-file ~/Documents/private_dotfiles/urls-work --cache-file ~/.newsboat/cache.db --refresh-on-start'
 
-# download podcasts
-# alias p='podboat'
-
 alias ,restart_display_manager='sudo systemctl restart display-manager'
-alias ,restart_network_manager='sudo service network-manager restart'
+
+# restart network manager and disable ethernet
+alias ,restart_network_manager='sudo service network-manager restart && nmcli device disconnect enxacde48001122'
 
 # kill zoom
 
@@ -282,16 +281,14 @@ dict() {
     /usr/bin/dict "$1" | less
 }
 
-alias ,open-ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
+alias ,open_ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
 
 alias ,internet='ping 1.1.1.1'
-alias ,ethernet-disconnect='nmcli device disconnect enxacde48001122'
+# alias ,ethernet-disconnect='nmcli device disconnect enxacde48001122'
 
 # fzf
 export FZF_DEFAULT_OPTS="--multi
-    --bind 'ctrl-a:select-all' \
-    --bind up:ignore \
-    --bind down:ignore
+    --bind 'ctrl-a:select-all'
 "
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -302,5 +299,8 @@ export FZF_DEFAULT_OPTS="--multi
 alias ,slice='cut -c'
 
 alias ,ctags_generate_for_python='ctags **/*.py'
+alias ,generate_ctags_for_python='ctags **/*.py'
 
 [ -f ~/Documents/dotfiles/python_argcomplete ] && source ~/Documents/dotfiles/python_argcomplete
+
+alias ,poetry_update_dependencies='poetry update --lock'
