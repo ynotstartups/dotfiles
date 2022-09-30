@@ -304,3 +304,6 @@ alias ,generate_ctags_for_python='ctags **/*.py'
 [ -f ~/Documents/dotfiles/python_argcomplete ] && source ~/Documents/dotfiles/python_argcomplete
 
 alias ,poetry_update_dependencies='poetry update --lock'
+
+alias ,top='bpytop'
+alias ,performance='bpytop'

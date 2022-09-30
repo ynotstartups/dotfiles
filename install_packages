@@ -92,6 +92,9 @@ sudo apt-get install --yes newsboat
 # email client
 sudo apt-get install --yes thunderbird
 
+# bpytop
+sudo snap install bpytop
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
