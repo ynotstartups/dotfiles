@@ -227,7 +227,8 @@ alias nw='newsboat --url-file ~/Documents/private_dotfiles/urls-work --cache-fil
 alias ,restart_display_manager='sudo systemctl restart display-manager'
 
 # restart network manager and disable ethernet
-alias ,restart_network_manager='sudo service network-manager restart && nmcli device disconnect enxacde48001122'
+alias ,restart_network_manager='sudo service network-manager restart'
+alias ,ethernet_disconnect='nmcli device disconnect enxacde48001122'
 
 # kill zoom
 
@@ -284,7 +285,6 @@ dict() {
 alias ,open_ports='sudo netstat --listening --programs --tcp --numeric-hosts --numeric-ports'
 
 alias ,internet='ping 1.1.1.1'
-# alias ,ethernet-disconnect='nmcli device disconnect enxacde48001122'
 
 # fzf
 export FZF_DEFAULT_OPTS="--multi
