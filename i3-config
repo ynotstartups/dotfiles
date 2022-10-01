@@ -261,7 +261,9 @@ bindsym $mod+p workspace prev
 bindsym $mod+space exec ~/Documents/dotfiles/i3-container-commander.py --group-by none
 
 # lock with tiling tiger image
-bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/tiger.png --tiling
+bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/desktop.png --tiling
+# set desktop background to tiger
+exec xsetroot -bitmap ~/Documents/dotfiles/desktop.XBM
 
 # remove system title bar
 default_border none
