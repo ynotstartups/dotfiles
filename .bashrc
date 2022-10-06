@@ -166,7 +166,8 @@ alias gcopy_log_body='git --no-pager log -1 --pretty=format:%b | copy'
 
 # `git --no-pager log -1 --pretty=format:%b` prints out commit message body of last commit
 # `gh pr edit --body-file` takes string from stdin
-alias gupdate_pr_description='git --no-pager log -1 --pretty=format:%b | gh pr edit --body-file -'
+alias ,gh_update_pr_description='git --no-pager log -1 --pretty=format:%b | gh pr edit --body-file -'
+alias ,gh_create_pr='gh pr create -f'
 
 # pinta
 alias ,pinta_last='pinta "$(ls -t | head -n 1)"'
@@ -271,10 +272,6 @@ export RIPGREP_CONFIG_PATH=~/Documents/dotfiles/.rgrc
 
 ## turnoff
 alias ,turnoff='poweroff'
-
-## use qalc to calculate
-
-alias ,calculate='qalc'
 
 ## dict
 
