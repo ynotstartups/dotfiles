@@ -206,7 +206,7 @@ alias vlast='vim $(ls -t -1 | head -n 1)'
 alias r='vim ~/Documents/notes/notes/reminders.md'
 alias i='vim ~/Documents/notes/notes/ideas.md'
 
-alias ,music_dl='youtube-dl --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
+alias ,music_download='yt-dlp --extract-audio --audio-quality 0 --no-part --output "%(title)s.%(ext)s"'
 
 ## get weather
 alias w='curl wttr.in/?0' # weather now
