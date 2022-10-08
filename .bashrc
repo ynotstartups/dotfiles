@@ -71,14 +71,14 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
+    source /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+    source /etc/bash_completion
   fi
 fi
 
 if [ -f ~/.lyst_bashrc ]; then
-    . ~/.lyst_bashrc
+    source ~/.lyst_bashrc
 fi
 
 # use vim as default editor
@@ -173,7 +173,7 @@ alias ,gh_create_pr='gh pr create -f'
 alias ,pinta_last='pinta "$(ls -t | head -n 1)"'
 
 # source autojump, usage `j foo`
-. /usr/share/autojump/autojump.sh
+source /usr/share/autojump/autojump.sh
 
 # xclip
 alias ,copy='xclip -selection clipboard'
