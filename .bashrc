@@ -118,7 +118,7 @@ function g_get_main_branch_name() {
 alias gs="git status"
 
 function gdu() {
-    git diff "upstream/$(g_get_main_branch_name)"...
+    git diff "upstream/$(g_get_main_branch_name)"... "$@"
 }
 
 alias gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
