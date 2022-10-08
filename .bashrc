@@ -298,7 +298,13 @@ alias ,slice='cut -c'
 alias ,ctags_generate_for_python='ctags **/*.py'
 alias ,generate_ctags_for_python='ctags **/*.py'
 
+# python argcomplete bash completion
+# https://kislyuk.github.io/argcomplete/#activating-global-completion
 [ -f ~/Documents/dotfiles/python_argcomplete ] && source ~/Documents/dotfiles/python_argcomplete
+
+# poetry bash completion
+# https://kislyuk.github.io/argcomplete/#activating-global-completion
+[ -f ~/Documents/dotfiles/poetry_bash_completion ] && source ~/Documents/dotfiles/poetry_bash_completion
 
 alias ,poetry_update_dependencies='poetry update --lock'
 
