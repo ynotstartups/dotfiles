@@ -227,8 +227,8 @@ for_window [title="^scratchpad$"] border 1pixel, floating enable, move scratchpa
 #
 # Set Slack default workspace to be 8
 for_window [class="^Slack$"] move to workspace $ws8
-# Set Slack default workspace to be 8
-for_window [class="^Thunderbird$"] move to workspace $ws7
+# Set Email default workspace to be 7
+for_window [class="^thunderbird$"] move to workspace $ws7
 
 # Set Zoom default workspace to be 6
 for_window [class="^zoom$" title="^Zoom$"] floating disable, move to workspace $ws6
