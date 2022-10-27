@@ -9,8 +9,8 @@ do
     # remove the unnecessary "|  |"
     formatted_line=`echo $line | sed 's/ |//'`
 
-    # remove the unnecessary ' +' in '⛅️  +13°C'
-    weather=`curl -s wttr.in/?format=1 | sed 's/ +//'`
+    # sed to change +19 to 19 and tr to change to uppercase
+    weather=`curl -s wttr.in/?format=%C%t | sed 's/\+/ /' | tr a-z A-Z`
 
     # echo "$weather | $formatted_line" || exit 1
     # don't ever exit with 1, always keep going
