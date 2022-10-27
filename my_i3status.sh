@@ -9,6 +9,6 @@ do
     # remove the unnecessary "|  |"
     formatted_line=`echo $line | sed 's/ |//'`
 
-    weather=`curl -s wttr.in/?format=3 | cut -d ":" -f 2`
-    echo "$weather | $formatted_line" || exit 1
+    # remove the unnecessary ' +' in '⛅️  +13°C'
+    weather=`curl -s wttr.in/?format=1 | sed 's/ +//'`
 done
