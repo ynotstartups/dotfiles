@@ -187,6 +187,10 @@ alias ,vpn_disconnect='openvpn3 session-manage --disconnect --config ~/Documents
 # make all
 alias ma='make format && make lint && make coverage-report-terminal; notify-send "make done"'
 
+
+# o for open
+alias o='xdg-open'
+
 # shortcut to start venv
 alias ,activate='source .venv/bin/activate'
 alias ,virtualenv_setup='python3 -m venv .venv'
@@ -289,6 +293,7 @@ export FZF_DEFAULT_OPTS="--multi
 "
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/Documents/dotfiles/fzf-git.sh ] && source ~/Documents/dotfiles/fzf-git.sh
 
 ## python programmer alias for bash functions
 
