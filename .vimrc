@@ -25,6 +25,7 @@ Plug 'hashivim/vim-terraform' " basic vim/terraform integration
 Plug 'junegunn/fzf' " ca# to change after # used in markdown
 Plug 'junegunn/fzf.vim' " ca# to change after # used in markdown
 Plug 'junegunn/vim-after-object' " ca# to change after # used in markdown
+Plug 'junegunn/vim-peekaboo' " \" to show the contents of registers
 Plug 'inkarkat/vim-visualrepeat' " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
