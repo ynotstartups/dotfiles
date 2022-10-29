@@ -21,3 +21,4 @@
         ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
         p = push
         s = status
+        sw = switch
