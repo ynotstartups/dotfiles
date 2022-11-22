@@ -153,10 +153,6 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# show datetime as notification, disappear in 2 seconds
-
-bindsym $mod+Shift+d exec notify-send --expire-time 3000 "`date`"
-
 # Tiger's Note:
 # - Bar Color and Color is copied from
 # `https://thomashunter.name/i3-configurator/` with cyan #00FFFF theme
@@ -179,7 +175,7 @@ bar {
 # - screenshot
 # - save a copy to Downloads
 # - send to clipboard
-bindsym --release Print exec "gnome-screenshot --area -f /tmp/test.png && cp /tmp/test.png ~/Downloads/`date +%F-%T`.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png"
+bindsym --release Print exec "gnome-screenshot --area -f /tmp/test.png && cp /tmp/test.png ~/Downloads/`date +%Y-%m-%d-%H-%M-%S`.png && cat /tmp/test.png | xclip -i -selection clipboard -target image/png"
 
 # use Control+Shift+Print key to
 # - screenshot
@@ -256,7 +252,7 @@ bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+n workspace next
 bindsym $mod+p workspace prev
 
-bindsym $mod+space exec ~/Documents/dotfiles/i3-container-commander.py --group-by none
+# bindsym $mod+space exec ~/Documents/dotfiles/i3-container-commander.py --group-by none
 
 # lock with tiling tiger image
 bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/desktop.png --tiling
@@ -264,8 +260,8 @@ bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/desktop.pn
 exec xsetroot -bitmap ~/Documents/dotfiles/desktop.XBM
 
 # remove system title bar
-default_border none
-default_floating_border none
+default_border pixel 1
+default_floating_border pixel 1
 
 # use dmenu to open certain files to edit in vim
 # -I {} means to replace string "{}" with line in stdin e.g. "{}" in vim {}
@@ -277,3 +273,8 @@ bindsym $mod+m exec ~/Documents/dotfiles/dmenu_launch_meeting
 # focus standup window
 # .lyst_bashrc setups the mark s when I open standup file
 bindsym $mod+s [con_mark=s] focus
+
+focus_follows_mouse no
+
+# mod.space to simulate mouse click
+bindsym Mod1+space exec xdotool click 1
