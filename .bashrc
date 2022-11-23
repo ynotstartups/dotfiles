@@ -121,7 +121,7 @@ function gdu() {
     git diff "upstream/$(g_get_main_branch_name)"... "$@"
 }
 
-alias gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
+alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
 function gfru() {
     git fetch --prune origin
@@ -130,7 +130,7 @@ function gfru() {
 }
 
 
-function gnew_branch_jira() {
+function ,gnew_branch_jira() {
     has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
     if [ "$has_changes" == "1" ]; then
         echo "Current branch has changes. Stopping!"
@@ -142,7 +142,7 @@ function gnew_branch_jira() {
 }
 
 # todo if $1 is not provided use jira ticket instead
-function gnew_branch() {
+function ,gnew_branch() {
     has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
     if [ "$has_changes" == "1" ]; then
         echo "Current branch has changes. Stopping!"
