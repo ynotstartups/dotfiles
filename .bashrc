@@ -129,6 +129,10 @@ function gfru() {
     git rebase -i "upstream/$(g_get_main_branch_name)"
 }
 
+function ,gconfig_personal() {
+    git config --global user.email "ynotstartups@gmail.com"
+    git config --global user.name "ynotstartups"
+}
 
 function ,gnew_branch_jira() {
     has_changes=$(git status --porcelain=v1 2>/dev/null | wc -l)
