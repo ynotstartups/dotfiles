@@ -50,6 +50,7 @@ echo install .gitconfig configs
 ln --symbolic --force "$PWD"/.gitconfig "$HOME"/.gitconfig
 
 echo install newsboat configs
+mkdir -p "$HOME"/.newsboat/
 ln --symbolic --force "$PWD"/config "$HOME"/.newsboat/
 
 echo replace crontab with crontab in this repo

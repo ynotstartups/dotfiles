@@ -119,6 +119,8 @@ then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 fi
 
+sudo apt install fzf
+
 # You might also want to install
 # 1password - https://1password.com/downloads/linux/
 # chrome - https://www.google.com/intl/en_uk/chrome/
@@ -126,4 +128,3 @@ fi
 # openvpn3 - https://docs.docker.com/engine/install/ubuntu/
 # slack - sudo snap install slack --classic
 # zoom - https://zoom.us/download
-# fzf - https://github.com/junegunn/fzf#using-git
