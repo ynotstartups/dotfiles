@@ -319,3 +319,7 @@ alias ,poetry_update_dependencies='poetry update --lock'
 
 alias ,top='bpytop'
 alias ,performance='bpytop'
+
+# ,brightness_set 0.5
+# ,brightness_set 0.8
+alias ,brightness_set='xrandr --output eDP-1 --brightness'

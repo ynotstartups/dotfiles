@@ -22,3 +22,6 @@
         p = push
         s = status
         sw = switch
+[user]
+	email = ynotstartups@gmail.com
+	name = ynotstartups
