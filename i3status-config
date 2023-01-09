@@ -12,9 +12,9 @@ order += "path_exists VPN"
 # order += "path_exists earphone_enable"
 # order += "volume master"
 # order += "disk /"
-# order += "load"
+order += "load"
 # order += "cpu_usage"
-# order += "memory"
+order += "memory"
 order += "time"
 
 battery 0 {
