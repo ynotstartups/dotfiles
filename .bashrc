@@ -323,3 +323,6 @@ alias ,performance='bpytop'
 # ,brightness_set 0.5
 # ,brightness_set 0.8
 alias ,brightness_set='xrandr --output eDP-1 --brightness'
+
+alias ,mouse_set_left_hand='xmodmap -e "pointer = 3 2 1"'
+alias ,mouse_set_right_hand='xmodmap -e "pointer = 1 2 3"'
