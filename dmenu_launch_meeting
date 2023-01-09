@@ -8,5 +8,4 @@ if pgrep zoom; then
     pkill zoom
 fi
 
-firefox "$meeting_link"
-# echo "$meeting_link"
+google-chrome "$meeting_link"

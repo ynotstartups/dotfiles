@@ -50,12 +50,8 @@ bindsym $mod+d exec "dmenu_run -i -sb '#009999'"
 # start a terminal
 bindsym $mod+Shift+n exec nautilus ~/Downloads/
 
-# start google-chrome
-# bindsym $mod+Shift+g exec google-chrome-stable --profile-directory='Default' # personal
-bindsym $mod+Shift+f exec firefox
-
-# bindsym $mod+Shift+w exec google-chrome-stable --profile-directory='Profile 1' # work
-# bindsym $mod+Shift+w exec firefox
+# start browswer
+bindsym $mod+Shift+f exec google-chrome
 
 bindsym $mod+Shift+t exec gnome-control-center
 
