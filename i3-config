@@ -273,4 +273,4 @@ bindsym $mod+s [con_mark=s] focus
 focus_follows_mouse no
 
 # mod.space to simulate mouse click
-bindsym Mod1+space exec xdotool click 1
+bindsym $mod+space exec xdotool click 1

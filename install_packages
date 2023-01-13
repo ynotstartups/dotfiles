@@ -95,6 +95,9 @@ sudo apt-get install --yes thunderbird
 # bpytop
 sudo snap install bpytop
 
+# xdotool is used for keyboard simulation of mouse click
+sudo apt-get install xdotool
+
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
