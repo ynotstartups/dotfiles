@@ -274,3 +274,10 @@ focus_follows_mouse no
 
 # mod.space to simulate mouse click
 bindsym $mod+space exec xdotool click 1
+
+bindsym $mod+Shift+g exec i3-msg mode 'runescape'
+mode runescape {
+    bindsym space exec xdotool click 1
+    bindsym $mod+Shift+g exec i3-msg mode 'default'
+    bindsym $mod+f fullscreen toggle
+}
