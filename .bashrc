@@ -326,3 +326,10 @@ alias ,brightness_set='xrandr --output eDP-1 --brightness'
 
 alias ,mouse_set_left_hand='xmodmap -e "pointer = 3 2 1"'
 alias ,mouse_set_right_hand='xmodmap -e "pointer = 1 2 3"'
+
+# stand up
+alias sn='cd ~/Documents/private-docs/standup && copy_last_to_today && vlast'
+
+s() {
+    vim ~/Documents/private-docs/standup/$(ls -t -1 ~/Documents/private-docs/standup | head -n 1)
+}
