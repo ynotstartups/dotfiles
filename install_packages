@@ -130,6 +130,8 @@ sudo apt install fcitx-pinyin
 
 sudo apt install fzf
 
+sudo apt install gnome-screenshot
+
 # You might also want to install
 # 1password - https://1password.com/downloads/linux/
 # chrome - https://www.google.com/intl/en_uk/chrome/
