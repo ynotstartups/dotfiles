@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.67.1",
+  "settingsVersion": "1.67.4",
   "exclusionRules": [
     {
       "pattern": "https?://www.youtube.com/watch*",
@@ -39,6 +39,10 @@
     },
     {
       "pattern": "https?://play.cid.capcom.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://docs.google.com/document/*",
       "passKeys": ""
     }
   ],
