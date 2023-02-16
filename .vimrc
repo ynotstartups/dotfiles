@@ -150,7 +150,11 @@ set directory^=$HOME/.vim/tmp/
 
 " vim-markdown
 
-" don't hide/conceal characters
+" conceal characters such as bold, italic and link
+autocmd FileType markdown set conceallevel=2
+
+" don't hide/conceal code blocks
+"
 let g:vim_markdown_conceal_code_blocks = 0
 " disable folding
 let g:vim_markdown_folding_disabled = 1
