@@ -153,6 +153,13 @@ set directory^=$HOME/.vim/tmp/
 " conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
 
+" gives italic, bold and italic bold fonts a more noticeable white color
+" needed to change htmlBold because plugin vim-markdown uses HTML Syntax
+" https://github.com/preservim/vim-markdown/blob/df4be8626e2c5b2a42eb60e1f100fce469b81f7d/syntax/markdown.vim#L11
+autocmd FileType markdown hi htmlBold        ctermfg=15
+autocmd FileType markdown hi htmlItalic      ctermfg=15
+autocmd FileType markdown hi htmlBoldItalic  ctermfg=15
+
 " don't hide/conceal code blocks
 "
 let g:vim_markdown_conceal_code_blocks = 0
