@@ -194,9 +194,8 @@ autocmd FileType slack setlocal linebreak
 autocmd FileType txt setlocal linebreak
 autocmd FileType jira setlocal linebreak
 
-" set shiftwidth
-autocmd FileType markdown setlocal shiftwidth=4
-autocmd FileType sh setlocal shiftwidth=4
+" set shiftwidth - default indent
+set shiftwidth=4
 
 " set indent
 autocmd FileType markdown setlocal foldmethod=manual
@@ -336,7 +335,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 autocmd VimEnter * call after_object#enable('=', '#', '/', ' ')
 
 " alternative use :help <c-r><c-w> to get help with word under cursor
-nnoremap K <nop>
+" nnoremap K <nop>
 
 "" fzf
 
