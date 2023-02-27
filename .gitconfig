@@ -25,3 +25,5 @@
 [user]
 	email = ynotstartups@gmail.com
 	name = ynotstartups
+[init]
+	defaultBranch = main
