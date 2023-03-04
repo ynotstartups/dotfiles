@@ -156,7 +156,7 @@ function ,gnew_branch() {
     git switch "$1"
 }
 
-function groot() {
+function ,groot() {
     cd "$(git rev-parse --show-toplevel)" || exit
 }
 
