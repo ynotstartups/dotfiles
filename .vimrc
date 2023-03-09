@@ -29,7 +29,7 @@ Plug 'junegunn/vim-peekaboo' " \" to show the contents of registers
 Plug 'inkarkat/vim-visualrepeat' " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
-Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
+" Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
 Plug 'plasticboy/vim-markdown' " add markdown syntax
 Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tommcdo/vim-exchange' " cxiw to exchange work
