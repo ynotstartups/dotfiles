@@ -256,7 +256,7 @@ bindsym $mod+Control+Shift+l exec i3lock --image ~/Documents/dotfiles/desktop.pn
 exec xsetroot -bitmap ~/Documents/dotfiles/desktop.XBM
 
 # remove system title bar
-default_border pixel 0
+default_border pixel 1
 default_floating_border pixel 1
 
 # use dmenu to open certain files to edit in vim
@@ -270,7 +270,7 @@ bindsym $mod+m exec ~/Documents/dotfiles/dmenu_launch_meeting
 # .lyst_bashrc setups the mark s when I open standup file
 bindsym $mod+s [con_mark=s] focus
 
-focus_follows_mouse no
+focus_follows_mouse yes
 
 # mod.space to simulate mouse click
 bindsym $mod+space exec xdotool click 1
