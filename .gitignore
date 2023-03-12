@@ -4,3 +4,5 @@
 tags
 # vim swap files
 *.swp
+
+.venv/
