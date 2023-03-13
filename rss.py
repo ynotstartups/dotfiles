@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
 import feedparser
 from pprint import pprint
 import datetime
 import re
 import json
+import asyncio
 
 def load_rss_feed(rss_data, cache):
     url = rss_data["url"]
@@ -44,18 +46,21 @@ def load_rss_feed(rss_data, cache):
 
     print()
 
-def main():
+async def main():
     with open('../private_dotfiles/rss-config.json', 'r') as config_file:
         config = json.load(config_file)
 
     with open('../private_dotfiles/rss-cache.json', 'r') as cache_file:
         cache = json.load(cache_file)
 
-    for rss_data in config:
-        load_rss_feed(rss_data, cache)
+    tasks = [
+        asyncio.to_thread(load_rss_feed, rss_data, cache)
+        for rss_data in config
+    ]
+    await asyncio.gather(*tasks)
 
     with open('../private_dotfiles/rss-cache.json', 'w') as cache_file:
         json.dump(cache, cache_file)
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
