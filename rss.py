@@ -25,7 +25,7 @@ def load_rss_feed(rss_data, cache):
     if not recent_articles:
         return 
 
-    print("", f"\033[1m{title}\033[0m")
+    output = f" \033[1m{title}\033[0m\n"
 
     for article in recent_articles:
         link = article.link
@@ -42,9 +42,9 @@ def load_rss_feed(rss_data, cache):
             cache.append(article_title)
             date_string = "\033[33mNEW   \033[0m"
 
-        print("    ", date_string, f'\x1b]8;;{link}\x1b\\{article_title}\x1b]8;;\x1b\\')
+        output += f'    {date_string} \x1b]8;;{link}\x1b\\{article_title}\x1b]8;;\x1b\\\n'
 
-    print()
+    return output
 
 async def main():
     with open('../private_dotfiles/rss-config.json', 'r') as config_file:
@@ -57,7 +57,12 @@ async def main():
         asyncio.to_thread(load_rss_feed, rss_data, cache)
         for rss_data in config
     ]
-    await asyncio.gather(*tasks)
+
+    print('\033c') # clear screen
+    for coroutine in asyncio.as_completed(tasks):
+        rss_output = await coroutine
+        if rss_output is not None:
+            print(rss_output)
 
     with open('../private_dotfiles/rss-cache.json', 'w') as cache_file:
         json.dump(cache, cache_file)
