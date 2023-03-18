@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-import feedparser
-from pprint import pprint
-import datetime
-import re
-import json
 import asyncio
+import feedparser
+import json
+import re
 
-# bold
-# yellow
-# reset
-# link
-# clear screen
+RESET        = "\033[0m"
+BOLD         = "\033[1m"
+YELLOW       = "\033[33m"
+CLEAR_SCREEN = "\033c"
+LINK_URL   = "\x1b]8;;"
+LINK_TITLE     = "\x1b\\"
+LINK_END     = "\x1b]8;;\x1b\\"
 
 def load_rss_feed(rss_data, cache):
     url = rss_data["url"]
@@ -18,34 +18,25 @@ def load_rss_feed(rss_data, cache):
     article_count = rss_data.get("article_count", 5)
     article_regex = rss_data.get("article_regex", None)
 
-    data = feedparser.parse(url)
-    feed = data.feed
+    feed = feedparser.parse(url)
 
-    new_articles = []
-    for article in data.entries[:article_count]:
-        article_title = article.title.title()
-        # remove seen articles, i.e. only show new articles
-        if article_title in cache:
-            continue 
-
-        new_articles.append(article)
-        cache.append(article_title)
+    new_articles = [article for article in feed.entries[:article_count] if article.title not in cache]
+    cache += [article.title for article in new_articles]
 
     if not new_articles:
-        return " No new articles!"
+        return
 
-    output = f" \033[1m{title}\033[0m\n"
-
+    output = f" {BOLD}{title}{RESET}\n"
     for article in new_articles:
         link = article.link
 
+        # format output title
+        article_title = re.search(article_regex, article.title)[0] if article_regex else article.title
         article_title = article.title.title()
 
-        if article_regex:
-            article_title = re.search(article_regex, article_title)[0]
-
-        new_indicator = "\033[33mNEW   \033[0m"
-        output += f'    {new_indicator} \x1b]8;;{link}\x1b\\{article_title}\x1b]8;;\x1b\\\n'
+        new_indicator = f"{YELLOW}NEW   {RESET}"
+        link_output = f"{LINK_URL}{link}{LINK_TITLE}{article_title}{LINK_END}"
+        output += f'    {new_indicator} {link_output}\n'
 
     return output
 
@@ -61,7 +52,7 @@ async def main():
         for rss_data in config
     ]
 
-    print('\033c') # clear screen
+    print(CLEAR_SCREEN)
     for coroutine in asyncio.as_completed(tasks):
         rss_output = await coroutine
         if rss_output is not None:
