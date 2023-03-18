@@ -4,13 +4,13 @@ import feedparser
 import json
 import re
 
-RESET        = "\033[0m"
-BOLD         = "\033[1m"
-YELLOW       = "\033[33m"
-CLEAR_SCREEN = "\033c"
-LINK_URL   = "\x1b]8;;"
+RESET          = "\033[0m"
+BOLD           = "\033[1m"
+YELLOW         = "\033[33m"
+CLEAR_SCREEN   = "\033c"
+LINK_URL       = "\x1b]8;;"
 LINK_TITLE     = "\x1b\\"
-LINK_END     = "\x1b]8;;\x1b\\"
+LINK_END       = "\x1b]8;;\x1b\\"
 
 def load_rss_feed(rss_data, cache):
     url = rss_data["url"]
