@@ -6,6 +6,12 @@ import re
 import json
 import asyncio
 
+# bold
+# yellow
+# reset
+# link
+# clear screen
+
 def load_rss_feed(rss_data, cache):
     url = rss_data["url"]
     title = rss_data["title"]
@@ -15,34 +21,31 @@ def load_rss_feed(rss_data, cache):
     data = feedparser.parse(url)
     feed = data.feed
 
-    recent_articles = []
+    new_articles = []
     for article in data.entries[:article_count]:
-        date = datetime.datetime(*article.published_parsed[:7])
-        date_today = datetime.datetime.today()
-        if date > date_today - datetime.timedelta(days=3):
-            recent_articles.append(article)
+        article_title = article.title.title()
+        # remove seen articles, i.e. only show new articles
+        if article_title in cache:
+            continue 
 
-    if not recent_articles:
-        return 
+        new_articles.append(article)
+        cache.append(article_title)
+
+    if not new_articles:
+        return " No new articles!"
 
     output = f" \033[1m{title}\033[0m\n"
 
-    for article in recent_articles:
+    for article in new_articles:
         link = article.link
-
-        date = datetime.datetime(*article.published_parsed[:7])
-        date_string = date.strftime("%b/%d") # e.g. Mar/10
 
         article_title = article.title.title()
 
         if article_regex:
             article_title = re.search(article_regex, article_title)[0]
 
-        if article_title not in cache:
-            cache.append(article_title)
-            date_string = "\033[33mNEW   \033[0m"
-
-        output += f'    {date_string} \x1b]8;;{link}\x1b\\{article_title}\x1b]8;;\x1b\\\n'
+        new_indicator = "\033[33mNEW   \033[0m"
+        output += f'    {new_indicator} \x1b]8;;{link}\x1b\\{article_title}\x1b]8;;\x1b\\\n'
 
     return output
 
