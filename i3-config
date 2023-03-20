@@ -51,7 +51,7 @@ bindsym $mod+d exec "dmenu_run -i -sb '#009999'"
 bindsym $mod+Shift+n exec nautilus ~/Downloads/
 
 # start browswer
-bindsym $mod+Shift+f exec google-chrome
+bindsym $mod+Shift+f exec google-chrome --enable-features=VaapiVideoDecoder --disable-features=UseChromeOSDirectVideoDecoder
 
 bindsym $mod+Shift+t exec gnome-control-center
 
