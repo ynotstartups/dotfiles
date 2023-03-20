@@ -10,6 +10,7 @@
 1. login to github, add ssh key, clone this repo
 1. `./install_packages.sh`
 1. `./install.sh`
+1. (Optional) enable hardware acceleration in chrome [link](https://www.linuxuprising.com/2021/01/how-to-enable-hardware-accelerated.html)
 
 ## Other Installations
 
