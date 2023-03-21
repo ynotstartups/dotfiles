@@ -190,6 +190,9 @@ bindsym $mod+Shift+b exec --no-startup-id evince
 # disable ethernet after boot
 exec --no-startup-id nmcli device disconnect enxacde48001122
 
+# disable buildin wifi card after boot
+exec --no-startup-id nmcli device disconnect wlp3s0
+
 # set monitor backlight after boot
 exec --no-startup-id xbacklight =30
 
