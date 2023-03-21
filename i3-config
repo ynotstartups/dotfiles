@@ -202,20 +202,6 @@ exec --no-startup-id xset s 1800
 # run autorandr after boot
 exec --no-startup-id autorandr --change
 
-# put a terminal in scratchpad after boot
-# probably doesn't work, not tested
-# for_window [instance="scratchpad_terminal"] move scratchpad
-# exec --no-startup-id i3-sensible-terminal --name scratchpad_terminal
-
-# Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
-
-# Show the first scratchpad window
-bindsym $mod+minus scratchpad show; sticky enable
-
-exec --no-startup-id gnome-terminal --title scratchpad
-for_window [title="^scratchpad$"] border 1pixel, floating enable, move scratchpad, sticky enable
-
 # use `i3-msg -t get_tree to find the class of applications`
 #
 # Set Slack default workspace to be 8
