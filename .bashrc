@@ -230,7 +230,7 @@ function cheatsheet() {
 
 ## newsboat
 
-alias n='cd ~/Documents/dotfiles && ,activate && python3 rss.py'
+alias n='cd ~/Documents/dotfiles && ,activate && ./rss.py'
 
 alias ,restart_display_manager='sudo systemctl restart display-manager'
 

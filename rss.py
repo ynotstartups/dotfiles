@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
-import asyncio
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import time
 import feedparser
 import json
-import re
+import concurrent.futures
 
-RESET          = "\033[0m"
-BOLD           = "\033[1m"
-YELLOW         = "\033[33m"
-CLEAR_SCREEN   = "\033c"
-LINK_URL       = "\x1b]8;;"
-LINK_TITLE     = "\x1b\\"
-LINK_END       = "\x1b]8;;\x1b\\"
+CONFIG_FILEPATH = "../private_dotfiles/rss-config.json"
+CACHE_FILEPATH  = "../private_dotfiles/rss-cache.json"
+
+host_name = "0.0.0.0"
+port = 8000
+ENCODING = "utf-8"
 
 def load_rss_feed(rss_data, cache):
     url = rss_data["url"]
     title = rss_data["title"]
     article_count = rss_data.get("article_count", 5)
-    article_regex = rss_data.get("article_regex", None)
 
     feed = feedparser.parse(url)
 
@@ -26,40 +25,44 @@ def load_rss_feed(rss_data, cache):
     if not new_articles:
         return
 
-    output = f" {BOLD}{title}{RESET}\n"
+    output = f"<h2>{title}</h2>"
     for article in new_articles:
+        article_title = article.title.replace("’", "\'").replace("‘", "\'").replace("–", "-")
         link = article.link
-
-        # format output title
-        article_title = re.search(article_regex, article.title)[0] if article_regex else article.title
-        article_title = article.title.title()
-
-        new_indicator = f"{YELLOW}NEW   {RESET}"
-        link_output = f"{LINK_URL}{link}{LINK_TITLE}{article_title}{LINK_END}"
-        output += f'    {new_indicator} {link_output}\n'
+        link_output = f'<a href="{link}">{article_title}</a><br>'
+        output += link_output
 
     return output
 
-async def main():
-    with open('../private_dotfiles/rss-config.json', 'r') as config_file:
-        config = json.load(config_file)
 
-    with open('../private_dotfiles/rss-cache.json', 'r') as cache_file:
-        cache = json.load(cache_file)
+class Server(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(bytes('<html><head><title>News</title></head><body style="width: 50%;margin: auto;padding-top:20px">', ENCODING))
 
-    tasks = [
-        asyncio.to_thread(load_rss_feed, rss_data, cache)
-        for rss_data in config
-    ]
+        with open(CACHE_FILEPATH, 'r') as cache_file:
+            cache = json.load(cache_file)
 
-    print(CLEAR_SCREEN)
-    for coroutine in asyncio.as_completed(tasks):
-        rss_output = await coroutine
-        if rss_output is not None:
-            print(rss_output)
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            rss_feed_futures = (executor.submit(load_rss_feed, rss_data, cache) for rss_data in config)
+            for future in concurrent.futures.as_completed(rss_feed_futures):
+                rss_output = future.result()
+                if rss_output is not None:
+                    self.wfile.write(bytes(rss_output, ENCODING))
 
-    with open('../private_dotfiles/rss-cache.json', 'w') as cache_file:
-        json.dump(cache, cache_file)
+            self.wfile.write(bytes("<h1>That's all.</h1></body></html>", ENCODING))
+
+        # write to cache
+        with open(CACHE_FILEPATH, 'w') as cache_file:
+            json.dump(cache, cache_file)
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    with open(CONFIG_FILEPATH, 'r') as config_file:
+        config = json.load(config_file)
+
+    print("Starting server...")
+    web_server = ThreadingHTTPServer((host_name, port), Server)
+    web_server.serve_forever()
