@@ -34,25 +34,47 @@ def load_rss_feed(rss_data, cache):
 
     return output
 
+def test_yield(rss_data, cache):
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        rss_feed_futures = (executor.submit(load_rss_feed, rss_data, cache) for rss_data in config)
+        for future in concurrent.futures.as_completed(rss_feed_futures):
+            rss_output = future.result()
+            if rss_output is not None:
+                yield rss_output
+
 
 class Server(BaseHTTPRequestHandler):
+    def do_HEAD(self):
+        """
+        check if there are new articles
+
+        if yes, returns 200
+        if no, returns 204
+        """
+        with open(CACHE_FILEPATH, 'r') as cache_file:
+            cache = json.load(cache_file)
+
+        yielding = test_yield(config, cache)
+        if next(yielding, False):
+            self.send_response(200)
+        else:
+            self.send_error(204)
+
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+
     def do_GET(self):
+        with open(CACHE_FILEPATH, 'r') as cache_file:
+            cache = json.load(cache_file)
+
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
         self.wfile.write(bytes('<html><head><title>News</title></head><body style="width: 50%;margin: auto;padding-top:20px">', ENCODING))
+        for rss_output in test_yield(config, cache):
+            self.wfile.write(bytes(rss_output, ENCODING))
 
-        with open(CACHE_FILEPATH, 'r') as cache_file:
-            cache = json.load(cache_file)
-
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            rss_feed_futures = (executor.submit(load_rss_feed, rss_data, cache) for rss_data in config)
-            for future in concurrent.futures.as_completed(rss_feed_futures):
-                rss_output = future.result()
-                if rss_output is not None:
-                    self.wfile.write(bytes(rss_output, ENCODING))
-
-            self.wfile.write(bytes("<h1>That's all.</h1></body></html>", ENCODING))
+        self.wfile.write(bytes("<h1>That's all.</h1></body></html>", ENCODING))
 
         # write to cache
         with open(CACHE_FILEPATH, 'w') as cache_file:
