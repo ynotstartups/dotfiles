@@ -336,6 +336,13 @@ s() {
 # fake simple fd
 alias fd='find . | grep '
 
+,backup() {
+    sudo mount /dev/sdb1 ~/Backup/
+    rsync --archive --verbose ~/Music/ ~/Backup/Music/
+    rsync --archive --verbose ~/Documents/books/ ~/Backup/Books/
+    sudo umount /dev/sdb1
+}
+
 function ,c() {
     filename=${1::-2}
     gcc "$filename.c" -o "./out/$filename.out" && "./out/$filename.out"
