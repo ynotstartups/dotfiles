@@ -92,12 +92,6 @@ sudo apt-get install --yes newsboat
 # email client
 sudo apt-get install --yes thunderbird
 
-# bpytop
-sudo snap install bpytop
-
-# xdotool is used for keyboard simulation of mouse click
-sudo apt-get install xdotool
-
 # gh auth login --web --hostname abc.com
 if ! command -v gh
 then
@@ -122,22 +116,24 @@ then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 fi
 
-sudo apt install fzf
+sudo apt install --yes fzf
 
 # See cheat sheet ubuntu to finish setup pinyin input
-sudo apt install fcitx-bin
-sudo apt install fcitx-pinyin
+sudo apt install --yes fcitx-bin
+sudo apt install --yes fcitx-pinyin
 
-sudo apt install fzf
+sudo apt install --yes fzf
 
 # for downloading music from youtube
-sudo apt install ffmpeg
+sudo apt install --yes ffmpeg
 
-sudo apt install gnome-screenshot
+sudo apt install --yes gnome-screenshot
 
 # Required for google chrome hardware acceleration for youtube videos
 # https://www.linuxuprising.com/2021/01/how-to-enable-hardware-accelerated.html
-sudo apt install i965-va-driver-shaders libva-drm2 libva-x11-2
+sudo apt install --yes i965-va-driver-shaders libva-drm2 libva-x11-2
+
+sudo apt install --yes tree
 
 # You might also want to install
 # 1password - https://1password.com/downloads/linux/
