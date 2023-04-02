@@ -351,3 +351,11 @@ function ,c() {
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pi pico
+export PICO_SDK_PATH=/home/tiger/Documents/pico/pico/pico-sdk
+export PICO_EXAMPLES_PATH=/home/tiger/Documents/pico/pico/pico-examples
+export PICO_EXTRAS_PATH=/home/tiger/Documents/pico/pico/pico-extras
+export PICO_PLAYGROUND_PATH=/home/tiger/Documents/pico/pico/pico-playground
+
+alias ,picoload='~/Documents/pico/pico/picotool/build/picotool load -f'
