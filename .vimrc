@@ -31,6 +31,7 @@ Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-tex
 Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 " Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
 Plug 'plasticboy/vim-markdown' " add markdown syntax
+Plug 'preservim/nerdtree' " tree explorers
 Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tommcdo/vim-exchange' " cxiw to exchange work
 Plug 'tommcdo/vim-lion' " use gl<motion>: to align sentences with :
