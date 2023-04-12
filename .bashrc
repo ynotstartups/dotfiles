@@ -359,3 +359,4 @@ export PICO_EXTRAS_PATH=/home/tiger/Documents/pico/pico/pico-extras
 export PICO_PLAYGROUND_PATH=/home/tiger/Documents/pico/pico/pico-playground
 
 alias ,picoload='~/Documents/pico/pico/picotool/build/picotool load -f'
+alias thonny='~/apps/thonny/bin/thonny'
