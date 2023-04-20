@@ -337,9 +337,20 @@ s() {
 alias fd='find . | grep '
 
 ,backup() {
+    while ! lsblk | grep 'sdb1' >/dev/null
+    do
+        echo 'Waiting for harddisk...'
+        sleep 1
+    done
+
+    echo 'Found harddisk! Starting to backup with sudo'
+
+    mkdir -p ~/Backup/
     sudo mount /dev/sdb1 ~/Backup/
-    rsync --archive --verbose ~/Music/ ~/Backup/Music/
-    rsync --archive --verbose ~/Documents/books/ ~/Backup/Books/
+    sudo mkdir -p ~/Backup/Music/ ~/Backup/Books/
+    sudo chmod 777 ~/Backup/Music/ ~/Backup/Books/
+    sudo rsync --recursive --times --verbose ~/Music/ ~/Backup/Music/
+    sudo rsync --recursive --times --verbose ~/Documents/books/ ~/Backup/Books/
     sudo umount /dev/sdb1
 }
 
