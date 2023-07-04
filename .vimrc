@@ -22,6 +22,7 @@ Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
 " Plug 'jremmen/vim-ripgrep' " Rg to use ripgrep in vim
+Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf' " ca# to change after # used in markdown
 Plug 'junegunn/fzf.vim' " ca# to change after # used in markdown
 Plug 'junegunn/vim-after-object' " ca# to change after # used in markdown
@@ -119,7 +120,10 @@ nnoremap <C-]> g<C-]>
 
 " copy/paste
 " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
-set clipboard=unnamedplus " vim uses system clipboard
+" mac uses unnamed
+" linux uses unnamedplu
+" TODO: how to handle both
+set clipboard=unnamed " vim uses system clipboard
 
 " copy file path
 nnoremap <leader>yp :let @+=expand("%")<cr>
@@ -350,3 +354,6 @@ nnoremap <leader>fw :Rg <c-r><c-w><cr>
 
 " disable preview window
 let g:fzf_preview_window = []
+
+" support mouse in iTerm
+set mouse=a

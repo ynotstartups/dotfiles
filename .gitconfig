@@ -1,5 +1,6 @@
 [push]
 	default = current
+	autoSetupRemote = true
 [alias]
         a = add
         ac = !git add . && git commit -v -a
@@ -27,3 +28,5 @@
 	name = ynotstartups
 [init]
 	defaultBranch = main
+[core]
+	excludesfile = ~/.gitignore_global
