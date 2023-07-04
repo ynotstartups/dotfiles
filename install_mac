@@ -4,6 +4,8 @@ brew install ripgrep
 
 brew install ctags
 
+brew install autojump # command j
+
 echo install vimrc
 ln -s -F "$PWD"/.vimrc "$HOME"/.vimrc
 
