@@ -60,6 +60,7 @@ let mapleader = " "
 filetype plugin indent on
 
 " better setting
+set number
 set shortmess+=IW " ignore Intro, Written
 set laststatus=2 " status bar always on
 set wildmenu
@@ -357,3 +358,5 @@ let g:fzf_preview_window = []
 
 " support mouse in iTerm
 set mouse=a
+
+set noswapfile
