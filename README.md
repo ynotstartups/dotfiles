@@ -13,6 +13,7 @@
 
 ## Instructions for setting up a new mac
 
+1. download iterm, setup 'Dedicated Hotkey Window' to be 'command+return'
 1. download 1password and login
 1. login to github, add ssh key, clone this repo
 1. `./install_mac`
