@@ -4,3 +4,5 @@ tags
 *.swp
 # vim session files
 *.vim
+# mac file
+.DS_Store
