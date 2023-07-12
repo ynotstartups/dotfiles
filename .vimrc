@@ -211,12 +211,6 @@ nnoremap <C-J> <C-E>
 " use ctrl k to scroll up one line
 nnoremap <C-K> <C-Y>
 
-" Abbreviation for vertical split find
-cnoreabbrev vsf vert sfind
-
-" Abbreviation word search
-cnoreabbrev ww \<\><left><left>
-
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<cr>
 
@@ -267,39 +261,12 @@ let b:surround_{char2nr("l")} = "[\r]()"
 " _italic_
 let b:surround_{char2nr("i")} = "_\r_"
 
-autocmd FileType slack let b:surround_{char2nr("b")} = "*\r*"
-
-"" vim-textobj-user
-
-" use `al` to represent a link in markdown
-call textobj#user#plugin('link', {
-\   'angle': {
-\     'pattern': ['[', ')'],
-\     'select-a': 'al',
-\   },
-\ })
-
 " restore cursor last position
 " from usr_05.txt
 autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
   \ |   exe "normal! g`\""
   \ | endif
-
-
-" Deprecated by git_commit_message
-" insert jira ticket by extracting from git branch name, e.g. FOO-123-bar
-" nnoremap <leader>t :read !git rev-parse --abbrev-ref HEAD \| cut -d "-" -f 1,2<cr>
-
-" jira filetype
-autocmd BufNewFile,BufRead *.jira set filetype=jira
-
-" formatter
-autocmd FileType python set formatprg=python\ -m\ black\ --quiet\ -
-
-" abbreviates
-autocmd FileType markdown inoreabbrev ttt \|\|\|<cr>\|-\|-\|<cr>\|\|\|
-autocmd FileType python inoreabbrev pparam @pytest.mark.parametrize([],[])
 
 " emojis
 inoreabbrev :+1:     👍
@@ -320,21 +287,14 @@ inoreabbrev :ticket: 🎫
 "" tab
 " open current file in new tab
 nnoremap <leader>n :tabedit %<cr>
-" next tab
-nnoremap ]t gt
-" previous tab
-nnoremap [t gT
-
 " L, H are just jump to bottom or top of screen, not very useful
+" next tab
 nnoremap L gt
+" previous tab
 nnoremap H gT
 
 " show table of content for markdown file
 autocmd FileType markdown nnoremap <leader>t :Toch<cr>
-
-" vimrc
-nnoremap <leader>ev :edit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " vim-after-object
 
@@ -344,17 +304,16 @@ autocmd VimEnter * call after_object#enable('=', '#', '/', ' ')
 " nnoremap K <nop>
 
 "" fzf
-
-nnoremap <leader>ff :GFiles<cr>
 nnoremap <leader><leader> :GFiles<cr>
 nnoremap <leader>fb :Buffers<cr>
-nnoremap <leader>fl :Lines<cr>
+nnoremap <leader>fc :Commands<cr>
+nnoremap <leader>fl :BLines<cr>
+nnoremap <leader>fm :Marks<cr>
 nnoremap <leader>ft :Tags<cr>
-nnoremap <leader>fh :Helptags<cr>
 nnoremap <leader>fw :Rg <c-r><c-w><cr>
 
 " disable preview window
-let g:fzf_preview_window = []
+" let g:fzf_preview_window = []
 
 " support mouse in iTerm
 set mouse=a
