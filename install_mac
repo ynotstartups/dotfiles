@@ -6,6 +6,8 @@ brew install ctags
 
 brew install autojump # command j
 
+brew install bat # command j
+
 echo install vimrc
 ln -s -F "$PWD"/.vimrc "$HOME"/.vimrc
 
