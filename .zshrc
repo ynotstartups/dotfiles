@@ -19,8 +19,15 @@ export PATH="$HOME/Documents/dotfiles:$PATH"
 # used in `sn` standup new
 alias vlast='vim $(ls -t -1 | head -n 1)'
 
-alias sn='cd ~/Documents/notes/standup && copy_last_to_today && vlast'
+alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today && vlast'
 
 s() {
-    vim ~/Documents/notes/standup/$(ls -t -1 ~/Documents/notes/standup | head -n 1)
+    vim ~/Documents/saltus-notes/standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1)
 }
+
+alias ,activate='source .venv/bin/activate'
+alias ,virtualenv_setup='python3 -m venv .venv'
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
