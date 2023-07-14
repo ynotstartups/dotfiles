@@ -10,9 +10,11 @@
         c = commit -v
         camend = commit -v --amend
         ca = commit -v -a
-        caa = commit -v -a --amend --no-edit
+        caa = commit -a --amend --no-edit
         cp = commit -v --patch
         d = diff
+        do = diff origin/master...
+        fro = !git fetch origin && git rebase -i origin/master
         dc = diff --cached
         fu = fetch upstream
         g = grep --ignore-case
@@ -30,3 +32,5 @@
 	defaultBranch = main
 [core]
 	excludesfile = ~/.gitignore_global
+[commit]
+	template = /Users/yuhao.huang/Documents/dotfiles/.git_commit_msg.txt
