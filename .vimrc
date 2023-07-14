@@ -307,6 +307,7 @@ autocmd VimEnter * call after_object#enable('=', '#', '/', ' ')
 nnoremap <leader><leader> :GFiles<cr>
 nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fc :Commands<cr>
+nnoremap <leader>ff :Files<cr>
 nnoremap <leader>fl :BLines<cr>
 nnoremap <leader>fm :Marks<cr>
 nnoremap <leader>ft :Tags<cr>
