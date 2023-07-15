@@ -6,7 +6,11 @@ brew install ctags
 
 brew install autojump # command j
 
-brew install bat # command j
+brew install bat # terminal syntax highlight
+
+brew install fd
+
+brew install fzf
 
 echo install vimrc
 ln -s -F "$PWD"/.vimrc "$HOME"/.vimrc
