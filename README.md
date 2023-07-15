@@ -11,6 +11,10 @@
 1. `./install_packages`
 1. `./install`
 
+### Convert to XBM (x bitmap) Wallpaper
+
+https://www.online-utility.org/image/convert/to/XBM
+
 ## Instructions for setting up a new mac
 
 1. download iterm
@@ -18,19 +22,4 @@
 1. download 1password and log into 1password
 1. login to github, add ssh key, clone this repo
 1. `./install_mac`
-
-## Other Installations
-
-These software are out of date in the package manager.
-
-|Software|Link|
-|-|-|
-|1 Password|[link](https://support.1password.com/install-linux/#debian-or-ubuntu)|
-
-
-## Convert to XBM (x bitmap) Wallpaper
-
-https://www.online-utility.org/image/convert/to/XBM
-
-
-
+1. install on my zsh, zsh powerlevel10k theme, 
