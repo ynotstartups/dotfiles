@@ -320,3 +320,6 @@ nnoremap <leader>fw :Rg <c-r><c-w><cr>
 set mouse=a
 
 set noswapfile
+
+" fix tsx files too slow
+set regexpengine=0
