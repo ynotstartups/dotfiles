@@ -286,15 +286,21 @@ inoreabbrev :ticket: 🎫
 
 "" tab
 " open current file in new tab
-nnoremap <leader>n :tabedit %<cr>
+nnoremap <leader>t :tabedit %<cr>
 " L, H are just jump to bottom or top of screen, not very useful
 " next tab
 nnoremap L gt
 " previous tab
 nnoremap H gT
+" leader number to go to tab
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
 
 " show table of content for markdown file
-autocmd FileType markdown nnoremap <leader>t :Toch<cr>
+" autocmd FileType markdown nnoremap <leader>t :Toch<cr>
 
 " vim-after-object
 
