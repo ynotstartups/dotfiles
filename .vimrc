@@ -33,6 +33,7 @@ Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
 " Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
 Plug 'plasticboy/vim-markdown' " add markdown syntax
 Plug 'preservim/nerdtree' " tree explorers
+Plug 'preservim/tagbar'
 Plug 'tomasr/molokai' " molokar color scheme
 Plug 'tommcdo/vim-exchange' " cxiw to exchange work
 Plug 'tommcdo/vim-lion' " use gl<motion>: to align sentences with :
@@ -315,7 +316,8 @@ nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fc :Commands<cr>
 nnoremap <leader>ff :Files<cr>
 nnoremap <leader>fl :BLines<cr>
-nnoremap <leader>fm :Marks<cr>
+" nnoremap <leader>fm :Marks<cr>
+nnoremap <leader>fm :Maps<cr>
 nnoremap <leader>ft :Tags<cr>
 nnoremap <leader>fw :Rg <c-r><c-w><cr>
 
