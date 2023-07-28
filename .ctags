@@ -1,5 +1,7 @@
 --recurse=yes
---exclude=.git
+--exclude=.git/*
+--exclude=.venv/*
+--exclude=venv/*
 --exclude=vendor/*
 --exclude=node_modules/*
 --exclude=db/*
