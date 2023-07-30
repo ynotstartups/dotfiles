@@ -225,6 +225,8 @@ vnoremap <silent> <leader>s :sort<cr>
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 
+autocmd BufRead,BufNewFile $HOME/Documents/saltus-notes/*.md set nospell
+
 " insert filename in title case, used for personal notes
 " "%p - paste current filename (in register %)
 " gst - gst uses vim-caser to turn word in title mode
