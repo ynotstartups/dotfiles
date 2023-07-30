@@ -50,7 +50,9 @@ function ,gnew_branch() {
     git switch "$1"
 }
 
-alias ,activate='source .venv/bin/activate'
+# delete every branches except main & master & current branch
+alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
+
 alias ,virtualenv_setup='python3 -m venv .venv'
 
 ## get cheatsheet from cheat.sh e.g. cheatsheet sed
