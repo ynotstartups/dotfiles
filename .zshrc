@@ -36,11 +36,14 @@ export PATH="$HOME/Documents/dotfiles:$PATH"
 # used in `sn` standup new
 alias vlast='vim $(ls -t -1 | head -n 1)'
 
-alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today && vlast'
-
+# stand up notes related
 function s() {
-    vim ~/Documents/saltus-notes/standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1)
+    cd ~/Documents/saltus-notes/
+    vim -p ./standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1) reminders.md dev_notes.md glossary.md
 }
+# sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
+# and open it in vim
+alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today && git add . && s'
 
 function ,gnew_branch() {
     git fetch origin "master:$1"
