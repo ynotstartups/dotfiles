@@ -70,3 +70,10 @@ export FZF_DEFAULT_OPTS="--multi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+function ,docker-attach-oneview(){
+    CONTAINER_ID=$(docker container ls | grep oneview-django | cut -d ' ' -f 1)
+    echo $CONTAINER_ID
+    docker attach $CONTAINER_ID
+    echo hello
+}
