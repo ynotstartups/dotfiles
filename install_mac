@@ -12,20 +12,14 @@ brew install fd
 
 brew install fzf
 
-echo install vimrc
 ln -s -F "$PWD"/.vimrc "$HOME"/.vimrc
 
-echo install gitconfig
 ln -s -F "$PWD"/.gitconfig "$HOME"/.gitconfig
 
-echo install ctags configs
 ln -s -F "$PWD"/.ctags "$HOME"/.ctags
 
-echo install zshrc
 ln -s -F "$PWD"/.zshrc "$HOME"/.zshrc
 
-echo install git global ignores
 ln -s -F "$PWD"/.gitignore_global "$HOME"/.gitignore_global
 
-echo install pdbrc
 ln -s -F "$PWD"/.pdbrc "$HOME"/.pdbrc
