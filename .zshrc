@@ -53,6 +53,18 @@ function ,gnew_branch() {
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
+function ,activate() {
+    if [ -d ".venv" ]; then
+        . .venv/bin/activate
+    elif [ -d "venv" ]; then
+        . venv/bin/activate
+    else {
+        echo "No virtualenv found!";
+        echo "Consider setup .venv with ,virtualenv_setup";
+    }
+    fi
+}
+
 alias ,virtualenv_setup='python3 -m venv .venv'
 
 ## get cheatsheet from cheat.sh e.g. cheatsheet sed
