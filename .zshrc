@@ -95,3 +95,17 @@ function ,docker-attach-oneview(){
     docker attach $CONTAINER_ID
     echo hello
 }
+
+function ,be(){
+    cd ~/Documents/oneview
+    make run-be
+}
+
+function ,fe(){
+    cd ~/Documents/oneview/reactapp
+    npm start
+}
+
+function ,jira(){
+    open "https://saltus.atlassian.net/browse/ON-$1/"
+}
