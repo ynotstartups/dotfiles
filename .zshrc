@@ -85,6 +85,10 @@ export FZF_DEFAULT_OPTS="--multi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
+# because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
+alias eb="~/Documents/elastic-beanstalk-cli/.venv/bin/eb"
+
 function ,docker-attach-oneview(){
     CONTAINER_ID=$(docker container ls | grep oneview-django | cut -d ' ' -f 1)
     echo $CONTAINER_ID
