@@ -126,9 +126,12 @@ set clipboard=unnamed " vim uses system clipboard
 
 " copy file path
 nnoremap <leader>yp :let @+=expand("%")<cr>
-" copy python function name
+" copy python function & class name
+
 " use with pytest -k FUNCTION NAME
-nnoremap <leader>yf ?def<space>test_<cr>wyiw<c-o>:nohlsearch<cr>
+nnoremap <leader>yf ?def<cr>wyiw<c-o>:nohlsearch<cr>
+
+nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>
 
 " GitGutter
 " see help (shortcut K) for gitgutter-mappings
@@ -215,10 +218,6 @@ nnoremap <silent> <leader>c :nohlsearch<cr>
 " leader z to autocorrect words and move cursor to the end of the word
 nnoremap <silent> <leader>z 1z=<cr>g;e
 
-" sort this paragraph
-nnoremap <silent> <leader>s Vip:sort<cr>
-vnoremap <silent> <leader>s :sort<cr>
-
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 
@@ -233,20 +232,20 @@ autocmd BufRead,BufNewFile $HOME/Documents/saltus-notes/*.md set nospell
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
 " insert today's agenda/meetings from google calender
-autocmd FileType markdown nnoremap <silent> <leader>ia :read !automation --meetings<cr>
+" autocmd FileType markdown nnoremap <silent> <leader>ia :read !automation --meetings<cr>
 
 " insert jira tickets
-autocmd FileType markdown nnoremap <silent> <leader>ij :read !automation --tickets<cr>
+" autocmd FileType markdown nnoremap <silent> <leader>ij :read !automation --tickets<cr>
 
 " insert automated checklist for the day
-autocmd FileType markdown nnoremap <silent> <leader>ic :read !automation<cr>
+" autocmd FileType markdown nnoremap <silent> <leader>ic :read !automation<cr>
 
 " insert formatted git branch as git commit message
 " 0 in 0read to insert on the same line with cursor otherwise the message is
 " added to line below cursor
 autocmd FileType gitcommit nnoremap <silent> <leader>im :0read !git_commit_message<cr>
 
-" complete
+" put x into readme todo [ ]
 autocmd FileType markdown nnoremap <silent> <cr> ^f[lrx
 
 "" Surround
@@ -283,6 +282,7 @@ inoreabbrev :block:  🚫
 inoreabbrev :b:      🚫
 inoreabbrev :!:      ⚠️
 inoreabbrev :ticket: 🎫
+inoreabbrev :ti: 🎫
 
 "" tab
 " open current file in new tab
@@ -330,3 +330,19 @@ set noswapfile
 
 " fix tsx files too slow
 set regexpengine=0
+
+nnoremap <leader>q :wqa<cr>
+
+" :Gd for open each changed file
+command! -bang -nargs=? Gd  :Git difftool
+" -y for open in new tab
+command! -bang -nargs=? Gdt  :Git difftool -y
+
+" :Gdo for open each changed file compared to origin/master
+command! -bang -nargs=? Gdo :Git difftool origin/master...
+command! -bang -nargs=? Gdot :Git difftool -y origin/master...
+
+command! -bang -nargs=? SourceVimrc :source ~/.vimrc
+command! -bang -nargs=? EditVimrc :edit ~/.vimrc
+command! -bang -nargs=? EditZshrc :edit ~/.zshrc
+command! -bang -nargs=? EditSaltusBashrc :edit ~/saltus-notes/.bashrc
