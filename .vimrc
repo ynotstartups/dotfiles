@@ -122,9 +122,6 @@ nnoremap <C-]> g<C-]>
 
 " copy/paste
 " https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
-" mac uses unnamed
-" linux uses unnamedplu
-" TODO: how to handle both
 set clipboard=unnamed " vim uses system clipboard
 
 " copy file path
