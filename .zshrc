@@ -17,7 +17,6 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME='powerlevel10k/powerlevel10k'
 plugins=(
     vi-mode
-    last-working-dir  # jump to last working directory
     colored-man-pages
 )
 source $ZSH/oh-my-zsh.sh
@@ -39,7 +38,7 @@ alias vlast='vim $(ls -t -1 | head -n 1)'
 # stand up notes related
 function s() {
     cd ~/Documents/saltus-notes/
-    vim -p ./standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1) reminders.md dev_notes.md glossary.md
+    vim -p ./standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1) reminders.md dev_notes.md glossary.md .bashrc
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
@@ -85,27 +84,25 @@ export FZF_DEFAULT_OPTS="--multi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
-# because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
-alias eb="~/Documents/elastic-beanstalk-cli/.venv/bin/eb"
+source ~/Documents/saltus-notes/.bashrc
 
-function ,docker-attach-oneview(){
-    CONTAINER_ID=$(docker container ls | grep oneview-django | cut -d ' ' -f 1)
-    echo $CONTAINER_ID
-    docker attach $CONTAINER_ID
-    echo hello
+alias v='vim'
+alias ,vgd='vim -c :Gd'
+alias ,vgdo='vim -c :Gdo'
+
+function ,pr-review(){
+    branch_name=$1
+
+    # save local changes
+    git stash
+
+    # switch to branch and fetch latest changes
+    git switch $branch_name
+    git fetch origin
+    git reset --hard origin/$branch_name
+
+    # open git diff origin/master.. files in tab
+    v -c ':Gdot'
 }
 
-function ,be(){
-    cd ~/Documents/oneview
-    make run-be
-}
-
-function ,fe(){
-    cd ~/Documents/oneview/reactapp
-    npm start
-}
-
-function ,jira(){
-    open "https://saltus.atlassian.net/browse/ON-$1/"
-}
+alias ,review-pr=',pr-review'
