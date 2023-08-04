@@ -14,9 +14,9 @@
         cp = commit -v --patch
         d = diff
         do = diff origin/master...
+        f = fetch
         fro = !git fetch origin && git rebase -i origin/master
         dc = diff --cached
-        fu = fetch upstream
         g = grep --ignore-case
         l = log
         l1 = log -1 -p
