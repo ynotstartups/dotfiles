@@ -21,7 +21,10 @@ Plug 'ekalinin/Dockerfile.vim' " dockerfile syntax
 Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
 Plug 'google/vim-searchindex' " shows number of search
 Plug 'hashivim/vim-terraform' " basic vim/terraform integration
+" Plug 'honza/vim-snippets' " basic vim/terraform integration
 " Plug 'jremmen/vim-ripgrep' " Rg to use ripgrep in vim
+" Plug 'jayli/vim-easycomplete'
+Plug 'SirVer/ultisnips'
 Plug 'jparise/vim-graphql'
 Plug 'junegunn/fzf' " ca# to change after # used in markdown
 Plug 'junegunn/fzf.vim' " ca# to change after # used in markdown
