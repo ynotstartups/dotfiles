@@ -13,7 +13,7 @@ def write_section(text, snip):
 	"""
 	text = match.group(1)
 
-	COMMENT_CHARACTER = "\""
+	COMMENT_CHARACTER = "#"
 
 	length_text = len(text)
 	top_border = bottom_border = COMMENT_CHARACTER * (length_text + 4) + "\n"
