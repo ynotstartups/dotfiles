@@ -12,6 +12,12 @@ brew install fd
 
 brew install fzf
 
+brew install python3 # get latest python
+python3 -m pip install ipython # get latest python
+python3 -m pip install pdbpp # get latest python
+
+brew install vim  # get vim 9.0
+
 ln -s -F "$PWD"/.vimrc "$HOME"/.vimrc
 
 ln -s -F "$PWD"/.gitconfig "$HOME"/.gitconfig
@@ -23,3 +29,7 @@ ln -s -F "$PWD"/.zshrc "$HOME"/.zshrc
 ln -s -F "$PWD"/.gitignore_global "$HOME"/.gitignore_global
 
 ln -s -F "$PWD"/.pdbrc "$HOME"/.pdbrc
+
+ln -s -F "$PWD"/.fdignore "$HOME"/.fdignore
+
+ln -s -F "$PWD"/vim-code "$HOME"/.vim/plugin/vim-code

@@ -106,3 +106,5 @@ function ,pr-review(){
 }
 
 alias ,review-pr=',pr-review'
+
+export FZF_DEFAULT_COMMAND='fd --hidden --type f'
