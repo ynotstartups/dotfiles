@@ -23,6 +23,8 @@
         lg = log --graph
         ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
         p = push
+        r = rebase
+        rc = rebase --continue
         s = status
         sw = switch
 [user]
