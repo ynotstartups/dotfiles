@@ -7,30 +7,31 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'Raimondi/delimitMate'      " automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'airblade/vim-gitgutter'    " shows a git diff in the sign column
-Plug 'arthurxavierx/vim-caser'   " changes word to Title Case `gst`
-Plug 'ekalinin/Dockerfile.vim'   " dockerfile syntax
-Plug 'google/vim-searchindex'    " shows number of search
-Plug 'hashivim/vim-terraform'    " basic vim/terraform integration
-Plug 'SirVer/ultisnips'          " snippets
-Plug 'jparise/vim-graphql'       " graphql syntax highlight
-Plug 'junegunn/fzf'              " ca# to change after # used in markdown
-Plug 'junegunn/fzf.vim'          " ca# to change after # used in markdown
-Plug 'inkarkat/vim-visualrepeat' " use . in selected lines in visual mode
+Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
+Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
+Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
+Plug 'google/vim-searchindex'          " shows number of search
+Plug 'hashivim/vim-terraform'          " basic vim/terraform integration
+Plug 'SirVer/ultisnips'                " snippets
+Plug 'jparise/vim-graphql'             " graphql syntax highlight
+Plug 'junegunn/fzf'                    " ca# to change after # used in markdown
+Plug 'junegunn/fzf.vim'                " ca# to change after # used in markdown
+Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
-Plug 'markonm/traces.vim'        " Range, pattern and substitute preview for Vim
-Plug 'plasticboy/vim-markdown'   " add markdown syntax
-Plug 'preservim/nerdtree'        " tree explorers
-Plug 'tomasr/molokai'            " molokar color scheme
-Plug 'tommcdo/vim-lion'          " use gl<motion>: to align sentences with :
-Plug 'tpope/vim-commentary'      " add shortcut gc for making a comment
-Plug 'tpope/vim-fugitive'        " using git in vim
-Plug 'tpope/vim-repeat'          " repeat vim-surround with .
-Plug 'tpope/vim-rhubarb'         " supports github enterprise
-Plug 'tpope/vim-surround'        " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
-Plug 'tpope/vim-unimpaired'      " adds mapping like [q ]q
-Plug 'wellle/targets.vim'        " adds textobjects e.g. i*, i_ usefll in markdown
+Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
+Plug 'plasticboy/vim-markdown'         " add markdown syntax
+Plug 'preservim/nerdtree'              " tree explorers
+Plug 'tomasr/molokai'                  " molokar color scheme
+Plug 'tommcdo/vim-lion'                " use gl<motion>: to align sentences with :
+Plug 'tpope/vim-commentary'            " add shortcut gc for making a comment
+Plug 'tpope/vim-fugitive'              " using git in vim
+Plug 'tpope/vim-repeat'                " repeat vim-surround with .
+Plug 'tpope/vim-rhubarb'               " supports github enterprise
+Plug 'tpope/vim-surround'              " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
+Plug 'tpope/vim-unimpaired'            " adds mapping like [q ]q
+Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
+Plug 'wellle/targets.vim'              " adds textobjects e.g. i*, i_ usefll in markdown
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning

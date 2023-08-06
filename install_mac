@@ -33,3 +33,5 @@ ln -s -F "$PWD"/.pdbrc "$HOME"/.pdbrc
 ln -s -F "$PWD"/.fdignore "$HOME"/.fdignore
 
 ln -s -F "$PWD"/vim-code "$HOME"/.vim/plugin/vim-code
+
+ln -s -F "$PWD"/vim_python.py "$HOME"/.vim/python3/vim_python.py

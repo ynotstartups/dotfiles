@@ -1,28 +1,7 @@
 global !p
-
-# TODO move this to an actual python file with tests?
-def write_section(text, snip):
-	"""
-	from:
-	example text 
-
-	to:
-    ################
-	# example text #
-    ################
-	"""
-	text = match.group(1)
-
-	COMMENT_CHARACTER = "#"
-
-	length_text = len(text)
-	top_border = bottom_border = COMMENT_CHARACTER * (length_text + 4) + "\n"
-	left_border = f"{COMMENT_CHARACTER} "
-	right_border = f" {COMMENT_CHARACTER}\n"
-	return f"{top_border}{left_border}{text}{right_border}{bottom_border}"
-
+from vim_python import write_section
 endglobal
 
 snippet "(.*).SS" "Create Section (postfix)" r
-`!p snip.rv = write_section(text=match.group(1), snip=snip)`
+`!p snip.rv = write_section(text=match.group(1))`
 endsnippet
