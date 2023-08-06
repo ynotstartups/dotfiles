@@ -6,51 +6,31 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-" Run PlugInstall if there are missing plugins
-" autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-"   \| PlugInstall --sync | source $MYVIMRC
-" \| endif
-
 call plug#begin('~/.vim/plugged')
-Plug '~/Documents/vim-slack-format' " automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'airblade/vim-gitgutter' " shows a git diff in the sign column
-Plug 'arthurxavierx/vim-caser' " changes word to Title Case `gst`
-Plug 'djoshea/vim-autoread' " auto load changed file
-Plug 'ekalinin/Dockerfile.vim' " dockerfile syntax
-Plug 'godlygeek/tabular' " Used in vim-markdown to align markdown table
-Plug 'google/vim-searchindex' " shows number of search
-Plug 'hashivim/vim-terraform' " basic vim/terraform integration
-" Plug 'honza/vim-snippets' " basic vim/terraform integration
-" Plug 'jremmen/vim-ripgrep' " Rg to use ripgrep in vim
-" Plug 'jayli/vim-easycomplete'
-Plug 'SirVer/ultisnips'
-Plug 'jparise/vim-graphql'
-Plug 'junegunn/fzf' " ca# to change after # used in markdown
-Plug 'junegunn/fzf.vim' " ca# to change after # used in markdown
-Plug 'junegunn/vim-after-object' " ca# to change after # used in markdown
-Plug 'junegunn/vim-peekaboo' " \" to show the contents of registers
+Plug 'Raimondi/delimitMate'      " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'airblade/vim-gitgutter'    " shows a git diff in the sign column
+Plug 'arthurxavierx/vim-caser'   " changes word to Title Case `gst`
+Plug 'ekalinin/Dockerfile.vim'   " dockerfile syntax
+Plug 'google/vim-searchindex'    " shows number of search
+Plug 'hashivim/vim-terraform'    " basic vim/terraform integration
+Plug 'SirVer/ultisnips'          " snippets
+Plug 'jparise/vim-graphql'       " graphql syntax highlight
+Plug 'junegunn/fzf'              " ca# to change after # used in markdown
+Plug 'junegunn/fzf.vim'          " ca# to change after # used in markdown
 Plug 'inkarkat/vim-visualrepeat' " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
-Plug 'markonm/traces.vim' " Range, pattern and substitute preview for Vim
-" Plug 'ntpeters/vim-better-whitespace' " highlight trailing whitespace
-Plug 'plasticboy/vim-markdown' " add markdown syntax
-Plug 'preservim/nerdtree' " tree explorers
-Plug 'preservim/tagbar'
-Plug 'tomasr/molokai' " molokar color scheme
-Plug 'tommcdo/vim-exchange' " cxiw to exchange work
-Plug 'tommcdo/vim-lion' " use gl<motion>: to align sentences with :
-Plug 'tpope/vim-commentary' " add shortcut gc for making a comment
-Plug 'tpope/vim-eunuch' " :Move to rename buffer
-Plug 'tpope/vim-fugitive' " using git in vim
-Plug 'tpope/vim-obsession' " use :Obsession SESSION_FILENAME to record vim session
-Plug 'tpope/vim-repeat' " repeat vim-surround with .
-Plug 'tpope/vim-rhubarb' " supports github enterprise
-Plug 'tpope/vim-surround' " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
-Plug 'tpope/vim-unimpaired' " adds mapping like [q ]q
-Plug 'tpope/vim-vinegar' " add shortcut gc for making a comment
-Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
-Plug 'wellle/targets.vim' " adds textobjects e.g. i*, i_ usefll in markdown
+Plug 'markonm/traces.vim'        " Range, pattern and substitute preview for Vim
+Plug 'plasticboy/vim-markdown'   " add markdown syntax
+Plug 'preservim/nerdtree'        " tree explorers
+Plug 'tomasr/molokai'            " molokar color scheme
+Plug 'tommcdo/vim-lion'          " use gl<motion>: to align sentences with :
+Plug 'tpope/vim-commentary'      " add shortcut gc for making a comment
+Plug 'tpope/vim-fugitive'        " using git in vim
+Plug 'tpope/vim-repeat'          " repeat vim-surround with .
+Plug 'tpope/vim-rhubarb'         " supports github enterprise
+Plug 'tpope/vim-surround'        " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
+Plug 'tpope/vim-unimpaired'      " adds mapping like [q ]q
+Plug 'wellle/targets.vim'        " adds textobjects e.g. i*, i_ usefll in markdown
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
@@ -136,7 +116,10 @@ nnoremap <leader>yf ?def<cr>wyiw<c-o>:nohlsearch<cr>
 
 nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>
 
-" GitGutter
+"""""""""""""
+" GitGutter "
+"""""""""""""
+
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
 let g:gitgutter_map_keys = 0 " disable gitgutter map
@@ -151,12 +134,6 @@ omap ih <Plug>(GitGutterTextObjectInnerPending)
 omap ah <Plug>(GitGutterTextObjectOuterPending)
 xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-
-" Put swapfiles `$HOME/.vim/tmp/`
-if !isdirectory($HOME."/.vim/tmp")
-    call mkdir($HOME."/.vim/tmp", "", 0700)
-endif
-set directory^=$HOME/.vim/tmp/
 
 " vim-markdown
 
@@ -177,10 +154,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_folding_disabled = 1
 " diable indent on new list item
 let g:vim_markdown_new_list_item_indent = 0
-
-" vim-rhubarb
-" for GBrowse github enterprice
-let g:github_enterprise_urls = ['https://git.lystit.com']
 
 set spellfile=$HOME/Documents/private_dotfiles/spell/en.utf-8.add
 " spell check for markdown and git commit message
@@ -234,29 +207,8 @@ autocmd BufRead,BufNewFile $HOME/Documents/saltus-notes/*.md set nospell
 " I#  - adds markdown title with a space at the front
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 
-" insert today's agenda/meetings from google calender
-" autocmd FileType markdown nnoremap <silent> <leader>ia :read !automation --meetings<cr>
-
-" insert jira tickets
-" autocmd FileType markdown nnoremap <silent> <leader>ij :read !automation --tickets<cr>
-
-" insert automated checklist for the day
-" autocmd FileType markdown nnoremap <silent> <leader>ic :read !automation<cr>
-
-" put x into readme todo [ ]
+" use <enter> to put x into readme todo [ ]
 autocmd FileType markdown nnoremap <silent> <cr> ^f[lrx
-
-"" Surround
-" Works globally, because it won't affect any other filetype really
-" Useful in markdown and git commit messages
-" `code`
-let b:surround_{char2nr("c")} = "`\r`"
-" **bold**
-let b:surround_{char2nr("b")} = "**\r**"
-" [link](url)
-let b:surround_{char2nr("l")} = "[\r]()"
-" _italic_
-let b:surround_{char2nr("i")} = "_\r_"
 
 " restore cursor last position
 " from usr_05.txt
@@ -302,16 +254,6 @@ nnoremap <leader>3 3gt
 nnoremap <leader>4 4gt
 nnoremap <leader>5 5gt
 
-" show table of content for markdown file
-" autocmd FileType markdown nnoremap <leader>t :Toch<cr>
-
-" vim-after-object
-
-autocmd VimEnter * call after_object#enable('=', '#', '/', ' ')
-
-" alternative use :help <c-r><c-w> to get help with word under cursor
-" nnoremap K <nop>
-
 """""""
 " fzf "
 """""""
@@ -339,24 +281,28 @@ set regexpengine=0
 
 nnoremap <leader>q :wqa<cr>
 
-"""""""""""""""""""
-" custom commands "
-"""""""""""""""""""
+"""""""""""""""""""""""""
+" Git Fugutive Commands "
+"""""""""""""""""""""""""
 
 " :Gd for open each changed file
-command! -bang -nargs=? Gd  :Git difftool
+command! -bang -nargs=? TGd  :Git difftool
 " -y for open in new tab
-command! -bang -nargs=? Gdt  :Git difftool -y
+command! -bang -nargs=? TGdt  :Git difftool -y
 
 " :Gdo for open each changed file compared to origin/master
-command! -bang -nargs=? Gdo :Git difftool origin/master...
-command! -bang -nargs=? Gdot :Git difftool -y origin/master...
+command! -bang -nargs=? TGdo :Git difftool origin/master...
+command! -bang -nargs=? TGdot :Git difftool -y origin/master...
 
-command! -bang -nargs=? SourceVimrc :source ~/.vimrc
-command! -bang -nargs=? EditVimrc :$tabedit ~/.vimrc
-command! -bang -nargs=? EditZshrc :$tabedit ~/.zshrc
-command! -bang -nargs=? EditSaltusBashrc :$tabedit ~/saltus-notes/.bashrc
-command! -bang -nargs=? EditUltiSnips :UltiSnipsEdit
+"""""""""""""""""""
+" Source And Edit "
+"""""""""""""""""""
+
+command! -bang -nargs=? TSourceVimrc :source ~/.vimrc
+command! -bang -nargs=? TEditVimrc :$tabedit ~/.vimrc
+command! -bang -nargs=? TEditZshrc :$tabedit ~/.zshrc
+command! -bang -nargs=? TEditSaltusBashrc :$tabedit ~/saltus-notes/.bashrc
+command! -bang -nargs=? TEditUltiSnips :UltiSnipsEdit
 
 """""""""""""
 " UltiSnips "
@@ -375,7 +321,6 @@ function! Lint()
     call job_start('black '.shellescape(expand('%')))
 
     " TODO convert this system to job_start to run in the background
-    " TODO use variable to reduce the duplicate of flake8 commands
     let l:error_list = system(g:flake8_command . shellescape(expand('%')))
     cexpr l:error_list
 endfunction
@@ -388,5 +333,11 @@ function! LintAll()
     cexpr l:error_list
 endfunction
 
-command! -bang -nargs=? Lint    :call Lint()
-command! -bang -nargs=? LintAll :call LintAll()
+command! -bang -nargs=? TLint    :call Lint()
+command! -bang -nargs=? TLintAll :call LintAll()
+
+""""""""""""""""""""""""""""
+" personal vim-code plugin "
+""""""""""""""""""""""""""""
+
+command! TJumpToTestFile call JumpToTestFile()

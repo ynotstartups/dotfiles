@@ -1,13 +1,16 @@
+export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
+export PATH="$HOME/Documents/dotfiles:$PATH"
+
+#########################
+# Zsh and Powerlevel10k #
+#########################
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
-
-# zsh shell
 
 # enable vim mode
 bindkey -v
@@ -21,19 +24,14 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-alias g="git"
-alias e="exit"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias ,ctags_generate_for_python='ctags **/*.py'
-alias ,generate_ctags_for_python='ctags **/*.py'
+source ~/Documents/saltus-notes/.bashrc
 
-# autojump j setup
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
-
-export PATH="$HOME/Documents/dotfiles:$PATH"
-
-# used in `sn` standup new
-alias vlast='vim $(ls -t -1 | head -n 1)'
+#################
+# Standup Notes #
+#################
 
 # stand up notes related
 function s() {
@@ -44,6 +42,12 @@ function s() {
 # and open it in vim
 alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today && git add . && s'
 
+#######
+# git #
+#######
+
+alias g="git"
+
 function ,gnew_branch() {
     git fetch origin "master:$1"
     git switch "$1"
@@ -51,6 +55,12 @@ function ,gnew_branch() {
 
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
+
+###############
+# Virtual Env #
+###############
+
+alias ,virtualenv_setup='python3 -m venv .venv'
 
 function ,activate() {
     if [ -d ".venv" ]; then
@@ -64,31 +74,37 @@ function ,activate() {
     fi
 }
 
-alias ,virtualenv_setup='python3 -m venv .venv'
-
-## get cheatsheet from cheat.sh e.g. cheatsheet sed
-function cheatsheet() {
-    curl cheat.sh/"$1"
-}
+#########
+# pyenv #
+#########
 
 # export PYENV_ROOT="$HOME/.pyenv"
 # command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init -)"
 
+#######
+# fzf #
+#######
+
+export FZF_DEFAULT_COMMAND='fd --hidden --type f'
 export FZF_DEFAULT_OPTS="--multi
     --bind 'ctrl-a:select-all'
 "
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-source ~/Documents/saltus-notes/.bashrc
+#######
+# vim #
+#######
 
 alias v='vim'
 alias ,vgd='vim -c :Gd'
 alias ,vgdo='vim -c :Gdo'
+
+########
+# Misc #
+########
 
 function ,pr-review(){
     branch_name=$1
@@ -107,4 +123,10 @@ function ,pr-review(){
 
 alias ,review-pr=',pr-review'
 
-export FZF_DEFAULT_COMMAND='fd --hidden --type f'
+alias e="exit"
+
+alias ,ctags_generate_for_python='ctags **/*.py'
+alias ,generate_ctags_for_python='ctags **/*.py'
+
+# autojump j setup
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
