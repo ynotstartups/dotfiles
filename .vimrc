@@ -243,11 +243,6 @@ nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
 " insert automated checklist for the day
 " autocmd FileType markdown nnoremap <silent> <leader>ic :read !automation<cr>
 
-" insert formatted git branch as git commit message
-" 0 in 0read to insert on the same line with cursor otherwise the message is
-" added to line below cursor
-autocmd FileType gitcommit nnoremap <silent> <leader>im :0read !git_commit_message<cr>
-
 " put x into readme todo [ ]
 autocmd FileType markdown nnoremap <silent> <cr> ^f[lrx
 
@@ -270,7 +265,10 @@ autocmd BufReadPost *
   \ |   exe "normal! g`\""
   \ | endif
 
-" emojis
+""""""""""
+" emojis "
+""""""""""
+
 inoreabbrev :+1:     👍
 inoreabbrev :+:      👍
 inoreabbrev :-1:     👎
@@ -287,7 +285,9 @@ inoreabbrev :!:      ⚠️
 inoreabbrev :ticket: 🎫
 inoreabbrev :ti: 🎫
 
-"" tab
+"""""""
+" tab "
+"""""""
 " open current file in new tab
 nnoremap <leader>t :tabedit %<cr>
 " L, H are just jump to bottom or top of screen, not very useful
@@ -312,8 +312,11 @@ autocmd VimEnter * call after_object#enable('=', '#', '/', ' ')
 " alternative use :help <c-r><c-w> to get help with word under cursor
 " nnoremap K <nop>
 
-"" fzf
-nnoremap <leader><leader> :GFiles<cr>
+"""""""
+" fzf "
+"""""""
+nnoremap <leader>fs :Snippets<cr>
+nnoremap <leader><leader> :Files<cr>
 nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fc :Commands<cr>
 nnoremap <leader>ff :Files<cr>
@@ -336,6 +339,10 @@ set regexpengine=0
 
 nnoremap <leader>q :wqa<cr>
 
+"""""""""""""""""""
+" custom commands "
+"""""""""""""""""""
+
 " :Gd for open each changed file
 command! -bang -nargs=? Gd  :Git difftool
 " -y for open in new tab
@@ -346,6 +353,40 @@ command! -bang -nargs=? Gdo :Git difftool origin/master...
 command! -bang -nargs=? Gdot :Git difftool -y origin/master...
 
 command! -bang -nargs=? SourceVimrc :source ~/.vimrc
-command! -bang -nargs=? EditVimrc :edit ~/.vimrc
-command! -bang -nargs=? EditZshrc :edit ~/.zshrc
-command! -bang -nargs=? EditSaltusBashrc :edit ~/saltus-notes/.bashrc
+command! -bang -nargs=? EditVimrc :$tabedit ~/.vimrc
+command! -bang -nargs=? EditZshrc :$tabedit ~/.zshrc
+command! -bang -nargs=? EditSaltusBashrc :$tabedit ~/saltus-notes/.bashrc
+command! -bang -nargs=? EditUltiSnips :UltiSnipsEdit
+
+"""""""""""""
+" UltiSnips "
+"""""""""""""
+let g:UltiSnipsSnippetDirectories=[$HOME.'/Documents/dotfiles/UltiSnips']
+let g:UltiSnipsEditSplit="vertical"
+
+"""""""""""""""""
+" format & lint "
+"""""""""""""""""
+
+let g:flake8_command="flake8 --config ./saltus/.flake8 --ignore E721,W503 "
+
+function! Lint()
+    " run black in the background
+    call job_start('black '.shellescape(expand('%')))
+
+    " TODO convert this system to job_start to run in the background
+    " TODO use variable to reduce the duplicate of flake8 commands
+    let l:error_list = system(g:flake8_command . shellescape(expand('%')))
+    cexpr l:error_list
+endfunction
+
+function! LintAll()
+    " run black in the background
+    call job_start('black .')
+
+    let l:error_list = system(g:flake8_command. '.')
+    cexpr l:error_list
+endfunction
+
+command! -bang -nargs=? Lint    :call Lint()
+command! -bang -nargs=? LintAll :call LintAll()
