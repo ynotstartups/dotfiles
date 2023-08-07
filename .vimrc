@@ -337,8 +337,21 @@ endfunction
 command! -bang -nargs=? TLint    :call Lint()
 command! -bang -nargs=? TLintAll :call LintAll()
 
-""""""""""""""""""""""""""""
-" personal vim-code plugin "
-""""""""""""""""""""""""""""
+"""""""""""""""""""""""
+" using python in vim "
+"""""""""""""""""""""""
+
+function! JumpToTestFile()
+py3 << EOF
+import vim
+from vim_python import get_or_create_test_file
+
+# vim.eval("@%") gets the filepath in current buffer
+test_filepath = get_or_create_test_file(filepath=vim.eval("@%"))
+
+# open test_filepath in current window
+vim.command(f"edit {test_filepath}")
+EOF
+endfunction
 
 command! TJumpToTestFile call JumpToTestFile()
