@@ -29,6 +29,12 @@ source $ZSH/oh-my-zsh.sh
 
 source ~/Documents/saltus-notes/.bashrc
 
+alias e="exit"
+
+# autojump j setup
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+
 #################
 # Standup Notes #
 #################
@@ -36,7 +42,7 @@ source ~/Documents/saltus-notes/.bashrc
 # stand up notes related
 function s() {
     cd ~/Documents/saltus-notes/
-    vim -p ./standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1) reminders.md dev_notes.md glossary.md .bashrc
+    vim -p ./standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1) dev_notes.md glossary.md .bashrc
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
@@ -52,6 +58,23 @@ function ,gnew_branch() {
     git fetch origin "master:$1"
     git switch "$1"
 }
+
+function ,pr-review(){
+    branch_name=$1
+
+    # save local changes
+    git stash
+
+    # switch to branch and fetch latest changes
+    git switch $branch_name
+    git fetch origin
+    git reset --hard origin/$branch_name
+
+    # open git diff origin/master.. files in tab
+    vim -c ':TGdot'
+}
+
+alias ,review-pr=',pr-review'
 
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
@@ -103,30 +126,12 @@ alias ,vgd='vim -c :Gd'
 alias ,vgdo='vim -c :Gdo'
 
 ########
-# Misc #
+# Tags #
 ########
-
-function ,pr-review(){
-    branch_name=$1
-
-    # save local changes
-    git stash
-
-    # switch to branch and fetch latest changes
-    git switch $branch_name
-    git fetch origin
-    git reset --hard origin/$branch_name
-
-    # open git diff origin/master.. files in tab
-    v -c ':Gdot'
-}
-
-alias ,review-pr=',pr-review'
-
-alias e="exit"
 
 alias ,ctags_generate_for_python='ctags **/*.py'
 alias ,generate_ctags_for_python='ctags **/*.py'
 
-# autojump j setup
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+########
+# Misc #
+########
