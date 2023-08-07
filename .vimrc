@@ -355,3 +355,15 @@ EOF
 endfunction
 
 command! TJumpToTestFile call JumpToTestFile()
+
+""""""""
+" Misc "
+""""""""
+
+function! BindOff()
+    " used in git diff tab with two windows/splits to not sync the diff position
+    windo set nocursorbind
+    windo set noscrollbind
+endfunction
+
+command! -bang -nargs=? TBindOff :call BindOff()
