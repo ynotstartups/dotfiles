@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
+Plug 'davidhalter/jedi-vim'
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
 Plug 'google/vim-searchindex'          " shows number of search
 Plug 'hashivim/vim-terraform'          " basic vim/terraform integration
@@ -156,7 +157,7 @@ let g:vim_markdown_folding_disabled = 1
 " diable indent on new list item
 let g:vim_markdown_new_list_item_indent = 0
 
-set spellfile=$HOME/Documents/private_dotfiles/spell/en.utf-8.add
+set spellfile=$HOME/Documents/saltus-notes/spell/en.utf-8.add
 " spell check for markdown and git commit message
 autocmd FileType gitcommit setlocal spell
 autocmd FileType markdown setlocal spell
@@ -361,7 +362,7 @@ command! TJumpToTestFile call JumpToTestFile()
 """"""""
 
 function! BindOff()
-    " used in git diff tab with two windows/splits to not sync the diff position
+    " disable the moving together in git diff tab with vertical split
     windo set nocursorbind
     windo set noscrollbind
 endfunction
