@@ -13,8 +13,7 @@ brew install fd
 brew install fzf
 
 brew install python3 # get latest python
-python3 -m pip install ipython # get latest python
-python3 -m pip install pdbpp # get latest python
+python3 -m pip install -r requirements.txt
 
 brew install vim  # get vim 9.0
 

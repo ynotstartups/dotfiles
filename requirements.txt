@@ -1,0 +1,9 @@
+Django
+black
+flake8
+ipython
+isort
+jedi
+pdbpp
+pytest
+requests
