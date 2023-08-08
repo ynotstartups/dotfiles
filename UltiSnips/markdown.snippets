@@ -9,3 +9,18 @@ snippet standup "standup template" b
 
 # Yesterday
 endsnippet
+
+snippet ` "code block" b
+\`\`\`python3
+
+\`\`
+endsnippet
+
+
+snippet til "Today I Learn" b
+`!p 
+from datetime import date
+
+snip.rv = f"# TIL - {date.today().strftime('%d/%b/%y')} - "
+`
+endsnippet
