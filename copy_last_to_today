@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 """
-copy last edited file to format `date.extension`
-
-TODO:
-1. setup test infrastructure and add tests
-2. add black
-3. add isort
+copy last edited file to format `date.extension` e.g. 08-Aug-23.md
 """
 
 import glob
@@ -29,9 +24,8 @@ latest_file = max(list_of_files, key=os.path.getmtime)
 
 _, file_extension = os.path.splitext(latest_file)
 
-# use [2:] to remove the "20" from year result in 21-12-10.md
-today_date_string = str(date.today())[2:]
-next_date_string = str(get_next_week_day(date.today()))[2:]
+today_date_string = date.today().strftime('%d-%b-%y')  # e.g. 10-Aug-23
+next_date_string = get_next_week_day(date.today()).strftime('%d-%b-%y')
 
 today_date_filename = os.path.join(".", f"{today_date_string}{file_extension}")
 next_date_filename = os.path.join(".", f"{next_date_string}{file_extension}")
