@@ -132,13 +132,9 @@ nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <leader>hs <Plug>(GitGutterStageHunk)
 nmap <leader>hu <Plug>(GitGutterUndoHunk)
 
-" hunk text object
-omap ih <Plug>(GitGutterTextObjectInnerPending)
-omap ah <Plug>(GitGutterTextObjectOuterPending)
-xmap ih <Plug>(GitGutterTextObjectInnerVisual)
-xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-
-" vim-markdown
+""""""""""""""""
+" vim-markdown "
+""""""""""""""""
 
 " conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
@@ -297,6 +293,14 @@ command! -bang -nargs=? TGdt  :Git difftool -y
 command! -bang -nargs=? TGdo :Git difftool origin/master...
 command! -bang -nargs=? TGdot :Git difftool -y origin/master...
 
+function! BindOff()
+    " disable the moving together in git diff tab with vertical split
+    windo set nocursorbind
+    windo set noscrollbind
+endfunction
+
+command! -bang -nargs=? TBindOff :call BindOff()
+
 """""""""""""""""""
 " Source And Edit "
 """""""""""""""""""
@@ -359,13 +363,11 @@ endfunction
 command! TJumpToTestFile call JumpToTestFile()
 
 """"""""
-" Misc "
+" Jedi "
 """"""""
 
-function! BindOff()
-    " disable the moving together in git diff tab with vertical split
-    windo set nocursorbind
-    windo set noscrollbind
-endfunction
+let g:jedi#completions_enabled = 0
 
-command! -bang -nargs=? TBindOff :call BindOff()
+""""""""
+" Misc "
+""""""""
