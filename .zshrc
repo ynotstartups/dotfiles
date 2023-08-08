@@ -122,8 +122,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 #######
 
 alias v='vim'
-alias ,vgd='vim -c :Gd'
-alias ,vgdo='vim -c :Gdo'
+alias ,vgd='vim -c :TGd'
+alias ,vgdo='vim -c :TGdo'
 
 ########
 # Tags #
