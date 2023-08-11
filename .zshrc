@@ -132,6 +132,25 @@ alias ,vgdo='vim -c :TGdo'
 alias ,ctags_generate_for_python='ctags **/*.py'
 alias ,generate_ctags_for_python='ctags **/*.py'
 
+
+##############
+# Github CLI #
+##############
+
+
+# TODO: ,gh_pr_create # create draft PR with correct message and body
+#
+# TODO: make gh PR title to be git commit subject too?
+# first part `git log ...` to print the body of last commit
+# second part `gh pr ...` edit the PR body with string from stdin
+alias ,gh_edit_pr_body='git log -1 --pretty=format:%b | gh pr edit --body-file -'
+
+alias ,gh_pr_create='git push && gh pr create --draft --fill-first'
+alias ,gh_create_pr=',gh_pr_create'
+alias ,gh_pr_open='gh pr view --web'
+alias ,gh_pr_open_actions='gh pr checks --web'
+alias ,gh_pr_checks_watch='gh pr checks --watch'
+
 ########
 # Misc #
 ########
