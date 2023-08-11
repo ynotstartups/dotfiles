@@ -20,12 +20,13 @@
         g = grep --ignore-case
         l = log
         l1 = log -1 -p
-        lg = log --graph
+        lg = log --graph --oneline
         ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
         p = push
         rb = rebase
         rbc = rebase --continue
         rba = rebase --abort
+        rs = restore
         rss = restore --staged
         rso = restore --source=origin/master
         s = status
