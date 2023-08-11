@@ -42,11 +42,11 @@ alias e="exit"
 # stand up notes related
 function s() {
     cd ~/Documents/saltus-notes/
-    vim -p ./standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1) dev_notes.md glossary.md .bashrc
+    vim -p ./standup/$(ls -t -1 ~/Documents/saltus-notes/standup | head -n 1) dev_notes.md glossary.md .bashrc .docker-bashrc ~/.vimrc ~/.zshrc
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
-alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today && git add . && s'
+alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today && s'
 
 #######
 # git #
