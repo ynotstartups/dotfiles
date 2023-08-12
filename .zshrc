@@ -72,7 +72,7 @@ function ,gnew_branch() {
     git switch "$1"
 }
 
-function ,pr-review(){
+function ,pr_review(){
     branch_name=$1
 
     # save local changes
@@ -195,7 +195,7 @@ source ~/Documents/saltus-notes/.bashrc
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
-function ,docker-attach-oneview(){
+function ,docker_attach_oneview(){
     CONTAINER_ID=$(docker container ls | grep oneview-django | cut -d ' ' -f 1)
     docker attach $CONTAINER_ID
 }
@@ -204,12 +204,14 @@ function ,ssh(){
     ssh -i '~/.ssh/aws-eb' "ec2-user@$1"
 }
 
-function ,fe(){
+function ,npm_run_frontend(){
     cd ~/Documents/oneview/reactapp
     npm start
 }
+alias ,fe=',npm_run_frontend'
 
-function ,be(){
+# docker compose build oneview backend with dev dependencies and personal .bashrc
+function ,docker_build_backend(){
     ,echo_green '~~~~ cd into oneview ~~~~'
     cd ~/Documents/oneview
 
@@ -225,6 +227,7 @@ function ,be(){
     ,echo_green '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
 }
+alias ,be=',docker_build_backend'
 
 alias ,docker-cp-docker-bashrc='docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc'
 
