@@ -41,12 +41,12 @@ alias e='exit'
 # autojump j setup
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
-function ,echo_green() { # usage: ,echo_green 'foo bar baz message'
-    echo $fg_bold[green]$1$reset_color
+function ,echo_green() { # usage: ,echo_green foo bar baz message
+    echo $fg_bold[green]$@$reset_color
 }
 
-function ,echo_red() { # usage: ,echo_red 'foo bar baz message'
-    echo $fg_bold[red]$1$reset_color
+function ,echo_red() { # usage: ,echo_red foo bar baz message
+    echo $fg_bold[red]$@$reset_color
 }
 #################
 # Standup Notes #
