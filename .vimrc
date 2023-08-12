@@ -11,6 +11,7 @@ Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesi
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
 Plug 'davidhalter/jedi-vim'            " vim python, leader d to go to definition
+Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
 Plug 'google/vim-searchindex'          " shows number of search
 Plug 'SirVer/ultisnips'                " snippets
@@ -346,6 +347,7 @@ command! JumpToTestFile call JumpToTestFile()
 let g:jedi#completions_enabled = 0
 " disable docstring window to popup during completion
 let g:jedi#show_call_signatures = 0
+autocmd FileType python setlocal completeopt-=preview
 
 """"""""""""
 " NERDTree "
@@ -388,3 +390,19 @@ let g:completor_auto_trigger = 0
 inoremap <expr> <Tab> Tab_Or_Complete()
 
 let g:completor_complete_options = 'menu,preview'
+
+""""""""""""""""""
+" Vim EasyMotion "
+""""""""""""""""""
+
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap a <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
