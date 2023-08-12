@@ -1,9 +1,16 @@
-Django
+# essential
+requests
+
+# tests
+pdbpp
+pytest
+
+# format & lint
 black
 flake8
 ipython
 isort
+
+# vim
 jedi
-pdbpp
-pytest
-requests
+
