@@ -139,22 +139,32 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# TODO: display the comment of function  with fzf post processing like https://bluz71.github.io/2018/11/26/fuzzy-finding-in-bash-with-fzf.html
-# use fzf to find and execute a custom command
-function ,c(){
+# inspired by https://bluz71.github.io/2018/11/26/fuzzy-finding-in-bash-with-fzf.html
+# use fzf to find a custom command
+function ,fzf_find_command() {
     # get the list of function and alias names
-    function_names=`cat ~/Documents/dotfiles/.zshrc | grep -o '^function [,a-zA-Z_-]*' | cut -d ' ' -f 2`
-    alias_names=`cat ~/Documents/dotfiles/.zshrc | grep -o '^alias [,a-zA-Z_-]*' | cut -d ' ' -f 2`
-
+    local function_and_alias_names=`
+        cat ~/Documents/dotfiles/.zshrc | \
+        grep -o -e '^function [,a-zA-Z_-]*' -e '^alias [,a-zA-Z_-]*' | \
+        cut -d ' ' -f 2
+    `
     # find one using fzf
-    command_name=`echo $alias_names'\n'$function_names | fzf`
+    local command_name=`
+        echo $function_and_alias_names | \
+        fzf --no-multi --ansi --height 10 \
+            --preview "cat ~/Documents/dotfiles/.zshrc | grep -B 1 -e '^function {}' -e '^alias {}' "
+    `
 
-    # print is a zsh buildin command, there is no `print --help`
-    # see https://gist.github.com/YumaInaura/2a1a915b848728b34eacf4e674ca61eb
-    # input $command_name as console input NOT as stdout
-    # so that I can insert function argument for function that needs argument such as ,gnew_branch foo-bar
-    print -z "$command_name "
+    # -n true if length of string is non-zero, from `man zshmisc` -> conditional expression
+    if [[ -n $command_name ]]; then
+        # print is a zsh buildin command, there is no `print --help`
+        # see https://gist.github.com/YumaInaura/2a1a915b848728b34eacf4e674ca61eb
+        # input $command_name as console input NOT as stdout
+        # so that I can insert function argument for function that needs argument such as ,gnew_branch foo-bar
+        print -z "$command_name "
+    fi
 }
+alias c=',fzf_find_command'
 
 #######
 # vim #
