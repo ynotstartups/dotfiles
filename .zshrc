@@ -27,9 +27,16 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-function e(){
-    exit
-}
+# use alt-h to get help for zsh commandrun-help prini
+
+HELPDIR=/usr/share/zsh/5.9/help
+
+unalias run-help
+autoload run-help
+bindkey "^[h" run-help
+alias help='run-help'
+
+alias e='exit'
 
 # autojump j setup
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
