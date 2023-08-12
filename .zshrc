@@ -27,14 +27,20 @@ source $ZSH/oh-my-zsh.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source ~/Documents/saltus-notes/.bashrc
-
-alias e="exit"
+function e(){
+    exit
+}
 
 # autojump j setup
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
+function ,echo_green() { # usage: ,echo_green 'foo bar baz message'
+    echo $fg_bold[green]$1$reset_color
+}
 
+function ,echo_red() { # usage: ,echo_red 'foo bar baz message'
+    echo $fg_bold[red]$1$reset_color
+}
 #################
 # Standup Notes #
 #################
@@ -83,7 +89,16 @@ alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -
 # Virtual Env #
 ###############
 
-alias ,virtualenv_setup='python3 -m venv .venv'
+function ,virtualenv_setup() {
+    ,echo_green 'setting up virtualenv at .venv folder'
+    python3 -m venv .venv
+    ,echo_green  'activating virtualenv'
+    . .venv/bin/activate
+    ,echo_green 'upgrading pip'
+    pip install --upgrade pip
+    ,echo_green 'pip installing essential libraries'
+    pip install -r ~/Documents/dotfiles/requirements.txt
+}
 
 function ,activate() {
     if [ -d ".venv" ]; then
@@ -91,8 +106,8 @@ function ,activate() {
     elif [ -d "venv" ]; then
         . venv/bin/activate
     else {
-        echo "No virtualenv found!";
-        echo "Consider setup .venv with ,virtualenv_setup";
+        ,echo_red 'No virtualenv found!'
+        ,echo_red 'Consider setup .venv with ,virtualenv_setup'
     }
     fi
 }
@@ -132,15 +147,10 @@ alias ,vgdo='vim -c :TGdo'
 alias ,ctags_generate_for_python='ctags **/*.py'
 alias ,generate_ctags_for_python='ctags **/*.py'
 
-
 ##############
 # Github CLI #
 ##############
 
-
-# TODO: ,gh_pr_create # create draft PR with correct message and body
-#
-# TODO: make gh PR title to be git commit subject too?
 # first part `git log ...` to print the body of last commit
 # second part `gh pr ...` edit the PR body with string from stdin
 alias ,gh_edit_pr_body='git log -1 --pretty=format:%b | gh pr edit --body-file -'
@@ -151,6 +161,71 @@ alias ,gh_pr_open='gh pr view --web'
 alias ,gh_pr_open_actions='gh pr checks --web'
 alias ,gh_pr_checks_watch='gh pr checks --watch'
 
+################
+# Work Related #
+################
+
+source ~/Documents/saltus-notes/.bashrc
+
+# alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
+# because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
+alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
+
+function ,docker-attach-oneview(){
+    CONTAINER_ID=$(docker container ls | grep oneview-django | cut -d ' ' -f 1)
+    docker attach $CONTAINER_ID
+}
+
+function ,ssh(){
+    ssh -i '~/.ssh/aws-eb' "ec2-user@$1"
+}
+
+function ,fe(){
+    cd ~/Documents/oneview/reactapp
+    npm start
+}
+
+function ,be(){
+    ,echo_green '~~~~ cd into oneview ~~~~'
+    cd ~/Documents/oneview
+
+    ,echo_green '~~~~ docker compose build and up backend detached ~~~~'
+    docker compose -f docker-compose-dev.yml up --build --detach django postgres
+
+    ,echo_green '~~~~ poetry install dev ~~~~'
+    docker exec --env -t oneview-django-1 poetry install --with dev
+
+    ,echo_green '~~~~ copy over bashrc ~~~~'
+    docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc
+
+    ,echo_green '~~~~ django logs ~~~~'
+    docker compose -f docker-compose-dev.yml logs -f django
+}
+
+alias ,docker-cp-docker-bashrc='docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc'
+
+alias ,mb='make bash'
+
 ########
 # Misc #
 ########
+
+# make some quick alias for current work
+# TODO: create my own cookie cutter to write new script or python testing codes?
+alias ,a='isort *.py && black *.py  && flake8 --ignore=E501 *.py && pytest test_file_rest_api.py'
+alias ,s=''
+alias ,d=''
+alias ,f=''
+
+# use fzf to find and execute a custom command
+function ,c(){
+    # get the list of function and alias names
+    function_names=`cat ~/Documents/dotfiles/.zshrc | grep -o '^function [,a-zA-Z_-]*' | cut -d ' ' -f 2`
+    alias_names=`cat ~/Documents/dotfiles/.zshrc | grep -o '^alias [,a-zA-Z_-]*' | cut -d ' ' -f 2`
+
+    # find one using fzf
+    command_name=`echo $alias_names'\n'$function_names | fzf`
+
+    # execute
+    $command_name
+}
