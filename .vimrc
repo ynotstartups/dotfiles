@@ -318,7 +318,7 @@ function! LintAll()
 endfunction
 
 command! -bang -nargs=? Black    :!black %
-command! -bang -nargs=? Lint    :call Lint()
+command! -bang -nargs=? Lint     :call Lint()
 command! -bang -nargs=? TLintAll :call LintAll()
 
 """""""""""""""""""""""
