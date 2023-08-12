@@ -2,15 +2,15 @@
 import os
 
 
-def write_section(text: str, comment_character: str="#") -> str:
+def write_section(text: str, comment_character: str = "#") -> str:
     """
-        from:
-        example text
+    from:
+    example text
 
-        to:
-        ################
-        # example text #
-        ################
+    to:
+    ################
+    # example text #
+    ################
     """
 
     COMMENT_CHARACTER = comment_character
@@ -30,6 +30,9 @@ def test_write_section():
 
 
 def get_test_filepath(filepath: str) -> str:
+    if "/" not in filepath:
+        return f"test_{filepath}"
+
     splitted_filepath = filepath.split("/")
     splitted_filepath.insert(2, "tests")
     splitted_filepath[-1] = f"test_{splitted_filepath[-1]}"
@@ -42,6 +45,7 @@ def test_get_test_filepath():
         get_test_filepath("saltus/oneview/graphql/foo.py")
         == "saltus/oneview/tests/graphql/test_foo.py"
     )
+    assert get_test_filepath("foo.py") == "test_foo.py"
 
 
 def get_or_create_test_file(filepath: str) -> None:
