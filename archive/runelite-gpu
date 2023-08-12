@@ -1,3 +1,0 @@
-# to let D3 launcher sees it
-# sudo ln -s ~/Documents/dotfiles/runelite-gpu runelite-gpu
-MESA_GL_VERSION_OVERRIDE=4.3 /snap/bin/runelite
