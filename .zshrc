@@ -92,9 +92,9 @@ alias ,review-pr=',pr-review'
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
-###############
-# Virtual Env #
-###############
+##########
+# Python #
+##########
 
 function ,virtualenv_setup() {
     ,echo_green 'setting up virtualenv at .venv folder'
@@ -118,6 +118,16 @@ function ,activate() {
     }
     fi
 }
+
+# TODO: create my own cookie cutter to write new script or python testing codes?
+function ,format_lint_test_python(){
+    isort *.py
+    black *.py
+    # ignoer line too long: Line too long (82 > 79 characters) (E501)
+    flake8 --ignore=E501 *.py
+    pytest *.py
+}
+alias ,l='format_lint_test_python'
 
 #########
 # pyenv #
@@ -247,9 +257,7 @@ alias ,mb='make bash'
 # Misc #
 ########
 
-# make some quick alias for current work
-# TODO: create my own cookie cutter to write new script or python testing codes?
-alias ,a='isort *.py && black *.py  && flake8 --ignore=E501 *.py && pytest test_file_rest_api.py'
+alias ,a=''
 alias ,s=''
 alias ,d=''
 alias ,f=''
