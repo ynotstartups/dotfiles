@@ -4,6 +4,7 @@ tags
 *.swp
 # mac file
 .DS_Store
-# python virtual env
+# python
 .venv
 venv
+__pycache__
