@@ -58,6 +58,18 @@ def test_${1:name}(self):
 
 endsnippet
 
+snippet def "function"
+def ${1:name}():
+	pass
+
+endsnippet
+
+snippet deft "function"
+def test_${1:name}():
+	pass
+
+endsnippet
+
 #################
 # Documentation #
 #################
@@ -67,3 +79,4 @@ snippet " "triple quoted string (double quotes)" b
 ${1:${VISUAL:doc}}
 ""
 endsnippet
+
