@@ -123,8 +123,9 @@ function ,activate() {
 function ,format_lint_test_python(){
     isort **/*.py
     black **/*.py
-    # ignoer line too long: Line too long (82 > 79 characters) (E501)
-    flake8 --ignore=E501 **/*.py
+    # E501 ignoer line too long: Line too long (82 > 79 characters)
+    # W503 conflict with black formatter
+    flake8 --ignore=E501,W503 **/*.py
     pytest **/*.py
 }
 alias ,l=',format_lint_test_python'
