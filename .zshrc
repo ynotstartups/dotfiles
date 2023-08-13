@@ -59,7 +59,7 @@ function s() {
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
-alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today && s'
+alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today.py && s'
 
 #######
 # git #
@@ -120,6 +120,11 @@ function ,activate() {
 }
 
 function ,format_lint_test_python(){
+    if [ $# -eq 0 ]; then
+        echo "No arguments provided, please provide path to a python file"
+        return 1
+    fi
+
     isort $1
     black $1
     # E501 ignoer line too long: Line too long (82 > 79 characters)
@@ -139,6 +144,13 @@ function ,format_lint_test_all_python(){
     pytest **/*.py
 }
 alias ,la=',format_lint_test_all_python'
+
+# run coverage with all python files and show missing lines
+function ,coverage_run(){
+    # added --source to ignore side-packages
+    coverage run --source . -m pytest *.py
+    coverage report --show-missing
+}
 
 #########
 # pyenv #

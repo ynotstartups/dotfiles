@@ -8,3 +8,4 @@ tags
 .venv
 venv
 __pycache__
+.coverage

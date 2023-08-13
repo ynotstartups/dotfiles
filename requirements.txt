@@ -4,6 +4,7 @@ requests
 # tests
 pdbpp
 pytest
+coverage
 
 # format & lint
 black
