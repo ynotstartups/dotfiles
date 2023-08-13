@@ -4,16 +4,19 @@ priority -50
 # python script #
 #################
 
-snippet #! "#!/usr/bin/env python" b
-#!/usr/bin/env python
+snippet #! "#!/usr/bin/env python3" b
+#!/usr/bin/env python3
 $0
 endsnippet
 
 snippet script "complete python script with shebang and main function" b
 #!/usr/bin/env python
+"""
+${1:${VISUAL: TODO module docs}}
+"""
 
 def main():
-	${1:${VISUAL:pass}}
+	pass
 
 if __name__ == "__main__":
     main()
