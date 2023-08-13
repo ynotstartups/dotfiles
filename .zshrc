@@ -1,5 +1,4 @@
 export PATH="/opt/homebrew/opt/node@16/bin:$PATH"
-export PATH="$HOME/Documents/dotfiles:$PATH"
 
 #########################
 # Zsh and Powerlevel10k #
@@ -59,7 +58,7 @@ function s() {
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
-alias sn='cd ~/Documents/saltus-notes/standup && copy_last_to_today.py && s'
+alias sn='cd ~/Documents/saltus-notes/standup && ~/Documents/dotfiles/copy_last_to_today.py && s'
 
 #######
 # git #
@@ -179,7 +178,7 @@ function ,fzf_find_command() {
     # get the list of function and alias names
     # find one using fzf
     local extracted_line=`
-        extract_aliases_functions_from_zshrc.py | \
+        ~/Documents/dotfiles/extract_aliases_functions_from_zshrc.py | \
         fzf --no-multi --ansi --height 15
     `
 
