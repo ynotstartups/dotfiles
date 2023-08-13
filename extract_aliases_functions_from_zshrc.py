@@ -22,7 +22,7 @@ FUNCTION_PREFIX = "function "
 
 class colors:
     CODE = "\033[33m"  # yellow
-    COMMENT = "\33[1m\033[90m"  # bold grey
+    COMMENT = "\033[90m"  # grey
     RESET = "\033[0m"
 
 
@@ -150,7 +150,7 @@ def test_function_command_string():
 
     assert (
         str(command)
-        == ",fzf_find_command                  F    \x1b[1m\x1b[90muse fzf to find a custom command\x1b[0m\n"
+        == ",fzf_find_command                  F    \x1b[90muse fzf to find a custom command\x1b[0m\n"
     )
 
 
@@ -169,5 +169,10 @@ def test_not_a_command_string():
     assert str(command) == ""
 
 
-if __name__ == "__main__":
+def test_main_outputs_something(capsys):
     main()
+    assert "vim" in capsys.readouterr().out
+
+
+if __name__ == "__main__":
+    main()  # pragma: no cover
