@@ -119,16 +119,26 @@ function ,activate() {
     fi
 }
 
-# TODO: create my own cookie cutter to write new script or python testing codes?
 function ,format_lint_test_python(){
+    isort $1
+    black $1
+    # E501 ignoer line too long: Line too long (82 > 79 characters)
+    # W503 conflict with black formatter
+    flake8 --ignore=E501,W503 $1
+    pytest $1
+}
+alias ,l=',format_lint_test_python'
+
+# TODO: create my own cookie cutter to write new script or python testing codes?
+function ,format_lint_test_all_python(){
     isort **/*.py
     black **/*.py
     # E501 ignoer line too long: Line too long (82 > 79 characters)
-    # W503 conflict with black formatter
+    # W503 conflict with black Formatter
     flake8 --ignore=E501,W503 **/*.py
     pytest **/*.py
 }
-alias ,l=',format_lint_test_python'
+alias ,la=',format_lint_test_all_python'
 
 #########
 # pyenv #
