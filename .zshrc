@@ -41,11 +41,11 @@ alias e='exit'
 # autojump j setup
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
-function ,echo_green() { # usage: ,echo_green foo bar baz message
+function _echo_green() { # usage: _echo_green foo bar baz message
     echo $fg_bold[green]$@$reset_color
 }
 
-function ,echo_red() { # usage: ,echo_red foo bar baz message
+function _echo_red() { # usage: _echo_red foo bar baz message
     echo $fg_bold[red]$@$reset_color
 }
 #################
@@ -97,13 +97,13 @@ alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -
 ##########
 
 function ,virtualenv_setup() {
-    ,echo_green 'setting up virtualenv at .venv folder'
+    _echo_green 'setting up virtualenv at .venv folder'
     python3 -m venv .venv
-    ,echo_green  'activating virtualenv'
+    _echo_green  'activating virtualenv'
     . .venv/bin/activate
-    ,echo_green 'upgrading pip'
+    _echo_green 'upgrading pip'
     pip install --upgrade pip
-    ,echo_green 'pip installing essential libraries'
+    _echo_green 'pip installing essential libraries'
     pip install -r ~/Documents/dotfiles/requirements.txt
 }
 
@@ -113,8 +113,8 @@ function ,activate() {
     elif [ -d "venv" ]; then
         . venv/bin/activate
     else {
-        ,echo_red 'No virtualenv found!'
-        ,echo_red 'Consider setup .venv with ,virtualenv_setup'
+        _echo_red 'No virtualenv found!'
+        _echo_red 'Consider setup .venv with ,virtualenv_setup'
     }
     fi
 }
@@ -228,19 +228,19 @@ alias ,fe=',npm_run_frontend'
 
 # docker compose build oneview backend with dev dependencies and personal .bashrc
 function ,docker_build_backend(){
-    ,echo_green '~~~~ cd into oneview ~~~~'
+    _echo_green '~~~~ cd into oneview ~~~~'
     cd ~/Documents/oneview
 
-    ,echo_green '~~~~ docker compose build and up backend detached ~~~~'
+    _echo_green '~~~~ docker compose build and up backend detached ~~~~'
     docker compose -f docker-compose-dev.yml up --build --detach django postgres
 
-    ,echo_green '~~~~ poetry install dev ~~~~'
+    _echo_green '~~~~ poetry install dev ~~~~'
     docker exec --env -t oneview-django-1 poetry install --with dev
 
-    ,echo_green '~~~~ copy over bashrc ~~~~'
+    _echo_green '~~~~ copy over bashrc ~~~~'
     docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc
 
-    ,echo_green '~~~~ django logs ~~~~'
+    _echo_green '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
 }
 alias ,be=',docker_build_backend'
