@@ -87,7 +87,7 @@ function ,pr_review(){
     vim -c ':TGdot'
 }
 
-alias ,review-pr=',pr-review'
+alias ,review_pr=',pr_review'
 
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
@@ -255,7 +255,7 @@ function ,docker_build_backend(){
 }
 alias ,be=',docker_build_backend'
 
-alias ,docker-cp-docker-bashrc='docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc'
+alias ,docker_cp_docker_bashrc='docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc'
 
 alias ,mb='make bash'
 
