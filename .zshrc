@@ -148,7 +148,7 @@ alias ,la=',format_lint_test_all_python'
 # run coverage with all python files and show missing lines
 function ,coverage_run(){
     # added --source to ignore side-packages
-    coverage run --source . -m pytest *.py
+    coverage run --source . -m pytest **/*.py
     coverage report --show-missing
 }
 
