@@ -141,7 +141,8 @@ function ,format_lint_test_all_python(){
     # E501 ignoer line too long: Line too long (82 > 79 characters)
     # W503 conflict with black Formatter
     flake8 --ignore=E501,W503 **/*.py
-    pytest **/*.py
+    coverage run --source . -m pytest **/*.py
+    coverage report --show-missing
 }
 alias ,la=',format_lint_test_all_python'
 

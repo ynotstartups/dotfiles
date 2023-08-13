@@ -38,6 +38,7 @@ endsnippet
 import os
 from unittest.mock import patch
 
+
 def write_section(text: str, comment_character: str = "#") -> str:
     """
     from:
@@ -94,10 +95,12 @@ def get_or_create_test_file(filepath: str) -> None:
             pass
     return test_filepath
 
+
 def test_create_test_file(tmp_path):
     get_or_create_test_file(str(tmp_path / "foo.py"))
 
     assert os.path.exists(str(tmp_path / "test_foo.py"))
+
 
 @patch("builtins.open")
 def test_dont_create_test_file(mock_open, tmp_path):
@@ -105,6 +108,6 @@ def test_dont_create_test_file(mock_open, tmp_path):
     # needed to force to file to create
     file.write_text("")
 
-    get_or_create_test_file(str(tmp_path / 'foo.py'))
+    get_or_create_test_file(str(tmp_path / "foo.py"))
 
     mock_open.assert_not_called()
