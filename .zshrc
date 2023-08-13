@@ -154,18 +154,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # use fzf to find a custom command
 function ,fzf_find_command() {
     # get the list of function and alias names
-    local function_and_alias_names=`
-        cat ~/Documents/dotfiles/.zshrc | \
-        grep -o -e '^function [,a-zA-Z_-]*' -e '^alias [,a-zA-Z_-]*' | \
-        cut -d ' ' -f 2
-    `
     # find one using fzf
-    local command_name=`
-        echo $function_and_alias_names | \
-        fzf --no-multi --ansi --height 10 \
-            --preview "cat ~/Documents/dotfiles/.zshrc | grep -B 1 -e '^function {}' -e '^alias {}' "
+    local extracted_line=`
+        extract_aliases_functions_from_zshrc.py | \
+        fzf --no-multi --ansi --height 15
     `
 
+    local command_name=`echo $extracted_line | cut -d ' ' -f 1`
     # -n true if length of string is non-zero, from `man zshmisc` -> conditional expression
     if [[ -n $command_name ]]; then
         # print is a zsh buildin command, there is no `print --help`
