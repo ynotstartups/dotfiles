@@ -72,7 +72,7 @@ function ,gnew_branch() {
 }
 
 function ,pr_review(){
-    branch_name=$1
+    local branch_name=$1
 
     # save local changes
     git stash
@@ -124,12 +124,14 @@ function ,format_lint_test_python(){
         return 1
     fi
 
-    isort $1
-    black $1
+    local file_path=$1
+
+    isort $file_path
+    black $file_path
     # E501 ignoer line too long: Line too long (82 > 79 characters)
     # W503 conflict with black formatter
-    flake8 --ignore=E501,W503 $1
-    pytest $1
+    flake8 --ignore=E501,W503 $file_path
+    pytest $file_path
 }
 alias ,l=',format_lint_test_python'
 
@@ -234,7 +236,7 @@ source ~/Documents/saltus-notes/.bashrc
 alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
 function ,docker_attach_oneview(){
-    CONTAINER_ID=$(docker container ls | grep oneview-django | cut -d ' ' -f 1)
+    local CONTAINER_ID=$(docker container ls | grep oneview-django | cut -d ' ' -f 1)
     docker attach $CONTAINER_ID
 }
 
