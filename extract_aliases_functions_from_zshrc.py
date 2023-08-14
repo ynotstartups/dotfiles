@@ -7,7 +7,7 @@ from dataclasses import dataclass
 
 
 def main():
-    with open(".zshrc", "r") as f:
+    with open("/Users/yuhao.huang/Documents/dotfiles/.zshrc", "r") as f:
         file_content = [line.strip() for line in f]
 
     for line_number, line in enumerate(file_content):
