@@ -150,8 +150,9 @@ nmap <leader>hu <Plug>(GitGutterUndoHunk)
 " <Esc><Left> move cursor to be in the middle of ()
 " p paste link from clipboard
 " gv go back to the visual select
-" c[] change the visual select to [] (note that the clipboard not has the visual selected content)
-" <Left><Esc>p paste in the middle of []
+" "ac[] change the visual select to [] & save to visual select to register a
+" <Left><Esc>"ap paste visual select from register a in the middle of []
+" P.S. register a is used to avoid changing the clipboard 
 autocmd FileType markdown vnoremap <Leader>l <Esc>a()<Esc><Left>pgv"ac[]<Left><Esc>"ap
 
 " conceal characters such as bold, italic and link
