@@ -140,9 +140,19 @@ nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <leader>hs <Plug>(GitGutterStageHunk)
 nmap <leader>hu <Plug>(GitGutterUndoHunk)
 
-""""""""""""""""
-" vim-markdown "
-""""""""""""""""
+""""""""""""
+" markdown "
+""""""""""""
+
+" leader l create link with link from clipboard
+" <Esc> exit visual mode
+" a() insert () after the last word of visual selection
+" <Esc><Left> move cursor to be in the middle of ()
+" p paste link from clipboard
+" gv go back to the visual select
+" c[] change the visual select to [] (note that the clipboard not has the visual selected content)
+" <Left><Esc>p paste in the middle of []
+autocmd FileType markdown vnoremap <Leader>l <Esc>a()<Esc><Left>pgv"ac[]<Left><Esc>"ap
 
 " conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
