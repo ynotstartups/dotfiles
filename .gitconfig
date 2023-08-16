@@ -14,9 +14,10 @@
         cp = commit -v --patch
         d = diff
         do = diff origin/master...
+        ds = diff --staged
+        dc = diff --cached
         f = fetch
         fro = !git fetch origin && git rebase -i origin/master
-        dc = diff --cached
         g = grep --ignore-case
         l = log
         l1 = log -1 -p
@@ -24,6 +25,7 @@
         ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
         p = push
         rb = rebase
+        rbi = rebase -i
         rbc = rebase --continue
         rba = rebase --abort
         rs = restore
