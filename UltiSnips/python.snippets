@@ -83,3 +83,14 @@ ${1:${VISUAL:doc}}
 ""
 endsnippet
 
+#########
+# Print #
+#########
+
+snippet "(\w*).F" "print variable with f string = in color cyan" r
+`!p snip.rv = 'f"\\033[36m{' +  match.group(1) + '=}\\033[0m"'`
+endsnippet
+
+snippet '(\w*).~' "print with padding ~~~" r
+`!p snip.rv = f" {match.group(1)} ".center(60, "~")`
+endsnippet
