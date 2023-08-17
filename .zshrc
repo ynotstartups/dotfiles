@@ -279,6 +279,33 @@ alias ,docker_cp_docker_bashrc='docker compose cp ~/Documents/saltus-notes/.dock
 
 alias ,mb='make bash'
 
+######
+# ip #
+######
+
+# find the ip of a website ,ip_of https://google.com
+function ,ip_of(){
+    if [ $# -eq 0 ]; then
+        _echo_red "No arguments provided, please provide a url"
+        _echo_red "Get ip of a url, automatically strip http/https protocol prefix"
+        _echo_red "Usage: ,ip_of https://www.google.com/"
+        return 1
+    fi
+
+    domain=`echo "$1" | sed -e "s/^https:\/\///" -e "s/^http:\/\///" -e "s/\/.*$//"`
+
+    _echo_green "nslookup $domain ..."
+    nslookup $domain
+
+    # $? is the exit code of nslookup, 0 means good, other means bad
+    if [ $? -eq 0 ]; then
+        _echo_green 'Query succeed.'
+    else
+        _echo_red   'Query failed.'
+    fi
+}
+
+
 ########
 # Misc #
 ########
