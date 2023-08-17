@@ -71,6 +71,7 @@ function ,gnew_branch() {
     git switch "$1"
 }
 
+# takes PR branch name, fetch reset and open vim with git diff
 function ,pr_review(){
     local branch_name=$1
 
@@ -78,15 +79,14 @@ function ,pr_review(){
     git stash
 
     # switch to branch and fetch latest changes
+    git fetch
     git switch $branch_name
-    git fetch origin
     git reset --hard origin/$branch_name
 
     # open git diff origin/master.. files in tab
     vim -c ':TGdot'
 }
 
-alias ,review_pr=',pr_review'
 
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
@@ -215,15 +215,21 @@ alias ,generate_ctags_for_python='ctags **/*.py'
 # Github CLI #
 ##############
 
+# requires
+# mkdir ~/.oh-my-zsh/completions
+# gh cli autocomplete
+# gh completion -s zsh > ~/.oh-my-zsh/completions/_gh
+autoload -U compinit
+compinit -i
+
 # first part `git log ...` to print the body of last commit
 # second part `gh pr ...` edit the PR body with string from stdin
 alias ,gh_edit_pr_body='git log -1 --pretty=format:%b | gh pr edit --body-file -'
 
 alias ,gh_pr_create='git push && gh pr create --draft --fill-first'
-alias ,gh_create_pr=',gh_pr_create'
 alias ,gh_pr_open='gh pr view --web'
-alias ,gh_pr_open_actions='gh pr checks --web'
-alias ,gh_pr_checks_watch='gh pr checks --watch'
+alias ,gh_pr_actions_open='gh pr checks --web'
+alias ,gh_pr_actions_watch='gh pr checks --watch'
 
 ################
 # Work Related #
