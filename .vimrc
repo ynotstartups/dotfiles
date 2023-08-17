@@ -394,10 +394,6 @@ function! Tab_Or_Complete() abort
   endif
 endfunction
 
-" Use `tab` key to select completions.  Default is arrow keys.
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 " Use tab to trigger auto completion.  Default suggests completions as you type.
 let g:completor_auto_trigger = 0
 inoremap <expr> <Tab> Tab_Or_Complete()
