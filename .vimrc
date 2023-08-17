@@ -265,9 +265,11 @@ nnoremap <leader>fw :Rg <c-r><c-w><cr>
 
 nnoremap <leader>q :wqa<cr>
 
-"""""""""""""""""""""""""
-" Git Fugutive Commands "
-"""""""""""""""""""""""""
+""""""""""""""""
+" Git Fugitive "
+""""""""""""""""
+
+set diffopt=vertical  
 
 " :Gd for open each changed file
 command! -bang -nargs=? TGd  :Git difftool
