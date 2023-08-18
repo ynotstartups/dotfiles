@@ -201,8 +201,8 @@ alias c=',fzf_find_command'
 #######
 
 alias v='vim'
-alias ,vgd='vim -c :TGd'
-alias ,vgdo='vim -c :TGdo'
+alias ,vim_git_diff='vim -c :TGd'
+alias ,vim_git_diff_originmaster='vim -c :TGdo'
 
 ########
 # Tags #
