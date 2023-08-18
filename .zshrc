@@ -279,6 +279,13 @@ alias ,docker_cp_docker_bashrc='docker compose cp ~/Documents/saltus-notes/.dock
 
 alias ,mb='make bash'
 
+#####################
+# make autocomplete #
+#####################
+
+zstyle ':completion:*:*:make:*' tag-order 'targets'
+autoload -Uz compinit && compinit
+
 ######
 # ip #
 ######
