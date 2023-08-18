@@ -18,6 +18,7 @@ Plug 'SirVer/ultisnips'                " snippets
 Plug 'jparise/vim-graphql'             " graphql syntax highlight
 Plug 'junegunn/fzf'                    " ca# to change after # used in markdown
 Plug 'junegunn/fzf.vim'                " ca# to change after # used in markdown
+Plug 'img-paste-devs/img-paste.vim'    " leader p to paste image to markdown file
 Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
@@ -415,3 +416,9 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+
+""""""""""""""""""""
+" img paste plugin "
+""""""""""""""""""""
+let g:mdip_imgdir = 'images'
+autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
