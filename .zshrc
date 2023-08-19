@@ -54,7 +54,7 @@ function _echo_red() { # usage: _echo_red foo bar baz message
 # stand up notes related
 function s() {
     cd ~/Documents/private-notes/
-    vim -p ./standup/$(ls -t -1 ~/Documents/private-notes/standup | head -n 1) dev_notes.md glossary.md .bashrc .docker-bashrc ~/.vimrc ~/.zshrc
+    vim -p ./standup/$(ls -t -1 ~/Documents/private-notes/standup | head -n 1) dev_notes.md glossary.md .bashrc ~/.vimrc ~/.zshrc
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
@@ -266,14 +266,14 @@ function ,docker_build_backend(){
     docker exec --env -t oneview-django-1 poetry install --with dev
 
     _echo_green '~~~~ copy over bashrc ~~~~'
-    docker compose cp ~/Documents/private-notes/.docker-bashrc django:/root/.bashrc
+    docker compose cp ~/Documents/private-notes/.bashrc django:/root/.bashrc
 
     _echo_green '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
 }
 alias ,be=',docker_build_backend'
 
-alias ,docker_cp_docker_bashrc='docker compose cp ~/Documents/private-notes/.docker-bashrc django:/root/.bashrc'
+alias ,docker_cp_bashrc='docker compose cp ~/Documents/private-notes/.bashrc django:/root/.bashrc'
 
 alias ,mb='make bash'
 
