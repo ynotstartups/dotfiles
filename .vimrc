@@ -143,6 +143,7 @@ let g:gitgutter_map_keys = 0 " disable gitgutter map
 nmap ]h <Plug>(GitGutterNextHunk)
 nmap [h <Plug>(GitGutterPrevHunk)
 nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+nmap <leader>ha <Plug>(GitGutterStageHunk)
 nmap <leader>hs <Plug>(GitGutterStageHunk)
 nmap <leader>hu <Plug>(GitGutterUndoHunk)
 
