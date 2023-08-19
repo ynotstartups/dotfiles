@@ -220,7 +220,7 @@ nnoremap <silent> <leader>z 1z=<cr>g;e
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 
-autocmd BufRead,BufNewFile $HOME/Documents/saltus-notes/*.md set nospell
+autocmd BufRead,BufNewFile $HOME/Documents/private-notes/*.md set nospell
 
 " insert filename in title case, used for personal notes
 " "%p - paste current filename (in register %)
