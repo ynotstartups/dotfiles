@@ -10,7 +10,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
-Plug 'davidhalter/jedi-vim'            " vim python, leader d to go to definition
+Plug 'davidhalter/jedi-vim'            " vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
 Plug 'google/vim-searchindex'          " shows number of search
