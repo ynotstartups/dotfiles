@@ -7,7 +7,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-
+Plug '907th/vim-auto-save'             " autosave
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
@@ -38,7 +38,6 @@ Plug 'tpope/vim-surround'              " The plugin provides mappings to easily 
 Plug 'tpope/vim-unimpaired'            " adds mapping like [q ]q
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
 Plug 'wellle/targets.vim'              " adds textobjects e.g. i*, i_ usefll in markdown
-
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
@@ -476,3 +475,11 @@ let g:asterisk#keeppos = 1
 " https://github.com/haya14busa/is.vim#integration-of-vim-anzu
 map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
 map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
+
+"""""""""""""""""
+" vim-auto-save "
+"""""""""""""""""
+
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_write_all_buffers = 1
+" let g:auto_save_silent = 1  " do not display the auto-save notification
