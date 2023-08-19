@@ -32,7 +32,7 @@ HELPDIR=/usr/share/zsh/5.9/help
 
 unalias run-help
 autoload run-help
-bindkey "^[h" run-help
+# bindkey "^[h" run-help
 alias help='run-help'
 
 alias e='exit'
