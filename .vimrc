@@ -78,6 +78,7 @@ set mouse=a " support mouse in iTerm
 set noswapfile
 set regexpengine=0 " fix tsx files too slow
 set incsearch " incremental search
+set belloff=all
 
 set statusline+=%f      " filename
 set statusline+=%=      " right align
