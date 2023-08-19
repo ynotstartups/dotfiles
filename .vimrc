@@ -7,12 +7,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
 Plug 'davidhalter/jedi-vim'            " vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
+Plug 'haya14busa/is.vim'               " Automatically clear highlight 
+Plug 'haya14busa/vim-asterisk'         " * stays where it is
 Plug 'google/vim-searchindex'          " shows number of search
 Plug 'SirVer/ultisnips'                " snippets
 Plug 'jparise/vim-graphql'             " graphql syntax highlight
@@ -35,6 +38,7 @@ Plug 'tpope/vim-surround'              " The plugin provides mappings to easily 
 Plug 'tpope/vim-unimpaired'            " adds mapping like [q ]q
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
 Plug 'wellle/targets.vim'              " adds textobjects e.g. i*, i_ usefll in markdown
+
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
@@ -436,3 +440,17 @@ autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownCli
 " don't complete " in vim file
 " didn't find a way so exclude the whole file
 let g:delimitMate_excluded_ft = "vim"
+
+""""""""""""""""
+" vim-asterisk "
+""""""""""""""""
+
+" * stays at the current cursor position, instead of jumpping to next
+map *  <Plug>(asterisk-z*)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
+
+" * keeps the cursor position i.e. if you * on the three character of the word
+" n goes the three character of next match
+let g:asterisk#keeppos = 1
