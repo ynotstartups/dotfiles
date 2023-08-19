@@ -311,6 +311,12 @@ function ,ip_of(){
 }
 
 
+######
+# rg #
+######
+
+export RIPGREP_CONFIG_PATH=$HOME/.rgrc
+
 ########
 # Misc #
 ########
