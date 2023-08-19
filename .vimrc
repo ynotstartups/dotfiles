@@ -14,9 +14,9 @@ Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
 Plug 'davidhalter/jedi-vim'            " vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
+Plug 'osyo-manga/vim-anzu'             " works with is.vim to show the number of searches
 Plug 'haya14busa/is.vim'               " Automatically clear highlight 
 Plug 'haya14busa/vim-asterisk'         " * stays where it is
-Plug 'google/vim-searchindex'          " shows number of search
 Plug 'SirVer/ultisnips'                " snippets
 Plug 'jparise/vim-graphql'             " graphql syntax highlight
 Plug 'junegunn/fzf'                    " ca# to change after # used in markdown
@@ -468,3 +468,11 @@ map g# <plug>(asterisk-gz#)
 " * keeps the cursor position i.e. if you * on the three character of the word
 " n goes the three character of next match
 let g:asterisk#keeppos = 1
+
+""""""""""
+" is.vim "
+""""""""""
+" display search position like (2/10) for n/N commands.
+" https://github.com/haya14busa/is.vim#integration-of-vim-anzu
+map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
+map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
