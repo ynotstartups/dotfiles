@@ -78,7 +78,8 @@ set mouse=a " support mouse in iTerm
 set noswapfile
 set regexpengine=0 " fix tsx files too slow
 set incsearch " incremental search
-set belloff=all
+set belloff=all " no spell from vim
+set spellcapcheck= " turn off spell check says first character not captical as error
 
 set statusline+=%f      " filename
 set statusline+=%=      " right align
