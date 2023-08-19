@@ -73,6 +73,7 @@ set shiftwidth=4 " set shiftwidth - default indent
 set mouse=a " support mouse in iTerm
 set noswapfile
 set regexpengine=0 " fix tsx files too slow
+set incsearch " incremental search
 
 
 
