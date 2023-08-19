@@ -461,6 +461,7 @@ let g:delimitMate_excluded_ft = "vim"
 " * stays at the current cursor position, instead of jumpping to next
 map *  <plug>(asterisk-z*)
 map #  <plug>(asterisk-z#)
+" g* is * search without word boundary \< \> 
 map g* <plug>(asterisk-gz*)
 map g# <plug>(asterisk-gz#)
 
