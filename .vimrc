@@ -25,7 +25,7 @@ Plug 'img-paste-devs/img-paste.vim'    " leader p to paste image to markdown fil
 Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
-Plug 'maralla/completor.vim'           " fuzzy complete, type 'fzcl' then <Tab> to complete to 'fuzzy complete'
+Plug 'maralla/completor.vim'           " fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'plasticboy/vim-markdown'         " add markdown syntax
 Plug 'preservim/nerdtree'              " tree explorers
 Plug 'tomasr/molokai'                  " molokar color scheme
@@ -61,7 +61,7 @@ set wildmode=longest:full,full " start on the longest option when you hit tab
 set hidden " files leave the screen become hidden buffer
 set backspace=indent,eol,start
 set tabstop=4 " show existing tab with 4 spaces width
-set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <Tab>
+set expandtab " In Insert mode: Use the appropriate number of spaces to insert a <tab>
 set hlsearch " highlight search result such as when using *
 set scrolloff=1 " shows one more line above and below the cursor
 set sidescrolloff=5 " similar to above but on the right
@@ -145,12 +145,12 @@ nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 " see help (shortcut K) for gitgutter-mappings
 set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
 let g:gitgutter_map_keys = 0 " disable gitgutter map
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
-nmap <leader>hp <Plug>(GitGutterPreviewHunk)
-nmap <leader>ha <Plug>(GitGutterStageHunk)
-nmap <leader>hs <Plug>(GitGutterStageHunk)
-nmap <leader>hu <Plug>(GitGutterUndoHunk)
+nmap ]h <plug>(GitGutterNextHunk)
+nmap [h <plug>(GitGutterPrevHunk)
+nmap <leader>hp <plug>(GitGutterPreviewHunk)
+nmap <leader>ha <plug>(GitGutterStageHunk)
+nmap <leader>hs <plug>(GitGutterStageHunk)
+nmap <leader>hu <plug>(GitGutterUndoHunk)
 
 " Do I want GitGutterQuickFixCurrentFile too?
 command! GitGutterQuickFixOpenQuickfixWindow GitGutterQuickFix | copen
@@ -161,15 +161,15 @@ nnoremap <leader>hq :GitGutterQuickFixOpenQuickfixWindow<cr>
 """"""""""""
 
 " leader l create link with link from clipboard
-" <Esc> exit visual mode
+" <esc> exit visual mode
 " a() insert () after the last word of visual selection
-" <Esc><Left> move cursor to be in the middle of ()
+" <esc><left> move cursor to be in the middle of ()
 " p paste link from clipboard
 " gv go back to the visual select
 " "ac[] change the visual select to [] & save to visual select to register a
-" <Left><Esc>"ap paste visual select from register a in the middle of []
+" <left><esc>"ap paste visual select from register a in the middle of []
 " P.S. register a is used to avoid changing the clipboard 
-autocmd FileType markdown,gitcommit vnoremap <Leader>l <Esc>a()<Esc><Left>pgv"ac[]<Left><Esc>"ap
+autocmd FileType markdown,gitcommit vnoremap <leader>l <esc>a()<esc><left>pgv"ac[]<left><esc>"ap
 
 " conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
@@ -402,11 +402,11 @@ function! Tab_Or_Complete() abort
   " If completor is not open and we are in the middle of typing a word then
   " `tab` opens completor menu.
   elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[[:keyword:][:ident:]]'
-    return "\<C-R>=completor#do('complete')\<CR>"
+    return "\<C-R>=completor#do('complete')\<cr>"
   else
     " If we aren't typing a word and we press `tab` simply do the normal `tab`
     " action.
-    return "\<Tab>"
+    return "\<tab>"
   endif
 endfunction
 
@@ -414,7 +414,7 @@ endfunction
 
 " Use tab to trigger auto completion.  Default suggests completions as you type.
 " let g:completor_auto_trigger = 0
-" inoremap <expr> <Tab> Tab_Or_Complete()
+" inoremap <expr> <tab> Tab_Or_Complete()
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " removes the preview window
@@ -425,7 +425,7 @@ let g:completor_min_chars = 1
 
 " TODO: trying out
 let g:completor_auto_trigger = 0
-inoremap <expr> <Tab>   pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
+inoremap <expr> <tab>   pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<cr>"
 inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 
 """"""""""""""""""
@@ -435,7 +435,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap a <Plug>(easymotion-overwin-f2)
+nmap a <plug>(easymotion-overwin-f2)
 
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -444,7 +444,7 @@ let g:EasyMotion_smartcase = 1
 " img paste plugin "
 """"""""""""""""""""
 let g:mdip_imgdir = 'images'
-autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<cr>
 
 """""""""""""""
 " delimitMate "
@@ -459,10 +459,10 @@ let g:delimitMate_excluded_ft = "vim"
 """"""""""""""""
 
 " * stays at the current cursor position, instead of jumpping to next
-map *  <Plug>(asterisk-z*)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
+map *  <plug>(asterisk-z*)
+map #  <plug>(asterisk-z#)
+map g* <plug>(asterisk-gz*)
+map g# <plug>(asterisk-gz#)
 
 " * keeps the cursor position i.e. if you * on the three character of the word
 " n goes the three character of next match
