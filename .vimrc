@@ -370,14 +370,14 @@ command! JumpToTestFile call JumpToTestFile()
 let g:jedi#completions_enabled = 0
 " disable docstring window to popup during completion
 let g:jedi#show_call_signatures = 0
-autocmd FileType python setlocal completeopt-=preview
+let g:jedi#usages_command = "<leader>u"
 
 """"""""""""
 " NERDTree "
 """"""""""""
 
 let NERDTreeIgnore=['__pycache__']
-nnoremap <leader>f :NERDTreeFind<cr>
+nnoremap <leader>n :NERDTreeFind<cr>
 
 """""""""""""""""
 " completor.vim "
