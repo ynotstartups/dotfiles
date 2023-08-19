@@ -409,11 +409,23 @@ function! Tab_Or_Complete() abort
   endif
 endfunction
 
-" Use tab to trigger auto completion.  Default suggests completions as you type.
-let g:completor_auto_trigger = 0
-inoremap <expr> <Tab> Tab_Or_Complete()
+" Use `tab` key to select completions.  Default is arrow keys.
 
-let g:completor_complete_options = 'menu,preview'
+" Use tab to trigger auto completion.  Default suggests completions as you type.
+" let g:completor_auto_trigger = 0
+" inoremap <expr> <Tab> Tab_Or_Complete()
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" removes the preview window
+let g:completor_complete_options = 'menu'
+
+" change from default 2 chars to 1 char
+let g:completor_min_chars = 1
+
+" TODO: trying out
+let g:completor_auto_trigger = 0
+inoremap <expr> <Tab>   pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<CR>"
+inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 
 """"""""""""""""""
 " Vim EasyMotion "
