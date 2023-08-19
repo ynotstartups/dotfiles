@@ -75,6 +75,10 @@ set noswapfile
 set regexpengine=0 " fix tsx files too slow
 set incsearch " incremental search
 
+set statusline+=%f      " filename
+set statusline+=%=      " right align
+set statusline+=\ %l:%c " line number & column number
+set statusline+=\ %p%%  " percentage
 
 
 " https://vi.stackexchange.com/questions/6/how-can-i-use-the-undofile
