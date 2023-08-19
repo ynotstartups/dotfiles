@@ -321,6 +321,16 @@ function ,ip_of(){
 
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 
+######################
+# cheatsheet website #
+######################
+
+## get cheatsheet from cheat.sh e.g. cheatsheet sed
+,cheatsheet() {
+    curl cheat.sh/"$1" | less
+}
+
+
 ########
 # Misc #
 ########
