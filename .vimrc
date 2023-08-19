@@ -142,6 +142,10 @@ nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 nmap <leader>hs <Plug>(GitGutterStageHunk)
 nmap <leader>hu <Plug>(GitGutterUndoHunk)
 
+" Do I want GitGutterQuickFixCurrentFile too?
+command! GitGutterQuickFixOpenQuickfixWindow GitGutterQuickFix | copen
+nnoremap <leader>hq :GitGutterQuickFixOpenQuickfixWindow<cr>
+
 """"""""""""
 " markdown "
 """"""""""""
