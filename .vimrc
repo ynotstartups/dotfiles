@@ -431,3 +431,11 @@ map <Leader>k <Plug>(easymotion-k)
 """"""""""""""""""""
 let g:mdip_imgdir = 'images'
 autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+
+"""""""""""""""
+" delimitMate "
+"""""""""""""""
+
+" don't complete " in vim file
+" didn't find a way so exclude the whole file
+let g:delimitMate_excluded_ft = "vim"
