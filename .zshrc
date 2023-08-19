@@ -235,8 +235,6 @@ alias ,gh_pr_actions_watch='gh pr checks --watch'
 # Work Related #
 ################
 
-source ~/Documents/saltus-notes/.bashrc
-
 # alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
@@ -268,14 +266,14 @@ function ,docker_build_backend(){
     docker exec --env -t oneview-django-1 poetry install --with dev
 
     _echo_green '~~~~ copy over bashrc ~~~~'
-    docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc
+    docker compose cp ~/Documents/private-notes/.docker-bashrc django:/root/.bashrc
 
     _echo_green '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
 }
 alias ,be=',docker_build_backend'
 
-alias ,docker_cp_docker_bashrc='docker compose cp ~/Documents/saltus-notes/.docker-bashrc django:/root/.bashrc'
+alias ,docker_cp_docker_bashrc='docker compose cp ~/Documents/private-notes/.docker-bashrc django:/root/.bashrc'
 
 alias ,mb='make bash'
 
