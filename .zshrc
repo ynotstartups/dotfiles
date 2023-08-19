@@ -204,6 +204,10 @@ alias v='vim'
 alias ,vim_git_diff='vim -c :TGd'
 alias ,vim_git_diff_originmaster='vim -c :TGdo'
 
+# quickly edit files in vim
+alias ,ev='vim ~/.vimrc'
+alias ,ez='vim ~/.zshrc'
+
 ########
 # Tags #
 ########
