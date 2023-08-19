@@ -8,14 +8,14 @@
         b = branch
         bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
         c = commit -v
-        camend = commit -v --amend
         ca = commit -v -a
         caa = commit -a --amend --no-edit
+        camend = commit -v --amend
         cp = commit -v --patch
         d = diff
+        dc = diff --cached
         do = diff origin/master...
         ds = diff --staged
-        dc = diff --cached
         f = fetch
         fro = !git fetch origin && git rebase -i origin/master
         g = grep --ignore-case
@@ -26,12 +26,12 @@
         lp = log -p
         p = push
         rb = rebase
-        rbi = rebase -i
-        rbc = rebase --continue
         rba = rebase --abort
+        rbc = rebase --continue
+        rbi = rebase -i
         rs = restore
-        rss = restore --staged
         rso = restore --source=origin/master
+        rss = restore --staged
         s = status
         sw = switch
 [user]
