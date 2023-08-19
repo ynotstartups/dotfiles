@@ -163,7 +163,7 @@ nnoremap <leader>hq :GitGutterQuickFixOpenQuickfixWindow<cr>
 " "ac[] change the visual select to [] & save to visual select to register a
 " <Left><Esc>"ap paste visual select from register a in the middle of []
 " P.S. register a is used to avoid changing the clipboard 
-autocmd FileType markdown vnoremap <Leader>l <Esc>a()<Esc><Left>pgv"ac[]<Left><Esc>"ap
+autocmd FileType markdown,gitcommit vnoremap <Leader>l <Esc>a()<Esc><Left>pgv"ac[]<Left><Esc>"ap
 
 " conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
