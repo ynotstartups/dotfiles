@@ -65,6 +65,7 @@ alias sn='cd ~/Documents/private-notes/standup && ~/Documents/dotfiles/copy_last
 #######
 
 alias g="git"
+alias gs="git status"
 
 function ,gnew_branch() {
     git fetch origin "master:$1"
