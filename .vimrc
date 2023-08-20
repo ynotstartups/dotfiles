@@ -145,7 +145,8 @@ nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 """""""""""""
 
 " see help (shortcut K) for gitgutter-mappings
-set updatetime=100 " how long (in milliseconds) the plugin will wait for GitGutter
+" note that updatetime is also used by autosave on save per second
+set updatetime=1000 " how long (in milliseconds) the plugin will wait for GitGutter
 let g:gitgutter_map_keys = 0 " disable gitgutter map
 nmap ]h <plug>(GitGutterNextHunk)
 nmap [h <plug>(GitGutterPrevHunk)
@@ -485,4 +486,5 @@ map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_write_all_buffers = 1
-" let g:auto_save_silent = 1  " do not display the auto-save notification
+let g:auto_save_events = ["CursorHold", "CursorHoldI"]
+let g:auto_save_silent = 1  " do not display the auto-save notification
