@@ -331,6 +331,17 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
     curl cheat.sh/"$1" | less
 }
 
+#########
+# MacOS #
+#########
+
+function ,copy_last_screenshot() {
+   image_name=`ls -t -1 ~/Desktop/screenshots | head -1`
+   echo $image_name
+   apple_script="set the clipboard to (read (POSIX file \"/Users/yuhao.huang/Desktop/screenshots/$image_name\") as {«class PNGf»})"
+   echo $apple_script
+   osascript -e $apple_script
+}
 
 ########
 # Misc #
