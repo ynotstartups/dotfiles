@@ -336,12 +336,12 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 #########
 
 function ,copy_last_screenshot() {
-   image_name=`ls -t -1 ~/Desktop/screenshots | head -1`
-   echo $image_name
-   apple_script="set the clipboard to (read (POSIX file \"/Users/yuhao.huang/Desktop/screenshots/$image_name\") as {«class PNGf»})"
-   echo $apple_script
+   most_recent_screenshot_name=`ls -t -1 ~/Desktop/screenshots | head -1`
+   apple_script="set the clipboard to (read (POSIX file \"/Users/yuhao.huang/Desktop/screenshots/$most_recent_screenshot_name\") as {«class PNGf»})"
    osascript -e $apple_script
 }
+
+# Tips: use `say 'hello world'` to use sound synthesizer 
 
 ########
 # Misc #
