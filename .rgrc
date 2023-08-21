@@ -4,5 +4,8 @@
 # don't search in .git directory
 --glob=!.git/
 
+# don't search in standup directory
+--glob=!standup/
+
 
 --smart-case
