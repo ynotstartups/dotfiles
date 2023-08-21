@@ -2,8 +2,6 @@
 
 brew install ripgrep
 
-brew install ctags
-
 brew install autojump # command j
 
 brew install bat # terminal syntax highlight
@@ -17,11 +15,12 @@ python3 -m pip install -r requirements.txt
 
 brew install vim  # get vim 9.0
 
+# universal-ctags is better than `brew install ctags`
+brew install universal-ctags
+
 ln -s -F "$PWD"/.vimrc "$HOME"/.vimrc
 
 ln -s -F "$PWD"/.gitconfig "$HOME"/.gitconfig
-
-ln -s -F "$PWD"/.ctags "$HOME"/.ctags
 
 ln -s -F "$PWD"/.zshrc "$HOME"/.zshrc
 
