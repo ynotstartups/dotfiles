@@ -45,3 +45,5 @@
 	template = /Users/yuhao.huang/Documents/dotfiles/.git_commit_msg.txt
 [pager]
 	branch = false
+[rerere]
+	enabled = true
