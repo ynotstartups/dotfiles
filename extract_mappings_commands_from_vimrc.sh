@@ -1,5 +1,10 @@
 #!/bin/sh
+# parse and output mappings or commands from vimrc
 
+# grep:  remove comments or let ..
+# fgrep: gives me lines with mapping keywords
+# sed:   remove modifier tags e.g. remove "<expr>"
+# grep:  remove anything up to the mapping, e.g. remove "autocmd FileType markdown"
 function parse_mappings() {
     grep -e '^"' -e '^let' -v |\
         fgrep --word-regexp -e 'nmap' -e 'nnoremap' -e 'vmap' -e 'inoremap' -e 'map' |\
@@ -7,17 +12,19 @@ function parse_mappings() {
                 grep -o '\b[a-z]*map.*'
 }
 
+# grep:  find commands, commands always start with `command!`
+# sed:   remove '-bang -nargs=?' followed from command!
 function parse_commands() {
     grep -e '^command' |\
         sed -e 's/ -bang -nargs=?//g'
 }
 
 function sort_and_format_output() {
-    # $1 is the mapping keyword e.g. nnoremap
-    # $2 is the mapping e.g. <leader>a
+    # $1 is the mapping or command! keyword e.g. nnoremap
+    # $2 is the actual mapping or command e.g. <leader>a
     sort -k 1,2b |\
         awk '{
-            printf("%-15s %-24s", $1, $2);
+            printf("%-15s %-24s", $1, $2); # left padding
             printf("\033[33m") # color yellow
             for(i=3; i<=NF; ++i) printf("%s ", $i);
                 printf("\033[0m") # reset
@@ -25,6 +32,7 @@ function sort_and_format_output() {
             }'
 }
 
+# cat .vimrc twice are much faster compared to using if statements 
 cat ~/.vimrc |\
     parse_mappings |\
         sort_and_format_output
