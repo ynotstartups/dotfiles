@@ -1,17 +1,15 @@
 #!/bin/sh
 
-function parse_mappings_or_commands() {
-    while read line; do
-        if [[ $line == command* ]]; then
-            echo "$line" |\
-                sed -e 's/ -bang -nargs=?//g'
-        else
-            echo "$line" |\
-                fgrep --word-regexp -e 'nmap' -e 'nnoremap' -e 'vmap' -e 'inoremap' -e 'map' |\
-                    sed -e 's/<buffer>//g' -e 's/<expr>//g' -e 's/<silent>//g' |\
-                        grep -o '\b[a-z]*map.*'
-        fi
-    done;
+function parse_mappings() {
+    grep -e '^"' -e '^let' -v |\
+        fgrep --word-regexp -e 'nmap' -e 'nnoremap' -e 'vmap' -e 'inoremap' -e 'map' |\
+            sed -e 's/<buffer>//g' -e 's/<expr>//g' -e 's/<silent>//g' |\
+                grep -o '\b[a-z]*map.*'
+}
+
+function parse_commands() {
+    grep -e '^command' |\
+        sed -e 's/ -bang -nargs=?//g'
 }
 
 function sort_and_format_output() {
@@ -27,6 +25,10 @@ function sort_and_format_output() {
             }'
 }
 
-grep -e '^"' -e '^let' -v |\
-    parse_mappings_or_commands |\
+cat ~/.vimrc |\
+    parse_mappings |\
+        sort_and_format_output
+
+cat ~/.vimrc |\
+    parse_commands |\
         sort_and_format_output
