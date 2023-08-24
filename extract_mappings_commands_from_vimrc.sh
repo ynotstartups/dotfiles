@@ -23,13 +23,10 @@ function sort_and_format_output() {
     # $1 is the mapping or command! keyword e.g. nnoremap
     # $2 is the actual mapping or command e.g. <leader>a
     sort -k 1,2b |\
-        awk '{
-            printf("%-15s %-24s", $1, $2); # left padding
-            printf("\033[33m") # color yellow
-            for(i=3; i<=NF; ++i) printf("%s ", $i);
-                printf("\033[0m") # reset
-                printf("\n"); # print from the 3rd arguments to the last
-            }'
+        while read type command definition
+        do
+            printf "%-15s %-24s \033[33m %s \033[0m\n" "$type"  "$command"  "$definition"
+        done
 }
 
 # cat .vimrc twice are much faster compared to using if statements 
