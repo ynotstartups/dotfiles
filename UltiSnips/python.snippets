@@ -46,7 +46,7 @@ snippet ann "Assert is not None" b
 self.assertIsNotNone(${1:${VISUAL:expression}})
 endsnippet
 
-snippet tc "django testcase" b
+snippet classt "django testcase" b
 from django.test import TestCase
 
 class Test${1:Class}(TestCase):
@@ -55,7 +55,16 @@ class Test${1:Class}(TestCase):
 
 endsnippet
 
-snippet td "django testcase" b
+snippet classt "django graphql testcase" b
+from oneview.tests.graphql import GraphqlTestCase
+
+class Test${1:Class}(GraphqlTestCase):
+	def test_${2:name}(self):
+		${3:${VISUAL:pass}}
+
+endsnippet
+
+snippet classd "django testcase" b
 def test_${1:name}(self):
 	pass
 
@@ -79,8 +88,14 @@ endsnippet
 
 snippet " "triple quoted string (double quotes)" b
 """
-${1:${VISUAL:doc}}
+${1:${VISUAL:TODO}}
 ""
+endsnippet
+
+snippet doc "triple quoted string (double quotes)" b
+"""
+${1:${VISUAL:TODO}}
+"""
 endsnippet
 
 #########
@@ -101,4 +116,16 @@ endsnippet
 
 snippet ia "from typing import Any" b
 from typing import Any
+endsnippet
+
+snippet io "from typing import Optional" b
+from typing import Optional
+endsnippet
+
+snippet id "from typing import Dict" b
+from typing import Dict
+endsnippet
+
+snippet il "from typing import List" b
+from typing import List
 endsnippet

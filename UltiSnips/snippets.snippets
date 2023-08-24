@@ -5,3 +5,9 @@ endglobal
 snippet "(.*).SS" "Create Section (postfix)" r
 `!p snip.rv = write_section(text=match.group(1))`
 endsnippet
+
+snippet snip "Ultisnips snippet definition" b
+`!p snip.rv = "snippet"` ${1:Tab_trigger} "${2:Description}" ${3:b}
+${0:${VISUAL}}
+`!p snip.rv = "endsnippet"`
+endsnippet
