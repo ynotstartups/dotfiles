@@ -203,7 +203,9 @@ alias c=',fzf_find_command'
 
 alias v='vim'
 alias ,vim_git_diff='vim -c :TGd'
+alias ,vgd='vim -c :TGd'
 alias ,vim_git_diff_originmaster='vim -c :TGdo'
+alias ,vgdo='vim -c :TGdo'
 
 # quickly edit files in vim
 alias ,ev='vim ~/.vimrc'
