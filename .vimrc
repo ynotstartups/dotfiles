@@ -423,9 +423,9 @@ endfunction
 " Use `tab` key to select completions.  Default is arrow keys.
 
 " Use tab to trigger auto completion.  Default suggests completions as you type.
-" let g:completor_auto_trigger = 0
-" inoremap <expr> <tab> Tab_Or_Complete()
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:completor_auto_trigger = 0
+inoremap <expr> <tab> Tab_Or_Complete()
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " removes the preview window
 let g:completor_complete_options = 'menu'
@@ -434,9 +434,9 @@ let g:completor_complete_options = 'menu'
 let g:completor_min_chars = 1
 
 " TODO: trying out
-let g:completor_auto_trigger = 0
-inoremap <expr> <tab>   pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<cr>"
-inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
+" let g:completor_auto_trigger = 0
+" inoremap <expr> <tab>   pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<cr>"
+" inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 
 """"""""""""""""""
 " Vim EasyMotion "
