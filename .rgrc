@@ -7,5 +7,11 @@
 # don't search in standup directory
 --glob=!standup/
 
+# don't search in fixtures directory
+--glob=!fixtures/
+
+# don't let riggrep print really long lines to my terminal, and show a preview
+--max-columns=150
+--max-columns-preview
 
 --smart-case
