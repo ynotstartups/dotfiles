@@ -191,7 +191,7 @@ let g:vim_markdown_folding_disabled = 1
 " diable indent on new list item
 let g:vim_markdown_new_list_item_indent = 0
 
-set spellfile=$HOME/Documents/saltus-notes/spell/en.utf-8.add
+set spellfile=$HOME/Documents/personal-notes/spell/en.utf-8.add
 " spell check for markdown and git commit message
 autocmd FileType gitcommit setlocal spell
 autocmd FileType markdown setlocal spell
@@ -227,7 +227,7 @@ nnoremap <silent> <leader>z 1z=<cr>g;e
 " this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 
-autocmd BufRead,BufNewFile $HOME/Documents/private-notes/*.md set nospell
+autocmd BufRead,BufNewFile $HOME/Documents/personal-notes/*.md set nospell
 
 " insert filename in title case, used for personal notes
 " "%p - paste current filename (in register %)
