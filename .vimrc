@@ -19,8 +19,9 @@ Plug 'haya14busa/is.vim'               " Automatically clear highlight
 Plug 'haya14busa/vim-asterisk'         " * stays where it is
 Plug 'SirVer/ultisnips'                " snippets
 Plug 'jparise/vim-graphql'             " graphql syntax highlight
-Plug 'junegunn/fzf'                    " ca# to change after # used in markdown
-Plug 'junegunn/fzf.vim'                " ca# to change after # used in markdown
+Plug 'junegunn/fzf'                    " fzf
+Plug 'junegunn/fzf.vim'                " fzf vim
+Plug 'junegunn/goyo.vim'               " :Goyo for distraction free writing and reading mode
 Plug 'img-paste-devs/img-paste.vim'    " leader p to paste image to markdown file
 Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
