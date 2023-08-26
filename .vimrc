@@ -281,7 +281,7 @@ nnoremap <leader>fw :Rg <c-r><c-w><cr>
 " disable preview window
 " let g:fzf_preview_window = []
 
-nnoremap <leader>q <esc>:wqa<cr>
+nnoremap <leader>q <esc>:qa<cr>
 
 """"""""""""""""
 " Git Fugitive "
