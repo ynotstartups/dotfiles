@@ -87,6 +87,10 @@ function ,gnew_branch() {
 # takes PR branch name, fetch reset and open vim with git diff
 function ,pr_review(){
 
+    if [ $# -eq 0 ]; then
+        _echo_red "Missing first argument"
+    fi
+
     if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
         echo "Takes PR branch name, fetch reset and open vim with git diff"
         echo
@@ -98,6 +102,7 @@ function ,pr_review(){
 
     local branch_name=$1
 
+    # TODO: stops if there are local changes
     # save local changes
     git stash
 
