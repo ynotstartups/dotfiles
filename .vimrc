@@ -251,6 +251,10 @@ nnoremap <leader>t :tabedit %<cr>
 nnoremap L gt
 " previous tab
 nnoremap H gT
+" move tabpage to the left
+nnoremap <c-s-h> :tabmove -<cr>
+" move tabpage to the right
+nnoremap <c-s-l> :tabmove +<cr>
 " leader number to go to tab
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
