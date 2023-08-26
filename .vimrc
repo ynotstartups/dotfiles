@@ -7,7 +7,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug '907th/vim-auto-save'             " autosave
+" Plug '907th/vim-auto-save'             " autosave
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
