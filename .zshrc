@@ -68,12 +68,34 @@ alias g="git"
 alias gs="git status"
 
 function ,gnew_branch() {
+    if [ $# -eq 0 ]; then
+        _echo_red "Missing first argument"
+    fi
+
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "Switch to new branch & fetch origin"
+        echo
+        echo "Usage:"
+        echo "    ,gnew_branch BRANCH_NAME"
+        return 1
+    fi
+
     git fetch origin "master:$1"
     git switch "$1"
 }
 
 # takes PR branch name, fetch reset and open vim with git diff
 function ,pr_review(){
+
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "Takes PR branch name, fetch reset and open vim with git diff"
+        echo
+        echo "Usage:"
+        echo "    ,pr_review BRANCH_NAME"
+        echo "    ,pr_review -h"
+        return 1
+    fi
+
     local branch_name=$1
 
     # save local changes
@@ -252,6 +274,18 @@ function ,docker_attach_oneview(){
 }
 
 function ,ssh(){
+    if [ $# -eq 0 ]; then
+        _echo_red "Missing first argument"
+    fi
+    
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "ssh into oneview's elastic beanstalk"
+        echo
+        echo "Usage:"
+        echo "    ,ssh IP_ADDRESS"
+        return 1
+    fi
+
     ssh -i '~/.ssh/aws-eb' "ec2-user@$1"
 }
 
@@ -298,9 +332,14 @@ autoload -Uz compinit && compinit
 # find the ip of a website ,ip_of https://google.com
 function ,ip_of(){
     if [ $# -eq 0 ]; then
-        _echo_red "No arguments provided, please provide a url"
-        _echo_red "Get ip of a url, automatically strip http/https protocol prefix"
-        _echo_red "Usage: ,ip_of https://www.google.com/"
+        _echo_red "Missing first argument"
+    fi
+
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "Find the ip of a website"
+        echo
+        echo "Usage:"
+        echo "    ,ip_of https://google.com"
         return 1
     fi
 
@@ -328,8 +367,20 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 # cheatsheet website #
 ######################
 
-## get cheatsheet from cheat.sh e.g. cheatsheet sed
+# get cheatsheet from cheat.sh e.g. cheatsheet sed
 ,cheatsheet() {
+    if [ $# -eq 0 ]; then
+        _echo_red "Missing first argument"
+    fi
+
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "Get cheatsheet from cheat.sh"
+        echo
+        echo "Usage:"
+        echo "    ,cheatsheet sed"
+        return 1
+    fi
+
     curl cheat.sh/"$1" | less
 }
 
