@@ -313,16 +313,16 @@ command! -bang -nargs=? TBindOff :call BindOff()
 command! -bang -nargs=? SourceVimrc :source ~/.vimrc
 
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
-command! -bang -nargs=? EVimrc :$tabedit ~/.vimrc
+command! -bang -nargs=? Ev :$tabedit ~/.vimrc
 
 nnoremap <leader>ez :$tabedit ~/.zshrc<cr>
-command! -bang -nargs=? EZshrc :$tabedit ~/.zshrc
+command! -bang -nargs=? Ez :$tabedit ~/.zshrc
 
-nnoremap <leader>eb :$tabedit ~/saltus-notes/.bashrc<cr>
-command! -bang -nargs=? ESaltusBashrc :$tabedit ~/saltus-notes/.bashrc
+nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
+command! -bang -nargs=? Ed :$tabedit ~/Documents/personal-notes/dev_notes.md
 
 nnoremap <leader>eu :UltiSnipsEdit<cr>
-command! -bang -nargs=? EUltiSnips :UltiSnipsEdit
+command! -bang -nargs=? Eu :UltiSnipsEdit
 
 nnoremap <leader>et :JumpToTestFile<cr>
 

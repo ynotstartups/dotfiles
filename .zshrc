@@ -232,6 +232,7 @@ alias ,vgdo='vim -c :TGdo'
 # quickly edit files in vim
 alias ,ev='vim ~/.vimrc'
 alias ,ez='vim ~/.zshrc'
+alias ,ed='vim ~/Documents/personal-notes/dev_notes.md'
 
 ########
 # Tags #
