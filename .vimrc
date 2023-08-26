@@ -99,14 +99,13 @@ set undofile
 set ignorecase
 set smartcase
 
+"""""""""""""""
+" Colorscheme "
+"""""""""""""""
 
-" color
 syntax on
+set termguicolors
 colorscheme molokai
-" better Match parentheses, otherwise it looks like the current cursor is on
-" the matched parenthesis
-hi MatchParen      ctermfg=208  ctermbg=233 cterm=bold
-
 
 " make the single quote works like a backtick
 " puts the cursor on the column of a mark, instead of first non-blank
