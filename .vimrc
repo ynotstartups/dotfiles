@@ -7,7 +7,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" Plug '907th/vim-auto-save'             " autosave
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
@@ -487,6 +486,7 @@ let g:asterisk#keeppos = 1
 map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
 map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
 
+
 """""""""""""""
 " Man Command "
 """""""""""""""
@@ -496,12 +496,3 @@ map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
 "     `Man 7 git-tutorial`
 
 runtime! ftplugin/man.vim
-
-"""""""""""""""""
-" vim-auto-save "
-"""""""""""""""""
-
-" let g:auto_save = 1  " enable AutoSave on Vim startup
-" let g:auto_save_write_all_buffers = 1
-" let g:auto_save_events = ["CursorHold", "CursorHoldI"]
-" let g:auto_save_silent = 1  " do not display the auto-save notification
