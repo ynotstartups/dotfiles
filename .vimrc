@@ -496,3 +496,16 @@ map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
 "     `Man 7 git-tutorial`
 
 runtime! ftplugin/man.vim
+
+""""""""""""""""""""""""""""""
+" get syntax highlight group "
+""""""""""""""""""""""""""""""
+
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+command! -bang -nargs=? SynStack call SynStack()
