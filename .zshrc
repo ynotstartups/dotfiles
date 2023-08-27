@@ -404,12 +404,3 @@ function ,copy_last_screenshot() {
 }
 
 # Tips: use `say 'hello world'` to use sound synthesizer 
-
-###################
-# Man Page in Vim #
-###################
-
-# col -b remove the ansi color sequence
-# -M modified not allowed
-# -R read only
-export MANPAGER="col -b | vim -MR - --cmd 'set filetype=man'"
