@@ -119,6 +119,9 @@ function ,pr_review(){
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
 
+alias ,g_template_disable='git config --local commit.template "/dev/null"'
+alias ,g_template_enable='git config --local --unset commit.template'
+
 ##########
 # Python #
 ##########
