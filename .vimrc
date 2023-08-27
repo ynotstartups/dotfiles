@@ -83,6 +83,7 @@ set spellcapcheck= " turn off spell check says first character not captical as e
 set statusline =\ %n    " buffer number
 set statusline+=\ %f    " filename
 set statusline+=%=      " right align
+set statusline+=\ %{expand(&filetype)}
 set statusline+=\ %l/%L " line number / total number or lines
 set statusline+=\ %c    " column number
 set statusline+=\ %p%%  " percentage
