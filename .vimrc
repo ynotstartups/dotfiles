@@ -509,3 +509,13 @@ function! SynStack()
 endfunc
 
 command! -bang -nargs=? SynStack call SynStack()
+
+""""""""""""""
+" diff color "
+""""""""""""""
+
+" #C91B00 red from iterm ansi red
+hi diffRemoved guifg=#C91B00
+" #00C200 gren from iterm ansi green
+hi diffAdded   guifg=#00C200
+
