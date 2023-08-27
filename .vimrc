@@ -487,6 +487,16 @@ let g:asterisk#keeppos = 1
 map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
 map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
 
+"""""""""""""""
+" Man Command "
+"""""""""""""""
+
+" Usage: 
+"     `Man git`
+"     `Man 7 git-tutorial`
+
+runtime! ftplugin/man.vim
+
 """""""""""""""""
 " vim-auto-save "
 """""""""""""""""
