@@ -47,18 +47,27 @@ function _echo_green() { # usage: _echo_green foo bar baz message
 function _echo_red() { # usage: _echo_red foo bar baz message
     echo $fg_bold[red]$@$reset_color
 }
+
+####################
+# Folder Variables #
+####################
+
+local PERSONAL_NOTES="$HOME/Documents/personal-notes/"
+local NOTES="$HOME/Documents/notes/"
+local DOTFILES="$HOME/Documents/dotfiles/"
+
 #################
 # Standup Notes #
 #################
 
 # stand up notes related
 function s() {
-    cd ~/Documents/personal-notes/
-    vim -p ./standup/$(ls -t -1 ~/Documents/personal-notes/standup | head -n 1) dev_notes.md glossary.md .bashrc ~/.vimrc ~/.zshrc
+    cd "$PERSONAL_NOTES"
+    vim -p ./standup/$(ls -t -1 "$PERSONAL_NOTES"'standup' | head -n 1) dev_notes.md glossary.md .bashrc ~/.vimrc ~/.zshrc
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
-alias sn='cd ~/Documents/personal-notes/standup && ~/Documents/dotfiles/copy_last_to_today.py && s'
+alias sn="cd $PERSONAL_NOTES'standup' && $DOTFILES'copy_last_to_today.py' && s"
 
 #######
 # git #
@@ -134,7 +143,7 @@ function ,virtualenv_setup() {
     _echo_green 'upgrading pip'
     pip install --upgrade pip
     _echo_green 'pip installing essential libraries'
-    pip install -r ~/Documents/dotfiles/requirements.txt
+    pip install -r "$DOTFILES'requirements.txt'"
 }
 
 function ,activate() {
@@ -166,10 +175,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 function ,fzf_find_command() {
     # get the list of function and alias names
     # find one using fzf
-    local extracted_line=`
-        ~/Documents/dotfiles/extract_aliases_functions_from_zshrc.py | \
+    local extracted_line=$(
+        $DOTFILES'extract_aliases_functions_from_zshrc.py' | \
         fzf --no-multi --ansi --height 15
-    `
+    )
 
     local command_name=`echo $extracted_line | cut -d ' ' -f 1`
     # -n true if length of string is non-zero, from `man zshmisc` -> conditional expression
@@ -194,9 +203,9 @@ alias ,vim_git_diff_originmaster='vim -c :TGdo'
 alias ,vgdo='vim -c :TGdo'
 
 # quickly edit files in vim
-alias ,ev='vim ~/.vimrc'
-alias ,ez='vim ~/.zshrc'
-alias ,ed='vim ~/Documents/personal-notes/dev_notes.md'
+alias ,ev="vim $DOTFILES'.vimrc'"
+alias ,ez="vim $DOTFILES'.zshrc'"
+alias ,ed="vim $PERSONAL_NOTES'dev_notes.md'"
 
 ########
 # Tags #
@@ -272,14 +281,14 @@ function ,docker_build_backend(){
     docker exec --env -t oneview-django-1 poetry install --with dev
 
     _echo_green '~~~~ copy over bashrc ~~~~'
-    docker compose cp ~/Documents/personal-notes/.bashrc django:/root/.bashrc
+    docker compose cp "$DOTFILES'bashrc'" django:/root/.bashrc
 
     _echo_green '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
 }
 alias ,be=',docker_build_backend'
 
-alias ,docker_cp_bashrc='docker compose cp ~/Documents/personal-notes/.bashrc django:/root/.bashrc'
+alias ,docker_cp_bashrc="docker compose cp $PERSONAL_NOTES'bashrc' django:/root/.bashrc"
 
 alias ,mb='make bash'
 
