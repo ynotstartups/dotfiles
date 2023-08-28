@@ -352,7 +352,7 @@ function ,ip_of(){
         return 1
     fi
 
-    domain=`echo "$1" | sed -e "s/^https:\/\///" -e "s/^http:\/\///" -e "s/\/.*$//"`
+    local domain=`echo "$1" | sed -e "s/^https:\/\///" -e "s/^http:\/\///" -e "s/\/.*$//"`
 
     _echo_green "nslookup $domain ..."
     nslookup $domain
@@ -398,8 +398,8 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 #########
 
 function ,copy_last_screenshot() {
-   most_recent_screenshot_name=`ls -t -1 ~/Desktop/screenshots | head -1`
-   apple_script="set the clipboard to (read (POSIX file \"/Users/yuhao.huang/Desktop/screenshots/$most_recent_screenshot_name\") as {«class PNGf»})"
+   local most_recent_screenshot_name=`ls -t -1 ~/Desktop/screenshots | head -1`
+   local apple_script="set the clipboard to (read (POSIX file \"/Users/yuhao.huang/Desktop/screenshots/$most_recent_screenshot_name\") as {«class PNGf»})"
    osascript -e $apple_script
 }
 
