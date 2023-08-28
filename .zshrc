@@ -203,9 +203,9 @@ alias ,vim_git_diff_originmaster='vim -c :TGdo'
 alias ,vgdo='vim -c :TGdo'
 
 # quickly edit files in vim
-alias ,ev="vim $DOTFILES'.vimrc'"
-alias ,ez="vim $DOTFILES'.zshrc'"
-alias ,ed="vim $PERSONAL_NOTES'dev_notes.md'"
+alias ,ev="cd $DOTFILES       && vim .vimrc"
+alias ,ez="cd $DOTFILES       && vim .zshrc"
+alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
 
 ########
 # Tags #
