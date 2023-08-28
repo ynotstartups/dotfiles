@@ -25,6 +25,7 @@ Plug 'img-paste-devs/img-paste.vim'    " leader p to paste image to markdown fil
 Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
+Plug 'liuchengxu/vista.vim'            " :Vista for tag viewer & markdown table of contents
 Plug 'maralla/completor.vim'           " fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'plasticboy/vim-markdown'         " add markdown syntax
 Plug 'preservim/nerdtree'              " tree explorers
