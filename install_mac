@@ -32,6 +32,6 @@ ln -s -F "$PWD"/.fdignore "$HOME"/.fdignore
 
 ln -s -F "$PWD"/.rgrc "$HOME"/.rgrc
 
-ln -s -F "$PWD"/vim-code "$HOME"/.vim/plugin/vim-code
-
 ln -s -F "$PWD"/vim_python.py "$HOME"/.vim/python3/vim_python.py
+
+ln -s -F "$PWD"/zsh.vim "$HOME"/.vim/after/syntax/zsh.vim
