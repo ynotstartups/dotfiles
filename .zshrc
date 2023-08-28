@@ -180,7 +180,7 @@ function ,fzf_find_command() {
         fzf --no-multi --ansi --height 15
     )
 
-    local command_name=`echo $extracted_line | cut -d ' ' -f 1`
+    local command_name=$(echo $extracted_line | cut -d ' ' -f 1)
     # -n true if length of string is non-zero, from `man zshmisc` -> conditional expression
     if [[ -n $command_name ]]; then
         # print is a zsh buildin command, there is no `print --help`
@@ -317,7 +317,7 @@ function ,ip_of(){
         return 1
     fi
 
-    local domain=`echo "$1" | sed -e "s/^https:\/\///" -e "s/^http:\/\///" -e "s/\/.*$//"`
+    local domain=$(echo "$1" | sed -e "s/^https:\/\///" -e "s/^http:\/\///" -e "s/\/.*$//")
 
     _echo_green "nslookup $domain ..."
     nslookup $domain
@@ -363,7 +363,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 #########
 
 function ,copy_last_screenshot() {
-   local most_recent_screenshot_name=`ls -t -1 ~/Desktop/screenshots | head -1`
+   local most_recent_screenshot_name=$(ls -t -1 ~/Desktop/screenshots | head -1)
    local apple_script="set the clipboard to (read (POSIX file \"/Users/yuhao.huang/Desktop/screenshots/$most_recent_screenshot_name\") as {«class PNGf»})"
    osascript -e $apple_script
 }
