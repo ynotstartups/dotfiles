@@ -8,25 +8,25 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'SirVer/ultisnips'                " snippets
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
 Plug 'davidhalter/jedi-vim'            " vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
-Plug 'osyo-manga/vim-anzu'             " works with is.vim to show the number of searches
 Plug 'haya14busa/is.vim'               " Automatically clear highlight 
 Plug 'haya14busa/vim-asterisk'         " * stays where it is
-Plug 'SirVer/ultisnips'                " snippets
+Plug 'img-paste-devs/img-paste.vim'    " leader p to paste image to markdown file
+Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
 Plug 'jparise/vim-graphql'             " graphql syntax highlight
 Plug 'junegunn/fzf'                    " fzf
 Plug 'junegunn/fzf.vim'                " fzf vim
 Plug 'junegunn/goyo.vim'               " :Goyo for distraction free writing and reading mode
-Plug 'img-paste-devs/img-paste.vim'    " leader p to paste image to markdown file
-Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
-Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
 Plug 'liuchengxu/vista.vim'            " :Vista for tag viewer & markdown table of contents
 Plug 'maralla/completor.vim'           " fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
+Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
+Plug 'osyo-manga/vim-anzu'             " works with is.vim to show the number of searches
 Plug 'plasticboy/vim-markdown'         " add markdown syntax
 Plug 'preservim/nerdtree'              " tree explorers
 Plug 'tomasr/molokai'                  " molokar color scheme
