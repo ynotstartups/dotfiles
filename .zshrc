@@ -149,50 +149,6 @@ function ,activate() {
     fi
 }
 
-function ,format_lint_test_python(){
-    if [ $# -eq 0 ]; then
-        echo "No arguments provided, please provide path to a python file"
-        return 1
-    fi
-
-    local file_path=$1
-
-    isort $file_path
-    black $file_path
-    # E501 ignoer line too long: Line too long (82 > 79 characters)
-    # W503 conflict with black formatter
-    flake8 --ignore=E501,W503 $file_path
-    pytest $file_path
-}
-alias ,l=',format_lint_test_python'
-
-# TODO: create my own cookie cutter to write new script or python testing codes?
-function ,format_lint_test_all_python(){
-    isort **/*.py
-    black **/*.py
-    # E501 ignoer line too long: Line too long (82 > 79 characters)
-    # W503 conflict with black Formatter
-    flake8 --ignore=E501,W503 **/*.py
-    coverage run --source . -m pytest **/*.py
-    coverage report --show-missing
-}
-alias ,la=',format_lint_test_all_python'
-
-# run coverage with all python files and show missing lines
-function ,coverage_run(){
-    # added --source to ignore side-packages
-    coverage run --source . -m pytest **/*.py
-    coverage report --show-missing
-}
-
-#########
-# pyenv #
-#########
-
-# export PYENV_ROOT="$HOME/.pyenv"
-# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
-
 #######
 # fzf #
 #######
