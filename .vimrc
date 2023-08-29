@@ -276,6 +276,7 @@ nnoremap <leader>fl :BLines<cr>
 nnoremap <leader>fm :Maps<cr>
 nnoremap <leader>ft :Tags<cr>
 nnoremap <leader>fw :Rg <c-r><c-w><cr>
+nnoremap <leader>fh :History<cr>
 
 " disable preview window
 " let g:fzf_preview_window = []
