@@ -1,3 +1,9 @@
+""""""""""""""""""
+" Documentations "
+""""""""""""""""""
+
+" vim's library is at /usr/share/vim/vim90/
+"
 set nocompatible
 
 " auto install vim plug
