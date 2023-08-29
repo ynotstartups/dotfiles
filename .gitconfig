@@ -49,3 +49,5 @@
 	enabled = true
 [rebase]
 	autosquash = true
+[merge]
+	conflictstyle = diff3
