@@ -529,3 +529,9 @@ hi diffRemoved guifg=#C91B00
 " #00C200 gren from iterm ansi green
 hi diffAdded   guifg=#00C200
 
+"""""""""""""""""""""
+" Printing Hardcopy "
+"""""""""""""""""""""
+
+" use command :Print to use printer to print with colorscheme delek
+command! -bang -nargs=? Print :colorscheme delek<bar>:hardcopy<bar>:colorscheme molokai
