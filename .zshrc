@@ -176,7 +176,7 @@ function ,fzf_find_command() {
     # get the list of function and alias names
     # find one using fzf
     local extracted_line=$(
-        $DOTFILES'extract_aliases_functions_from_zshrc.py' | \
+        $DOTFILES'extract_aliases_functions_from_zshrc.awk' < $DOTFILES'.zshrc' | \
         fzf --no-multi --ansi --height 15
     )
 
