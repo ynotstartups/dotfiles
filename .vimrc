@@ -33,7 +33,7 @@ Plug 'liuchengxu/vista.vim'            " :Vista for tag viewer & markdown table 
 Plug 'maralla/completor.vim'           " fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
 Plug 'osyo-manga/vim-anzu'             " works with is.vim to show the number of searches
-Plug 'plasticboy/vim-markdown'         " add markdown syntax
+Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' " add markdown syntax and :TableFormat to format table
 Plug 'preservim/nerdtree'              " tree explorers
 Plug 'tomasr/molokai'                  " molokar color scheme
 Plug 'tommcdo/vim-lion'                " use gl<motion>: to align sentences with :
