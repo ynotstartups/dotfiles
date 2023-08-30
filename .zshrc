@@ -368,4 +368,7 @@ function ,copy_last_screenshot() {
    osascript -e $apple_script
 }
 
+# make and cd into a temporary folder with prefix "tigertmp"
+alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
+
 # Tips: use `say 'hello world'` to use sound synthesizer 
