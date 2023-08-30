@@ -67,14 +67,14 @@ function s() {
 }
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
-alias sn="cd $PERSONAL_NOTES'standup' && $DOTFILES'copy_last_to_today.py' && s"
+alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 
 #######
 # git #
 #######
 
-alias g="git"
-alias gs="git status"
+alias g='git'
+alias gs='git status'
 
 function ,gnew_branch() {
     if [ $# -eq 0 ]; then
@@ -203,9 +203,9 @@ alias ,vim_git_diff_originmaster='vim -c :TGdo'
 alias ,vgdo='vim -c :TGdo'
 
 # quickly edit files in vim
-alias ,ev="cd $DOTFILES       && vim .vimrc"
-alias ,ez="cd $DOTFILES       && vim .zshrc"
-alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
+alias ,ev='cd $DOTFILES       && vim .vimrc'
+alias ,ez='cd $DOTFILES       && vim .zshrc'
+alias ,ed='cd $PERSONAL_NOTES && vim dev_notes.md'
 
 ########
 # Tags #
@@ -288,7 +288,7 @@ function ,docker_build_backend(){
 }
 alias ,be=',docker_build_backend'
 
-alias ,docker_cp_bashrc="docker compose cp $PERSONAL_NOTES'bashrc' django:/root/.bashrc"
+alias ,docker_cp_bashrc='docker compose cp $PERSONAL_NOTES"bashrc" django:/root/.bashrc'
 
 alias ,mb='make bash'
 
