@@ -19,15 +19,14 @@
 /^alias [^_]/ {
     # split whole line "alias v='vim'" by =
     # so the second element will be alias definition e.g. "vim"
-    split($0, alias_definition_list, "=")
-    alias_definition = alias_definition_list[2]
+    alias_definition = substr($0, index($0, "=") + 1)
+    # remove ' and " at the beginning or the end
+    gsub(/^'|^"|"$|'$/, "", alias_definition)
 
     # split "v='vim'" by =
     # so the first element will be alias name e.g. "v"
     split($2, alias_name_list, "=")
     alias_name = alias_name_list[1]
 
-    # remove ' and " at the beginning or the end
-    gsub(/^'|^"|"$|'$/, "", alias_definition)
     printf("%-30s \033[33m %s \033[0m\n", alias_name, alias_definition)
 }
