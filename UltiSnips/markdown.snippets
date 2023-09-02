@@ -20,7 +20,9 @@ endsnippet
 snippet til "Today I Learn" b
 `!p 
 from datetime import date
-snip.rv = f"# TIL - TODO - {date.today().strftime('%d/%b/%y')}"
+
+# the length of the string is exact 80 character wide
+snip.rv = f"# TIL - TODO                                                         - {date.today().strftime('%d/%b/%y')}"
 `
 endsnippet
 
