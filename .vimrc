@@ -542,3 +542,11 @@ hi diffAdded   guifg=#00C200
 
 " use command :Print to use printer to print with colorscheme delek
 command! -bang -nargs=? Print :colorscheme delek<bar>:hardcopy<bar>:colorscheme molokai
+
+"""""""""
+" Vista "
+"""""""""
+
+let g:vista_sidebar_width=35
+
+
