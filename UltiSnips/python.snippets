@@ -55,7 +55,7 @@ class Test${1:Class}(TestCase):
 
 endsnippet
 
-snippet classt "django graphql testcase" b
+snippet classtd "django graphql test class" b
 from oneview.tests.graphql import GraphqlTestCase
 
 class Test${1:Class}(GraphqlTestCase):
@@ -67,6 +67,15 @@ endsnippet
 snippet classd "django testcase" b
 def test_${1:name}(self):
 	pass
+
+endsnippet
+
+snippet classt "python unittest test class" b
+from unittest import TestCase
+
+class Test${1:Class}(TestCase):
+    def test_${2:name}(self):
+		${3:${VISUAL:pass}}
 
 endsnippet
 
