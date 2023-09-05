@@ -308,6 +308,8 @@ nnoremap <leader>q <esc>:qa<cr>
 """"""""""""""""
 
 set diffopt=vertical  
+" use wrap for diff
+set diffopt+=followwrap
 
 " :Gd for open each changed file
 command! -bang -nargs=? TGd  :Git difftool
