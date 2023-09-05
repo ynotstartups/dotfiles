@@ -28,6 +28,7 @@ Plug 'jparise/vim-graphql'             " graphql syntax highlight
 Plug 'junegunn/fzf'                    " fzf
 Plug 'junegunn/fzf.vim'                " fzf vim
 Plug 'junegunn/goyo.vim'               " :Goyo for distraction free writing and reading mode
+Plug 'junegunn/vim-easy-align'         " ga= align first =, ga2= align second =, ga*= align all =
 Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
 Plug 'liuchengxu/vista.vim'            " :Vista for tag viewer & markdown table of contents
 Plug 'maralla/completor.vim'           " fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
@@ -36,7 +37,6 @@ Plug 'osyo-manga/vim-anzu'             " works with is.vim to show the number of
 Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' " add markdown syntax and :TableFormat to format table
 Plug 'preservim/nerdtree'              " tree explorers
 Plug 'tomasr/molokai'                  " molokar color scheme
-Plug 'tommcdo/vim-lion'                " use gl<motion>: to align sentences with :
 Plug 'tpope/vim-commentary'            " add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive'              " using git in vim
 Plug 'tpope/vim-repeat'                " repeat vim-surround with .
