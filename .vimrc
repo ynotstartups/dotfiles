@@ -283,7 +283,8 @@ nnoremap <leader><leader> :Files<cr>
 nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fc :Commands<cr>
 nnoremap <leader>ff :Files<cr>
-nnoremap <leader>fl :BLines<cr>
+" search all lines in open buffers
+nnoremap <leader>fl :Lines<cr>
 " nnoremap <leader>fm :Marks<cr>
 nnoremap <leader>fm :Maps<cr>
 nnoremap <leader>ft :Tags<cr>
