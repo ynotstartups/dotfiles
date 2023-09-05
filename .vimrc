@@ -184,6 +184,12 @@ autocmd FileType markdown,gitcommit vnoremap <leader>l <esc>a()<esc><left>pgv"ac
 " conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
 
+" try to set textwidth to 80 to see what the experience is like
+autocmd FileType markdown set textwidth=80
+autocmd FileType markdown setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions-=q formatoptions+=n
+" pattern \|^\s*[-]\s\+
+autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s\\+
+
 " don't hide/conceal code blocks
 "
 let g:vim_markdown_conceal_code_blocks = 0
