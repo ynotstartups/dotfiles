@@ -568,6 +568,6 @@ command! -bang -nargs=? Print :colorscheme delek<bar>:hardcopy<bar>:colorscheme 
 " Vista "
 """""""""
 
-let g:vista_sidebar_width=35
+let g:vista_sidebar_width=80
 
 
