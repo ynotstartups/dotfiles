@@ -184,18 +184,30 @@ autocmd FileType markdown,gitcommit vnoremap <leader>l <esc>a()<esc><left>pgv"ac
 " conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
 
-autocmd FileType markdown set textwidth=78
 autocmd FileType markdown set colorcolumn=80
-" autocmd FileType markdown setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions-=q
-" autocmd FileType markdown setlocal formatoptions-=j formatoptions-=t formatoptions-=l
-autocmd FileType markdown setlocal formatoptions=n
-" each \ needs to becomes \\ so patten '^\\s*[-]\\s\\+' is actually '^\s*[-]\s\+'
+autocmd FileType markdown set textwidth=78
+
+" hack: uses `>` to act as comments so that I can use gq to format it
+autocmd FileType markdown setlocal comments=:>
+" r: Automatically insert the current comment leader after hitting <Enter> in
+" Insert mode.
+" o: Automatically insert the current comment leader after hitting 'o' or 'O'
+" in Normal mode.
+" j: Where it makes sense, remove a comment leader when joining lines.
+" c: Auto-wrap comments using 'textwidth', inserting the current comment
+" leader automatically.
+" q: Allow formatting of comments with `gq`
+autocmd FileType markdown setlocal formatoptions=rojcq
+
+" gq to format list e.g. - , see formatlistpat below
+autocmd FileType markdown setlocal formatoptions+=n
 " pattern for list e.g. - 
+" explanation: each \ needs to becomes \\ so patten '^\\s*[-]\\s\\+' is actually '^\s*[-]\s\+'
 autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s\\+
 " pattern for todo list e.g. - [ ]
-autocmd FileType markdown setlocal formatlistpat=\\\|^\\s*[-]\\s[[]\\s[]]\\s\\+
+" autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s[[]\\s[]]\\s\\+
 " pattern for completed todo list e.g. - [x]
-autocmd FileType markdown setlocal formatlistpat=\\\|^\\s*[-]\\s[[]x[]]\\s\\+
+" autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s[[]x[]]\\s\\+
 
 " don't hide/conceal code blocks
 "
