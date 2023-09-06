@@ -170,6 +170,14 @@ nnoremap <leader>hq :GitGutterQ<cr>
 " markdown "
 """"""""""""
 
+" default ftplugin vim-markdown
+" in /opt/homebrew/Cellar/vim/9.0.1800/share/vim/vim90/ftplugin/markdown.vim
+" Syntax highlight is synchronized in 50 lines. It may cause collapsed
+" highlighting at large fenced code block. In the case, please set larger
+" value in your vimrc:  
+let g:markdown_minlines = 100
+let g:no_markdown_maps = 1
+
 " leader l create link with link from clipboard
 " <esc> exit visual mode
 " a() insert () after the last word of visual selection
@@ -210,12 +218,36 @@ autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s\\+
 " autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s[[]x[]]\\s\\+
 
 " don't hide/conceal code blocks
-"
 let g:vim_markdown_conceal_code_blocks = 0
 " disable folding
 let g:vim_markdown_folding_disabled = 1
 " diable indent on new list item
 let g:vim_markdown_new_list_item_indent = 0
+
+autocmd FileType markdown nnoremap gx <Plug>Markdown_OpenUrlUnderCursor
+
+" unmap all mappings need to for my custom map [[ and ]] 
+let g:vim_markdown_no_default_key_mappings = 1
+" default filetype plugin maps [[ and ]], unmap it
+let g:no_markdown_maps = 1
+
+function! GoToCountHeaderBelow() range
+  execute "normal! " .v:count. "/#\<cr>"
+endfunction
+" 5]] to goes to fifth header below
+autocmd FileType markdown nnoremap ]] :<c-u>call GoToCountHeaderBelow()<cr>
+function! GoToCountHeaderAbove() range
+  execute "normal! " .v:count. "?#\<cr>"
+endfunction
+" 5]] to goes to fifth header below
+autocmd FileType markdown nnoremap [[ :<c-u>call GoToCountHeaderAbove()<cr>
+" TODO: add a custom textobject so that I can do d2]] to delete until second
+" header below
+
+
+"""""""""
+" Spell "
+"""""""""
 
 set spellfile=$HOME/Documents/personal-notes/spell/en.utf-8.add
 " spell check for markdown and git commit message
