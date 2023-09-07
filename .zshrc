@@ -286,14 +286,14 @@ function ,docker_build_backend(){
     docker exec --env -t oneview-django-1 poetry install --with dev
 
     _echo_green '~~~~ copy over bashrc ~~~~'
-    docker compose cp "$PERSONAL_NOTES'.bashrc'" django:/root/.bashrc
+    docker compose cp "$PERSONAL_NOTES.bashrc" django:/root/.bashrc
 
     _echo_green '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
 }
 alias ,be=',docker_build_backend'
 
-alias ,docker_cp_bashrc='docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
+# alias ,docker_cp_bashrc='docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
 
 alias ,mb='make bash'
 
