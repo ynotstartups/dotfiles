@@ -240,9 +240,65 @@ function! GoToCountHeaderAbove() range
 endfunction
 " 5]] to goes to fifth header below
 autocmd FileType markdown nnoremap [[ :<c-u>call GoToCountHeaderAbove()<cr>
-" TODO: add a custom textobject so that I can do d2]] to delete until second
-" header below
 
+" da3 to delete all contents in current header with header line
+" di3 to delete all contents in current header without header line
+" 3 is because shift 3 is #, but 3 is easy to type
+augroup markdown_textobjs
+  autocmd!
+  autocmd FileType markdown call textobj#user#plugin('markdown', {
+  \   'header': {
+  \     'select-a-function': 'AMarkdownHeader',
+  \     'select-a': 'a3',
+  \     'select-i-function': 'InMarkdownHeader',
+  \     'select-i': 'i3',
+  \   },
+  \ })
+augroup END
+
+function! EndOfFileOrOneLineAboveHeader()
+  " cursor goes to oneline above the next header
+  " or end of file to if cursor is in last header
+  " regex explaination
+  " /^# next header
+  " \|  or
+  " \%$ end of file 
+  " needed the \\ to get a literal \
+  execute "normal! /^#\\|\\%$\<cr>"
+  " if current line is a header line put cursor to one line above
+  " else it's end of the file so we don't need to put cursor to one line
+  " above
+  if getline('.') =~ '^#'
+      execute "normal! \<up>"
+  endif
+endfunction
+
+function! AMarkdownHeader()
+  set nowrapscan
+  " cursor goes to the last header
+  " or the start of file
+  execute "normal! $"
+  execute "normal! ?^#\<cr>"
+
+  let head_pos = getpos('.')
+  call EndOfFileOrOneLineAboveHeader()
+  let tail_pos = getpos('.')
+  set wrapscan
+
+  return ['V', head_pos, tail_pos]
+endfunction
+
+function! InMarkdownHeader()
+  set nowrapscan
+  execute "normal! $"
+  execute "normal! ?^#?+1\<cr>"
+
+  let head_pos = getpos('.')
+  call EndOfFileOrOneLineAboveHeader()
+  let tail_pos = getpos('.')
+  set wrapscan
+  return ['V', head_pos, tail_pos]
+endfunction
 
 """""""""
 " Spell "
@@ -640,5 +696,3 @@ command! -bang -nargs=? Print :colorscheme delek<bar>:hardcopy<bar>:colorscheme 
 """""""""
 
 let g:vista_sidebar_width=80
-
-
