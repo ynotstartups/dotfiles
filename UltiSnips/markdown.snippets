@@ -1,3 +1,7 @@
+###########
+# Standup #
+###########
+
 snippet standup "standup template" b
 # Today
 
@@ -28,6 +32,10 @@ from datetime import date
 snip.rv = f"# TIL - TODO                                                         - {date.today().strftime('%d/%b/%y')}"
 `
 endsnippet
+
+#########
+# Table #
+#########
 
 snippet tt "table with 2 columns" b
 |            |            |
@@ -61,3 +69,14 @@ snippet ttttt "table with 5 columns" b
 |            |            |           |           |           |
 endsnippet
 
+
+###########
+# Quoting #
+###########
+
+
+snippet excerpt "excerpt from doc" b
+>  TODO
+
+Excerpt from [TODO doc]()
+endsnippet

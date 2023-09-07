@@ -46,7 +46,7 @@ snippet ann "Assert is not None" b
 self.assertIsNotNone(${1:${VISUAL:expression}})
 endsnippet
 
-snippet classt "django testcase" b
+snippet classtd "django test class" b
 from django.test import TestCase
 
 class Test${1:Class}(TestCase):
@@ -55,18 +55,12 @@ class Test${1:Class}(TestCase):
 
 endsnippet
 
-snippet classtd "django graphql test class" b
+snippet classtdg "django graphql test class" b
 from oneview.tests.graphql import GraphqlTestCase
 
 class Test${1:Class}(GraphqlTestCase):
 	def test_${2:name}(self):
 		${3:${VISUAL:pass}}
-
-endsnippet
-
-snippet classd "django testcase" b
-def test_${1:name}(self):
-	pass
 
 endsnippet
 
@@ -78,6 +72,13 @@ class Test${1:Class}(TestCase):
 		${3:${VISUAL:pass}}
 
 endsnippet
+
+snippet subtest "python unittest subtest" b
+for a, b in (("foo", "bar"), ("baz", "bazz")):
+	with self.subTest(a=a, b=b):
+		self.assertEqual(...)
+endsnippet
+
 
 snippet def "function"
 def ${1:name}():
@@ -103,7 +104,11 @@ endsnippet
 
 snippet doc "triple quoted string (double quotes)" b
 """
-${1:${VISUAL:TODO}}
+${1:${VISUAL:TODO describe what does this function do in a high level}}
+
+:param TODO: 
+
+:return: TODO 
 """
 endsnippet
 
