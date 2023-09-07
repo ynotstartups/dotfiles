@@ -231,12 +231,12 @@ let g:vim_markdown_no_default_key_mappings = 1
 let g:no_markdown_maps = 1
 
 function! GoToCountHeaderBelow() range
-  execute "normal! " .v:count. "/#\<cr>"
+  execute "normal! " .v:count. "/^#\<cr>"
 endfunction
 " 5]] to goes to fifth header below
 autocmd FileType markdown nnoremap ]] :<c-u>call GoToCountHeaderBelow()<cr>
 function! GoToCountHeaderAbove() range
-  execute "normal! " .v:count. "?#\<cr>"
+  execute "normal! " .v:count. "?^#\<cr>"
 endfunction
 " 5]] to goes to fifth header below
 autocmd FileType markdown nnoremap [[ :<c-u>call GoToCountHeaderAbove()<cr>
@@ -445,6 +445,46 @@ EOF
 endfunction
 
 command! JumpToTestFile call JumpToTestFile()
+
+" known bug
+" this import function name doesn't work if the function is a method in a class
+function! ImportFunctionName()
+execute "normal! ?def\<cr>wyiw\<c-o>"
+py3 << EOF
+import vim
+from vim_python import get_import_statement
+import_statement = get_import_statement(
+    # vim.eval("@%") gets the filepath in current buffer
+    filepath=vim.eval("@%"),
+    # vim.eval("@0") gets the last yanked text, which is a function name
+    function_or_class_name=vim.eval("@0"),
+)
+vim.command(f"echo 'yanked {import_statement}'")
+EOF
+endfunction
+
+function! ImportClassName()
+execute "normal! ?^class\<cr>wyiw\<c-o>"
+py3 << EOF
+import vim
+from vim_python import get_import_statement
+import_statement = get_import_statement(
+    # vim.eval("@%") gets the filepath in current buffer
+    filepath=vim.eval("@%"),
+    # vim.eval("@0") gets the last yanked text, which is a class name
+    function_or_class_name=vim.eval("@0"),
+)
+vim.command(f"echo 'yanked {import_statement}'")
+EOF
+endfunction
+
+command! YankImportFunctionName call ImportFunctionName()
+command! YankImportClassName    call ImportClassName()
+
+nnoremap <leader>yif :YankImportFunctionName<cr>
+nnoremap <leader>yid :YankImportFunctionName<cr>
+nnoremap <leader>yic :YankImportClassName<cr>
+
 
 """"""""
 " Jedi "
