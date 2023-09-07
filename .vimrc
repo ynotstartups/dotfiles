@@ -29,7 +29,7 @@ Plug 'junegunn/fzf'                    " fzf
 Plug 'junegunn/fzf.vim'                " fzf vim
 Plug 'junegunn/goyo.vim'               " :Goyo for distraction free writing and reading mode
 Plug 'junegunn/vim-easy-align'         " ga= align first =, ga2= align second =, ga*= align all =
-Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line' | Plug 'kana/vim-textobj-entire' | Plug 'thinca/vim-textobj-between' " dif_ to delete foo in _ foo _
 Plug 'liuchengxu/vista.vim'            " :Vista for tag viewer & markdown table of contents
 Plug 'maralla/completor.vim'           " fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'markonm/traces.vim'              " Range, pattern and substitute preview for Vim
@@ -44,7 +44,6 @@ Plug 'tpope/vim-rhubarb'               " supports for :GBrowse to github
 Plug 'tpope/vim-surround'              " The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plug 'tpope/vim-unimpaired'            " adds mapping like [q ]q
 Plug 'vim-scripts/ReplaceWithRegister' " gr{motion} go replace
-Plug 'wellle/targets.vim'              " adds textobjects e.g. i*, i_ usefll in markdown
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
