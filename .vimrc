@@ -640,10 +640,6 @@ map #  <plug>(asterisk-z#)
 map g* <plug>(asterisk-gz*)
 map g# <plug>(asterisk-gz#)
 
-" * keeps the cursor position i.e. if you * on the three character of the word
-" n goes the three character of next match
-let g:asterisk#keeppos = 1
-
 """"""""""
 " is.vim "
 """"""""""
