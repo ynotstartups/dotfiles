@@ -202,7 +202,7 @@ alias c=',fzf_find_command'
 #######
 
 alias v='vim'
-alias ,vgd='vim  -c ":Git difftool"'
+alias ,vgd=' vim -c ":Git difftool"'
 alias ,vgds='vim -c ":Git difftool --staged"'
 alias ,vgdo='vim -c ":Git difftool origin/master..."'
 
