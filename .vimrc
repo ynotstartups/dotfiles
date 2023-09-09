@@ -704,3 +704,5 @@ command! -bang -nargs=? Print :colorscheme delek<bar>:hardcopy<bar>:colorscheme 
 """""""""
 
 let g:vista_sidebar_width=80
+
+nnoremap <leader>v :Vista<cr>
