@@ -2,49 +2,49 @@
 	default = current
 	autoSetupRemote = true
 [alias]
-    a = add
-    ac = !git add . && git commit --all --verbose
-    ap = add --patch
+    a      = add
+    ac     = !git add . && git commit --all --verbose
+    ap     = add --patch
 
-    b = branch
-    bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
+    b      = branch
+    bs     = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
 
-    c = commit --verbose
-    ca = commit --all --verbose
-    caa = commit --all --amend --no-edit
+    c      = commit --verbose
+    ca     = commit --all --verbose
+    caa    = commit --all --amend --no-edit
     camend = commit --amend --verbose
-    cp = commit --patch --verbose
+    cp     = commit --patch --verbose
 
-    d = diff
-    dc = diff --cached
-    do = diff origin/master...
-    ds = diff --staged
+    d      = diff
+    dc     = diff --cached
+    do     = diff origin/master...
+    ds     = diff --staged
 
-    f = fetch
-    fro = !git fetch origin && git rebase --interactive origin/master
+    f      = fetch
+    fro    = !git fetch origin && git rebase --interactive origin/master
 
-    g = grep --ignore-case
+    g      = grep --ignore-case
 
-    l = log
-    l1 = log -1 --patch
-    lg = log --graph --oneline
-    ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
-    lp = log --patch
+    l      = log
+    l1     = log -1 --patch
+    lg     = log --graph --oneline
+    ll     = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
+    lp     = log --patch
 
-    p = push
+    p      = push
 
-    rb = rebase
-    rba = rebase --abort
-    rbc = rebase --continue
-    rbi = rebase --interactive
+    rb     = rebase
+    rba    = rebase --abort
+    rbc    = rebase --continue
+    rbi    = rebase --interactive
 
-    rs = restore
-    rso = restore --source=origin/master
-    rss = restore --staged
+    rs     = restore
+    rso    = restore --source=origin/master
+    rss    = restore --staged
 
-    s = status
+    s      = status
 
-    sw = switch
+    sw     = switch
 [user]
 	email = ynotstartups@gmail.com
 	name = ynotstartups
