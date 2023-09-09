@@ -202,10 +202,9 @@ alias c=',fzf_find_command'
 #######
 
 alias v='vim'
-alias ,vim_git_diff='vim -c :TGd'
-alias ,vgd='vim -c :TGd'
-alias ,vim_git_diff_originmaster='vim -c :TGdo'
-alias ,vgdo='vim -c :TGdo'
+alias ,vgd='vim  -c ":Git difftool"'
+alias ,vgds='vim -c ":Git difftool --staged"'
+alias ,vgdo='vim -c ":Git difftool origin/master..."'
 
 # quickly edit files in vim
 alias ,ev='cd $DOTFILES       && vim .vimrc'
