@@ -16,7 +16,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'SirVer/ultisnips'                " snippets
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
-Plug 'arthurxavierx/vim-caser'         " changes word to Title Case `gst`
+Plug 'arthurxavierx/vim-caser'         " changes word casing: `gst` Foo Bar, `gs_` foo_bar, `gsm` FooBar
 Plug 'davidhalter/jedi-vim'            " vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
