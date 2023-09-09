@@ -517,6 +517,10 @@ import_statement = get_import_statement(
     function_or_class_name=vim.eval("@0"),
 )
 vim.command(f"echom 'yanked {import_statement}'")
+
+# set register * which is the default register used for p
+# V presents line mode, import is always a line
+vim.command(f"call setreg('*', '{import_statement}','V')")
 EOF
 endfunction
 
@@ -532,6 +536,7 @@ import_statement = get_import_statement(
     function_or_class_name=vim.eval("@0"),
 )
 vim.command(f"echom 'yanked {import_statement}'")
+vim.command(f"call setreg('*', '{import_statement}', 'V')")
 EOF
 endfunction
 
