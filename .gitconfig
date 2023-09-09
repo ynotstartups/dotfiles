@@ -3,17 +3,17 @@
 	autoSetupRemote = true
 [alias]
     a = add
-    ac = !git add . && git commit -v -a
+    ac = !git add . && git commit --verbose --all
     ap = add --patch
 
     b = branch
     bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
 
-    c = commit -v
-    ca = commit -v -a
-    caa = commit -a --amend --no-edit
-    camend = commit -v --amend
-    cp = commit -v --patch
+    c = commit --verbose
+    ca = commit --verbose --all
+    caa = commit --all --amend --no-edit
+    camend = commit --verbose --amend
+    cp = commit --verbose --patch
 
     d = diff
     dc = diff --cached
@@ -21,22 +21,22 @@
     ds = diff --staged
 
     f = fetch
-    fro = !git fetch origin && git rebase -i origin/master
+    fro = !git fetch origin && git rebase --interactive origin/master
 
     g = grep --ignore-case
 
     l = log
-    l1 = log -1 -p
+    l1 = log -1 --patch
     lg = log --graph --oneline
     ll = log --format='%C(yellow)%h%C(reset) %s %C(cyan)%an%C(reset) (%C(green)%as%C(reset))'
-    lp = log -p
+    lp = log --patch
 
     p = push
 
     rb = rebase
     rba = rebase --abort
     rbc = rebase --continue
-    rbi = rebase -i
+    rbi = rebase --interactive
 
     rs = restore
     rso = restore --source=origin/master
