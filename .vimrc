@@ -497,7 +497,7 @@ from vim_python import get_or_create_test_file
 test_filepath = get_or_create_test_file(filepath=vim.eval("@%"))
 
 # open test_filepath in current window
-vim.command(f"edit {test_filepath}")
+vim.command(f"tabnew {test_filepath}")
 EOF
 endfunction
 
@@ -516,7 +516,7 @@ import_statement = get_import_statement(
     # vim.eval("@0") gets the last yanked text, which is a function name
     function_or_class_name=vim.eval("@0"),
 )
-vim.command(f"echo 'yanked {import_statement}'")
+vim.command(f"echom 'yanked {import_statement}'")
 EOF
 endfunction
 
@@ -531,7 +531,7 @@ import_statement = get_import_statement(
     # vim.eval("@0") gets the last yanked text, which is a class name
     function_or_class_name=vim.eval("@0"),
 )
-vim.command(f"echo 'yanked {import_statement}'")
+vim.command(f"echom 'yanked {import_statement}'")
 EOF
 endfunction
 
