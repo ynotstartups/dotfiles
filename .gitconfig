@@ -3,17 +3,17 @@
 	autoSetupRemote = true
 [alias]
     a = add
-    ac = !git add . && git commit --verbose --all
+    ac = !git add . && git commit --all --verbose
     ap = add --patch
 
     b = branch
     bs = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:magenta)%(refname:short)%(color:reset) %(color:yellow)%(objectname:short)%(color:reset) %(contents:subject) %(color:cyan)%(authorname)%(color:reset) (%(color:green)%(committerdate:short)%(color:reset))'
 
     c = commit --verbose
-    ca = commit --verbose --all
+    ca = commit --all --verbose
     caa = commit --all --amend --no-edit
-    camend = commit --verbose --amend
-    cp = commit --verbose --patch
+    camend = commit --amend --verbose
+    cp = commit --patch --verbose
 
     d = diff
     dc = diff --cached
