@@ -9,3 +9,5 @@ tags
 venv
 __pycache__
 .coverage
+# vim
+quickfix.vim
