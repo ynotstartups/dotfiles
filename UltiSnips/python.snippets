@@ -153,3 +153,63 @@ import logging
 
 _logger = logging.getLogger(__name__)
 endsnippet
+
+############
+# graphene #
+############
+
+snippet graphene_mutation_test "graphene_mutation_test" b
+query = """
+	mutation fooBar(
+		$todoTodo: ID!,
+		$todoTodo: Decimal!,
+	) {
+		todoTodo(
+			todoTodo: $todoTodo,
+			todoTodo: $todoTodo,
+		) {
+			ok
+			errors
+		}
+	}
+"""
+
+variables = {
+	"todoTodo": "todo",
+	"todoTodo": "todo",
+}
+
+response = self.schema.execute(
+	query,
+	variables=variables,
+	context_value=self.context_value,
+)
+endsnippet
+
+snippet graphene_query_test "graphene_mutation_test" b
+query = """
+	query todoTODO(
+		$todoTODO: ID!,
+	) {
+		todoTODO(
+			todoTODO: $todoTODO,
+		) {
+			ok
+			errors
+		}
+	}
+"""
+
+variables = {
+	"todoTODO": "todoTODO",
+}
+
+response = self.schema.execute(
+	query,
+	variables=variables,
+	context_value=self.context_value,
+)
+
+self.assertIsNone(response.errors)
+self.assertTrue(response.data["todoTODO"]["ok"])
+endsnippet
