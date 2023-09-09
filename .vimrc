@@ -204,10 +204,9 @@ autocmd FileType markdown setlocal comments=:>
 " c: Auto-wrap comments using 'textwidth', inserting the current comment
 " leader automatically.
 " q: Allow formatting of comments with `gq`
-autocmd FileType markdown setlocal formatoptions=rojcq
-
-" gq to format list e.g. - , see formatlistpat below
-autocmd FileType markdown setlocal formatoptions+=n
+" n: gq to format list e.g. - , using formatlistpat below
+" t: Auto-wrap text using 'textwidth'
+autocmd FileType markdown setlocal formatoptions=rojcqnt
 " pattern for list e.g. - 
 " explanation: each \ needs to becomes \\ so patten '^\\s*[-]\\s\\+' is actually '^\s*[-]\s\+'
 autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s\\+
@@ -215,6 +214,8 @@ autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s\\+
 " autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s[[]\\s[]]\\s\\+
 " pattern for completed todo list e.g. - [x]
 " autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s[[]x[]]\\s\\+
+" pattern for number list e.g. - 1. 
+autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d[.]\\s\\+
 
 " don't hide/conceal code blocks
 let g:vim_markdown_conceal_code_blocks = 0
