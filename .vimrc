@@ -358,7 +358,7 @@ autocmd FileType markdown nnoremap <silent> <cr> ^f[lrx
 " from usr_05.txt
 autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
+  \ |   execute "normal! g`\""
   \ | endif
 
 """""""
