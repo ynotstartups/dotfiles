@@ -365,7 +365,8 @@ autocmd BufReadPost *
 " tab "
 """""""
 " open current file in new tab
-nnoremap <leader>t :tabedit %<cr>
+" <c-o> hacks to jumps to last position
+nnoremap <leader>t :tabedit %<cr><c-o>
 " L, H are just jump to bottom or top of screen, not very useful
 " next tab
 nnoremap L gt
