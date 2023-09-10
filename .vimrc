@@ -652,16 +652,14 @@ map #  <plug>(asterisk-z#)
 map g* <plug>(asterisk-gz*)
 map g# <plug>(asterisk-gz#)
 
-""""""""""
-" is.vim "
-""""""""""
-" display search position like (2/10) for n/N commands.
-" https://github.com/haya14busa/is.vim#integration-of-vim-anzu
-" map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
-" map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
+""""""""""""""""
+" vim-asterisk "
+""""""""""""""""
 
-" map n <plug>(is-n)
-" map N <plug>(is-n)
+map n <plug>(anzu-n-with-echo)
+map N <plug>(anzu-N-with-echo)
+
+let g:asterisk#keeppos = 1
 
 """""""""""""""
 " Man Command "
