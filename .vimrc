@@ -630,9 +630,8 @@ let g:completor_min_chars = 1
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " `s{char}{char}{label}`
 " Need one more keystroke, but on average, it may be more comfortable.
-nmap a <plug>(easymotion-overwin-f2)
+nmap , <plug>(easymotion-overwin-f2)
 
-" Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 1
 
 """"""""""""""""""""
