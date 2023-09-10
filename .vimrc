@@ -699,8 +699,17 @@ hi diffAdded   guifg=#00C200
 " Printing Hardcopy "
 """""""""""""""""""""
 
-" use command :Print to use printer to print with colorscheme delek
-command! -bang -nargs=? Print :colorscheme delek<bar>:hardcopy<bar>:colorscheme molokai
+function SaveAsHtmlToPrintInDownloads()
+  " save as to_print.html with delek colorscheme 
+  " delek colorscheme has a white background, more printer friendly
+  execute "normal :\<c-u>colorscheme delek\<cr>"
+  execute "normal :\<c-u>TOhtml\<cr>"
+  execute "normal :\<c-u>saveas! ~/Downloads/to_print.html\<cr>"
+  sleep 100m
+  execute "normal :\<c-u>colorscheme molokai\<cr>"
+endfunction
+" command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
+command TOPrintHtml call SaveAsHtmlToPrintInDownloads()
 
 """""""""
 " Vista "
