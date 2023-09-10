@@ -20,7 +20,7 @@ Plug 'arthurxavierx/vim-caser'         " changes word casing: `gst` Foo Bar, `gs
 Plug 'davidhalter/jedi-vim'            " vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
-Plug 'haya14busa/is.vim'               " Automatically clear highlight 
+" Plug 'haya14busa/is.vim'               " Automatically clear highlight 
 Plug 'haya14busa/vim-asterisk'         " * stays where it is
 Plug 'img-paste-devs/img-paste.vim'    " leader p to paste image to markdown file
 Plug 'inkarkat/vim-visualrepeat'       " use . in selected lines in visual mode
@@ -656,9 +656,11 @@ map g# <plug>(asterisk-gz#)
 """"""""""
 " display search position like (2/10) for n/N commands.
 " https://github.com/haya14busa/is.vim#integration-of-vim-anzu
-map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
-map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
+" map n <plug>(is-nohl)<plug>(anzu-n-with-echo)
+" map N <plug>(is-nohl)<plug>(anzu-N-with-echo)
 
+" map n <plug>(is-n)
+" map N <plug>(is-n)
 
 """""""""""""""
 " Man Command "
