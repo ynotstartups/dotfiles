@@ -364,9 +364,18 @@ autocmd BufReadPost *
 """""""
 " tab "
 """""""
-" open current file in new tab
+
+function OpenCurrentFileInNewTabInSameLine()
+    set lazyredraw
+    " open current file in new tab position after the last tab
+    execute "normal :$tabedit %\<cr>"
+    execute "normal \<c-o>"
+    redraw
+    set nolazyredraw
+endfunction
+
 " <c-o> hacks to jumps to last position
-nnoremap <leader>t :tabedit %<cr><c-o>
+nnoremap <leader>t :call OpenCurrentFileInNewTabInSameLine()<cr>
 " L, H are just jump to bottom or top of screen, not very useful
 " next tab
 nnoremap L gt
