@@ -129,6 +129,30 @@ function ,pr_review(){
     vim -c ':TGdot'
 }
 
+function ,uat_diff(){
+    # get the latest changes
+    git fetch --quiet
+
+    number_of_new_commits=$(\
+        git log --oneline origin/env/uat...origin/master |\
+          wc -l |\
+            # wc starts with tab, remove it, extract the number of lines only
+            grep -o '\d*' \
+    )
+    _echo_green "There are" $number_of_new_commits "new commits ordered from old commits to new commits...\n"
+
+    # change the format to hash, commit date, commit message
+    git --no-pager log origin/env/uat...origin/master --reverse --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%ad %Creset%s" --date human
+
+    printf "\n\n" 
+
+    git diff --exit-code --quiet origin/env/uat...origin/master saltus/oneview/migrations
+    if [ $? -eq 1 ]; then
+        _echo_red 'There are new migrations! ONLY DEPLOY AT NIGHT!\n'
+        git --no-pager diff --stat origin/env/uat...origin/master saltus/oneview/migrations
+    fi
+}
+
 
 # delete every branches except main & master & current branch
 alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
