@@ -705,3 +705,9 @@ command TOPrintHtml call SaveAsHtmlToPrintInDownloads()
 let g:vista_sidebar_width=80
 
 nnoremap <leader>v :Vista<cr>
+
+""""""""""""""""""""""""""""""
+" command line mode mappings "
+""""""""""""""""""""""""""""""
+cnoremap <c-j> <down>
+cnoremap <c-k> <up>
