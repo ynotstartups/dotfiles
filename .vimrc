@@ -426,22 +426,13 @@ set diffopt=vertical
 " use wrap for diff
 set diffopt+=followwrap
 
-" :Gd for open each changed file
-command! -bang -nargs=? TGd  :Git difftool
-" -y for open in new tab
-command! -bang -nargs=? TGdt  :Git difftool -y
-
-" :Gdo for open each changed file compared to origin/master
-command! -bang -nargs=? TGdo :Git difftool origin/master...
-command! -bang -nargs=? TGdot :Git difftool -y origin/master...
-
 function! BindOff()
     " disable the moving together in git diff tab with vertical split
     windo set nocursorbind
     windo set noscrollbind
 endfunction
 
-command! -bang -nargs=? TBindOff :call BindOff()
+command! -bang -nargs=? BindOff :call BindOff()
 
 nnoremap <leader>gb :Git blame<cr>
 nnoremap <leader>ge :Gedit<cr>
