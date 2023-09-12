@@ -18,7 +18,7 @@ Plug 'SirVer/ultisnips'                " snippets
 Plug 'airblade/vim-gitgutter'          " shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         " changes word casing: `gst` Foo Bar, `gs_` foo_bar, `gsm` FooBar
 Plug 'davidhalter/jedi-vim'            " vim python, leader k to go to doc, leader d to definition
-Plug 'easymotion/vim-easymotion'       " use a + character to jump around the code
+Plug 'easymotion/vim-easymotion'       " use , to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         " dockerfile syntax
 " Plug 'haya14busa/is.vim'               " Automatically clear highlight 
 Plug 'haya14busa/vim-asterisk'         " * stays where it is
