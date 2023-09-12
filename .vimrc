@@ -213,14 +213,14 @@ autocmd FileType markdown setlocal comments=:>
 " t: Auto-wrap text using 'textwidth'
 autocmd FileType markdown setlocal formatoptions=rojcqnt
 " pattern for list e.g. - 
-" explanation: each \ needs to becomes \\ so patten '^\\s*[-]\\s\\+' is actually '^\s*[-]\s\+'
-autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s\\+
-" pattern for todo list e.g. - [ ]
-" autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s[[]\\s[]]\\s\\+
-" pattern for completed todo list e.g. - [x]
-" autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[-]\\s[[]x[]]\\s\\+
+" explanation: each \ needs to becomes \\ so patten '^\\s*[-]\\s' is actually '^\s*[-]\s'
+autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s
+" pattern for todo list e.g. + [ ]
+autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]\\s[]]\\s
+" pattern for completed todo list e.g. + [x]
+autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]x[]]\\s
 " pattern for number list e.g. - 1. 
-autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d[.]\\s\\+
+autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d[.]\\s
 
 " don't hide/conceal code blocks
 let g:vim_markdown_conceal_code_blocks = 0
