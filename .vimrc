@@ -525,49 +525,33 @@ endfunction
 
 command! JumpToTestFile call JumpToTestFile()
 
+function! CleanUpSetRegister()
+    let file_path = @%
+    let function_name = @0
+    let remove_prefix = substitute(file_path, '^saltus/', '', 'g')
+    let remove_suffix = substitute(remove_prefix, '.py$', '', 'g')
+    let replace_dot =   substitute(remove_suffix, '/', '.', 'g')
+    let import_statement = printf('from %s import %s', replace_dot, function_name)
+    let message = printf('yanked "%s"', import_statement)
+    echomsg message
+    " puts import_statement into default yank register
+    call setreg('*', import_statement, 'V')
+endfunction
 " known bug
 " this import function name doesn't work if the function is a method in a class
 function! ImportFunctionName()
-execute "normal! ?def\<cr>wyiw\<c-o>"
-py3 << EOF
-import vim
-from vim_python import get_import_statement
-import_statement = get_import_statement(
-    # vim.eval("@%") gets the filepath in current buffer
-    filepath=vim.eval("@%"),
-    # vim.eval("@0") gets the last yanked text, which is a function name
-    function_or_class_name=vim.eval("@0"),
-)
-vim.command(f"echom 'yanked {import_statement}'")
-
-# set register * which is the default register used for p
-# V presents line mode, import is always a line
-vim.command(f"call setreg('*', '{import_statement}','V')")
-EOF
+    execute "normal! ?def\<cr>wyiw\<c-o>"
+    call CleanUpSetRegister()
 endfunction
 
 function! ImportClassName()
-execute "normal! ?^class\<cr>wyiw\<c-o>"
-py3 << EOF
-import vim
-from vim_python import get_import_statement
-import_statement = get_import_statement(
-    # vim.eval("@%") gets the filepath in current buffer
-    filepath=vim.eval("@%"),
-    # vim.eval("@0") gets the last yanked text, which is a class name
-    function_or_class_name=vim.eval("@0"),
-)
-vim.command(f"echom 'yanked {import_statement}'")
-vim.command(f"call setreg('*', '{import_statement}', 'V')")
-EOF
+    execute "normal! ?^class\<cr>wyiw\<c-o>"
+    call CleanUpSetRegister()
 endfunction
 
-command! YankImportFunctionName call ImportFunctionName()
-command! YankImportClassName    call ImportClassName()
-
-nnoremap <leader>yif :YankImportFunctionName<cr>
-nnoremap <leader>yid :YankImportFunctionName<cr>
-nnoremap <leader>yic :YankImportClassName<cr>
+nnoremap <leader>yif :call ImportFunctionName()<cr>
+nnoremap <leader>yid :call ImportFunctionName()<cr>
+nnoremap <leader>yic :call ImportClassName()<cr>
 
 
 """"""""

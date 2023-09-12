@@ -111,20 +111,3 @@ def test_dont_create_test_file(mock_open, tmp_path):
     get_or_create_test_file(str(tmp_path / "foo.py"))
 
     mock_open.assert_not_called()
-
-
-def get_import_statement(filepath: str, function_or_class_name: str) -> str:
-    import_path_name = (
-        filepath.removeprefix("saltus/").removesuffix(".py").replace("/", ".")
-    )
-    return f"from {import_path_name} import {function_or_class_name}"
-
-
-def test_get_import_statement():
-    assert (
-        get_import_statement(
-            filepath="saltus/oneview/graphql/foo.py", function_or_class_name="bar"
-        )
-        == "from oneview.graphql.foo import bar"
-    )
-    assert get_test_filepath("foo.py") == "test_foo.py"
