@@ -444,6 +444,7 @@ endfunction
 command! -bang -nargs=? TBindOff :call BindOff()
 
 nnoremap <leader>gb :Git blame<cr>
+nnoremap <leader>ge :Gedit<cr>
 
 " nnoremap <leader>gd :tab Git diff<cr>
 " this G c relies on .gitconfig which is `git commit --verbose`
