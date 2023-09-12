@@ -303,6 +303,9 @@ function ,docker_build_backend(){
     _echo_green '~~~~ cd into oneview ~~~~'
     cd ~/Documents/oneview
 
+    _echo_green '~~~~ generating ctags ~~~~'
+    ctags **/*.py
+
     _echo_green '~~~~ docker compose build and up backend detached ~~~~'
     docker compose -f docker-compose-dev.yml up --build --detach django postgres
 
