@@ -348,9 +348,6 @@ nnoremap <C-J> <C-E>
 " use ctrl k to scroll up one line
 nnoremap <C-K> <C-Y>
 
-" leader b to jump to previous buffer
-nnoremap <leader>b :bprevious<cr>
-
 " use leader c to clear search highlight
 nnoremap <silent> <leader>c :nohlsearch<cr>
 
@@ -416,6 +413,8 @@ nnoremap <leader>5 5gt
 """""""
 nnoremap <leader>fs :Snippets<cr>
 nnoremap <leader><leader> :Files<cr>
+" leader b to jump to previous buffer
+nnoremap <leader>b :Buffers<cr>
 nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fc :Commands<cr>
 nnoremap <leader>ff :Files<cr>
