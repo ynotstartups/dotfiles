@@ -306,6 +306,20 @@ function! InMarkdownHeader()
   return ['V', head_pos, tail_pos]
 endfunction
 
+function! TableConvert() range
+    " covert a list into a markdown table
+    " only accepts list with 2 items
+    " - `foo` - foo description
+    execute "normal! :".a:firstline.",".a:lastline."s/-\\|$/|/g\<cr>"
+    execute "normal! {"
+    execute "normal! i|||\<esc>"
+    execute "normal! o|-|-|\<esc>"
+    execute "normal! :TableFormat\<esc>"
+endfunction
+
+" range allowed, default is current line
+command! -range -nargs=0 TableConvert <line1>,<line2>call TableConvert()
+
 """""""""
 " Spell "
 """""""""
