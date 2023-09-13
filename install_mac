@@ -8,6 +8,8 @@ brew install bat # terminal syntax highlight
 
 brew install fd
 
+brew install jq
+
 brew install fzf
 
 brew install python3 # get latest python
