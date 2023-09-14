@@ -35,7 +35,6 @@ Plug 'markonm/traces.vim'              " Range, pattern and substitute preview f
 Plug 'osyo-manga/vim-anzu'             " n, N show the number of searches
 Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' " add markdown syntax and :TableFormat to format table
 Plug 'preservim/nerdtree'              " tree explorers
-Plug 'tomasr/molokai'                  " molokar color scheme
 Plug 'tpope/vim-commentary'            " add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive'              " using git in vim
 Plug 'tpope/vim-repeat'                " repeat vim-surround with .
@@ -49,6 +48,9 @@ Plug 'kana/vim-textobj-line'           " al     for this line
 Plug 'kana/vim-textobj-entire'         " ie     for entire file
 Plug 'sgur/vim-textobj-parameter'      " i, a,  for parameters
 Plug 'lucapette/vim-textobj-underscore' " i_ a_ for underscore
+
+Plug 'tomasr/molokai'                  " molokar color scheme
+Plug 'morhetz/gruvbox'                 " gruvbox color scheme
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
@@ -117,7 +119,8 @@ set smartcase
 
 syntax on
 set termguicolors
-colorscheme molokai
+" colorscheme molokai
+colorscheme gruvbox
 
 " make the single quote works like a backtick
 " puts the cursor on the column of a mark, instead of first non-blank
