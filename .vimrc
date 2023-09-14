@@ -445,7 +445,7 @@ function! BindOff()
     windo set noscrollbind
 endfunction
 
-command! -bang -nargs=? BindOff :call BindOff()
+command! -bang -nargs=0 BindOff :call BindOff()
 
 nnoremap <leader>gb :Git blame<cr>
 nnoremap <leader>ge :Gedit<cr>
@@ -458,19 +458,19 @@ nnoremap <leader>ge :Gedit<cr>
 " Source And Edit "
 """""""""""""""""""
 
-command! -bang -nargs=? SourceVimrc :source ~/.vimrc
+command! -bang -nargs=0 SourceVimrc :source ~/.vimrc
 
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
-command! -bang -nargs=? Ev :$tabedit ~/.vimrc
+command! -bang -nargs=0 Ev :$tabedit ~/.vimrc
 
 nnoremap <leader>ez :$tabedit ~/.zshrc<cr>
-command! -bang -nargs=? Ez :$tabedit ~/.zshrc
+command! -bang -nargs=0 Ez :$tabedit ~/.zshrc
 
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
-command! -bang -nargs=? Ed :$tabedit ~/Documents/personal-notes/dev_notes.md
+command! -bang -nargs=0 Ed :$tabedit ~/Documents/personal-notes/dev_notes.md
 
 nnoremap <leader>eu :UltiSnipsEdit<cr>
-command! -bang -nargs=? Eu :UltiSnipsEdit
+command! -bang -nargs=0 Eu :UltiSnipsEdit
 
 nnoremap <leader>et :JumpToTestFile<cr>
 
@@ -506,9 +506,9 @@ function! LintAll()
     cexpr l:error_list
 endfunction
 
-command! -bang -nargs=? Black    :!black %
-command! -bang -nargs=? Lint     :call Lint()
-command! -bang -nargs=? TLintAll :call LintAll()
+command! -bang -nargs=0 Black    :!black %
+command! -bang -nargs=0 Lint     :call Lint()
+command! -bang -nargs=0 TLintAll :call LintAll()
 
 """""""""""""""""""""""
 " using python in vim "
@@ -684,7 +684,7 @@ function! SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-command! -bang -nargs=? SynStack call SynStack()
+command! -bang -nargs=0 SynStack call SynStack()
 
 """"""""""""""
 " diff color "
