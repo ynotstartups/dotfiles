@@ -1,7 +1,7 @@
 vim9script
-#"""""""""""""""""
-# Documentations "
-#"""""""""""""""""
+##################
+# Documentations #
+##################
 
 # vim's library is at /usr/share/vim/vim90/
 #
@@ -114,9 +114,9 @@ set undofile
 set ignorecase
 set smartcase
 
-#""""""""""""""
-# Colorscheme "
-#""""""""""""""
+###############
+# Colorscheme #
+###############
 
 syntax on
 set termguicolors
@@ -158,9 +158,9 @@ nnoremap <leader>yd ?def<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
 nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
-#""""""""""""
-# GitGutter "
-#""""""""""""
+#############
+# GitGutter #
+#############
 
 # see help (shortcut K) for gitgutter-mappings
 # note that updatetime is also used by autosave on save per second
@@ -177,9 +177,9 @@ nmap <leader>hu <plug>(GitGutterUndoHunk)
 command! GitGutterQ GitGutterQuickFix | copen
 nnoremap <leader>hq :GitGutterQ<cr>
 
-#"""""""""""
-# markdown "
-#"""""""""""
+############
+# markdown #
+############
 
 # default ftplugin vim-markdown
 # in /opt/homebrew/Cellar/vim/9.0.1800/share/vim/vim90/ftplugin/markdown.vim
@@ -352,9 +352,9 @@ enddef
 # use <enter> to put x into readme todo [ ]
 autocmd FileType markdown nnoremap <cr> :call CycleListType()<cr>
 
-#""""""""
-# Spell "
-#""""""""
+#########
+# Spell #
+#########
 
 set spellfile=$HOME/Documents/personal-notes/spell/en.utf-8.add
 # spell check for markdown and git commit message
@@ -406,9 +406,9 @@ autocmd BufReadPost *
   \ |   execute "normal! g`\""
   \ | endif
 
-#""""""
-# tab "
-#""""""
+#######
+# tab #
+#######
 
 def OpenCurrentFileInNewTabInSameLine()
     set lazyredraw
@@ -437,9 +437,9 @@ nnoremap <leader>3 3gt
 nnoremap <leader>4 4gt
 nnoremap <leader>5 5gt
 
-#""""""
-# fzf "
-#""""""
+#######
+# fzf #
+#######
 nnoremap <leader>fs :Snippets<cr>
 nnoremap <leader><leader> :Files<cr>
 # leader b to jump to previous buffer
@@ -457,9 +457,9 @@ nnoremap <leader>fh :History<cr>
 
 nnoremap <leader>q <esc>:qa<cr>
 
-#"""""""""""""""
-# Git Fugitive "
-#"""""""""""""""
+################
+# Git Fugitive #
+################
 
 set diffopt=vertical  
 # use wrap for diff
@@ -480,9 +480,9 @@ nnoremap <leader>ge :Gedit<cr>
 # this G c relies on .gitconfig which is `git commit --verbose`
 # nnoremap <leader>gc :tab Git c<cr>
 
-#""""""""""""""""""
-# Source And Edit "
-#""""""""""""""""""
+###################
+# Source And Edit #
+###################
 
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
 nnoremap <leader>sv :source ~/.vimrc<cr>
@@ -495,9 +495,9 @@ nnoremap <leader>eu :UltiSnipsEdit<cr>
 
 nnoremap <leader>et :JumpToTestFile<cr>
 
-#""""""""""""
-# UltiSnips "
-#""""""""""""
+#############
+# UltiSnips #
+#############
 g:UltiSnipsSnippetDirectories = [$HOME .. '/Documents/dotfiles/UltiSnips']
 g:UltiSnipsEditSplit = "vertical"
 
@@ -505,9 +505,9 @@ g:UltiSnipsEditSplit = "vertical"
 g:UltiSnipsExpandTrigger = "<cr>"
 
 
-#""""""""""""""""""""""
-# using python in vim "
-#""""""""""""""""""""""
+#######################
+# using python in vim #
+#######################
 
 def JumpToTestFile()
 py3 << EOF
@@ -553,25 +553,25 @@ nnoremap <leader>yid :call ImportFunctionName()<cr>
 nnoremap <leader>yic :call ImportClassName()<cr>
 
 
-#"""""""
-# Jedi "
-#"""""""
+########
+# Jedi #
+########
 
 g:jedi#completions_enabled = 0
 # disable docstring window to popup during completion
 g:jedi#show_call_signatures = 0
 g:jedi#usages_command = "<leader>u"
 
-#"""""""""""
-# NERDTree "
-#"""""""""""
+############
+# NERDTree #
+############
 
 var NERDTreeIgnore = ['__pycache__']
 nnoremap <leader>n :NERDTreeFind<cr>
 
-#""""""""""""""""
-# completor.vim "
-#""""""""""""""""
+#################
+# completor.vim #
+#################
 
 # Use TAB to complete when typing words, else inserts TABs as usual.  Uses
 # dictionary, source files, and completor to find matching words to complete.
@@ -612,9 +612,9 @@ g:completor_min_chars = 1
 # inoremap <expr> <tab>   pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<cr>"
 # inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 
-#"""""""""""""""""
-# Vim EasyMotion "
-#"""""""""""""""""
+##################
+# Vim EasyMotion #
+##################
 
 g:EasyMotion_do_mapping = 0 # Disable default mappings
 # `s{char}{char}{label}`
@@ -623,24 +623,24 @@ nmap , <plug>(easymotion-overwin-f2)
 
 g:EasyMotion_smartcase = 1
 
-#"""""""""""""""""""
-# img paste plugin "
-#"""""""""""""""""""
+####################
+# img paste plugin #
+####################
 g:mdip_imgdir = 'images'
 # <leader>i - i stands for image to insert image in normal mode
 autocmd FileType markdown nnoremap <buffer><silent> <leader>i :call mdip#MarkdownClipboardImage()<cr>
 
-#""""""""""""""
-# delimitMate "
-#""""""""""""""
+###############
+# delimitMate #
+###############
 
 # don't complete " in vim file
 # didn't find a way so exclude the whole file
 g:delimitMate_excluded_ft = "vim"
 
-#"""""""""""""""
-# vim-asterisk "
-#"""""""""""""""
+################
+# vim-asterisk #
+################
 
 # * stays at the current cursor position, instead of jumpping to next
 map *  <plug>(asterisk-z*)
@@ -649,18 +649,18 @@ map #  <plug>(asterisk-z#)
 map g* <plug>(asterisk-gz*)
 map g# <plug>(asterisk-gz#)
 
-#"""""""""""""""
-# vim-asterisk "
-#"""""""""""""""
+################
+# vim-asterisk #
+################
 
 map n <plug>(anzu-n-with-echo)
 map N <plug>(anzu-N-with-echo)
 
 g:asterisk#keeppos = 1
 
-#""""""""""""""
-# Man Command "
-#""""""""""""""
+###############
+# Man Command #
+###############
 
 # Usage: 
 #     `Man git`
@@ -668,9 +668,9 @@ g:asterisk#keeppos = 1
 
 runtime! ftplugin/man.vim
 
-#"""""""""""""""""""""""""""""
-# get syntax highlight group "
-#"""""""""""""""""""""""""""""
+##############################
+# get syntax highlight group #
+##############################
 
 def SynStack()
   if !exists("*synstack")
@@ -681,18 +681,18 @@ enddef
 
 command! -bang -nargs=0 SynStack call SynStack()
 
-#"""""""""""""
-# diff color "
-#"""""""""""""
+##############
+# diff color #
+##############
 
 # #C91B00 red from iterm ansi red
 hi diffRemoved guifg=#C91B00
 # #00C200 gren from iterm ansi green
 hi diffAdded   guifg=#00C200
 
-#""""""""""""""""""""
-# Printing Hardcopy "
-#""""""""""""""""""""
+#####################
+# Printing Hardcopy #
+#####################
 
 def SaveAsHtmlToPrintInDownloads()
   " save as to_print.html with delek colorscheme 
@@ -706,9 +706,9 @@ enddef
 # command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
 command TOPrintHtml call SaveAsHtmlToPrintInDownloads()
 
-#""""""""
-# Vista "
-#""""""""
+#########
+# Vista #
+#########
 g:vista#renderer#enable_icon = 0
 
 autocmd FileType vista,vista_markdown nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
@@ -717,15 +717,15 @@ g:vista_sidebar_width = 80
 
 nnoremap <leader>v :Vista<cr>
 
-#"""""""""""""""""""""""""""""
-# command line mode mappings "
-#"""""""""""""""""""""""""""""
+##############################
+# command line mode mappings #
+##############################
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
 
-#"""""""""""
-# Surround "
-#"""""""""""
+############
+# Surround #
+############
 
 # :echo char2nr("b")
 # 98
