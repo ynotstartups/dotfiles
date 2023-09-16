@@ -126,7 +126,7 @@ function ,pr_review(){
     git reset --hard origin/$branch_name
 
     # open git diff origin/master.. files in tab
-    vim -c ':TGdot'
+    vim -c ':Git difftool -y origin/master...'
 }
 
 function ,uat_diff(){
@@ -320,7 +320,7 @@ function ,docker_build_backend(){
 }
 alias ,be=',docker_build_backend'
 
-# alias ,docker_cp_bashrc='docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
+alias ,docker_cp_bashrc='docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
 
 alias ,mb='make bash'
 
