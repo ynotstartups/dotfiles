@@ -4,7 +4,7 @@ vim9script
 ##################
 
 # vim's library is at /usr/share/vim/vim90/
-#
+
 set nocompatible
 
 # auto install vim plug
@@ -33,7 +33,7 @@ Plug 'liuchengxu/vista.vim'            # :Vista for tag viewer & markdown table 
 Plug 'maralla/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'markonm/traces.vim'              # Range, pattern and substitute preview for Vim
 Plug 'osyo-manga/vim-anzu'             # n, N show the number of searches
-Plug 'plasticboy/vim-markdown' | Plug '#odlygeek/tabular' # add markdown syntax and :TableFormat to format table
+Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' # add markdown syntax and :TableFormat to format table
 Plug 'preservim/nerdtree'              # tree explorers
 Plug 'tpope/vim-commentary'            # add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive'              # using git in vim
@@ -173,9 +173,7 @@ nmap <leader>ha <plug>(GitGutterStageHunk)
 nmap <leader>hs <plug>(GitGutterStageHunk)
 nmap <leader>hu <plug>(GitGutterUndoHunk)
 
-# Do I want GitGutterQuickFixCurrentFile too?
-command! GitGutterQ GitGutterQuickFix | copen
-nnoremap <leader>hq :GitGutterQ<cr>
+nnoremap <leader>hq :GitGutterQuickFix <bar> copen<cr>
 
 ############
 # markdown #
@@ -419,8 +417,8 @@ autocmd BufReadPost *
 def g:OpenCurrentFileInNewTabInSameLine()
     set lazyredraw
     # open current file in new tab position after the last tab
-    execute "normal :$tabedit %\<cr>"
-    execute "normal \<c-o>"
+    execute "normal! :$tabedit %\<cr>"
+    execute "normal! \<c-o>"
     redraw
     set nolazyredraw
 enddef
@@ -703,17 +701,20 @@ hi diffAdded   guifg=#00C200
 def g:SaveAsHtmlToPrintInDownloads(): number
   # save as to_print.html with delek colorscheme 
   # delek colorscheme has a white background, more printer friendly
+  # Known bug: cannot use TOPrintHtml twice with error, 
+  # #139: file is loaded in another buffer
+  var current_colorscheme = g:colors_name
   colorscheme delek
-  execute "normal! :TOhtml\<esc>"
+  execute "normal! :TOhtml\<cr>"
   var filename = expand('%:t')
   var export_path = $"~/Downloads/{filename}"
   execute $"normal! :saveas! {export_path}\<cr>"
   sleep 100m
-  colorscheme molokai
+  execute $"colorscheme {current_colorscheme}"
   return 0
 enddef
 # command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
-command TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
+command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
 
 #########
 # Vista #
@@ -750,5 +751,5 @@ g:surround_99 = "`\r`"
 # set vim's comment string to be # 
 autocmd FileType vim setlocal commentstring=#\ %s
 
-# Uncomment the next line to compile the def 
-# defcompile
+# Uncomment the next line to compile the functions for tests 
+defcompile
