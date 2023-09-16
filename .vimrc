@@ -487,19 +487,14 @@ nnoremap <leader>ge :Gedit<cr>
 " Source And Edit "
 """""""""""""""""""
 
-command! -bang -nargs=0 SourceVimrc :source ~/.vimrc
-
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
-command! -bang -nargs=0 Ev :$tabedit ~/.vimrc
+nnoremap <leader>sv :source ~/.vimrc<cr>
 
 nnoremap <leader>ez :$tabedit ~/.zshrc<cr>
-command! -bang -nargs=0 Ez :$tabedit ~/.zshrc
 
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
-command! -bang -nargs=0 Ed :$tabedit ~/Documents/personal-notes/dev_notes.md
 
 nnoremap <leader>eu :UltiSnipsEdit<cr>
-command! -bang -nargs=0 Eu :UltiSnipsEdit
 
 nnoremap <leader>et :JumpToTestFile<cr>
 
