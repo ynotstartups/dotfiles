@@ -410,7 +410,7 @@ autocmd BufReadPost *
 " tab "
 """""""
 
-function OpenCurrentFileInNewTabInSameLine()
+function! OpenCurrentFileInNewTabInSameLine()
     set lazyredraw
     " open current file in new tab position after the last tab
     execute "normal :$tabedit %\<cr>"
