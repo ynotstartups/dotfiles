@@ -13,6 +13,7 @@
     ca     = commit --all --verbose
     caa    = commit --all --amend --no-edit
     camend = commit --amend --verbose
+    camn   = commit --amend --verbose --no-edit
     cp     = commit --patch --verbose
 
     d      = diff
