@@ -3,21 +3,25 @@
 # find commands, commands start with `command`
 /^command/ {
     # remove '-bang -nargs=?' followed from command
-    sub(/ -bang -nargs=\?/, "", $0)
+    sub(/ -nargs=0/, "", $0)
+    sub(/ -bang/, "", $0)
+    sub(/ -range/, "", $0)
 
     start_index = 2
     print_with_format(start_index)
 }
 
 # remove comment and lines starts with let
-/^([^"]?|[^l][^e][^t])(nmap|nnoremap|vmap|inoremap|map) / {
+/^[^#]?[^#]*(nmap|nnoremap|vmap|inoremap|map|cnoremap) / {
     # remove modifier tags e.g. "<expr>"
-    sub(/<buffer>|<expr>|<silent>/, "", $0)
+    sub(/<buffer>/, "", $0)
+    sub(/<expr>/, "", $0)
+    sub(/<silent>/, "", $0)
 
     if ($0 ~ /^autocmd/) {
         # for mappings starts with autocmd e.g. autocmd FileType gitcommit 
         # remove the "FileType gitcommit"
-        start_index = 4
+        start_index = 5
     } else {
         start_index = 2
     }

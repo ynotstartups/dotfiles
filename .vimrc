@@ -630,7 +630,7 @@ g:EasyMotion_smartcase = 1
 ####################
 g:mdip_imgdir = 'images'
 # <leader>i - i stands for image to insert image in normal mode
-autocmd FileType markdown nnoremap <buffer><silent> <leader>i :call mdip#MarkdownClipboardImage()<cr>
+autocmd FileType markdown nnoremap <buffer> <silent> <leader>i :call mdip#MarkdownClipboardImage()<cr>
 
 ###############
 # delimitMate #
