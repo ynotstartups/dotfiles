@@ -327,6 +327,31 @@ endfunction
 " range allowed, default is current line
 command! -range -nargs=0 TableConvert <line1>,<line2>call TableConvert()
 
+function! CycleListType()
+    " cycle three types of list in markdown, namely
+    " - foo 
+    " + [ ] foo 
+    " + [x] foo 
+    " execute "normal! " .v:count. "/^#\<cr>"
+    let current_line = getline('.')
+
+    if current_line =~# '^-'
+        let updated_line = substitute(current_line, '^-', '+ [ ]', '')
+        call setline(".", updated_line)
+    elseif current_line =~# '^+ \[ \]'
+        let updated_line = substitute(current_line, '^+ \[ \]', '+ [x]', '')
+        call setline(".", updated_line)
+    elseif current_line =~# '^+ \[x\]'
+        let updated_line = substitute(current_line, '^+ \[x\]', '-', '')
+        call setline(".", updated_line)
+    else
+        echom 'Unknown line type!' current_line
+    endif
+endfunction
+
+" use <enter> to put x into readme todo [ ]
+autocmd FileType markdown nnoremap <cr> :call CycleListType()<cr>
+
 """""""""
 " Spell "
 """""""""
@@ -373,9 +398,6 @@ autocmd BufRead,BufNewFile $HOME/Documents/personal-notes/*.md set nospell
 " <delete><delete> - remove the md in markdown file extension
 " I#  - adds markdown title with a space at the front
 nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
-
-" use <enter> to put x into readme todo [ ]
-autocmd FileType markdown nnoremap <silent> <cr> ^f[lrx
 
 " restore cursor last position
 " from usr_05.txt
