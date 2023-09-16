@@ -241,15 +241,13 @@ g:vim_markdown_no_default_key_mappings = 1
 # default filetype plugin maps [[ and ]], unmap it
 g:no_markdown_maps = 1
 
-def g:GoToCountHeaderBelow(): number 
+def g:GoToCountHeaderBelow()
     execute $"normal! {v:count}/^#\<cr>"
-    return 0
 enddef
 # 5]] to goes to fifth header below
 autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderBelow()<cr>
-def g:GoToCountHeaderAbove(): number
+def g:GoToCountHeaderAbove()
   execute $"normal! {v:count}?^#\<cr>"
-  return 0
 enddef
 # 5]] to goes to fifth header below
 autocmd FileType markdown nnoremap [[ :<c-u>call g:GoToCountHeaderAbove()<cr>
@@ -677,9 +675,6 @@ runtime! ftplugin/man.vim
 ##############################
 
 def SynStack()
-  if !exists("*synstack")
-    return
-  endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 enddef
 
@@ -698,7 +693,7 @@ hi diffAdded   guifg=#00C200
 # Printing Hardcopy #
 #####################
 
-def g:SaveAsHtmlToPrintInDownloads(): number
+def g:SaveAsHtmlToPrintInDownloads()
   # save as to_print.html with delek colorscheme 
   # delek colorscheme has a white background, more printer friendly
   # Known bug: cannot use TOPrintHtml twice with error, 
@@ -711,7 +706,6 @@ def g:SaveAsHtmlToPrintInDownloads(): number
   execute $"normal! :saveas! {export_path}\<cr>"
   sleep 100m
   execute $"colorscheme {current_colorscheme}"
-  return 0
 enddef
 # command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
 command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
