@@ -741,3 +741,10 @@ nnoremap <leader>v :Vista<cr>
 """"""""""""""""""""""""""""""
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
+
+""""""""""""
+" Surround "
+""""""""""""
+
+let g:surround_{char2nr("b")} = "**\r**"
+let g:surround_{char2nr("c")} = "`\r`"
