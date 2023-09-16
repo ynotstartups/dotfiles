@@ -747,5 +747,8 @@ g:surround_99 = "`\r`"
 # Vim9 Compile Function #
 #########################
 
+# set vim's comment string to be # 
+autocmd FileType vim setlocal commentstring=#\ %s
+
 # Uncomment the next line to compile the def 
 # defcompile
