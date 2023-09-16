@@ -56,7 +56,7 @@ plug#end()
 
 # change default leader \ to space, this setting needs to be in the beginning
 nnoremap <space> <nop>
-var mapleader = " "
+g:mapleader = " "
 
 # detect filetype
 # use plugins for that filetype
@@ -243,16 +243,18 @@ g:vim_markdown_no_default_key_mappings = 1
 # default filetype plugin maps [[ and ]], unmap it
 g:no_markdown_maps = 1
 
-def GoToCountHeaderBelow()
-  execute "normal! " .v:count. "/^#\<cr>"
+def g:GoToCountHeaderBelow(): number 
+    execute $"normal! {v:count}/^#\<cr>"
+    return 0
 enddef
 # 5]] to goes to fifth header below
-autocmd FileType markdown nnoremap ]] :<c-u>call GoToCountHeaderBelow()<cr>
-def GoToCountHeaderAbove()
-  execute "normal! " .v:count. "?^#\<cr>"
+autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderBelow()<cr>
+def g:GoToCountHeaderAbove(): number
+  execute $"normal! {v:count}?^#\<cr>"
+  return 0
 enddef
 # 5]] to goes to fifth header below
-autocmd FileType markdown nnoremap [[ :<c-u>call GoToCountHeaderAbove()<cr>
+autocmd FileType markdown nnoremap [[ :<c-u>call g:GoToCountHeaderAbove()<cr>
 
 # da3 to delete all contents in current header with header line
 # di3 to delete all contents in current header without header line
@@ -286,7 +288,7 @@ def EndOfFileOrOneLineAboveHeader()
   endif
 enddef
 
-def AMarkdownHeader()
+def AMarkdownHeader(): list<string>
   set nowrapscan
   # cursor goes to the last header
   # or the start of file
@@ -301,7 +303,7 @@ def AMarkdownHeader()
   return ['V', head_pos, tail_pos]
 enddef
 
-def InMarkdownHeader()
+def InMarkdownHeader(): list<string>
   set nowrapscan
   execute "normal! $"
   execute "normal! ?^#?+1\<cr>"
@@ -313,11 +315,15 @@ def InMarkdownHeader()
   return ['V', head_pos, tail_pos]
 enddef
 
-def TableConvert()
+def g:TableConvert(
+    start_line_number: number,
+    end_line_number: number,
+)
     # covert a list into a markdown table
-    # only accepts list with 2 items
+    # limitation: only accepts list with 2 items
     # - `foo` - foo description
-    execute "normal! :".a:firstline.",".a:lastline."s/-\\|$/|/g\<cr>"
+    var range = $':{start_line_number},{end_line_number}'
+    execute $"{range} substitute/-\\|$/|/g"
     execute "normal! {"
     execute "normal! i|||\<esc>"
     execute "normal! o|-|-|\<esc>"
@@ -325,9 +331,9 @@ def TableConvert()
 enddef
 
 # range allowed, default is current line
-command! -range -nargs=0 TableConvert <line1>,<line2>call TableConvert()
+command! -range -nargs=0 TableConvert call g:TableConvert(<line1>, <line2>)
 
-def CycleListType()
+def g:CycleListType()
     # cycle three types of list in markdown, namely
     # - foo 
     # + [ ] foo 
@@ -335,14 +341,14 @@ def CycleListType()
     # execute "normal! " .v:count. "/^#\<cr>"
     var current_line = getline('.')
 
-    if current_line =~# '^-'
-        var updated_line = substitute(current_line, '^-', '+ [ ]', '')
+    if current_line =~# '^[ ]*-'
+        var updated_line = substitute(current_line, '-', '+ [ ]', '')
         setline(".", updated_line)
-    elseif current_line =~# '^+ \[ \]'
-        var updated_line = substitute(current_line, '^+ \[ \]', '+ [x]', '')
+    elseif current_line =~# '^[ ]*+ \[ \]'
+        var updated_line = substitute(current_line, '+ \[ \]', '+ [x]', '')
         setline(".", updated_line)
-    elseif current_line =~# '^+ \[x\]'
-        var updated_line = substitute(current_line, '^+ \[x\]', '-', '')
+    elseif current_line =~# '^[ ]*+ \[x\]'
+        var updated_line = substitute(current_line, '+ \[x\]', '-', '')
         setline(".", updated_line)
     else
         echom 'Unknown line type!' current_line
@@ -350,7 +356,7 @@ def CycleListType()
 enddef
 
 # use <enter> to put x into readme todo [ ]
-autocmd FileType markdown nnoremap <cr> :call CycleListType()<cr>
+autocmd FileType markdown nnoremap <cr> :call g:CycleListType()<cr>
 
 #########
 # Spell #
@@ -410,7 +416,7 @@ autocmd BufReadPost *
 # tab #
 #######
 
-def OpenCurrentFileInNewTabInSameLine()
+def g:OpenCurrentFileInNewTabInSameLine()
     set lazyredraw
     # open current file in new tab position after the last tab
     execute "normal :$tabedit %\<cr>"
@@ -420,7 +426,7 @@ def OpenCurrentFileInNewTabInSameLine()
 enddef
 
 # <c-o> hacks to jumps to last position
-nnoremap <leader>t :call OpenCurrentFileInNewTabInSameLine()<cr>
+nnoremap <leader>t :call g:OpenCurrentFileInNewTabInSameLine()<cr>
 # L, H are just jump to bottom or top of screen, not very useful
 # next tab
 nnoremap L gt
@@ -465,13 +471,13 @@ set diffopt=vertical
 # use wrap for diff
 set diffopt+=followwrap
 
-def BindOff()
+def g:BindOff()
     # disable the moving together in git diff tab with vertical split
     windo set nocursorbind
     windo set noscrollbind
 enddef
 
-command! -bang -nargs=0 BindOff :call BindOff()
+command! -bang -nargs=0 BindOff :call g:BindOff()
 
 nnoremap <leader>gb :Git blame<cr>
 nnoremap <leader>ge :Gedit<cr>
@@ -509,7 +515,7 @@ g:UltiSnipsExpandTrigger = "<cr>"
 # using python in vim #
 #######################
 
-def JumpToTestFile()
+def g:JumpToTestFile()
 py3 << EOF
 import vim
 from vim_python import get_or_create_test_file
@@ -522,7 +528,7 @@ vim.command(f"tabnew {test_filepath}")
 EOF
 enddef
 
-command! JumpToTestFile call JumpToTestFile()
+command! JumpToTestFile call g:JumpToTestFile()
 
 def CleanUpSetRegister()
     var file_path = @%
@@ -538,19 +544,19 @@ def CleanUpSetRegister()
 enddef
 # known bug
 # this import function name doesn't work if the function is a method in a class
-def ImportFunctionName()
+def g:ImportFunctionName()
     execute "normal! ?def\<cr>wyiw\<c-o>"
     CleanUpSetRegister()
 enddef
 
-def ImportClassName()
+def g:ImportClassName()
     execute "normal! ?^class\<cr>wyiw\<c-o>"
     CleanUpSetRegister()
 enddef
 
-nnoremap <leader>yif :call ImportFunctionName()<cr>
-nnoremap <leader>yid :call ImportFunctionName()<cr>
-nnoremap <leader>yic :call ImportClassName()<cr>
+nnoremap <leader>yif :call g:ImportFunctionName()<cr>
+nnoremap <leader>yid :call g:ImportFunctionName()<cr>
+nnoremap <leader>yic :call g:ImportClassName()<cr>
 
 
 ########
@@ -579,13 +585,13 @@ nnoremap <leader>n :NERDTreeFind<cr>
 # Note: usual completion is on <C-n> but more trouble to press all the time.
 # Never type the same word twice and maybe learn a new spellings!
 # Use the Linux dictionary when spelling is in doubt.
-def Tab_Or_Complete()
+def g:TabOrComplete(): string
   # If completor is already open the `tab` cycles through suggested completions.
   if pumvisible()
     return "\<C-N>"
   # If completor is not open and we are in the middle of typing a word then
   # `tab` opens completor menu.
-  elseif col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^[[:keyword:][:ident:]]'
+  elseif col('.') > 1 && strpart(getline('.'), col('.') - 2, 3) =~ '^[[:keyword:][:ident:]]'
     return "\<C-R>=completor#do('complete')\<cr>"
   else
     # If we aren't typing a word and we press `tab` simply do the normal `tab`
@@ -598,7 +604,7 @@ enddef
 
 # Use tab to trigger auto completion.  Default suggests completions as you type.
 g:completor_auto_trigger = 0
-inoremap <expr> <tab> Tab_Or_Complete()
+inoremap <expr> <tab> g:TabOrComplete()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 # removes the preview window
@@ -694,17 +700,20 @@ hi diffAdded   guifg=#00C200
 # Printing Hardcopy #
 #####################
 
-def SaveAsHtmlToPrintInDownloads()
-  " save as to_print.html with delek colorscheme 
-  " delek colorscheme has a white background, more printer friendly
-  execute "normal :\<c-u>colorscheme delek\<cr>"
-  execute "normal :\<c-u>TOhtml\<cr>"
-  execute "normal :\<c-u>saveas! ~/Downloads/to_print.html\<cr>"
+def g:SaveAsHtmlToPrintInDownloads(): number
+  # save as to_print.html with delek colorscheme 
+  # delek colorscheme has a white background, more printer friendly
+  colorscheme delek
+  execute "normal! :TOhtml\<esc>"
+  var filename = expand('%:t')
+  var export_path = $"~/Downloads/{filename}"
+  execute $"normal! :saveas! {export_path}\<cr>"
   sleep 100m
-  execute "normal :\<c-u>colorscheme molokai\<cr>"
+  colorscheme molokai
+  return 0
 enddef
 # command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
-command TOPrintHtml call SaveAsHtmlToPrintInDownloads()
+command TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
 
 #########
 # Vista #
