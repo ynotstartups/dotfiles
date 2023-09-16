@@ -49,8 +49,9 @@ Plug 'kana/vim-textobj-entire'         " ie     for entire file
 Plug 'sgur/vim-textobj-parameter'      " i, a,  for parameters
 Plug 'lucapette/vim-textobj-underscore' " i_ a_ for underscore
 
-Plug 'tomasr/molokai'                  " molokar color scheme
-Plug 'morhetz/gruvbox'                 " gruvbox color scheme
+Plug 'tomasr/molokai'                  " molokar colorscheme
+Plug 'morhetz/gruvbox'                 " gruvbox colorscheme
+Plug 'lifepillar/vim-solarized8'       " solorized
 call plug#end()
 
 " change default leader \ to space, this setting needs to be in the beginning
@@ -119,8 +120,11 @@ set smartcase
 
 syntax on
 set termguicolors
-" colorscheme molokai
-colorscheme gruvbox
+set background=light
+colorscheme molokai
+" colorscheme gruvbox
+" colorscheme solarized8
+" autocmd vimenter * ++nested colorscheme solarized8_flat
 
 " make the single quote works like a backtick
 " puts the cursor on the column of a mark, instead of first non-blank
