@@ -3,5 +3,5 @@ from vim_python import write_section
 endglobal
 
 snippet "(.*).SS" "Create Section (postfix)" r
-`!p snip.rv = write_section(text=match.group(1), comment_character='\"')`
+`!p snip.rv = write_section(text=match.group(1), comment_character='#')`
 endsnippet
