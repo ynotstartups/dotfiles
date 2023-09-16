@@ -721,6 +721,16 @@ command TOPrintHtml call SaveAsHtmlToPrintInDownloads()
 """""""""
 " Vista "
 """""""""
+let g:vista#renderer#enable_icon = 0
+
+" let g:vista#renderer#icons = {
+" \   "class": "c",
+" \   "function": "F",
+" \   "variable": "V",
+" \  }
+"
+
+autocmd FileType vista,vista_markdown nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
 
 let g:vista_sidebar_width=80
 
