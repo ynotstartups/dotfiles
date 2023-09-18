@@ -147,9 +147,9 @@ nnoremap <C-]> g<C-]>
 set clipboard=unnamed # vim uses system clipboard
 
 # copy relative path  e.g. src/foo.txt
-nnoremap <leader>yp :var @+=expand("%")<cr>:echo 'yanked' @+<cr>
+nnoremap <leader>yp :let @+=expand("%")<cr>:echo 'yanked' @+<cr>
 # copy file name      e.g. foo.txt
-nnoremap <leader>yn :var @+=expand("%:t")<cr>:echo 'yanked' @+<cr>
+nnoremap <leader>yn :let @+=expand("%:t")<cr>:echo 'yanked' @+<cr>
 
 # copy python function & class name
 # use with pytest -k FUNCTION NAME
@@ -259,9 +259,9 @@ augroup markdown_textobjs
   autocmd!
   autocmd FileType markdown call textobj#user#plugin('markdown', {
   \   'header': {
-  \     'select-a-function': 'AMarkdownHeader',
+  \     'select-a-function': 'g:AMarkdownHeader',
   \     'select-a': 'a3',
-  \     'select-i-function': 'InMarkdownHeader',
+  \     'select-i-function': 'g:InMarkdownHeader',
   \     'select-i': 'i3',
   \   },
   \ })
@@ -284,7 +284,7 @@ def EndOfFileOrOneLineAboveHeader()
   endif
 enddef
 
-def AMarkdownHeader(): list<string>
+def g:AMarkdownHeader(): list<any>
   set nowrapscan
   # cursor goes to the last header
   # or the start of file
@@ -299,7 +299,7 @@ def AMarkdownHeader(): list<string>
   return ['V', head_pos, tail_pos]
 enddef
 
-def InMarkdownHeader(): list<string>
+def g:InMarkdownHeader(): list<any>
   set nowrapscan
   execute "normal! $"
   execute "normal! ?^#?+1\<cr>"
