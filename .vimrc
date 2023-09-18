@@ -724,8 +724,15 @@ nnoremap <leader>v :Vista<cr>
 ##############################
 # command line mode mappings #
 ##############################
-cnoremap <c-j> <down>
-cnoremap <c-k> <up>
+
+cnoremap <c-j>   <down>
+cnoremap <c-k>   <up>
+cnoremap <c-h>   <left>
+cnoremap <c-l>   <right>
+cnoremap <up>    <nop>
+cnoremap <down>  <nop>
+cnoremap <left>  <nop>
+cnoremap <right> <nop>
 
 ############
 # Surround #
