@@ -404,3 +404,12 @@ function ,copy_last_screenshot() {
 alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
 
 # Tips: use `say 'hello world'` to use sound synthesizer 
+
+############
+# Man Page #
+############
+
+export MANWIDTH=80
+
+# try out using vim as pager
+export MANPAGER="vim +MANPAGER --not-a-term -"
