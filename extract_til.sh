@@ -1,6 +1,5 @@
 #!/bin/bash
 # TODO: find a way to deal with images
-# TODO: change I change the format of date so that the default sort order follows date order
 
 set -o errexit   # abort on nonzero exitstatus
 set -o nounset   # abort on unbound variable
@@ -27,13 +26,14 @@ ctags -f - --fields=+ne "$PATH_TO_DEV_NOTES" |\
         til_date=$(  echo "$line" | cut -f 1 | cut -d '-' -f 3 |\
             # input example for grep: 27/Aug/23
             # grep here is just to remove spaces
-            grep -o '\d\d/.../\d\d' | sed 's:/:-:g'
+            grep -o '\d\d/.../\d\d'
         )
+        formated_til_date=$(date -j -f '%d/%b/%y' $til_date +%Y-%m-%d)
         start_line=$(echo "$line" | cut -f 5 | sed 's/line://g')
         end_line=$(  echo "$line" | cut -f 6 | sed 's/end://g')
 
         sed_command=$(printf "%s,%sp" $((start_line-1)) $((end_line-1)))
-        til_document_name="$HOME/Documents/notes/notes/TIL/$til_date-$til_title.md"
+        til_document_name="$HOME/Documents/notes/notes/TIL/$formated_til_date-$til_title.md"
 
         printf "creating %s\n" "$til_document_name"
         sed -n "$sed_command" $PATH_TO_DEV_NOTES > "$til_document_name" 
