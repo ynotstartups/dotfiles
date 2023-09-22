@@ -93,6 +93,8 @@ set regexpengine=0 # fix tsx files too slow
 set incsearch # incremental search
 set belloff=all # no spell from vim
 set spellcapcheck= # turn off spell check says first character not captical as error
+# set the default errorfile, so that vim -q automatically open quickfix.vim
+set errorfile=quickfix.vim
 
 set statusline=\ %n    # buffer number
 set statusline+=\ %f    # filename
