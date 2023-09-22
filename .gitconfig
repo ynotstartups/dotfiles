@@ -11,9 +11,8 @@
 
     c      = commit --verbose
     ca     = commit --all --verbose
-    caa    = commit --all --amend --no-edit
-    camend = commit --amend --verbose
-    camn   = commit --amend --verbose --no-edit
+    cam    = commit --amend --verbose
+    camn   = commit --all --amend --verbose --no-edit
     cp     = commit --patch --verbose
 
     d      = diff
@@ -27,7 +26,11 @@
     g      = grep --ignore-case
 
     l      = log
-    l1     = log -1 --patch
+    l1     = log -1 --patch --stat
+    l2     = log -2 --patch --stat
+    l3     = log -3 --patch --stat
+    l4     = log -4 --patch --stat
+    l5     = log -5 --patch --stat
     lg     = log --graph --oneline
     ll     = log --format='%C(yellow)%h %C(reset)%C(cyan)%C(bold)%>(20)%ah %C(reset)%>(20)%C(green)%an %C(reset)%s' --date short
     lp     = log --patch
