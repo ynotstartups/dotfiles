@@ -46,7 +46,7 @@ snippet ann "Assert is not None" b
 self.assertIsNotNone(${1:${VISUAL:expression}})
 endsnippet
 
-snippet classtd "django test class" b
+snippet classtd "django test class new file" b
 from django.test import TestCase
 
 class Test${1:Class}(TestCase):
@@ -55,8 +55,9 @@ class Test${1:Class}(TestCase):
 
 endsnippet
 
-snippet classtdg "django graphql test class" b
+snippet classtdg "django graphql test new file" b
 from oneview.tests.graphql import GraphqlTestCase
+from oneview.tests.model_mocks import TodoFactory
 
 class Test${1:Class}(GraphqlTestCase):
 	def test_${2:name}(self):
@@ -64,7 +65,7 @@ class Test${1:Class}(GraphqlTestCase):
 
 endsnippet
 
-snippet classt "python unittest test class" b
+snippet classt "python unittest test class new file" b
 from unittest import TestCase
 
 class Test${1:Class}(TestCase):
@@ -116,11 +117,11 @@ endsnippet
 # Print #
 #########
 
-snippet "([\w.]*).F" "print variable with f string = in color cyan" r
+snippet "([\w.]*)[.]F" "print variable with f string = in color cyan" r
 `!p snip.rv = 'f"\\033[36m{' +  match.group(1) + '=}\\033[0m"'`
 endsnippet
 
-snippet '([\w.]*).~' "print with padding ~~~" r
+snippet '([\w.]*)[.]~' "print with padding ~~~" r
 `!p snip.rv = f" {match.group(1)} ".center(60, "~")`
 endsnippet
 
@@ -184,6 +185,8 @@ response = self.schema.execute(
 	variables=variables,
 	context_value=self.context_value,
 )
+
+self.assertFalse(response.errors)
 endsnippet
 
 snippet graphene_query_test "graphene_mutation_test" b
@@ -210,6 +213,6 @@ response = self.schema.execute(
 	context_value=self.context_value,
 )
 
-self.assertIsNone(response.errors)
+self.assertFalse(response.errors)
 self.assertTrue(response.data["todoTODO"]["ok"])
 endsnippet

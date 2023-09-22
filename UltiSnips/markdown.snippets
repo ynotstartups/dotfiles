@@ -7,7 +7,7 @@ snippet standup "standup template" b
 
 - **Reminders**
 	1. open jira board during standup
-	2. standup set up 5 minute timer for every one
+	2. standup set up 4 minute timer for every one
 	3. use epic
 - PR to review
 	+ [ ]
@@ -31,8 +31,8 @@ snippet til "Today I Learn" b
 `!p 
 from datetime import date
 
-# the length of the string is exact 80 character wide
-snip.rv = f"# TIL - TODO                                                         - {date.today().strftime('%d/%b/%y')}"
+# the length of the string is exact 79 character wide
+snip.rv = f"# TIL - TODO                                                        - {date.today().strftime('%d/%b/%y')}"
 `
 endsnippet
 
