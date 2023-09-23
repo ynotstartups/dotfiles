@@ -139,10 +139,11 @@ function ,uat_diff(){
             # wc starts with tab, remove it, extract the number of lines only
             grep -o '\d*' \
     )
-    _echo_green "There are" $number_of_new_commits "new commits ordered from old commits to new commits...\n"
+    _echo_green "There are" $number_of_new_commits "new commits."
+   print "...ordered from old commits to new commits\n"
 
     # change the format to hash, commit date, commit message
-    git --no-pager log origin/env/uat...origin/master --reverse --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%ad %Creset%s" --date human
+    git --no-pager log origin/env/uat...origin/master --reverse --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(15)%ad %Creset%C(green)%C(bold)%<(15)%an %Creset%s" --date human
 
     printf "\n\n" 
 
@@ -150,6 +151,8 @@ function ,uat_diff(){
     if [ $? -eq 1 ]; then
         _echo_red 'There are new migrations! ONLY DEPLOY AT NIGHT!\n'
         git --no-pager diff --stat origin/env/uat...origin/master saltus/oneview/migrations
+    else
+        _echo_green 'There is NO new migrations! OK to deploy anytime.\n'
     fi
 }
 
