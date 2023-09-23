@@ -444,11 +444,16 @@ nnoremap <leader>5 5gt
 #######
 # fzf #
 #######
+
+# Tips:
+# use bang to open in full screen, e.g. `:Rg! foo` opens fzf rg in full screen
+# in fzf interface, use <ctrl-/> to toggle preview
+
 nnoremap <leader>fs :Snippets<cr>
 nnoremap <leader><leader> :Files<cr>
 # leader b to jump to previous buffer
 nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>fb :Buffers<cr>
+# nnoremap <leader>fb :Buffers<cr>
 nnoremap <leader>fc :Commands<cr>
 nnoremap <leader>ff :Files<cr>
 # search all lines in open buffers
@@ -456,8 +461,23 @@ nnoremap <leader>fl :Lines<cr>
 # nnoremap <leader>fm :Marks<cr>
 nnoremap <leader>fm :Maps<cr>
 nnoremap <leader>ft :Tags<cr>
-nnoremap <leader>fw :Rg <c-r><c-w><cr>
+nnoremap <leader>fw :Rg --word-regexp <c-r><c-w><cr>
 nnoremap <leader>fh :History<cr>
+nnoremap <leader>fv :Helptags<cr>
+
+# this allows vim command Rg to be invoked with the same as how rg is invoked
+# in the command line e.g.
+# :Rg -w foo i.e. -w is --word-regexp
+# :Rg -s foo i.e. -s is --case-sensitive
+# :Rg 'a.*b' i.e. arbitrary regular expression
+command! -bang -nargs=* Rg g:fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. <q-args>, 1, <bang>0)
+
+# command! -bang -nargs=* EchoShellQAargs echom shellescape(<q-args>)
+# command! -bang -nargs=* EchoQAargs echom <q-args>
+
+# inoremap <expr> <C-n> fzf#vim#complete(fzf#wrap({
+#     \ 'source': uniq(sort(split(join(getline(1, '$'), "\n"), '\W\+'))),
+#     \ }))
 
 nnoremap <leader>q <esc>:qa<cr>
 
