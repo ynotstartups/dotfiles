@@ -621,6 +621,8 @@ nnoremap <leader>n :NERDTreeFind<cr>
 # completor.vim #
 #################
 
+# prints logs, use `make logs` in ~/Documents/completors 
+g:completor_debug = 1
 # Use TAB to complete when typing words, else inserts TABs as usual.  Uses
 # dictionary, source files, and completor to find matching words to complete.
 
@@ -642,23 +644,24 @@ def g:TabOrComplete(): string
   endif
 enddef
 
+
 # Use `tab` key to select completions.  Default is arrow keys.
 
 # Use tab to trigger auto completion.  Default suggests completions as you type.
-g:completor_auto_trigger = 0
 inoremap <expr> <tab> g:TabOrComplete()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 # removes the preview window
-g:completor_complete_options = 'menu'
+g:completor_auto_trigger = 0
+g:completor_complete_options = 'menuone,preview'
+
+# if auto trigger, I have to use noselect complete option
+# otherwise it's auto completing
+# g:completor_auto_trigger = 1
+# g:completor_complete_options = 'menuone,noselect,preview'
 
 # change from default 2 chars to 1 char
 g:completor_min_chars = 1
-
-# TODO: trying out
-# let g:completor_auto_trigger = 0
-# inoremap <expr> <tab>   pumvisible() ? "<C-N>" : "<C-R>=completor#do('complete')<cr>"
-# inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"
 
 ##################
 # Vim EasyMotion #
