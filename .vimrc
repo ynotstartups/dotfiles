@@ -30,7 +30,8 @@ Plug 'junegunn/fzf.vim'                # fzf vim
 Plug 'junegunn/goyo.vim'               # :Goyo for distraction free writing and reading mode
 Plug 'junegunn/vim-easy-align'         # ga= align first =, ga2= align second =, ga*= align all =
 Plug 'liuchengxu/vista.vim'            # :Vista for tag viewer & markdown table of contents
-Plug 'maralla/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
+# Plug 'maralla/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
+Plug '~/Documents/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'markonm/traces.vim'              # Range, pattern and substitute preview for Vim
 Plug 'osyo-manga/vim-anzu'             # n, N show the number of searches
 Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' # add markdown syntax and :TableFormat to format table
