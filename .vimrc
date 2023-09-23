@@ -390,6 +390,8 @@ nnoremap <silent> <leader>c :nohlsearch<cr>
 
 # leader z to autocorrect words and move cursor to the end of the word
 nnoremap <silent> <leader>z 1z=<cr>g;e
+nnoremap <silent> [z [s
+nnoremap <silent> ]z ]s
 
 # this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
