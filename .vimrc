@@ -226,8 +226,9 @@ autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]\\s[]]\\s
 # pattern for completed todo list e.g. + [x]
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]x[]]\\s
-# pattern for number list e.g. - 1. 
-autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d[.]\\s
+# pattern for number list e.g. 1. 
+autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d\\+[.]\\s
+
 
 # don't hide/conceal code blocks
 g:vim_markdown_conceal_code_blocks = 0
