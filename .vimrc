@@ -117,6 +117,10 @@ set undofile
 set ignorecase
 set smartcase
 
+# show invisible charaters
+# use `:set list`
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:␣,nbsp:+
+
 ###############
 # Colorscheme #
 ###############
