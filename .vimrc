@@ -166,8 +166,7 @@ nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 #############
 
 # see help (shortcut K) for gitgutter-mappings
-# note that updatetime is also used by autosave on save per second
-set updatetime=1000 # how long (in milliseconds) the plugin will wait for GitGutter
+set updatetime=100 # how long (in milliseconds) the plugin will wait for GitGutter
 g:gitgutter_map_keys = 0 # disable gitgutter map
 nmap ]h <plug>(GitGutterNextHunk)
 nmap [h <plug>(GitGutterPrevHunk)
