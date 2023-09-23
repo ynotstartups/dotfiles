@@ -409,6 +409,8 @@ alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
 # Man Page #
 ############
 
+# forcing the manual page prints in 80 columns width
+# makes printing hardcopy man page fits in one page
 export MANWIDTH=80
 
 # try out using vim as pager
