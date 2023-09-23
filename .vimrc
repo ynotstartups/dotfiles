@@ -561,16 +561,22 @@ def CleanUpSetRegister()
     var message = printf('yanked "%s"', import_statement)
     echomsg message
     # puts import_statement into default yank register
-    setreg('*', import_statement, 'V')
+    setreg('*', import_statement)
 enddef
 # known bug
 # this import function name doesn't work if the function is a method in a class
 def g:ImportFunctionName()
+    # after jump to tag ctrl-]
+    # the cursor is position at the start of def or class
+    # puts cursor to the end of line to get the def or class in this line
+    execute "normal! $"
+
     execute "normal! ?def\<cr>wyiw\<c-o>"
     CleanUpSetRegister()
 enddef
 
 def g:ImportClassName()
+    execute "normal! $"
     execute "normal! ?^class\<cr>wyiw\<c-o>"
     CleanUpSetRegister()
 enddef
@@ -578,6 +584,21 @@ enddef
 nnoremap <leader>yif :call g:ImportFunctionName()<cr>
 nnoremap <leader>yid :call g:ImportFunctionName()<cr>
 nnoremap <leader>yic :call g:ImportClassName()<cr>
+
+def g:YankFilenameAndPositionInVimQuickfixFormat()
+    var file_path = @%
+    var cursor_position = getcurpos()
+    var line_number = cursor_position[1]
+    var column_number = cursor_position[2]
+    var quickfix_format_string = $"{file_path}:{line_number}:{column_number}"
+
+    var message = printf('yanked "%s"', quickfix_format_string)
+    echomsg message
+    # puts import_statement into default yank register
+    setreg('*', quickfix_format_string, 'V')
+enddef
+
+nnoremap <leader>yq :call g:YankFilenameAndPositionInVimQuickfixFormat()<cr>
 
 
 ########
