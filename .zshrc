@@ -160,6 +160,18 @@ alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -
 alias ,g_template_disable='git config --local commit.template "/dev/null"'
 alias ,g_template_enable='git config --local --unset commit.template'
 
+function ,g_lint() {
+    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk
+    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk
+    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk
+}
+function ,g_lint_vim() {
+    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk > quickfix.vim
+    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk >> quickfix.vim
+    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk >> quickfix.vim
+    vim -q quickfix.vim
+}
+
 ##########
 # Python #
 ##########
