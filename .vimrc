@@ -499,6 +499,8 @@ enddef
 command! -bang -nargs=0 BindOff :call g:BindOff()
 
 nnoremap <leader>gb :Git blame<cr>
+# show a list of git diff files
+nnoremap <leader>gf :Git diff --name-only origin/master...<cr>
 nnoremap <leader>ge :Gedit<cr>
 
 # nnoremap <leader>gd :tab Git diff<cr>
