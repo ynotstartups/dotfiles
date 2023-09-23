@@ -156,8 +156,8 @@ nnoremap <leader>yn :let @+=expand("%:t")<cr>:echo 'yanked' @+<cr>
 
 # copy python function & class name
 # use with pytest -k FUNCTION NAME
-nnoremap <leader>yf ?def<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
-nnoremap <leader>yd ?def<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
+nnoremap <leader>yf ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
+nnoremap <leader>yd ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
 nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
