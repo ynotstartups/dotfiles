@@ -471,6 +471,7 @@ nnoremap <leader>fv :Helptags<cr>
 # :Rg -w foo i.e. -w is --word-regexp
 # :Rg -s foo i.e. -s is --case-sensitive
 # :Rg 'a.*b' i.e. arbitrary regular expression
+# copied from https://github.com/junegunn/fzf.vim/issues/838#issuecomment-509902575
 command! -bang -nargs=* Rg g:fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. <q-args>, 1, <bang>0)
 
 # command! -bang -nargs=* EchoShellQAargs echom shellescape(<q-args>)
