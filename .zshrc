@@ -240,7 +240,7 @@ alias ,ed='cd $PERSONAL_NOTES && vim dev_notes.md'
 # Tags #
 ########
 
-alias ,ctags_generate_for_python='ctags **/*.py'
+# alias ,ctags_generate_for_python='ctags --python-kinds=-v **/*.py'
 alias ,generate_ctags_for_python='ctags **/*.py'
 
 ##############
