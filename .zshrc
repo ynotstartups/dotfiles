@@ -374,21 +374,21 @@ export RIPGREP_CONFIG_PATH=$HOME/.rgrc
 ######################
 
 # get cheatsheet from cheat.sh e.g. cheatsheet sed
-,cheatsheet() {
-    if [ $# -eq 0 ]; then
-        _echo_red "Missing first argument"
-    fi
+# ,cheatsheet() {
+#     if [ $# -eq 0 ]; then
+#         _echo_red "Missing first argument"
+#     fi
 
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
-        echo "Get cheatsheet from cheat.sh"
-        echo
-        echo "Usage:"
-        echo "    ,cheatsheet sed"
-        return 1
-    fi
+#     if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+#         echo "Get cheatsheet from cheat.sh"
+#         echo
+#         echo "Usage:"
+#         echo "    ,cheatsheet sed"
+#         return 1
+#     fi
 
-    curl cheat.sh/"$1" | less
-}
+#     curl cheat.sh/"$1" | less
+# }
 
 #########
 # MacOS #
@@ -404,6 +404,26 @@ function ,copy_last_screenshot() {
 alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
 
 # Tips: use `say 'hello world'` to use sound synthesizer 
+
+function ,cheatsheet() {
+    # TODO: handle typo or when there is no existing cheatsheet
+
+    if [ $# -eq 0 ]; then
+        _echo_red "Missing first argument"
+    fi
+
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "open cheatsheet in dev_notes.md"
+        echo
+        echo "Usage:"
+        echo "    ,cheatsheet awk"
+        return 1
+    fi
+
+    cd ~/Documents/personal-notes/
+
+    vim -q <(rg --vimgrep --line-regexp -i "# cheatsheet $1" ./dev_notes.md)
+}
 
 ############
 # Man Page #
