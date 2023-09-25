@@ -248,6 +248,10 @@ alias ,vgds=' vim -c ":Git difftool --staged"'
 alias ,vgdo=' vim -c ":Git difftool origin/master..."'
 alias ,vgdot='vim -c ":Git difftool -y origin/master..."'
 
+function ,vrg() {
+    vim -q <(rg --vimgrep "$1")
+}
+
 # quickly edit files in vim
 alias ,ev='cd $DOTFILES       && vim .vimrc'
 alias ,ez='cd $DOTFILES       && vim .zshrc'
