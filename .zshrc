@@ -98,6 +98,86 @@ function ,gnew_branch() {
     git switch "$1"
 }
 
+function ,uat_diff(){
+    # get the latest changes
+    git fetch --quiet
+
+    number_of_new_commits=$(\
+        git log --oneline origin/env/uat...origin/master |\
+          wc -l |\
+            # wc starts with tab, remove it, extract the number of lines only
+            grep -o '\d*' \
+    )
+    _echo_green "There are" $number_of_new_commits "new commits."
+   print "...ordered from old commits to new commits\n"
+
+    # change the format to hash, commit date, commit message
+    git --no-pager log origin/env/uat...origin/master --reverse --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(18)%ad %Creset%C(green)%C(bold)%<(20)%an %Creset%s" --date human
+
+    printf "\n\n" 
+
+    git diff --exit-code --quiet origin/env/uat...origin/master saltus/oneview/migrations
+    if [ $? -eq 1 ]; then
+        _echo_red 'There are new migrations! ONLY DEPLOY AT NIGHT!\n'
+        git --no-pager diff --stat origin/env/uat...origin/master saltus/oneview/migrations
+    else
+        _echo_green 'There is NO new migrations! OK to deploy anytime.\n'
+    fi
+}
+
+
+# delete every branches except main & master & current branch
+alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
+
+alias ,g_template_disable='git config --local commit.template "/dev/null"'
+alias ,g_template_enable='git config --local --unset commit.template'
+
+function ,g_lint() {
+    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk
+    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk
+    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk
+}
+function ,g_lint_vim() {
+    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk > quickfix.vim
+    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk >> quickfix.vim
+    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk >> quickfix.vim
+    vim -q quickfix.vim
+}
+
+
+#################
+# Pull Requests #
+#################
+
+function ,pr_checkout(){
+
+    if [ $# -eq 0 ]; then
+        _echo_red "Missing first argument"
+    fi
+
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "Takes PR branch name, fetch reset and open vim with git diff"
+        echo
+        echo "Usage:"
+        echo "    ,pr_review BRANCH_NAME"
+        echo "    ,pr_review -h"
+        return 1
+    fi
+
+    local branch_name=$1
+
+    # TODO: stops if there are local changes
+    # save local changes
+    git stash
+
+    # switch to branch and fetch latest changes
+    git fetch
+    git switch $branch_name
+    git reset --hard origin/$branch_name
+}
+
+alias ,pr_lint=',g_lint'
+
 # takes PR branch name, fetch reset and open vim with git diff
 function ,pr_review(){
 
@@ -129,51 +209,6 @@ function ,pr_review(){
     vim -c ':Git difftool -y origin/master...'
 }
 
-function ,uat_diff(){
-    # get the latest changes
-    git fetch --quiet
-
-    number_of_new_commits=$(\
-        git log --oneline origin/env/uat...origin/master |\
-          wc -l |\
-            # wc starts with tab, remove it, extract the number of lines only
-            grep -o '\d*' \
-    )
-    _echo_green "There are" $number_of_new_commits "new commits."
-   print "...ordered from old commits to new commits\n"
-
-    # change the format to hash, commit date, commit message
-    git --no-pager log origin/env/uat...origin/master --reverse --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(15)%ad %Creset%C(green)%C(bold)%<(15)%an %Creset%s" --date human
-
-    printf "\n\n" 
-
-    git diff --exit-code --quiet origin/env/uat...origin/master saltus/oneview/migrations
-    if [ $? -eq 1 ]; then
-        _echo_red 'There are new migrations! ONLY DEPLOY AT NIGHT!\n'
-        git --no-pager diff --stat origin/env/uat...origin/master saltus/oneview/migrations
-    else
-        _echo_green 'There is NO new migrations! OK to deploy anytime.\n'
-    fi
-}
-
-
-# delete every branches except main & master & current branch
-alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
-
-alias ,g_template_disable='git config --local commit.template "/dev/null"'
-alias ,g_template_enable='git config --local --unset commit.template'
-
-function ,g_lint() {
-    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk
-    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk
-    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk
-}
-function ,g_lint_vim() {
-    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk > quickfix.vim
-    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk >> quickfix.vim
-    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk >> quickfix.vim
-    vim -q quickfix.vim
-}
 
 ##########
 # Python #
