@@ -438,9 +438,28 @@ nnoremap L gt
 # previous tab
 nnoremap H gT
 # move tabpage to the left
-nnoremap <c-s-h> :tabmove -<cr>
-# move tabpage to the right
-nnoremap <c-s-l> :tabmove +<cr>
+
+def g:TabmoveRightWrap()
+    try
+        tabmove +
+    catch /E475:/
+        # error when this is the last tab
+        # move the tab to the very left
+        tabmove 0
+    endtry
+enddef
+
+def g:TabmoveLeftWrap()
+    try
+        tabmove -
+    catch /E475:/
+        # error when this is the first tab
+        # move the tab to the very left
+        tabmove $
+    endtry
+enddef
+nnoremap <c-h> :call g:TabmoveLeftWrap() <cr>
+nnoremap <c-l> :call g:TabmoveRightWrap() <cr>
 # leader number to go to tab
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
