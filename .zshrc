@@ -443,7 +443,7 @@ function ,cheatsheet() {
 
     cd ~/Documents/personal-notes/
 
-    vim -q <(rg --vimgrep --line-regexp -i "# cheatsheet $1" ./dev_notes.md)
+    vim -q <(rg --vimgrep -i "# cheatsheet.*$1" ./dev_notes.md)
 }
 
 ############
