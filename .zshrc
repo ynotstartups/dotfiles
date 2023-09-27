@@ -376,7 +376,7 @@ function ,docker_build_backend(){
 }
 alias ,be=',docker_build_backend'
 
-alias ,docker_cp_bashrc='docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
+alias ,docker_cp_bashrc='cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
 
 alias ,mb='make bash'
 
