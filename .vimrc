@@ -827,12 +827,14 @@ g:surround_98 = "**\r**"
 # 99
 g:surround_99 = "`\r`"
 
-#########################
-# Vim9 Compile Function #
-#########################
 
 # set vim's comment string to be # 
 autocmd FileType vim setlocal commentstring=#\ %s
+autocmd FileType gitconfig setlocal commentstring=#\ %s
+
+#########################
+# Vim9 Compile Function #
+#########################
 
 # Uncomment the next line to compile the functions for tests 
 defcompile
