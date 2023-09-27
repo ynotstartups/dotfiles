@@ -233,6 +233,13 @@ autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]x[]]\\s
 # pattern for number list e.g. 1. 
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d\\+[.]\\s
 
+def g:FoldLineRespectingLeadingSpace()
+    set textwidth=70
+    substitute/^\s*//g
+    execute "normal! gqq"
+    execute "normal! vip"
+    execute "normal! :substitute/^/          /g\<cr>"
+enddef
 
 # don't hide/conceal code blocks
 g:vim_markdown_conceal_code_blocks = 0
