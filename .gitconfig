@@ -56,6 +56,7 @@
 	defaultBranch = main
 [core]
 	excludesfile = ~/.gitignore_global
+    pager = delta
 [commit]
 	template = /Users/yuhao.huang/Documents/dotfiles/.git_commit_msg.txt
 [pager]
@@ -66,3 +67,33 @@
 	autosquash = true
 [merge]
 	conflictstyle = diff3
+# delta setting
+[interactive]
+    diffFilter = delta --color-only
+# delta setting
+[delta]
+    true-color = always
+    dark = true
+    navigate = true    # use n and N to move between diff sections
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Monokai Extended
+
+
+    file-decoration-style = bold ul ol
+    file-style = bold brightyellow
+
+    commit-decoration-style = bold box ul
+    file-modified-label = modified:
+
+    hunk-header-decoration-style = brightyellow box
+    hunk-header-file-style = none
+    hunk-header-line-number-style = none
+    hunk-header-style = bold file line-number syntax
+
+# delta setting
+[diff]
+    colorMoved = default
+
+[diff "tiger"]
+    xfuncname = "^#.*$"
