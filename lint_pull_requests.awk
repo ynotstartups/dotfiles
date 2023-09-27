@@ -18,7 +18,6 @@ function print_vim_quickfix(column_number) {
     printf("%s:%s:%s: ", filename, addition_starting_line_number - 1, column_number)
 }
 
-
 # this one needs to at the top so that the starting line number is calculated
 # first 
 /^[+]/ {
@@ -26,6 +25,9 @@ function print_vim_quickfix(column_number) {
     addition_starting_line_number += 1
 }
 
+########
+# TODO #
+########
 
 /TODO/ {
     column_number = match($0, "TODO")
@@ -33,6 +35,10 @@ function print_vim_quickfix(column_number) {
     print_vim_quickfix(column_number)
     printf("%sRemaining TODO:%s %s\n", CYAN, RESET, $0)
 }
+
+##########
+# Python #
+##########
 
 /breakpoint/ {
     sub(/^\+[ ]*/,"",$0)
@@ -55,6 +61,29 @@ function print_vim_quickfix(column_number) {
     print_vim_quickfix()
     print("limit try: to absolute minimal amount of code")
 }
+
+##################
+# Oneview Django #
+##################
+
+/filter/ {
+    print_vim_quickfix()
+    print("consider using filter_with_permission_check to return results for specific business unit")
+}
+
+
+##########
+# Celery #
+##########
+
+/app[.]task/ {
+    print_vim_quickfix()
+    print("makes sure a unique name is defined.")
+}
+
+#######
+# Git #
+#######
 
 /^[+][+][+]/ {
     # find filename from git diff message
