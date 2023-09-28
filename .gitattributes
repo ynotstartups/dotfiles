@@ -1,1 +1,2 @@
-*.md	diff=tiger
+*.md	diff=markdown
+.zshrc	diff=zsh

@@ -89,11 +89,19 @@
     hunk-header-decoration-style = brightyellow box
     hunk-header-file-style = none
     hunk-header-line-number-style = none
+    hunk-label = hunk:
     hunk-header-style = bold file line-number syntax
 
 # delta setting
 [diff]
     colorMoved = default
 
-[diff "tiger"]
+[diff "markdown"]
     xfuncname = "^#.*$"
+
+[diff "zsh"]
+    # this regex stands for my custom header, e.g.
+    ########
+    # TODO #
+    ########
+    xfuncname = "^#.*#$"
