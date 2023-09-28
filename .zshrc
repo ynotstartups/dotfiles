@@ -461,6 +461,34 @@ alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
 
 # Tips: use `say 'hello world'` to use sound synthesizer 
 
+alias ,cancel_print_jobs='sudo cancel -a -x'
+
+function ,convert_md_to_pdf() {
+    if [ $# -eq 0 ]; then
+        _echo_red "Missing arguments"
+    fi
+
+    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+        echo "convert markdown to pdf"
+        echo
+        echo "Usage:"
+        echo "    ,convert_md_to_pdf foo.md"
+        echo "Output:"
+        echo "    foo.md.pdf"
+        return 1
+    fi
+
+    pdf_name="$(echo $1 | sed 's/.md$/.pdf/')"
+    echo "Converting from" $1 "to" $pdf_name
+    docker run --rm \
+        -v "$(pwd):/data" -u $(id -u):$(id -g) \
+        pandoc/extra \
+        "$1" -o $pdf_name \
+        --template eisvogel --listings
+
+    _echo_green "Done, please see $pdf_name."
+}
+
 function ,cheatsheet() {
     # TODO: handle typo or when there is no existing cheatsheet
 
