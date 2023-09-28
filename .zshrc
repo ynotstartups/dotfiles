@@ -245,6 +245,7 @@ export FZF_DEFAULT_COMMAND='fd --hidden --type f'
 export FZF_DEFAULT_OPTS="--multi
     --color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672
     --bind 'ctrl-a:select-all'
+    --bind 'ctrl-/:toggle-preview'
 "
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -508,6 +509,7 @@ function ,cheatsheet() {
 
     vim -q <(rg --vimgrep -i "# cheatsheet.*$1" ./dev_notes.md)
 }
+
 
 ############
 # Man Page #
