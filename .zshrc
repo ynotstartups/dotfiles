@@ -475,7 +475,7 @@ function ,convert_md_to_pdf() {
         echo "Usage:"
         echo "    ,convert_md_to_pdf foo.md"
         echo "Output:"
-        echo "    foo.md.pdf"
+        echo "    foo.pdf"
         return 1
     fi
 
@@ -485,10 +485,14 @@ function ,convert_md_to_pdf() {
         -v "$(pwd):/data" -u $(id -u):$(id -g) \
         pandoc/extra \
         "$1" -o $pdf_name \
-        --template eisvogel --listings
+        --template eisvogel --listings \
+        -V book --top-level-division chapter -V classoption=oneside
 
     _echo_green "Done, please see $pdf_name."
 }
+
+# ,pandoc_in_docker example.md -o example.pdf --template eisvogel --listings
+alias ,pandoc_in_docker='docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/extra'
 
 function ,cheatsheet() {
     # TODO: handle typo or when there is no existing cheatsheet
