@@ -552,6 +552,7 @@ nnoremap <leader>ez :$tabedit ~/.zshrc<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 
 nnoremap <leader>eu :UltiSnipsEdit<cr>
+nnoremap <leader>es :UltiSnipsEdit<cr>
 
 nnoremap <leader>et :JumpToTestFile<cr>
 
