@@ -341,7 +341,7 @@ def g:TableConvert(
 enddef
 
 # range allowed, default is current line
-command! -range -nargs=0 TableConvert call g:TableConvert(<line1>, <line2>)
+command! -range -nargs=0 TableConvertTakesRange call g:TableConvert(<line1>, <line2>)
 
 def g:CycleListType()
     # cycle three types of list in markdown, namely
