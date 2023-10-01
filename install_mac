@@ -22,6 +22,9 @@ brew install universal-ctags
 
 brew install git-delta
 
+# for ps2pdf for printing hardcody in vim
+brew install ghostscript
+
 ln -s -v -F "$PWD"/.vimrc "$HOME"/.vimrc
 
 ln -s -v -F "$PWD"/.gitconfig "$HOME"/.gitconfig
