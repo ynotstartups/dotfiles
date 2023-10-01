@@ -101,8 +101,9 @@ set statusline=\ %n    # buffer number
 set statusline+=\ %f    # filename
 set statusline+=%=      # right align
 set statusline+=\ %{expand(&filetype)}
-set statusline+=\ %l/%L # line number / total number or lines
-set statusline+=\ %c    # column number
+set statusline+=\ line:%l/%L # line number / total number or lines
+set statusline+=\ %{GetPageNumberTotalPage()}
+set statusline+=\ col:%c    # column number
 set statusline+=\ %p%%  # percentage
 
 
@@ -832,6 +833,17 @@ g:surround_99 = "`\r`"
 # set vim's comment string to be # 
 autocmd FileType vim setlocal commentstring=#\ %s
 autocmd FileType gitconfig setlocal commentstring=#\ %s
+
+##############
+# Statusline #
+##############
+
+def g:GetPageNumberTotalPage(): string
+    const LINES_PER_PAGE = 80
+    const current_page_in_buffer = line('.') / LINES_PER_PAGE
+    const total_number_of_pages_in_buffer = line('$') / LINES_PER_PAGE
+    return $"page:{current_page_in_buffer}/{total_number_of_pages_in_buffer}"
+enddef
 
 #########################
 # Vim9 Compile Function #
