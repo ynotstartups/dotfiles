@@ -239,9 +239,9 @@ def g:FoldLineRespectingLeadingSpace()
     set textwidth=70
     substitute/^\s*//g
     execute "normal! gqq"
-    execute "normal! vip"
-    execute "normal! :substitute/^/          /g\<cr>"
+    execute "normal! :\<c-u>'[,']substitute/^/          /g\<cr>"
 enddef
+
 
 # don't hide/conceal code blocks
 g:vim_markdown_conceal_code_blocks = 0
