@@ -839,7 +839,7 @@ autocmd FileType gitconfig setlocal commentstring=#\ %s
 ##############
 
 def g:GetPageNumberTotalPage(): string
-    const LINES_PER_PAGE = 80
+    const LINES_PER_PAGE = 68
     const current_page_in_buffer = line('.') / LINES_PER_PAGE
     const total_number_of_pages_in_buffer = line('$') / LINES_PER_PAGE
     return $"page:{current_page_in_buffer}/{total_number_of_pages_in_buffer}"
