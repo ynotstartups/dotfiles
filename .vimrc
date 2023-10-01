@@ -99,6 +99,7 @@ set errorfile=quickfix.vim
 
 set statusline=\ %n    # buffer number
 set statusline+=\ %f    # filename
+set statusline+=\ %{GetHelpSectionName()}
 set statusline+=%=      # right align
 set statusline+=\ %{expand(&filetype)}
 set statusline+=\ line:%l/%L # line number / total number or lines
@@ -777,6 +778,8 @@ hi diffAdded   guifg=#00C200
 # Printing Hardcopy #
 #####################
 
+set printheader=%<%f%h\ %{GetHelpSectionName()}%=Page\ %N
+
 def g:SaveAsHtmlToPrintInDownloads()
   # save as to_print.html with delek colorscheme 
   # delek colorscheme has a white background, more printer friendly
@@ -785,14 +788,31 @@ def g:SaveAsHtmlToPrintInDownloads()
   var current_colorscheme = g:colors_name
   colorscheme delek
   execute "normal! :TOhtml\<cr>"
-  var filename = expand('%:t')
+  var filename = expand('%:t:r')
   var export_path = $"~/Downloads/{filename}"
   execute $"normal! :saveas! {export_path}\<cr>"
   sleep 100m
   execute $"colorscheme {current_colorscheme}"
 enddef
 # command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
-command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
+# command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
+
+def g:SaveAsPDFToPrintInDownloads()
+  # save as to_print.html with delek colorscheme 
+  # delek colorscheme has a white background, more printer friendly
+  # Known bug: cannot use TOPrintHtml twice with error, 
+  # #139: file is loaded in another buffer
+  var current_colorscheme = g:colors_name
+  colorscheme delek
+  var filename = expand('%:t:r') .. '.ps'
+  var export_path = $"~/Downloads/{filename}"
+  execute $"normal! :hardcopy! > {export_path}\<cr>"
+  execute $"normal! :cd ~/Downloads\<cr>"
+  execute $"normal! :!ps2pdf {export_path}\<cr>"
+  execute $"colorscheme {current_colorscheme}"
+enddef
+# command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
+command! TOPrintPDF call g:SaveAsPDFToPrintInDownloads()
 
 #########
 # Vista #
@@ -843,6 +863,26 @@ def g:GetPageNumberTotalPage(): string
     const current_page_in_buffer = line('.') / LINES_PER_PAGE
     const total_number_of_pages_in_buffer = line('$') / LINES_PER_PAGE
     return $"page:{current_page_in_buffer}/{total_number_of_pages_in_buffer}"
+enddef
+
+def g:GetHelpSectionName(): string
+    # 'b'	search Backward instead of forward
+    # 'n'	do Not move the cursor
+    # 'W'	don't Wrap around the end of the file
+    const section_header_line_number = search('^=\{78}', 'bnW')
+    var section_header: string
+    if section_header_line_number != 0
+        section_header = getline(section_header_line_number + 1)
+        section_header = substitute(
+            section_header,
+            '^\([.*0-9a-zA-Z ]*\)\t*.*',
+            '\=submatch(1)',
+            ''
+        )
+    else
+        section_header = ''
+    endif
+    return section_header
 enddef
 
 #########################
