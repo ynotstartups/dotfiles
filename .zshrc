@@ -346,7 +346,7 @@ function ,ssh(){
         return 1
     fi
 
-    ssh -i '~/.ssh/aws-eb' "ec2-user@$1"
+    ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$1"
 }
 
 function ,npm_run_frontend(){
