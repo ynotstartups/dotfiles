@@ -285,7 +285,7 @@ alias ,vgdo=' vim -c ":Git difftool origin/master..."'
 alias ,vgdot='vim -c ":Git difftool -y origin/master..."'
 
 function ,vrg() {
-    vim -q <(rg --vimgrep "$1")
+    vim -q <(rg --vimgrep "$@")
 }
 
 # quickly edit files in vim
@@ -425,27 +425,6 @@ function ,ip_of(){
 ######
 
 export RIPGREP_CONFIG_PATH=$HOME/.rgrc
-
-######################
-# cheatsheet website #
-######################
-
-# get cheatsheet from cheat.sh e.g. cheatsheet sed
-# ,cheatsheet() {
-#     if [ $# -eq 0 ]; then
-#         _echo_red "Missing first argument"
-#     fi
-
-#     if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
-#         echo "Get cheatsheet from cheat.sh"
-#         echo
-#         echo "Usage:"
-#         echo "    ,cheatsheet sed"
-#         return 1
-#     fi
-
-#     curl cheat.sh/"$1" | less
-# }
 
 #########
 # MacOS #
