@@ -97,17 +97,6 @@ set spellcapcheck= # turn off spell check says first character not captical as e
 # set the default errorfile, so that vim -q automatically open quickfix.vim
 set errorfile=quickfix.vim
 
-set statusline=\ %n    # buffer number
-set statusline+=\ %f    # filename
-set statusline+=\ %{GetHelpSectionName()}
-set statusline+=%=      # right align
-set statusline+=\ %{expand(&filetype)}
-set statusline+=\ line:%l/%L # line number / total number or lines
-set statusline+=\ %{GetPageNumberTotalPage()}
-set statusline+=\ col:%c    # column number
-set statusline+=\ %p%%  # percentage
-
-
 # https://vi.stackexchange.com/questions/6/how-can-i-use-the-undofile
 # keep undo history after file is closed
 # if !isdirectory($HOME."/.vim/undo-dir")
@@ -863,7 +852,7 @@ def g:GetPageNumberTotalPage(): string
     const LINES_PER_PAGE = 68
     const current_page_in_buffer = line('.') / LINES_PER_PAGE
     const total_number_of_pages_in_buffer = line('$') / LINES_PER_PAGE
-    return $"page:{current_page_in_buffer}/{total_number_of_pages_in_buffer}"
+    return $"P:{current_page_in_buffer}/{total_number_of_pages_in_buffer}"
 enddef
 
 def g:GetHelpSectionName(): string
@@ -885,6 +874,26 @@ def g:GetHelpSectionName(): string
     endif
     return section_header
 enddef
+
+def g:GitStatus(): string
+  const [added, modified, removed] = g:GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', added, modified, removed)
+enddef
+
+# left section
+set statusline=\ %f    # filename
+set statusline+=\ [%{expand(&filetype)}]
+set statusline+=\ %{GetHelpSectionName()}
+
+# middle section
+set statusline+=%=
+set statusline+=%{GitStatus()}
+
+# right section
+set statusline+=%=
+set statusline+=\ L:%03l/%L # line number / total number or lines
+set statusline+=\ C:%03c    # column number
+set statusline+=\ %{GetPageNumberTotalPage()}
 
 #########################
 # Vim9 Compile Function #
