@@ -66,11 +66,10 @@ function print_vim_quickfix(column_number) {
 # Oneview Django #
 ##################
 
-/filter/ {
+/filter|all/ {
     print_vim_quickfix()
     print("consider using filter_with_permission_check to return results for specific business unit")
 }
-
 
 ##########
 # Celery #
