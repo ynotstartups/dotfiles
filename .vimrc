@@ -552,6 +552,7 @@ nnoremap <leader>sv :source ~/.vimrc<cr>
 nnoremap <leader>ez :$tabedit ~/.zshrc<cr>
 
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
+nnoremap <leader>ew :$tabedit ~/Documents/personal-notes/work_notes.md<cr>
 
 nnoremap <leader>eu :UltiSnipsEdit<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
