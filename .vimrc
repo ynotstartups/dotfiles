@@ -885,7 +885,6 @@ enddef
 
 # left section
 set statusline=\ %f    # filename
-set statusline+=\ [%{expand(&filetype)}]
 set statusline+=\ %{GetHelpSectionName()}
 
 # middle section
@@ -894,6 +893,7 @@ set statusline+=%{GitStatus()}
 
 # right section
 set statusline+=%=
+set statusline+=\ [%{expand(&filetype)}]
 set statusline+=\ L:%03l/%03L # line number / total number or lines
 set statusline+=\ C:%03c    # column number
 set statusline+=\ %{GetPageNumberTotalPage()}
