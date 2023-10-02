@@ -852,7 +852,10 @@ def g:GetPageNumberTotalPage(): string
     const LINES_PER_PAGE = 68
     const current_page_in_buffer = line('.') / LINES_PER_PAGE
     const total_number_of_pages_in_buffer = line('$') / LINES_PER_PAGE
-    return $"P:{current_page_in_buffer}/{total_number_of_pages_in_buffer}"
+    return printf("P:%02s/%02s",
+        current_page_in_buffer,
+        total_number_of_pages_in_buffer
+   )
 enddef
 
 def g:GetHelpSectionName(): string
@@ -891,7 +894,7 @@ set statusline+=%{GitStatus()}
 
 # right section
 set statusline+=%=
-set statusline+=\ L:%03l/%L # line number / total number or lines
+set statusline+=\ L:%03l/%03L # line number / total number or lines
 set statusline+=\ C:%03c    # column number
 set statusline+=\ %{GetPageNumberTotalPage()}
 
