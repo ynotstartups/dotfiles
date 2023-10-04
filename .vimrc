@@ -162,15 +162,35 @@ nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 # GitGutter #
 #############
 
+def g:GitGutterNextHunkCycle()
+    var line = line('.')
+    silent! GitGutterNextHunk
+    if line('.') == line
+        # go to first line
+        :1
+        :GitGutterNextHunk
+    endif
+enddef
+
+def g:GitGutterPrevHunkCycle()
+    var line = line('.')
+    silent! GitGutterPrevHunk
+    if line('.') == line
+        # go to last line
+        :$
+        :GitGutterPrevHunk
+    endif
+enddef
+
 # see help (shortcut K) for gitgutter-mappings
 set updatetime=100 # how long (in milliseconds) the plugin will wait for GitGutter
 g:gitgutter_map_keys = 0 # disable gitgutter map
-nmap ]h <plug>(GitGutterNextHunk)
-nmap [h <plug>(GitGutterPrevHunk)
-nmap <leader>hp <plug>(GitGutterPreviewHunk)
-nmap <leader>ha <plug>(GitGutterStageHunk)
-nmap <leader>hs <plug>(GitGutterStageHunk)
-nmap <leader>hu <plug>(GitGutterUndoHunk)
+nnoremap ]h :<c-u>call g:GitGutterNextHunkCycle()<cr>
+nnoremap [h :<c-u>call g:GitGutterPrevHunkCycle()<cr>
+nnoremap <leader>hp <plug>(GitGutterPreviewHunk)
+nnoremap <leader>ha <plug>(GitGutterStageHunk)
+nnoremap <leader>hs <plug>(GitGutterStageHunk)
+nnoremap <leader>hu <plug>(GitGutterUndoHunk)
 
 nnoremap <leader>hq :GitGutterQuickFix <bar> copen<cr>
 
