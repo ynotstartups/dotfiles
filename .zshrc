@@ -287,6 +287,7 @@ alias ,vgdot='vim -c ":Git difftool -y origin/master..."'
 function ,vrg() {
     vim -q <(rg --vimgrep "$@")
 }
+alias vrg=',vrg'
 
 # quickly edit files in vim
 alias ,ev='cd $DOTFILES       && vim .vimrc'
