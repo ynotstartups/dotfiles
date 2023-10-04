@@ -128,6 +128,8 @@ colorscheme molokai
 # puts the cursor on the column of a mark, instead of first non-blank
 # character
 nnoremap ' `
+# instead of using '' to jump to previous mark use '' to jump to last edit
+nnoremap '' `.
 
 # qq to record, Q to replay
 nnoremap Q @q
@@ -322,13 +324,18 @@ def g:TableConvert(
 )
     # covert a list into a markdown table
     # limitation: only accepts list with 2 items
-    # - `foo` - foo description
+    # e.g. - `foo` - foo description
     var range = $':{start_line_number},{end_line_number}'
-    execute $"{range} substitute/-\\|$/|/g"
+    # changes first - to |
+    silent execute $"{range} substitute/-/|/"
+    # changes second - to |
+    silent execute $"{range} substitute/-/|/"
+    # add | to the end of line
+    silent execute $"{range} substitute/$/|/"
     execute "normal! {"
     execute "normal! i|||\<esc>"
     execute "normal! o|-|-|\<esc>"
-    execute "normal! :TableFormat\<esc>"
+    silent execute "normal! :TableFormat\<esc>"
 enddef
 
 # range allowed, default is current line
