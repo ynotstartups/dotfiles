@@ -62,11 +62,22 @@ function print_vim_quickfix(column_number) {
     print("limit try: to absolute minimal amount of code")
 }
 
+/\.error\(/ {
+    print_vim_quickfix()
+    print("use logger.exception if it's in an Exception")
+
+`logger.exception` is equivalent to `logger.error("msg", exc_info=True)`,
+logger.error("msg") doesn't include the error stacktrace. 
+> Exception info is added to the logging message. This function should only be called from an exception handler.
+https://docs.python.org/3/library/logging.html#logging.exception
+}
+
+
 ##################
 # Oneview Django #
 ##################
 
-/filter|all/ {
+/\.filter\(|\.all\(/ {
     print_vim_quickfix()
     print("consider using filter_with_permission_check to return results for specific business unit")
 }
