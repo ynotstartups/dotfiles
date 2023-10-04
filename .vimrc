@@ -784,8 +784,7 @@ def g:SaveAsHtmlToPrintInDownloads()
   sleep 100m
   execute $"colorscheme {current_colorscheme}"
 enddef
-# command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
-# command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
+command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
 
 def g:SaveAsPDFToPrintInDownloads()
   # save as to_print.html with delek colorscheme 
@@ -801,7 +800,6 @@ def g:SaveAsPDFToPrintInDownloads()
   execute $"normal! :!ps2pdf {export_path}\<cr>"
   execute $"colorscheme {current_colorscheme}"
 enddef
-# command PrintHtml colorscheme<space>delek<bar>:TOhtml<bar>:saveas<space>~/Downloads/to_print.html<bar>:colorscheme<space>molokai
 command! TOPrintPDF call g:SaveAsPDFToPrintInDownloads()
 
 #########
