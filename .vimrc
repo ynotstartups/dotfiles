@@ -164,21 +164,21 @@ nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
 def g:GitGutterNextHunkCycle()
     var line = line('.')
-    silent! GitGutterNextHunk
+    execute "normal! :silent! GitGutterNextHunk\<cr>"
     if line('.') == line
         # go to first line
         :1
-        :GitGutterNextHunk
+        execute "normal! :\<c-u>GitGutterNextHunk\<cr>"
     endif
 enddef
 
 def g:GitGutterPrevHunkCycle()
     var line = line('.')
-    silent! GitGutterPrevHunk
+    execute "normal! :silent! GitGutterPrevHunk\<cr>"
     if line('.') == line
         # go to last line
         :$
-        :GitGutterPrevHunk
+        execute "normal! :\<c-u>GitGutterPrevHunk\<cr>"
     endif
 enddef
 
