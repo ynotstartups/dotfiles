@@ -463,7 +463,7 @@ function ,convert_md_to_pdf() {
     pdf_name="$(echo $1 | sed 's/.md$/.pdf/')"
     echo "Converting from" $1 "to" $pdf_name
     docker run --rm \
-        -v "$(pwd):/data" -u $(id -u):$(id -g) \
+        -v "$(pwd):/data" \
         pandoc/extra \
         "$1" -o $pdf_name \
         --template eisvogel --listings \
