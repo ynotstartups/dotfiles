@@ -43,7 +43,7 @@ alias help='run-help'
 alias e='exit'
 
 # autojump j setup
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+[[ -f /opt/homebrew/etc/profile.d/autojump.sh ]] && . /opt/homebrew/etc/profile.d/autojump.sh
 
 function _echo_green() { # usage: _echo_green foo bar baz message
     echo $fg_bold[green]$@$reset_color
@@ -82,11 +82,11 @@ alias g='git'
 alias gs='git status'
 
 function ,gnew_branch() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _echo_red "Missing first argument"
     fi
 
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+    if [[ $# -eq 0 || "$1" = "-h" ]]; then
         echo "Switch to new branch & fetch origin"
         echo
         echo "Usage:"
@@ -117,7 +117,7 @@ function ,uat_diff(){
     printf "\n\n" 
 
     git diff --exit-code --quiet origin/env/uat...origin/master saltus/oneview/migrations
-    if [ $? -eq 1 ]; then
+    if [[ $? -eq 1 ]]; then
         _echo_red 'There are new migrations! ONLY DEPLOY AT NIGHT!\n'
         git --no-pager diff --stat origin/env/uat...origin/master saltus/oneview/migrations
     else
@@ -151,11 +151,11 @@ function ,g_lint_vim() {
 
 function ,pr_checkout(){
 
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _echo_red "Missing first argument"
     fi
 
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+    if [[ $# -eq 0 || "$1" = "-h" ]]; then
         echo "Takes PR branch name, fetch reset and open vim with git diff"
         echo
         echo "Usage:"
@@ -181,11 +181,11 @@ alias ,pr_lint=',g_lint'
 # takes PR branch name, fetch reset and open vim with git diff
 function ,pr_review(){
 
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _echo_red "Missing first argument"
     fi
 
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+    if [[ $# -eq 0 || "$1" = "-h" ]]; then
         echo "Takes PR branch name, fetch reset and open vim with git diff"
         echo
         echo "Usage:"
@@ -226,9 +226,9 @@ function ,virtualenv_setup() {
 }
 
 function ,activate() {
-    if [ -d ".venv" ]; then
+    if [[ -d ".venv" ]]; then
         . .venv/bin/activate
-    elif [ -d "venv" ]; then
+    elif [[ -d "venv" ]]; then
         . venv/bin/activate
     else {
         _echo_red 'No virtualenv found!'
@@ -250,7 +250,7 @@ export FZF_DEFAULT_OPTS="--multi
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 # inspired by https://bluz71.github.io/2018/11/26/fuzzy-finding-in-bash-with-fzf.html
 # use fzf to find a custom command
@@ -336,11 +336,11 @@ function ,docker_attach_oneview(){
 }
 
 function ,ssh(){
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _echo_red "Missing first argument"
     fi
     
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+    if [[ $# -eq 0 || "$1" = "-h" ]]; then
         echo "ssh into oneview's elastic beanstalk"
         echo
         echo "Usage:"
@@ -396,11 +396,11 @@ autoload -Uz compinit && compinit
 
 # find the ip of a website ,ip_of https://google.com
 function ,ip_of(){
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _echo_red "Missing first argument"
     fi
 
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+    if [[ $# -eq 0 || "$1" = "-h" ]]; then
         echo "Find the ip of a website"
         echo
         echo "Usage:"
@@ -414,7 +414,7 @@ function ,ip_of(){
     nslookup $domain
 
     # $? is the exit code of nslookup, 0 means good, other means bad
-    if [ $? -eq 0 ]; then
+    if [[ $? -eq 0 ]]; then
         _echo_green 'Query succeed.'
     else
         _echo_red   'Query failed.'
@@ -446,11 +446,11 @@ alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
 alias ,cancel_print_jobs='sudo cancel -a -x'
 
 function ,convert_md_to_pdf() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _echo_red "Missing arguments"
     fi
 
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+    if [[ $# -eq 0 || "$1" = "-h" ]]; then
         echo "convert markdown to pdf"
         echo
         echo "Usage:"
@@ -478,11 +478,11 @@ alias ,pandoc_in_docker='docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) 
 function ,cheatsheet() {
     # TODO: handle typo or when there is no existing cheatsheet
 
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         _echo_red "Missing first argument"
     fi
 
-    if [ $# -eq 0 ] || [ "$1" = "-h" ]; then
+    if [[ $# -eq 0 || "$1" = "-h" ]]; then
         echo "open cheatsheet in dev_notes.md"
         echo
         echo "Usage:"
