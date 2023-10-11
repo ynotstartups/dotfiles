@@ -58,7 +58,7 @@
 	excludesfile = ~/.gitignore_global
     pager = delta
 [commit]
-	template = /Users/yuhao.huang/Documents/dotfiles/.git_commit_msg.txt
+	template = /Users/yuhao.huang/Documents/dotfiles/git_commit_template.txt
 [pager]
 	branch = false
 [rerere]
