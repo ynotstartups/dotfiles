@@ -1,15 +1,22 @@
 # ctags
 tags
+
 # vim swap files
 *.swp
+
 # mac file
 .DS_Store
+
 # python
 .venv
 venv
 __pycache__
 .coverage
+
 # vim
 quickfix.vim
 quickfix/
 Session.vim
+
+# personal workflow
+pr.md
