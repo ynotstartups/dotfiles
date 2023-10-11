@@ -806,7 +806,7 @@ def g:SaveAsHtmlToPrintInDownloads()
   colorscheme delek
   execute "normal! :TOhtml\<cr>"
   var filename = expand('%:t:r')
-  var export_path = $"~/Downloads/{filename}"
+  var export_path = $"~/Downloads/{filename}.html"
   execute $"normal! :saveas! {export_path}\<cr>"
   sleep 100m
   execute $"colorscheme {current_colorscheme}"
@@ -887,7 +887,7 @@ def g:GetHelpSectionName(): string
     # 'b'	search Backward instead of forward
     # 'n'	do Not move the cursor
     # 'W'	don't Wrap around the end of the file
-    const section_header_line_number = search('^=\{78}', 'bnW')
+    const section_header_line_number = search('^=\{70,}', 'bnW')
     var section_header: string
     if section_header_line_number != 0
         section_header = getline(section_header_line_number + 1)
