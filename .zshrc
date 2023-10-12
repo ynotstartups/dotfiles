@@ -237,6 +237,11 @@ function ,activate() {
     fi
 }
 
+alias ,python3_8_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.8 python'
+alias ,python3_9_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.9 python'
+alias ,python3_10_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.10 python'
+alias ,python3_11_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.11 python'
+
 #######
 # fzf #
 #######
@@ -352,6 +357,8 @@ function ,ssh(){
 }
 
 function ,npm_run_frontend(){
+    # stops the react container, not sure why it's started automatically
+    docker stop $(docker ps -a -q --filter='name=oneview-react-1')
     cd ~/Documents/oneview/reactapp
     npm start
 }
@@ -380,6 +387,7 @@ function ,docker_build_backend(){
 alias ,be=',docker_build_backend'
 
 alias ,docker_cp_bashrc='cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
+alias ,docker_logs_backend='docker logs --follow $(docker ps -a -q --filter="name=oneview-django-1")'
 
 alias ,mb='make bash'
 
