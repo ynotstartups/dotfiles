@@ -22,3 +22,6 @@ coverage-test:
 	. .venv/bin/activate; \
 		coverage run --source . -m pytest **/*.py; \
 		coverage report --show-missing
+
+tags:
+	ctags --langmap=zsh:.zshrc .zshrc .vimrc **/*.py *.awk *.md
