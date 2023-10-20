@@ -356,6 +356,24 @@ function ,ssh(){
     ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$1"
 }
 
+function ,ssh_uat(){
+    ip_address=$(aws ec2 describe-instances \
+        --filters 'Name=tag:Name,Values=oneview-uat-leader' \
+        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
+    )
+
+    ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+}
+
+function ,ssh_prod(){
+    ip_address=$(aws ec2 describe-instances \
+        --filters 'Name=tag:Name,Values=oneview-prod-leader' \
+        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
+    )
+
+    ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+}
+
 function ,npm_run_frontend(){
     # stops the react container, not sure why it's started automatically
     docker stop $(docker ps -a -q --filter='name=oneview-react-1')
