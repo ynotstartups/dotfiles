@@ -523,8 +523,8 @@ function ,cheatsheet() {
 
 alias ,hardcopy='lpr -p -o EPIJ_Silt=1 -o Resolution=720x720dpi -o EPIJ_Qual=307'
 alias ,hardcopy_normal_quality='lpr -p -o EPIJ_Silt=0 -o Resolution=360x360dpi -o EPIJ_Qual=303'
-alias ,hardcopy_10_standup='\
-    lpr -p -o EPIJ_Silt=0 -o Resolution=360x360dpi -o EPIJ_Qual=303 \
+alias ,hardcopy_10_standup_template='\
+    lpr -p -o EPIJ_Silt=0 -o scaling=110 -o Resolution=360x360dpi -o EPIJ_Qual=303 \
     -# 10 ~/Documents/personal-notes/standup_template.pdf'
 
 ########
