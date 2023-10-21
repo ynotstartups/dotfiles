@@ -25,6 +25,9 @@ brew install git-delta
 # for ps2pdf for printing hardcody in vim
 brew install ghostscript
 
+# for ps2pdf for printing hardcody in vim
+brew install tree
+
 ln -s -v -F "$PWD"/.vimrc "$HOME"/.vimrc
 
 ln -s -v -F "$PWD"/.gitconfig "$HOME"/.gitconfig
@@ -32,7 +35,6 @@ ln -s -v -F "$PWD"/.gitattributes "$HOME"/.config/git/.gitattributes
 ln -s -v -F "$PWD"/.gitignore_global "$HOME"/.gitignore_global
 
 ln -s -v -F "$PWD"/.zshrc "$HOME"/.zshrc
-
 
 ln -s -v -F "$PWD"/.pdbrc "$HOME"/.pdbrc
 
