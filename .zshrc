@@ -144,6 +144,15 @@ function ,g_lint_vim() {
     vim -q quickfix.vim
 }
 
+function ,g_s_notes() {
+    directories=(~/Documents/personal-notes ~/Documents/dotfiles ~/Documents/notes)
+
+    for directory in ${directories[@]}; do
+        _echo_green git status in "$directory"
+        git -C $directory status
+    done
+}
+
 
 #################
 # Pull Requests #
