@@ -15,7 +15,7 @@ endif
 
 plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            # automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'SirVer/ultisnips'                # snippets
+# Plug 'SirVer/ultisnips'                # snippets
 Plug 'airblade/vim-gitgutter'          # shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         # changes word casing: `gst` Foo Bar, `gs_` foo_bar, `gsm` FooBar
 Plug 'davidhalter/jedi-vim'            # vim python, leader k to go to doc, leader d to definition
@@ -31,7 +31,7 @@ Plug 'junegunn/goyo.vim'               # :Goyo for distraction free writing and 
 Plug 'junegunn/vim-easy-align'         # ga= align first =, ga2= align second =, ga*= align all =
 Plug 'liuchengxu/vista.vim'            # :Vista for tag viewer & markdown table of contents
 # Plug 'maralla/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
-Plug '~/Documents/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
+# Plug '~/Documents/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'markonm/traces.vim'              # Range, pattern and substitute preview for Vim
 Plug 'osyo-manga/vim-anzu'             # n, N show the number of searches
 Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' # add markdown syntax and :TableFormat to format table
@@ -566,6 +566,7 @@ nnoremap <leader>ge :Gedit<cr>
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
 nnoremap <leader>sv :source ~/.vimrc<cr>
 
+nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ez :$tabedit ~/.zshrc<cr>
 
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
