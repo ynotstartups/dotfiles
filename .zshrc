@@ -145,11 +145,12 @@ function ,g_lint_vim() {
 }
 
 function ,g_s_notes() {
-    directories=(~/Documents/personal-notes ~/Documents/dotfiles ~/Documents/notes)
+    directories=(personal-notes dotfiles notes docs)
 
     for directory in ${directories[@]}; do
         _echo_green git status in "$directory"
-        git -C $directory status
+        git -C "$HOME/Documents/$directory" status
+        echo ""
     done
 }
 
