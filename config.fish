@@ -11,7 +11,18 @@ function fish_hybrid_key_bindings --description \
     fish_vi_key_bindings --no-erase
 end
 
+########
+# Misc #
+########
+
 set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
+
+# setup j which is autojump
+[ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
+
+abbr --add fd_all_files fd --hidden --no-ignore
+
+set --global --export EDITOR vim
 
 #########
 # Theme #
@@ -42,6 +53,23 @@ set -g fish_key_bindings fish_hybrid_key_bindings
 
 alias e='exit'
 
+#################
+# Standup Notes #
+#################
+
+set PERSONAL_NOTES "$HOME/Documents/personal-notes/"
+set NOTES          "$HOME/Documents/notes/"
+set DOTFILES       "$HOME/Documents/dotfiles/"
+
+# stand up notes related
+function s
+    cd "$PERSONAL_NOTES"
+    vim -p ./standup/$(ls -t -1 "$PERSONAL_NOTES"'standup' | head -n 1) work_notes.md dev_notes.md glossary.md .bashrc
+end
+# sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
+# and open it in vim
+alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
+
 #######
 # git #
 #######
@@ -53,15 +81,12 @@ function ,g_s_notes;
     set directories personal-notes dotfiles notes docs
 
     for directory in $directories
-        set_color cyan; echo "$directory" \n; set_color normal;
+        set_color --bold cyan; echo ===== $directory ===== \n; set_color normal;
         git -C "$HOME/Documents/$directory" status
         echo ""
     end
 end
 
-set PERSONAL_NOTES "$HOME/Documents/personal-notes/"
-set NOTES          "$HOME/Documents/notes/"
-set DOTFILES       "$HOME/Documents/dotfiles/"
 
 alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
 alias ,ef="cd $DOTFILES       && vim config.fish"
@@ -82,3 +107,20 @@ alias ,hardcopy_10_standup_template='\
 # Cups link: http://localhost:631/
 # logins with laptops's username and password
 # /private/etc/cups/ppd
+
+######
+# rg #
+######
+
+set --global --export RIPGREP_CONFIG_PATH $HOME/.rgrc
+
+############
+# Man Page #
+############
+
+# forcing the manual page prints in 80 columns width
+# makes printing hardcopy man page fits in one page
+set --global --export MANWIDTH 80
+
+# try out using vim as pager
+set --global --export MANPAGER "vim +MANPAGER --not-a-term -"
