@@ -670,6 +670,7 @@ g:jedi#usages_command = "<leader>u"
 ############
 
 var NERDTreeIgnore = ['__pycache__']
+var NERDTreeShowHidden = 1
 nnoremap <leader>n :NERDTreeFind<cr>
 
 #################
