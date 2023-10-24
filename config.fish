@@ -224,8 +224,8 @@ set --global --export FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 #######
 
 function ,vrg
-    rg --vimgrep $argv > quickfix.vim
-    vim -q quickfix.vim
+    # fish doesn't have `<(foo)` syntax instead you can do (foo | psub)
+    vim -q (rg --vimgrep $argv | psub) -c 'copen'
 end
 
 alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
