@@ -11,18 +11,35 @@ function fish_hybrid_key_bindings --description \
     fish_vi_key_bindings --no-erase
 end
 
-########
-# Misc #
-########
+##########
+# Prompt #
+##########
 
-set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
+function fish_prompt --description 'Informative prompt'
+    #Save the return status of the previous command
+    set -l last_pipestatus $pipestatus
+    set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
 
-# setup j which is autojump
-[ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
+    if functions -q fish_is_root_user; and fish_is_root_user
+        printf '%s@%s %s%s%s# ' $USER (prompt_hostname) (set -q fish_color_cwd_root
+                                                         and set_color $fish_color_cwd_root
+                                                         or set_color $fish_color_cwd) \
+            (prompt_pwd) (set_color normal)
+    else
+        set -l status_color (set_color $fish_color_status)
+        set -l statusb_color (set_color --bold $fish_color_status)
+        set -l pipestatus_string (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
 
-abbr --add fd_all_files fd --hidden --no-ignore
+        printf '[%s] %s%s %s%s%s%s \n> ' \
+            (date "+%H:%M:%S") \
+            (set_color $fish_color_cwd) $PWD  \
+            (set_color white) (fish_git_prompt) \
+            $pipestatus_string \
+            (set_color normal)
+    end
+end
 
-set --global --export EDITOR vim
+set -g fish_key_bindings fish_hybrid_key_bindings
 
 #########
 # Theme #
@@ -49,17 +66,35 @@ set fish_pager_color_description 49483E # the color of the completion descriptio
 set fish_pager_color_progress F8F8F2 # the color of the progress bar at the bottom left corner
 set fish_pager_color_secondary F8F8F2 # the background color of the every second completion
 
-set -g fish_key_bindings fish_hybrid_key_bindings
 
+########
+# Misc #
+########
+
+set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
+
+
+# setup j which is autojump
+[ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
+
+abbr --add fd_all_files fd --hidden --no-ignore
+
+set --global --export EDITOR vim
+
+alias ll='ls -lha'
 alias e='exit'
 
-#################
-# Standup Notes #
-#################
+####################
+# Folder Variables #
+####################
 
 set PERSONAL_NOTES "$HOME/Documents/personal-notes/"
 set NOTES          "$HOME/Documents/notes/"
 set DOTFILES       "$HOME/Documents/dotfiles/"
+
+#################
+# Standup Notes #
+#################
 
 # stand up notes related
 function s
@@ -77,7 +112,13 @@ alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 alias g='git'
 alias gs='git status'
 
-function ,g_s_notes;
+# delete every branches except main & master & current branch
+alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
+
+alias ,g_template_disable='git config --local commit.template "/dev/null"'
+alias ,g_template_enable='git config --local --unset commit.template'
+
+function ,g_s_notes
     set directories personal-notes dotfiles notes docs
 
     for directory in $directories
@@ -87,16 +128,55 @@ function ,g_s_notes;
     end
 end
 
+function ,gnew_branch
+    # if [[ $# -eq 0 ]]; then
+    #     _echo_red "Missing first argument"
+    # fi
 
-alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
-alias ,ef="cd $DOTFILES       && vim config.fish"
-alias ,ev="cd $DOTFILES       && vim .vimrc"
-alias ,ew="cd $PERSONAL_NOTES && vim work_notes.md"
-alias ,ez="cd $DOTFILES       && vim .zshrc"
+    # if [[ $# -eq 0 || "$1" = "-h" ]]; then
+    #     echo "Switch to new branch & fetch origin"
+    #     echo
+    #     echo "Usage:"
+    #     echo "    ,gnew_branch BRANCH_NAME"
+    #     return 1
+    # fi
+    set new_branch_name $argv[1]
+
+    git fetch origin master:$new_branch_name
+    git switch $new_branch_name
+end
 
 #########
 # MacOS #
 #########
+
+function ,convert_md_to_pdf
+    # if [[ $# -eq 0 ]]; then
+    #     _echo_red "Missing arguments"
+    # fi
+
+    # if [[ $# -eq 0 || "$1" = "-h" ]]; then
+    #     echo "convert markdown to pdf"
+    #     echo
+    #     echo "Usage:"
+    #     echo "    ,convert_md_to_pdf foo.md"
+    #     echo "Output:"
+    #     echo "    foo.pdf"
+    #     return 1
+    # fi
+
+    set markdown_name $argv[1]
+    set pdf_name $(echo $markdown_name | sed 's/.md$/.pdf/')
+    echo "Converting from" $markdown_name "to" $pdf_name
+    docker run --rm \
+        -v "$(pwd):/data" \
+        pandoc/extra \
+        "$markdown_name" -o $pdf_name \
+        --template eisvogel --listings \
+        -V book --top-level-division chapter -V classoption=oneside
+    and echo "Done, please see $pdf_name."
+    or echo "Failed!"
+end
 
 alias ,hardcopy='lpr -p -o EPIJ_Silt=1 -o Resolution=720x720dpi -o EPIJ_Qual=307'
 alias ,hardcopy_normal_quality='lpr -p -o EPIJ_Silt=0 -o Resolution=360x360dpi -o EPIJ_Qual=303'
@@ -124,3 +204,107 @@ set --global --export MANWIDTH 80
 
 # try out using vim as pager
 set --global --export MANPAGER "vim +MANPAGER --not-a-term -"
+#######
+# fzf #
+#######
+
+set --global --export FZF_DEFAULT_COMMAND 'fd --hidden --type f'
+set --global --export FZF_DEFAULT_OPTS "--multi
+     --color=bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672
+     --bind 'ctrl-a:select-all'
+     --bind 'ctrl-/:toggle-preview'
+"
+
+set --global --export FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+
+# [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
+#######
+# vim #
+#######
+
+function ,vrg
+    rg --vimgrep $argv > quickfix.vim
+    vim -q quickfix.vim
+end
+
+alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
+alias ,ef="cd $DOTFILES       && vim config.fish"
+alias ,ev="cd $DOTFILES       && vim .vimrc"
+alias ,ew="cd $PERSONAL_NOTES && vim work_notes.md"
+alias ,ez="cd $DOTFILES       && vim .zshrc"
+
+########
+# Tags #
+########
+
+# alias ,ctags_generate_for_python='ctags --python-kinds=-v **/*.py'
+alias ,generate_ctags_for_python='ctags **/*.py'
+
+################
+# Work Related #
+################
+
+alias ,docker_logs_backend='docker logs --follow $(docker ps -a -q --filter="name=oneview-django-1")'
+
+# docker compose build oneview backend with dev dependencies and personal .bashrc
+function ,docker_build_backend
+    echo '~~~~ cd into oneview ~~~~'
+    cd ~/Documents/oneview
+
+    echo '~~~~ generating ctags ~~~~'
+    ctags **/*.py
+
+    echo '~~~~ docker compose build and up backend detached ~~~~'
+    docker compose -f docker-compose-dev.yml up --build --detach django postgres
+
+    echo '~~~~ poetry install dev ~~~~'
+    docker exec --env -t oneview-django-1 poetry install --with dev
+
+    echo '~~~~ copy over bashrc ~~~~'
+    docker compose cp "$PERSONAL_NOTES.bashrc" django:/root/.bashrc
+
+    echo '~~~~ django logs ~~~~'
+    docker compose -f docker-compose-dev.yml logs -f django
+end
+alias ,be=',docker_build_backend'
+
+alias ,docker_cp_bashrc='cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
+alias ,docker_logs_backend='docker logs --follow $(docker ps -a -q --filter="name=oneview-django-1")'
+alias ,mb='make bash'
+
+# alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
+# because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
+alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
+
+function ,docker_attach_oneview
+    set CONTAINER_ID (docker container ls | grep oneview-django | cut -d ' ' -f 1)
+    docker attach $CONTAINER_ID
+end
+
+function ,ssh_uat
+    set ip_address (aws ec2 describe-instances \
+        --filters 'Name=tag:Name,Values=oneview-uat-leader' \
+        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
+    )
+
+    ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+end
+
+function ,ssh_prod
+    set ip_address (aws ec2 describe-instances \
+        --filters 'Name=tag:Name,Values=oneview-prod-leader' \
+        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
+    )
+
+    ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+end
+
+function ,npm_run_frontend
+    # stops the react container, not sure why it's started automatically
+    docker stop $(docker ps -a -q --filter='name=oneview-react-1')
+    cd ~/Documents/oneview/reactapp
+    npm start
+end
+
+alias ,fe=',npm_run_frontend'
