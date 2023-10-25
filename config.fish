@@ -113,6 +113,8 @@ alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 # git #
 #######
 
+alias ,gh_actions='gh pr checks'
+
 alias g='git'
 alias gs='git status'
 
