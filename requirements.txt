@@ -15,3 +15,5 @@ isort
 # vim
 jedi
 
+# vim - completer
+thefuzz
