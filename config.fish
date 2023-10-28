@@ -116,7 +116,16 @@ alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 # git #
 #######
 
-alias ,gh_actions='gh pr checks'
+function ,gh_actions
+    while true
+        set_color --bold cyan
+        echo "... Watching github action status for$(fish_git_prompt) ..."
+        set_color normal
+        echo ""
+        gh pr checks
+        sleep 5
+    end
+end
 
 alias g='git'
 alias gs='git status'
