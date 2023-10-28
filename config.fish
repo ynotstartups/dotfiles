@@ -241,6 +241,26 @@ set --global --export FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 # vim #
 #######
 
+# In Mac, the Vim binary is installed/compiled via Homebrew i.e. `brew install vim`
+# vim --version shows the following Compilation flags
+# -L/opt/homebrew/opt/python@3.12/Frameworks/Python.framework/Versions/3.12/lib/python3.12/config-3.12-darwin
+# -lpython3.12 
+# so the python used in vim is homebrew's python3.12 
+# this hack below is to force homebrew's python3.12 to search for library in PYTHONPATH
+# installed python my "system python", which is python3.11 installed via pyenv `pyenv global`
+# the library I need is `thefuzz` which is a dependency of my patched `~/Document/completor.vim`
+set --global --export PYTHONPATH $HOME/.pyenv/versions/3.11.4/lib/python3.11/site-packages/
+
+# functions -c vim original_vim
+function v
+    # when count is 0 and readme exists open readme
+    if test (count $argv) -eq 0; and test -f ./README.md
+        vim ./README.md
+    else
+        vim $argv
+    end
+end
+
 function ,vrg
     # fish doesn't have `<(foo)` syntax instead you can do (foo | psub)
     vim -q (rg --vimgrep $argv | psub) -c 'copen'
