@@ -332,6 +332,13 @@ function ,docker_attach_oneview
 end
 
 function ,ssh_uat
+    if not pgrep -q 'AWS VPN'
+        set_color --bold red
+        echo "Did you forget to turn on AWS VPN?"
+        set_color normal
+        return 1
+    end
+
     set ip_address (aws ec2 describe-instances \
         --filters 'Name=tag:Name,Values=oneview-uat-leader' \
         --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
@@ -341,6 +348,13 @@ function ,ssh_uat
 end
 
 function ,ssh_prod
+    if not pgrep -q 'AWS VPN'
+        set_color --bold red
+        echo "Did you forget to turn on AWS VPN?"
+        set_color normal
+        return 1
+    end
+
     set ip_address (aws ec2 describe-instances \
         --filters 'Name=tag:Name,Values=oneview-prod-leader' \
         --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
