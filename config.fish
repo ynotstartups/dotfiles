@@ -251,13 +251,12 @@ set --global --export FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 # the library I need is `thefuzz` which is a dependency of my patched `~/Document/completor.vim`
 set --global --export PYTHONPATH $HOME/.pyenv/versions/3.11.4/lib/python3.11/site-packages/
 
-# functions -c vim original_vim
-function v
+function vim
     # when count is 0 and readme exists open readme
     if test (count $argv) -eq 0; and test -f ./README.md
-        vim ./README.md
+        command vim ./README.md
     else
-        vim $argv
+        command vim $argv
     end
 end
 
