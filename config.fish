@@ -2,6 +2,9 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+# disable fish_greeting
+set --global fish_greeting
+
 # enable vi key bindings
 function fish_hybrid_key_bindings --description \
 "Vi-style bindings that inherit emacs-style bindings in all modes"
