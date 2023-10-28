@@ -279,6 +279,14 @@ alias ,ez="cd $DOTFILES       && vim .zshrc"
 # alias ,ctags_generate_for_python='ctags --python-kinds=-v **/*.py'
 alias ,generate_ctags_for_python='ctags **/*.py'
 
+#########
+# Pyenv #
+#########
+
+set -Ux PYENV_ROOT $HOME/.pyenv
+set PATH $PYENV_ROOT $PATH
+pyenv init - | source
+
 ################
 # Work Related #
 ################
