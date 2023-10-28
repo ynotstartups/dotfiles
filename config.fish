@@ -291,6 +291,9 @@ pyenv init - | source
 # Work Related #
 ################
 
+alias ,dc_e2e='docker compose --file docker-compose-e2e.yml'
+alias ,dc='docker compose --file docker-compose-dev.yml'
+
 alias ,docker_logs_backend='docker logs --follow $(docker ps -a -q --filter="name=oneview-django-1")'
 
 # docker compose build oneview backend with dev dependencies and personal .bashrc
