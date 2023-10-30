@@ -116,6 +116,14 @@ alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 # git #
 #######
 
+function ,g_lint
+    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk
+    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk
+    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk
+end
+
+alias ,pr_lint=',g_lint'
+
 function ,gh_actions
     while true
         set_color --bold cyan
