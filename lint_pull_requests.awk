@@ -78,11 +78,6 @@ function print_vim_quickfix(column_number) {
 # Oneview Django #
 ##################
 
-/\.filter\(|\.all\(/ {
-    print_vim_quickfix()
-    print("consider using filter_with_permission_check to return results for specific business unit")
-}
-
 /class.*[^E][^n][^u][^m](\(Enum|\(TextChoice)/ {
     print_vim_quickfix()
     print("consider adding Enum postfix to this name")
