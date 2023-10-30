@@ -559,6 +559,11 @@ nnoremap <leader>ge :Gedit<cr>
 # this G c relies on .gitconfig which is `git commit --verbose`
 # nnoremap <leader>gc :tab Git c<cr>
 
+# remove the Gbrowse function defined by Fugitive everytime it's used, a
+# message is printed out to say that Gbrowse is deprecated and I should use
+# GBrowse instead
+autocmd BufReadPost * delcommand Gbrowse
+
 ###################
 # Source And Edit #
 ###################
