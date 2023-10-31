@@ -35,7 +35,7 @@ Plug '~/Documents/completor.vim'           # fuzzy complete, type 'fzcl' then <t
 Plug 'markonm/traces.vim'              # Range, pattern and substitute preview for Vim
 Plug 'osyo-manga/vim-anzu'             # n, N show the number of searches
 Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' # add markdown syntax and :TableFormat to format table
-Plug 'preservim/nerdtree'              # tree explorers
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeFind' }             # tree explorers
 Plug 'tpope/vim-commentary'            # add shortcut gc for making a comment
 Plug 'tpope/vim-fugitive'              # using git in vim
 Plug 'tpope/vim-repeat'                # repeat vim-surround with .
