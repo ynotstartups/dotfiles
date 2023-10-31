@@ -384,3 +384,38 @@ function ,npm_run_frontend
 end
 
 alias ,fe=',npm_run_frontend'
+
+function ,uat_diff
+    # get the latest changes
+    git fetch --quiet
+
+    set number_of_new_commits  (\
+        git log --oneline origin/env/uat...origin/master |\
+          wc -l |\
+            # wc starts with tab, remove it, extract the number of lines only
+            grep -o '\d*' \
+    )
+   echo  "There are" $number_of_new_commits "new commits."
+   printf "...ordered from old commits to new commits\n"
+
+    # change the format to hash, commit date, commit message
+    git --no-pager log origin/env/uat...origin/master \
+        --reverse \
+        --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(18)%ad %Creset%C(green)%C(bold)%<(20)%an %Creset%s" \
+        --date human
+
+    printf "\n\n" 
+
+    git diff --exit-code --quiet origin/env/uat...origin/master saltus/oneview/migrations
+
+    if test $status -eq 1
+        set_color --bold red
+        echo 'There are new migrations! ONLY DEPLOY AT NIGHT!\n'
+        set_color normal
+        git --no-pager diff --stat origin/env/uat...origin/master saltus/oneview/migrations
+    else
+        set_color --bold green
+        echo 'There is NO new migrations! OK to deploy anytime.\n'
+        set_color normal
+    end
+end
