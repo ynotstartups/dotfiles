@@ -220,6 +220,12 @@ alias ,hardcopy_10_standup_template='\
 
 set --global --export RIPGREP_CONFIG_PATH $HOME/.rgrc
 
+########
+# Node #
+########
+
+set PATH /opt/homebrew/opt/node@16/bin $PATH
+
 ############
 # Man Page #
 ############
