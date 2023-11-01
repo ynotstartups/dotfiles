@@ -106,7 +106,7 @@ set DOTFILES       "$HOME/Documents/dotfiles/"
 # stand up notes related
 function s
     cd "$PERSONAL_NOTES"
-    vim -p ./standup/$(ls -t -1 "$PERSONAL_NOTES"'standup' | head -n 1) work_notes.md dev_notes.md glossary.md .bashrc
+    vim -p ./standup/$(ls -t -1 "$PERSONAL_NOTES"'standup' | head -n 1) dev_notes.md glossary.md .bashrc
 end
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
@@ -282,7 +282,6 @@ end
 alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
 alias ,ef="cd $DOTFILES       && vim config.fish"
 alias ,ev="cd $DOTFILES       && vim .vimrc"
-alias ,ew="cd $PERSONAL_NOTES && vim work_notes.md"
 alias ,ez="cd $DOTFILES       && vim .zshrc"
 
 ########
