@@ -188,23 +188,19 @@ end
 #########
 
 function ,convert_md_to_pdf
-    # if [[ $# -eq 0 ]]; then
-    #     _echo_red "Missing arguments"
-    # fi
-
-    # if [[ $# -eq 0 || "$1" = "-h" ]]; then
-    #     echo "convert markdown to pdf"
-    #     echo
-    #     echo "Usage:"
-    #     echo "    ,convert_md_to_pdf foo.md"
-    #     echo "Output:"
-    #     echo "    foo.pdf"
-    #     return 1
-    # fi
 
     set markdown_name $argv[1]
-    set pdf_name $(echo $markdown_name | sed 's/.md$/.pdf/')
+
+    if test (count $argv) -eq 2
+        set pdf_name $argv[2]
+    else
+        set pdf_name $(echo $markdown_name | sed 's/.md$/.pdf/')
+    end
+
+    set_color --bold green
     echo "Converting from" $markdown_name "to" $pdf_name
+    set_color normal
+
     docker run --rm \
         -v "$(pwd):/data" \
         pandoc/extra \
