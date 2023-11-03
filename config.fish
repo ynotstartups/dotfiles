@@ -116,6 +116,17 @@ alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 # git #
 #######
 
+function ,pr_checkout
+    set branch_name $argv[0]
+    # TODO: stops if there are local changes save local changes
+    git stash
+
+    # switch to branch and fetch latest changes
+    git fetch
+    git switch $branch_name
+    git reset --hard origin/$branch_name
+end
+
 function ,g_lint
     git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk
     git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk
