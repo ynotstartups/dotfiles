@@ -610,39 +610,69 @@ enddef
 
 command! JumpToTestFile call g:JumpToTestFile()
 
-def CleanUpSetRegister()
-    var file_path = @%
-    var function_name = @0
-    var remove_prefix = substitute(file_path, '^saltus/', '', 'g')
+def GetPythonFileImportPath(): string
+    var posix_file_path = @%
+    var remove_prefix = substitute(posix_file_path, '^saltus/', '', 'g')
     var remove_suffix = substitute(remove_prefix, '.py$', '', 'g')
-    var replace_dot =   substitute(remove_suffix, '/', '.', 'g')
-    var import_statement = printf('from %s import %s', replace_dot, function_name)
-    var message = printf('yanked "%s"', import_statement)
-    echomsg message
-    # puts import_statement into default yank register
-    setreg('*', import_statement)
+    var python_import_path   = substitute(remove_suffix, '/', '.', 'g')
+    return python_import_path
 enddef
+
+
+def YankPythonImport()
+    var name = @0
+    var python_import_path = GetPythonFileImportPath()
+    var statement = printf('from %s import %s', python_import_path, name)
+    echomsg printf('yanked "%s"', statement)
+    # puts statement into default yank register
+    setreg('*', statement)
+enddef
+
+def YankPythonPatch()
+    var name = @0
+    var python_import_path = GetPythonFileImportPath()
+    var statement = printf('@mock.patch("%s.%s")', python_import_path, name)
+    echomsg printf('yanked "%s"', statement)
+    # puts statement into default yank register
+    setreg('*', statement)
+enddef
+
 # known bug
 # this import function name doesn't work if the function is a method in a class
-def g:ImportFunctionName()
+def g:ImportFunction()
     # after jump to tag ctrl-]
     # the cursor is position at the start of def or class
     # puts cursor to the end of line to get the def or class in this line
     execute "normal! $"
 
     execute "normal! ?def\<cr>wyiw\<c-o>"
-    CleanUpSetRegister()
+    YankPythonImport()
 enddef
 
-def g:ImportClassName()
+def g:ImportClass()
     execute "normal! $"
     execute "normal! ?^class\<cr>wyiw\<c-o>"
-    CleanUpSetRegister()
+    YankPythonImport()
 enddef
 
-nnoremap <leader>yif :call g:ImportFunctionName()<cr>
-nnoremap <leader>yid :call g:ImportFunctionName()<cr>
-nnoremap <leader>yic :call g:ImportClassName()<cr>
+def g:PatchFunction()
+    execute "normal! $"
+    execute "normal! ?def\<cr>wyiw\<c-o>"
+    YankPythonPatch()
+enddef
+
+def g:PatchWord()
+    execute "normal! yiw"
+    YankPythonPatch()
+enddef
+
+nnoremap <leader>yif :call g:ImportFunction()<cr>
+nnoremap <leader>yid :call g:ImportFunction()<cr>
+nnoremap <leader>yic :call g:ImportClass()<cr>
+
+nnoremap <leader>ypf :call g:ImportFunction()<cr>
+nnoremap <leader>ypd :call g:PatchFunction()<cr>
+nnoremap <leader>ypw :call g:PatchWord()<cr>
 
 def g:YankFilenameAndPositionInVimQuickfixFormat()
     var file_path = @%
