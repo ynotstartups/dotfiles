@@ -78,6 +78,11 @@ function print_vim_quickfix(column_number) {
 # Oneview Django #
 ##################
 
+
+/unittest.*TestCase/ {
+    print("WRONG! from django.test import TestCase instead")
+}
+
 /class.*[^E][^n][^u][^m](\(Enum|\(TextChoice)/ {
     print_vim_quickfix()
     print("consider adding Enum postfix to this name")
