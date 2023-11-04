@@ -554,15 +554,9 @@ nnoremap <leader>gb :Git blame<cr>
 # show a list of git diff files
 nnoremap <leader>gf :Git diff --name-only origin/master...<cr>
 nnoremap <leader>ge :Gedit<cr>
-
-# nnoremap <leader>gd :tab Git diff<cr>
 # this G c relies on .gitconfig which is `git commit --verbose`
-# nnoremap <leader>gc :tab Git c<cr>
-
-# remove the Gbrowse function defined by Fugitive everytime it's used, a
-# message is printed out to say that Gbrowse is deprecated and I should use
-# GBrowse instead
-# autocmd BufReadPost * delcommand Gbrowse
+nnoremap <leader>gc :$tab Git c<cr>
+# nnoremap <leader>gd :tab Git diff<cr>
 
 ###################
 # Source And Edit #
