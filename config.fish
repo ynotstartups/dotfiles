@@ -167,7 +167,7 @@ alias g='git'
 alias gs='git status'
 
 # delete every branches except main & master & current branch
-alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "*" | xargs git branch -D'
+alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "prod" | grep -v "uat" | grep -v "*" | xargs git branch -D'
 
 alias ,g_template_disable='git config --local commit.template "/dev/null"'
 alias ,g_template_enable='git config --local --unset commit.template'
@@ -203,6 +203,8 @@ end
 #########
 # MacOS #
 #########
+
+alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
 
 function ,convert_md_to_pdf
 
