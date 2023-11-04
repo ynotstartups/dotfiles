@@ -1,6 +1,6 @@
-if status is-interactive
-    # Commands to run in interactive sessions can go here
-end
+##############
+# Fish Shell #
+##############
 
 # disable fish_greeting
 set --global fish_greeting
@@ -13,10 +13,6 @@ function fish_hybrid_key_bindings --description \
     end
     fish_vi_key_bindings --no-erase
 end
-
-##########
-# Prompt #
-##########
 
 function fish_prompt --description 'Informative prompt'
     #Save the return status of the previous command
@@ -48,9 +44,16 @@ end
 
 set -g fish_key_bindings fish_hybrid_key_bindings
 
-#########
-# Theme #
-#########
+set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
+
+alias e='exit'
+alias h='help'
+alias ll='ls -lha'
+alias m='man'
+
+##############
+# Fish Theme #
+##############
 
 set fish_color_normal F8F8F2 # the default color
 set fish_color_command F92672 # the color for commands
@@ -73,23 +76,18 @@ set fish_pager_color_description 49483E # the color of the completion descriptio
 set fish_pager_color_progress F8F8F2 # the color of the progress bar at the bottom left corner
 set fish_pager_color_secondary F8F8F2 # the background color of the every second completion
 
-
-########
-# Misc #
-########
-
-set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
-
+############
+# Autojump #
+############
 
 # setup j which is autojump
 [ -f /opt/homebrew/share/autojump/autojump.fish ]; and source /opt/homebrew/share/autojump/autojump.fish
 
-abbr --add fd_all_files fd --hidden --no-ignore
+######
+# fd #
+######
 
-set --global --export EDITOR vim
-
-alias ll='ls -lha'
-alias e='exit'
+alias fd_all_files='fd --hidden --no-ignore'
 
 ####################
 # Folder Variables #
@@ -106,7 +104,7 @@ set DOTFILES       "$HOME/Documents/dotfiles/"
 # stand up notes related
 function s
     cd "$PERSONAL_NOTES"
-    vim -p ./standup/$(ls -t -1 "$PERSONAL_NOTES"'standup' | head -n 1) dev_notes.md glossary.md .bashrc
+    vim -p ./standup/$(ls -t -1 "$PERSONAL_NOTES"'standup' | head -n 1) dev_notes.md .bashrc
 end
 # sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
 # and open it in vim
@@ -116,25 +114,7 @@ alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 # git #
 #######
 
-# takes PR branch name, fetch reset and open vim with git diff
-function ,pr_review
-    set branch_name $argv[0]
-
-    # TODO: stops if there are local changes
-    # save local changes
-    git stash
-
-    # switch to branch and fetch latest changes
-    git fetch
-    git switch $branch_name
-    git reset --hard origin/$branch_name
-
-    # open git diff origin/master.. files in tab
-    vim -c ':Git difftool -y origin/master...'
-end
-
-function ,pr_checkout
-    set branch_name $argv[0]
+function ,pr_checkout --argument-names branch_name
     # TODO: stops if there are local changes save local changes
     git stash
 
@@ -182,20 +162,7 @@ function ,gs_notes
     end
 end
 
-function ,gnew_branch
-    # if [[ $# -eq 0 ]]; then
-    #     _echo_red "Missing first argument"
-    # fi
-
-    # if [[ $# -eq 0 || "$1" = "-h" ]]; then
-    #     echo "Switch to new branch & fetch origin"
-    #     echo
-    #     echo "Usage:"
-    #     echo "    ,gnew_branch BRANCH_NAME"
-    #     return 1
-    # fi
-    set new_branch_name $argv[1]
-
+function ,gnew_branch --argument-names branch_name
     git fetch origin master:$new_branch_name
     git switch $new_branch_name
 end
@@ -206,14 +173,9 @@ end
 
 alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
 
-function ,convert_md_to_pdf
-
-    set markdown_name $argv[1]
-
-    if test (count $argv) -eq 2
-        set pdf_name $argv[2]
-    else
-        set pdf_name $(echo $markdown_name | sed 's/.md$/.pdf/')
+function ,convert_md_to_pdf --argument-names markdown_name pdf_name
+    if not test (set --query pdf_name)
+        set pdf_name "pdfs/$(echo $markdown_name | sed 's/.md$/.pdf/')"
     end
 
     set_color --bold green
@@ -262,6 +224,7 @@ set --global --export MANWIDTH 80
 
 # try out using vim as pager
 set --global --export MANPAGER "vim +MANPAGER --not-a-term -"
+
 #######
 # fzf #
 #######
@@ -275,11 +238,11 @@ set --global --export FZF_DEFAULT_OPTS "--multi
 
 set --global --export FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 
-# [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
 #######
 # vim #
 #######
+
+set --global --export EDITOR vim
 
 # In Mac, the Vim binary is installed/compiled via Homebrew i.e. `brew install vim`
 # vim --version shows the following Compilation flags
@@ -293,7 +256,8 @@ set --global --export PYTHONPATH $HOME/.pyenv/versions/3.11.4/lib/python3.11/sit
 
 function vim
     # when count is 0 and readme exists open readme
-    if test (count $argv) -eq 0; and test -f ./README.md
+    # uses test to ignore the output from count
+    if test (count $argv); and test -f ./README.md
         command vim ./README.md
     else
         command vim $argv
@@ -338,7 +302,14 @@ pyenv init - | source
 alias ,dc_e2e='docker compose --file docker-compose-e2e.yml'
 alias ,dc='docker compose --file docker-compose-dev.yml'
 
-alias ,docker_logs_backend='docker logs --follow $(docker ps -a -q --filter="name=oneview-django-1")'
+function ,docker_remove_db_volume
+    docker stop oneview-postgres-1
+    # remove the postgres container
+    docker rm oneview-postgres-1
+    # drops the volume 
+    docker volume rm oneview_pgdata
+end
+
 
 # docker compose build oneview backend with dev dependencies and personal .bashrc
 function ,docker_build_backend
@@ -367,17 +338,17 @@ end
 alias ,be=',docker_build_backend'
 
 alias ,docker_cp_bashrc='cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
-alias ,docker_logs_backend='docker logs --follow $(docker ps -a -q --filter="name=oneview-django-1")'
+function ,docker_attach_oneview
+    set CONTAINER_ID (docker container ls | grep oneview-django | cut -d ' ' -f 1)
+    docker attach $CONTAINER_ID
+end
+
 alias ,mb='make bash'
 
 # alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
-function ,docker_attach_oneview
-    set CONTAINER_ID (docker container ls | grep oneview-django | cut -d ' ' -f 1)
-    docker attach $CONTAINER_ID
-end
 
 function ,ssh_uat
     if not pgrep -q 'AWS VPN'
