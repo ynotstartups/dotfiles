@@ -172,7 +172,7 @@ alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -
 alias ,g_template_disable='git config --local commit.template "/dev/null"'
 alias ,g_template_enable='git config --local --unset commit.template'
 
-function ,g_s_notes
+function ,gs_notes
     set directories personal-notes dotfiles notes docs
 
     for directory in $directories
