@@ -257,7 +257,7 @@ set --global --export PYTHONPATH $HOME/.pyenv/versions/3.11.4/lib/python3.11/sit
 function vim
     # when count is 0 and readme exists open readme
     # uses test to ignore the output from count
-    if test (count $argv); and test -f ./README.md
+    if test (count $argv) -eq 0; and test -f ./README.md
         command vim ./README.md
     else
         command vim $argv
