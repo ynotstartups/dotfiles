@@ -46,8 +46,6 @@ ln -s -v -F "$PWD"/.rgrc "$HOME"/.rgrc
 
 ln -s -v -F "$PWD"/vim_python.py "$HOME"/.vim/python3/vim_python.py
 
-ln -s -v -F "$PWD"/zsh.vim "$HOME"/.vim/after/syntax/zsh.vim
-
 ln -s -v -F "$PWD"/config.fish "$HOME"/.config/fish/config.fish
 
 ln -s -v -F "$PWD"/ipython_config.py "$HOME"/.ipython/profile_default/ipython_config.py
