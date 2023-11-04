@@ -287,6 +287,37 @@ alias ,vgdot='vim -c ":Git difftool -y origin/master..."'
 # alias ,ctags_generate_for_python='ctags --python-kinds=-v **/*.py'
 alias ,generate_ctags_for_python='ctags **/*.py'
 
+##########
+# Python #
+##########
+
+function ,virtualenv_setup
+    echo 'setting up virtualenv at .venv folder'
+    python3 -m venv .venv
+    echo  'activating virtualenv'
+    source .venv/bin/activate.fish
+    echo 'upgrading pip'
+    pip install --upgrade pip
+    echo 'pip installing essential libraries'
+    pip install -r requirements.txt
+end
+
+function ,activate
+    if test -d ".venv"
+        source .venv/bin/activate.fish
+    else if test -d "venv"
+        source venv/bin/activate.fish
+    else
+        echo 'No virtualenv found!'
+        echo 'Consider setup .venv with ,virtualenv_setup'
+    end
+end
+
+alias ,python3_8_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.8 python'
+alias ,python3_9_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.9 python'
+alias ,python3_10_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.10 python'
+alias ,python3_11_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.11 python'
+
 #########
 # Pyenv #
 #########
