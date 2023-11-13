@@ -162,7 +162,7 @@ function ,gs_notes
     end
 end
 
-function ,gnew_branch --argument-names branch_name
+function ,gnew_branch --argument-names new_branch_name
     git fetch origin master:$new_branch_name
     git switch $new_branch_name
 end
@@ -351,7 +351,7 @@ function ,docker_build_backend
     ctags **/*.py
 
     echo '~~~~ docker compose build and up backend detached ~~~~'
-    docker compose -f docker-compose-dev.yml up --build --detach django postgres
+    docker compose -f docker-compose-dev.yml up --build --detach django
 
     echo '~~~~ poetry install dev ~~~~'
     docker exec --env -t oneview-django-1 poetry install --with dev
@@ -414,8 +414,6 @@ function ,ssh_prod
 end
 
 function ,npm_run_frontend
-    # stops the react container, not sure why it's started automatically
-    docker stop $(docker ps -a -q --filter='name=oneview-react-1')
     cd ~/Documents/oneview/reactapp
     npm start
 end
