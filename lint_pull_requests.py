@@ -18,8 +18,13 @@ import pathlib
 
 parent_folder = pathlib.Path(__file__).parent.resolve()
 
-logging.basicConfig(filename=f'{parent_folder}/lint_pull_requests.log', encoding='utf-8',
-                    level=logging.DEBUG)
+logging.basicConfig(
+    filename=f'{parent_folder}/lint_pull_requests.log',
+    encoding='utf-8',
+    format='%(levelname)s:%(funcName)s:%(message)s',
+    level=logging.DEBUG,
+)
+logger = logging.getLogger(__name__)
 
 class DiffType(Enum):
     ADDED = "+"
@@ -53,7 +58,6 @@ def lint(diff_line: DiffLine) -> tuple[str]:
         message = diff_line.error_message("Check that the mock is called")
         error_messages.append(message)
 
-    logging.debug(diff_line)
 
     return error_messages
 
@@ -67,7 +71,6 @@ def parse_patch(patch: tuple[str]) -> tuple[DiffLine]:
     diff_lines = []
     for patch_line in patch:
         patch_line = patch_line.strip()
-        logging.debug(patch_line)
 
         if patch_line.startswith("---"):
             filename = None
@@ -76,7 +79,6 @@ def parse_patch(patch: tuple[str]) -> tuple[DiffLine]:
         elif patch_line.startswith("+++"):
             filename = patch_line.split(' ')[1]
             plus_line_starts = None
-            logging.debug(filename)
 
         elif patch_line.startswith("@@"):
             _, _minus_line_starts, plus_line_starts, _, *_ = patch_line.split(' ')
@@ -85,13 +87,11 @@ def parse_patch(patch: tuple[str]) -> tuple[DiffLine]:
             _minus_line_starts = _minus_line_starts.removeprefix('-').split(',')[0]
             # +165 or +417,2
             plus_line_starts = int(plus_line_starts.removeprefix('+').split(',')[0])
-            logging.debug(plus_line_starts)
 
         elif patch_line.startswith("+"):
             assert filename is not None
             assert plus_line_starts is not None
 
-            logging.debug(patch_line)
             diff_line = DiffLine(
                 type=DiffType.ADDED,
                 filename=filename,
@@ -100,7 +100,6 @@ def parse_patch(patch: tuple[str]) -> tuple[DiffLine]:
                 column_number=0,
             )
 
-            logging.debug(diff_line)
             diff_lines.append(diff_line)
 
             plus_line_starts += 1
@@ -111,10 +110,9 @@ def main():
     for in_line in sys.stdin:
         patch.append(in_line)
     diff_lines = parse_patch(patch)
-    # print(diff_lines)
     messages = lint_diffs(diff_lines)
-    # print(messages)
     for m in messages:
+        logger.debug(m)
         print(m)
 
 def test_parse_patch():
