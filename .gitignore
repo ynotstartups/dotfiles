@@ -7,3 +7,6 @@ tags
 
 .venv/
 __pycache__/
+
+# python log files
+*.log
