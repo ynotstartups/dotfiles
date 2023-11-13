@@ -21,7 +21,7 @@ parent_folder = pathlib.Path(__file__).parent.resolve()
 logging.basicConfig(
     filename=f'{parent_folder}/lint_pull_requests.log',
     encoding='utf-8',
-    format='%(levelname)s:%(funcName)s:%(message)s',
+    format='%(asctime)s:%(levelname)s:%(funcName)s:%(message)s',
     level=logging.DEBUG,
 )
 logger = logging.getLogger(__name__)
