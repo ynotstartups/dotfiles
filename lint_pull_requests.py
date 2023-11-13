@@ -14,8 +14,11 @@ import sys
 import logging
 from enum import Enum
 from dataclasses import dataclass
+import pathlib
 
-logging.basicConfig(filename='lint_pull_requests.log', encoding='utf-8',
+parent_folder = pathlib.Path(__file__).parent.resolve()
+
+logging.basicConfig(filename=f'{parent_folder}/lint_pull_requests.log', encoding='utf-8',
                     level=logging.DEBUG)
 
 class DiffType(Enum):
@@ -39,10 +42,16 @@ def lint(diff_line: DiffLine) -> tuple[str]:
     line = diff_line.line.strip()
 
     if "TODO" in line:
-        error_messages.append(diff_line.error_message("Remaining TODO"))
+        message = diff_line.error_message("Remaining TODO")
+        error_messages.append(message)
 
     if "breakpoint" in line:
-        error_messages.append(diff_line.error_message("Remaining breakpoint"))
+        message = diff_line.error_message("Remaining breakpoint")
+        error_messages.append(message)
+
+    if "mock" in line:
+        message = diff_line.error_message("Check that the mock is called")
+        error_messages.append(message)
 
     logging.debug(diff_line)
 
