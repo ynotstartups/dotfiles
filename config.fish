@@ -125,9 +125,9 @@ function ,pr_checkout --argument-names branch_name
 end
 
 function ,g_lint
-    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.awk
-    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.awk
-    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.awk
+    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.py
+    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.py
+    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.py
 end
 
 alias ,pr_lint=',g_lint'
