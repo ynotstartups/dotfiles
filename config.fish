@@ -192,11 +192,13 @@ function ,convert_md_to_pdf --argument-names markdown_name pdf_name
     or echo "Failed!"
 end
 
-alias ,hardcopy='lpr -p -o EPIJ_Silt=1 -o Resolution=720x720dpi -o EPIJ_Qual=307'
-alias ,hardcopy_normal_quality='lpr -p -o EPIJ_Silt=0 -o Resolution=360x360dpi -o EPIJ_Qual=303'
+alias ,hardcopy='lpr -o Resolution=720x720dpi'
+alias ,hardcopy_A5='lpr -o media=A5 -o Resolution=720x720dpi'
+alias ,hardcopy_normal_quality='lpr -o Resolution=360x360dpi'
 alias ,hardcopy_10_standup_template='\
-    lpr -p -o EPIJ_Silt=0 -o scaling=110 -o Resolution=360x360dpi -o EPIJ_Qual=303 \
+    lpr -o scaling=110 -o Resolution=360x360dpi \
     -# 10 ~/Documents/personal-notes/pdfs/standup_template.pdf'
+
 
 # Cups link: http://localhost:631/
 # logins with laptops's username and password
