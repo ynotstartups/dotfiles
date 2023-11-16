@@ -904,16 +904,16 @@ autocmd FileType gitconfig setlocal commentstring=#\ %s
 # Statusline #
 ##############
 
-def g:NearestMethodOrFunction(): string
-  return get(b:, 'vista_nearest_method_or_function', '')
-enddef
+# def g:NearestMethodOrFunction(): string
+#   return get(b:, 'vista_nearest_method_or_function', '')
+# enddef
 
 
 # By default vista.vim never run if you don't call it explicitly.
 #
 # If you want to show the nearest function in your statusline automatically,
 # you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+# autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 def g:GetPageNumberTotalPage(): string
     const LINES_PER_PAGE = 68
@@ -956,7 +956,7 @@ set statusline+=\ %{GetHelpSectionName()}
 
 # middle section
 set statusline+=%=
-set statusline+=%{NearestMethodOrFunction()}
+# set statusline+=%{NearestMethodOrFunction()}
 # set statusline+=%{GitStatus()}
 
 # right section
