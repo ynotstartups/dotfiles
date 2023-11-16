@@ -383,6 +383,7 @@ function ,docker_attach_oneview
 end
 
 alias ,mb='make bash'
+alias ,ms='make shell'
 
 # alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
