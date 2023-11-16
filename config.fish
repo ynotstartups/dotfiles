@@ -328,6 +328,12 @@ set -Ux PYENV_ROOT $HOME/.pyenv
 set PATH $PYENV_ROOT $PATH
 pyenv init - | source
 
+############
+# Postgres #
+############
+
+set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
+
 ################
 # Work Related #
 ################
