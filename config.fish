@@ -156,7 +156,7 @@ function ,gs_notes
     set directories personal-notes dotfiles notes docs
 
     for directory in $directories
-        set_color --bold cyan; echo ===== $directory ===== \n; set_color normal;
+        set_color --bold cyan; echo ===== $directory =====; set_color normal;
         git -C "$HOME/Documents/$directory" status
         echo ""
     end
@@ -403,7 +403,10 @@ function ,ssh_uat
         --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     )
 
-    ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+    # don't do StrictHostKeyChecking as we are using VPC, virtual private
+    # network
+    # reduces the default ConnectTimeout to avoid hanging
+    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
 end
 
 function ,ssh_prod
@@ -419,7 +422,10 @@ function ,ssh_prod
         --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     )
 
-    ssh -o StrictHostKeyChecking=no -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+    # don't do StrictHostKeyChecking as we are using VPC, virtual private
+    # network
+    # reduces the default ConnectTimeout to avoid hanging
+    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
 end
 
 function ,npm_run_frontend
@@ -454,12 +460,17 @@ function ,uat_diff
 
     if test $status -eq 1
         set_color --bold red
-        echo 'There are new migrations! ONLY DEPLOY AT NIGHT!\n'
+        echo 'There are new migrations! ONLY DEPLOY AT NIGHT!'
         set_color normal
         git --no-pager diff --stat origin/env/uat...origin/master saltus/oneview/migrations
     else
         set_color --bold green
-        echo 'There is NO new migrations! OK to deploy anytime.\n'
+        echo 'There is NO new migrations! OK to deploy anytime.'
         set_color normal
     end
+end
+
+
+function ,curo_open_entity_name_with_id --argument-names entity_name record_id
+    open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
 end
