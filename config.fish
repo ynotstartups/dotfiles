@@ -195,9 +195,9 @@ end
 alias ,hardcopy='lpr -o Resolution=720x720dpi'
 alias ,hardcopy_A5='lpr -o media=A5 -o Resolution=720x720dpi'
 alias ,hardcopy_normal_quality='lpr -o Resolution=360x360dpi'
-alias ,hardcopy_10_standup_template='\
+alias ,hardcopy_5_standup_template='\
     lpr -o scaling=110 -o Resolution=360x360dpi \
-    -# 10 ~/Documents/personal-notes/pdfs/standup_template.pdf'
+    -# 5 ~/Documents/personal-notes/pdfs/standup_template.pdf'
 
 
 # Cups link: http://localhost:631/
