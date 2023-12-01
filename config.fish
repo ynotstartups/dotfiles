@@ -389,7 +389,7 @@ alias ,ms='make shell'
 alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
 
-function ,ssh_uat
+function ,_ssh_oneview --argument-names env_name 
     if not pgrep -q 'AWS VPN'
         set_color --bold red
         echo "Did you forget to turn on AWS VPN?"
@@ -397,8 +397,17 @@ function ,ssh_uat
         return 1
     end
 
+    # TODO: raise error if env_name is not `env` or `prod`
+
+    if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name
+        set_color --bold red
+        echo "Only supports env 'uat' or 'prod', env '$env_name' is not supported"
+        set_color normal
+        return 1
+    end
+
     set ip_address (aws ec2 describe-instances \
-        --filters 'Name=tag:Name,Values=oneview-uat-leader' \
+        --filters "Name=tag:Name,Values=oneview-$env_name-leader" \
         --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     )
 
@@ -408,23 +417,12 @@ function ,ssh_uat
     ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
 end
 
+function ,ssh_uat
+    ,_ssh_oneview 'uat'
+end
+
 function ,ssh_prod
-    if not pgrep -q 'AWS VPN'
-        set_color --bold red
-        echo "Did you forget to turn on AWS VPN?"
-        set_color normal
-        return 1
-    end
-
-    set ip_address (aws ec2 describe-instances \
-        --filters 'Name=tag:Name,Values=oneview-prod-leader' \
-        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
-    )
-
-    # don't do StrictHostKeyChecking as we are using VPC, virtual private
-    # network
-    # reduces the default ConnectTimeout to avoid hanging
-    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+    ,_ssh_oneview 'prod'
 end
 
 function ,npm_run_frontend
