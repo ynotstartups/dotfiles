@@ -24,4 +24,4 @@ coverage-test:
 		coverage report --show-missing
 
 tags:
-	ctags --langmap=zsh:.zshrc .zshrc .vimrc **/*.py *.awk *.md
+	ctags .vimrc **/*.py *.awk *.md

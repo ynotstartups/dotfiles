@@ -566,7 +566,6 @@ nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
 nnoremap <leader>sv :source ~/.vimrc<cr>
 
 nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
-nnoremap <leader>ez :$tabedit ~/.zshrc<cr>
 
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 

@@ -36,8 +36,6 @@ ln -s -v -F "$PWD"/.gitconfig "$HOME"/.gitconfig
 ln -s -v -F "$PWD"/.gitattributes "$HOME"/.config/git/.gitattributes
 ln -s -v -F "$PWD"/.gitignore_global "$HOME"/.gitignore_global
 
-ln -s -v -F "$PWD"/.zshrc "$HOME"/.zshrc
-
 ln -s -v -F "$PWD"/.pdbrc "$HOME"/.pdbrc
 
 ln -s -v -F "$PWD"/.fdignore "$HOME"/.fdignore
