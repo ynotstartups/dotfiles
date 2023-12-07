@@ -506,6 +506,23 @@ function ,prod_diff
     ,g_branch_diff env/prod
 end
 
+function ,uat_deploy_safe
+    cd /Users/yuhao.huang/Documents/oneview
+
+    # print each command on
+    set fish_trace on
+
+    git stash
+    git switch env/uat
+    git fetch origin
+    git merge --ff-only origin/master
+    git push 
+
+    # print each command off
+    set -e fish_trace
+end
+
+
 
 function ,curo_open_entity_name_with_id --argument-names entity_name record_id
     open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
