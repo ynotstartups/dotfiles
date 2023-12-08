@@ -103,12 +103,9 @@ set DOTFILES       "$HOME/Documents/dotfiles/"
 
 # stand up notes related
 function s
-    cd "$PERSONAL_NOTES"
-    vim -p ./standup/$(ls -t -1 "$PERSONAL_NOTES"'standup' | head -n 1) dev_notes.md .bashrc
+    cd $PERSONAL_NOTES
+    vim -p standup_notes.md dev_notes.md .bashrc
 end
-# sn for create a new standup note with name like year-month-day.md e.g. 23-07-28.md 
-# and open it in vim
-alias sn='cd $PERSONAL_NOTES"standup" && $DOTFILES"copy_last_to_today.py" && s'
 
 #######
 # git #
