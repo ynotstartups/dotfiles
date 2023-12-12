@@ -292,6 +292,10 @@ augroup markdown_textobjs
   \     'select-i-function': 'g:InMarkdownHeader',
   \     'select-i': 'i3',
   \   },
+  \   'codeblock': {
+  \     'select-i-function': 'g:InMarkdownCodeblock',
+  \     'select-i': 'ic',
+  \   },
   \ })
 augroup END
 
@@ -386,6 +390,14 @@ enddef
 
 # use <enter> to put x into readme todo [ ]
 autocmd FileType markdown nnoremap <cr> :call g:CycleListType()<cr>
+
+# modified from 
+# https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
+def g:InMarkdownCodeblock(): list<any>
+  var tail = search('```$', 'Wc') - 1
+  var head = search('^```', 'Wb') + 1 
+  return ['V', [0, head, 1, 0], [0, tail, 1, 0]]
+enddef
 
 #########
 # Spell #
