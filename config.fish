@@ -445,24 +445,25 @@ function commit_diff_two_branches --argument-names first_branch second_branch
        echo "...ordered from old commits to new commits"
        echo
 
-       # echo -n "There are "
-       # set_color --bold white
-       # echo -n $number_of_new_commits 
-       # set_color normal
-       # echo " new commits in $first_branch but not in $second_branch"
-       # echo "...ordered from old commits to new commits"
-
-        # change the format to hash, commit date, commit message
-        git --no-pager log $first_branch..$second_branch \
-            --reverse \
-            --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(18)%ad %Creset%C(green)%C(bold)%<(20)%an %Creset%s" \
-            --date human
-        echo
+       # change the format to hash, commit date, commit message
+       git --no-pager log $first_branch..$second_branch \
+           --reverse \
+           --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(18)%ad %Creset%C(green)%C(bold)%<(20)%an %Creset%s" \
+           --date human
+       echo
    else
        printf "$BOLD_WHITE$second_branch$RESET are $BOLD_WHITE" 
        printf "NOT"
        printf "$RESET ahead of $BOLD_WHITE$first_branch$RESET\n"
    end
+
+   echo
+   printf "Lastest commit of $BOLD_WHITE$second_branch$RESET is\n"
+   git --no-pager log $second_branch \
+       -1 \
+       --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(18)%ad %Creset%C(green)%C(bold)%<(20)%an %Creset%s" \
+       --date human
+   echo
 end
 
 function ,g_branch_diff --argument-names branch_name
