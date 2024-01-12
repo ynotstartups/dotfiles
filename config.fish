@@ -140,6 +140,10 @@ function ,gh_actions
     end
 end
 
+alias ,gh_pr='gh pr view --web'
+alias ,gh_s='gh pr checks'
+alias ,gh_d='gh pr diff | delta'
+
 alias g='git'
 alias gs='git status'
 
@@ -266,6 +270,11 @@ end
 function ,vrg
     # fish doesn't have `<(foo)` syntax instead you can do (foo | psub)
     vim -q (rg --vimgrep $argv | psub) -c 'copen'
+end
+
+function ,vfd
+    # fish doesn't have `<(foo)` syntax instead you can do (foo | psub)
+    vim $(fd $argv) -c 'args'
 end
 
 alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
@@ -422,6 +431,10 @@ function ,ssh_prod
     ,_ssh_oneview 'prod'
 end
 
+function ,ssh --argument-names ip_address
+    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+end
+
 function ,npm_run_frontend
     cd ~/Documents/oneview/reactapp
     npm start
@@ -492,6 +505,11 @@ function ,g_branch_diff --argument-names branch_name
 
     echo
     commit_diff_two_branches $origin_master $origin_branch_name
+end
+
+function ,branch_diff --argument-names branch
+    cd /Users/yuhao.huang/Documents/oneview
+    ,g_branch_diff $branch
 end
 
 function ,uat_diff
