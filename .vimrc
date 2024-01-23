@@ -67,6 +67,7 @@ filetype plugin indent on
 
 # better setting
 set number
+set relativenumber
 set shortmess+=IW # ignore Intro, Written
 set laststatus=2 # status bar always on
 set wildmenu
