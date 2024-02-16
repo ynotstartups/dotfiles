@@ -199,6 +199,9 @@ alias ,hardcopy_normal_quality='lpr -o Resolution=360x360dpi'
 alias ,hardcopy_5_standup_template='\
     lpr -o scaling=110 -o Resolution=360x360dpi \
     -# 5 ~/Documents/personal-notes/pdfs/standup_template.pdf'
+alias ,hardcopy_5_solo_rpg_template='\
+    lpr -o scaling=110 -o Resolution=360x360dpi \
+    -# 5 ~/Documents/personal-notes/pdfs/solo_rpg_template.pdf'
 
 
 # Cups link: http://localhost:631/
@@ -390,6 +393,11 @@ end
 alias ,mb='make bash'
 alias ,ms='make shell'
 
+abbr mb "make bash" 
+abbr ms "make shell" 
+abbr ml "make lint" 
+abbr mt "make test" 
+
 # alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
@@ -540,6 +548,24 @@ end
 
 
 
-function ,curo_open_entity_name_with_id --argument-names entity_name record_id
+set --global curo_entity_names "t4a_feeprofile" "t4a_incomeprofile" "account" "t4a_curoholding"
+
+function ,curo_prod_open_entity_name_with_id --argument-names entity_name record_id
+
+    if not contains $entity_name $curo_entity_names 
+        printf "please add to the function for future reference"
+    end
+    # open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
     open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
 end
+
+function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_id
+
+    if not contains $entity_name $curo_entity_names 
+        printf "please add to the function for future reference"
+    end
+    # open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+    open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+end
+
+abbr pytest_useful "pytest --lf -x --show-capture no -vv"

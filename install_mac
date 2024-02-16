@@ -27,8 +27,9 @@ brew install git-delta
 # for ps2pdf for printing hardcody in vim
 brew install ghostscript
 
-# for ps2pdf for printing hardcody in vim
 brew install tree
+
+brew install 1password-cli
 
 ln -s -v -F "$PWD"/.vimrc "$HOME"/.vimrc
 

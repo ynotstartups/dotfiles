@@ -661,6 +661,12 @@ def g:ImportClass()
     YankPythonImport()
 enddef
 
+def g:ImportWord()
+    execute "normal! yiw"
+    YankPythonImport()
+enddef
+
+
 def g:PatchFunction()
     execute "normal! $"
     execute "normal! ?def\<cr>wyiw\<c-o>"
@@ -675,6 +681,7 @@ enddef
 nnoremap <leader>yif :call g:ImportFunction()<cr>
 nnoremap <leader>yid :call g:ImportFunction()<cr>
 nnoremap <leader>yic :call g:ImportClass()<cr>
+nnoremap <leader>yiw :call g:ImportWord()<cr>
 
 nnoremap <leader>ypf :call g:ImportFunction()<cr>
 nnoremap <leader>ypd :call g:PatchFunction()<cr>
