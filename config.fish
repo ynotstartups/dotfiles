@@ -568,4 +568,4 @@ function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_
     open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
 end
 
-abbr pytest_useful "pytest --lf -x --show-capture no -vv"
+abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
