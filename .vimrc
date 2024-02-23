@@ -17,8 +17,8 @@ plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            # automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'SirVer/ultisnips'                # snippets
 Plug 'airblade/vim-gitgutter'          # shows a git diff in the sign column
-Plug 'arthurxavierx/vim-caser'         # changes word casing: `gst` Foo Bar, `gs_` foo_bar, `gsm` FooBar
-Plug 'davidhalter/jedi-vim'            # vim python, leader k to go to doc, leader d to definition
+Plug 'arthurxavierx/vim-caser'         # `gs_` changes word casing: `gst` Foo Bar, `gs_` foo_bar, `gsm` FooBar
+# Plug 'davidhalter/jedi-vim'            # vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       # use , to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         # dockerfile syntax
 Plug 'haya14busa/vim-asterisk'         # * stays where it is
@@ -27,8 +27,7 @@ Plug 'inkarkat/vim-visualrepeat'       # use . in selected lines in visual mode
 Plug 'jparise/vim-graphql'             # graphql syntax highlight
 Plug 'junegunn/fzf'                    # fzf
 Plug 'junegunn/fzf.vim'                # fzf vim
-Plug 'junegunn/goyo.vim'               # :Goyo for distraction free writing and reading mode
-Plug 'junegunn/vim-easy-align'         # ga= align first =, ga2= align second =, ga*= align all =
+Plug 'junegunn/vim-easy-align'         # `ga=` align first =, ga2= align second =, ga*= align all =
 Plug 'liuchengxu/vista.vim'            # :Vista for tag viewer & markdown table of contents
 # Plug 'maralla/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug '~/Documents/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
@@ -51,8 +50,6 @@ Plug 'sgur/vim-textobj-parameter'      # i, a,  for parameters
 Plug 'lucapette/vim-textobj-underscore' # i_ a_ for underscore
 
 Plug 'tomasr/molokai'                  # molokar colorscheme
-Plug 'morhetz/gruvbox'                 # gruvbox colorscheme
-Plug 'lifepillar/vim-solarized8'       # solorized
 plug#end()
 
 # change default leader \ to space, this setting needs to be in the beginning
@@ -159,6 +156,10 @@ nnoremap <leader>yf ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked'
 nnoremap <leader>yd ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
 nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
+
+# set vim's comment string to be # 
+autocmd FileType vim setlocal commentstring=#\ %s
+autocmd FileType gitconfig setlocal commentstring=#\ %s
 
 #############
 # GitGutter #
@@ -772,8 +773,7 @@ g:completor_min_chars = 1
 
 g:EasyMotion_do_mapping = 0 # Disable default mappings
 # `s{char}{char}{label}`
-# Need one more keystroke, but on average, it may be more comfortable.
-nmap , <plug>(easymotion-overwin-f2)
+nmap , <plug>(easymotion-overwin-f)
 
 g:EasyMotion_smartcase = 1
 
@@ -914,18 +914,13 @@ g:surround_98 = "**\r**"
 # 99
 g:surround_99 = "`\r`"
 
-
-# set vim's comment string to be # 
-autocmd FileType vim setlocal commentstring=#\ %s
-autocmd FileType gitconfig setlocal commentstring=#\ %s
-
 ##############
 # Statusline #
 ##############
 
-# def g:NearestMethodOrFunction(): string
-#   return get(b:, 'vista_nearest_method_or_function', '')
-# enddef
+def g:NearestMethodOrFunction(): string
+  return get(b:, 'vista_nearest_method_or_function', '')
+enddef
 
 
 # By default vista.vim never run if you don't call it explicitly.
@@ -975,7 +970,7 @@ set statusline+=\ %{GetHelpSectionName()}
 
 # middle section
 set statusline+=%=
-# set statusline+=%{NearestMethodOrFunction()}
+set statusline+=%{NearestMethodOrFunction()}
 # set statusline+=%{GitStatus()}
 
 # right section
