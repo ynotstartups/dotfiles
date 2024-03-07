@@ -17,11 +17,11 @@
 
     d      = diff
     dc     = diff --cached
-    do     = diff origin/master...
+    do     = !git diff origin/$GIT_BASE_BRANCH...
     ds     = diff --staged
 
     f      = fetch
-    fro    = !git fetch origin && git rebase --interactive origin/master
+    fro    = !git fetch origin && git rebase --interactive origin/development
 
     g      = grep --ignore-case
 
@@ -43,7 +43,7 @@
     rbi    = rebase --interactive
 
     rs     = restore
-    rso    = restore --source=origin/master
+    rso    = restore --source=origin/development
     rss    = restore --staged
 
     s      = status
