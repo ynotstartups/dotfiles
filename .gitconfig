@@ -21,7 +21,7 @@
     ds     = diff --staged
 
     f      = fetch
-    fro    = !git fetch origin && git rebase --interactive origin/development
+    fro    = !git fetch origin && git rebase --interactive origin/$GIT_BASE_BRANCH
 
     g      = grep --ignore-case
 
@@ -43,7 +43,7 @@
     rbi    = rebase --interactive
 
     rs     = restore
-    rso    = restore --source=origin/development
+    rso    = !git restore --source=origin/$GIT_BASE_BRANCH
     rss    = restore --staged
 
     s      = status

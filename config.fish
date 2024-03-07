@@ -148,7 +148,7 @@ alias g='git'
 alias gs='git status'
 
 # delete every branches except main & master & current branch
-alias ,gdelete_branches='git branch | grep -v "main" | grep -v "master" | grep -v "prod" | grep -v "uat" | grep -v "*" | xargs git branch -D'
+alias ,gdelete_branches='git branch | grep -v "main" | grep -v "development" | grep -v "master" | grep -v "prod" | grep -v "uat" | grep -v "*" | xargs git branch -D'
 
 alias ,g_template_disable='git config --local commit.template "/dev/null"'
 alias ,g_template_enable='git config --local --unset commit.template'
@@ -164,7 +164,7 @@ function ,gs_notes
 end
 
 function ,gnew_branch --argument-names new_branch_name
-    git fetch origin master:$new_branch_name
+    git fetch origin $GIT_BASE_BRANCH:$new_branch_name
     git switch $new_branch_name
 end
 
@@ -284,12 +284,6 @@ alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
 alias ,ef="cd $DOTFILES       && vim config.fish"
 alias ,ev="cd $DOTFILES       && vim .vimrc"
 
-alias ,vgd='  vim -c ":Git difftool"'
-alias ,vgds=' vim -c ":Git difftool --staged"'
-alias ,vgdo=' vim -c ":Git difftool origin/master..."'
-# open in tabs
-alias ,vgdot='vim -c ":Git difftool -y origin/master..."'
-
 ########
 # Tags #
 ########
@@ -341,6 +335,28 @@ pyenv init - | source
 ############
 
 set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
+
+#######
+# PWD #
+#######
+
+set -Ux GIT_BASE_BRANCH "main"
+
+function set_git_base_branch
+    set repo_with_development_as_base_branch "$HOME/Documents/oneview"
+
+    if contains $PWD $repo_with_development_as_base_branch
+        echo "Setting git base branch to development"
+        set -Ux GIT_BASE_BRANCH "development"
+    end
+end
+
+set_git_base_branch
+
+# TODO: figure out how to run the followign command on new shell spawn too
+function react_to_pwd --on-variable PWD
+    set_git_base_branch
+end
 
 ################
 # Work Related #
