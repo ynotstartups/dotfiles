@@ -21,7 +21,7 @@
     ds     = diff --staged
 
     f      = fetch
-    fro    = !git fetch origin && git rebase --interactive origin/$GIT_BASE_BRANCH
+    fro    = !git pull origin $GIT_BASE_BRANCH:$GIT_BASE_BRANCH && git rebase --interactive origin/$GIT_BASE_BRANCH
 
     g      = grep --ignore-case
 
