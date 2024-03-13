@@ -284,6 +284,12 @@ alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
 alias ,ef="cd $DOTFILES       && vim config.fish"
 alias ,ev="cd $DOTFILES       && vim .vimrc"
 
+alias ,vgd='  vim -c ":Git difftool"'
+alias ,vgds=' vim -c ":Git difftool --staged"'
+alias ,vgdo=' vim -c ":Git difftool origin/master..."'
+# open in tabs
+alias ,vgdot='vim -c ":Git difftool -y origin/master..."'
+
 ########
 # Tags #
 ########
