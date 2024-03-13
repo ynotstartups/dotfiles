@@ -352,7 +352,6 @@ function set_git_base_branch
     set repo_with_development_as_base_branch "$HOME/Documents/oneview"
 
     if contains $PWD $repo_with_development_as_base_branch
-        echo "Setting git base branch to development"
         set -Ux GIT_BASE_BRANCH "development"
     end
 end
