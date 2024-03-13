@@ -129,7 +129,7 @@ end
 
 alias ,pr_lint=',g_lint'
 
-function ,gh_actions
+function ,gh_actions_watch
     while true
         set_color --bold cyan
         echo "... Watching github action status for$(fish_git_prompt) ..."
