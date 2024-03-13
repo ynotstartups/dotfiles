@@ -980,6 +980,12 @@ set statusline+=\ L:%03l/%03L # line number / total number or lines
 set statusline+=\ C:%03c    # column number
 set statusline+=\ %{GetPageNumberTotalPage()}
 
+#########
+# Black #
+#########
+
+# command! -range Black silent !black --quiet -
+
 #########################
 # Vim9 Compile Function #
 #########################
