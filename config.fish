@@ -280,10 +280,10 @@ function ,vfd
     vim $(fd $argv) -c 'args'
 end
 
-alias ,ed="cd $PERSONAL_NOTES && vim dev_notes.md"
-alias ,ef="cd $DOTFILES       && vim config.fish"
-alias ,ev="cd $DOTFILES       && vim .vimrc"
-alias ,eg="cd $DOTFILES       && vim .gitconfig"
+abbr ,ed "cd $PERSONAL_NOTES && vim dev_notes.md"
+abbr ,ef "cd $DOTFILES       && vim config.fish"
+abbr ,ev "cd $DOTFILES       && vim .vimrc"
+abbr ,eg "cd $DOTFILES       && vim .gitconfig"
 
 alias ,vgd='  vim -c ":Git difftool"'
 alias ,vgds=' vim -c ":Git difftool --staged"'
