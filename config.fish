@@ -413,9 +413,6 @@ function ,docker_attach_oneview
     docker attach $CONTAINER_ID
 end
 
-alias ,mb='make bash'
-alias ,ms='make shell'
-
 abbr mb "make bash" 
 abbr ms "make shell" 
 abbr ml "make lint" 
