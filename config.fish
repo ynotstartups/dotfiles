@@ -290,9 +290,9 @@ abbr ,eg "cd $DOTFILES       && vim .gitconfig"
 
 alias ,vgd='  vim -c ":Git difftool"'
 alias ,vgds=' vim -c ":Git difftool --staged"'
-alias ,vgdo=' vim -c ":Git difftool origin/master..."'
+alias ,vgdo=' vim -c ":Git difftool origin/$GIT_BASE_BRANCH..."'
 # open in tabs
-alias ,vgdot='vim -c ":Git difftool -y origin/master..."'
+alias ,vgdot='vim -c ":Git difftool -y origin/$GIT_BASE_BRANCH..."'
 
 ########
 # Tags #
