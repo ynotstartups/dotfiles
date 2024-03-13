@@ -140,9 +140,9 @@ function ,gh_actions_watch
     end
 end
 
-alias ,gh_pr='gh pr view --web'
-alias ,gh_s='gh pr checks'
-alias ,gh_d='gh pr diff | delta'
+abbr ,gh_pr 'gh pr view --web'
+abbr ,gh_s 'gh pr checks'
+abbr ,gh_d 'gh pr diff | delta'
 
 alias g='git'
 alias gs='git status'
