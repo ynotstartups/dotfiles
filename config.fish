@@ -347,19 +347,20 @@ set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 # PWD #
 #######
 
-set -Ux GIT_BASE_BRANCH "main"
-
 function set_git_base_branch
     set repo_with_development_as_base_branch "$HOME/Documents/oneview"
+
+    set -Ux GIT_BASE_BRANCH "main"
 
     if contains $PWD $repo_with_development_as_base_branch
         set -Ux GIT_BASE_BRANCH "development"
     end
 end
 
+# run when a shell spawns
 set_git_base_branch
 
-# TODO: figure out how to run the followign command on new shell spawn too
+# run when the current directory is changed
 function react_to_pwd --on-variable PWD
     set_git_base_branch
 end
