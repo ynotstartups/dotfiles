@@ -164,7 +164,10 @@ function ,gs_notes
 end
 
 function ,gnew_branch --argument-names new_branch_name
+    # create a new branch on top of the base branch (e.g. main or development)
     git fetch origin $GIT_BASE_BRANCH:$new_branch_name
+
+    # switch to this new branch
     git switch $new_branch_name
 end
 
