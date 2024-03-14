@@ -46,10 +46,10 @@ set -g fish_key_bindings fish_hybrid_key_bindings
 
 set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
 
-alias e='exit'
-alias h='help'
-alias ll='ls -lha'
-alias m='man'
+abbr e 'exit'
+abbr h 'help'
+abbr ll 'ls -lha'
+abbr m 'man'
 
 ##############
 # Fish Theme #
@@ -87,7 +87,7 @@ set fish_pager_color_secondary F8F8F2 # the background color of the every second
 # fd #
 ######
 
-alias fd_all_files='fd --hidden --no-ignore'
+abbr fd_all_files 'fd --hidden --no-ignore'
 
 ####################
 # Folder Variables #
@@ -127,7 +127,7 @@ function ,g_lint
     git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.py
 end
 
-alias ,pr_lint=',g_lint'
+abbr ,pr_lint ',g_lint'
 
 function ,gh_actions_watch
     while true
@@ -144,14 +144,14 @@ abbr ,gh_pr 'gh pr view --web'
 abbr ,gh_s 'gh pr checks'
 abbr ,gh_d 'gh pr diff | delta'
 
-alias g='git'
-alias gs='git status'
+abbr g 'git'
+abbr gs 'git status'
 
 # delete every branches except main & master & current branch
-alias ,gdelete_branches='git branch | grep -v "main" | grep -v "development" | grep -v "master" | grep -v "prod" | grep -v "uat" | grep -v "*" | xargs git branch -D'
+abbr ,gdelete_branches 'git branch | grep -v "main" | grep -v "development" | grep -v "master" | grep -v "prod" | grep -v "uat" | grep -v "*" | xargs git branch -D'
 
-alias ,g_template_disable='git config --local commit.template "/dev/null"'
-alias ,g_template_enable='git config --local --unset commit.template'
+abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
+abbr ,g_template_enable 'git config --local --unset commit.template'
 
 function ,gs_notes
     set directories personal-notes dotfiles notes docs
@@ -175,7 +175,7 @@ end
 # MacOS #
 #########
 
-alias ,make_temp_folder='cd $(mktemp -d -t "tigertmp")'
+abbr ,make_temp_folder 'cd $(mktemp -d -t "tigertmp")'
 
 function ,convert_md_to_pdf --argument-names markdown_name pdf_name
     if not test (set --query pdf_name)
@@ -196,13 +196,13 @@ function ,convert_md_to_pdf --argument-names markdown_name pdf_name
     or echo "Failed!"
 end
 
-alias ,hardcopy='lpr -o Resolution=720x720dpi'
-alias ,hardcopy_A5='lpr -o media=A5 -o Resolution=720x720dpi'
-alias ,hardcopy_normal_quality='lpr -o Resolution=360x360dpi'
-alias ,hardcopy_5_standup_template='\
+abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
+abbr ,hardcopy_A5 'lpr -o media=A5 -o Resolution=720x720dpi'
+abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
+abbr ,hardcopy_5_standup_template '\
     lpr -o scaling=110 -o Resolution=360x360dpi \
     -# 5 ~/Documents/personal-notes/pdfs/standup_template.pdf'
-alias ,hardcopy_5_solo_rpg_template='\
+abbr ,hardcopy_5_solo_rpg_template '\
     lpr -o scaling=110 -o Resolution=360x360dpi \
     -# 5 ~/Documents/personal-notes/pdfs/solo_rpg_template.pdf'
 
@@ -288,18 +288,18 @@ abbr ,ef "cd $DOTFILES       && vim config.fish"
 abbr ,ev "cd $DOTFILES       && vim .vimrc"
 abbr ,eg "cd $DOTFILES       && vim .gitconfig"
 
-alias ,vgd='  vim -c ":Git difftool"'
-alias ,vgds=' vim -c ":Git difftool --staged"'
-alias ,vgdo=' vim -c ":Git difftool origin/$GIT_BASE_BRANCH..."'
+abbr ,vgd '  vim -c ":Git difftool"'
+abbr ,vgds ' vim -c ":Git difftool --staged"'
+abbr ,vgdo ' vim -c ":Git difftool origin/$GIT_BASE_BRANCH..."'
 # open in tabs
-alias ,vgdot='vim -c ":Git difftool -y origin/$GIT_BASE_BRANCH..."'
+abbr ,vgdot 'vim -c ":Git difftool -y origin/$GIT_BASE_BRANCH..."'
 
 ########
 # Tags #
 ########
 
-# alias ,ctags_generate_for_python='ctags --python-kinds=-v **/*.py'
-alias ,generate_ctags_for_python='ctags **/*.py'
+# abbr ,ctags_generate_for_python 'ctags --python-kinds=-v **/*.py'
+abbr ,generate_ctags_for_python 'ctags **/*.py'
 
 ##########
 # Python #
@@ -327,10 +327,10 @@ function ,activate
     end
 end
 
-alias ,python3_8_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.8 python'
-alias ,python3_9_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.9 python'
-alias ,python3_10_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.10 python'
-alias ,python3_11_in_docker='docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.11 python'
+abbr ,python3_8_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.8 python'
+abbr ,python3_9_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.9 python'
+abbr ,python3_10_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.10 python'
+abbr ,python3_11_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.11 python'
 
 #########
 # Pyenv #
@@ -372,8 +372,8 @@ end
 # Work Related #
 ################
 
-alias ,dc_e2e='docker compose --file docker-compose-e2e.yml'
-alias ,dc='docker compose --file docker-compose-dev.yml'
+abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
+abbr ,dc 'docker compose --file docker-compose-dev.yml'
 
 function ,docker_remove_db_volume
     docker stop oneview-postgres-1
@@ -408,9 +408,9 @@ function ,docker_build_backend
     echo '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
 end
-alias ,be=',docker_build_backend'
+abbr ,be ',docker_build_backend'
 
-alias ,docker_cp_bashrc='cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
+abbr ,docker_cp_bashrc 'cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
 function ,docker_attach_oneview
     set CONTAINER_ID (docker container ls | grep oneview-django | cut -d ' ' -f 1)
     docker attach $CONTAINER_ID
@@ -421,9 +421,9 @@ abbr ms "make shell"
 abbr ml "make lint" 
 abbr mt "make test" 
 
-# alias eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
+# abbr eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
-alias eb='~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
+abbr eb '~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
 
 function ,_ssh_oneview --argument-names env_name 
@@ -471,7 +471,7 @@ function ,npm_run_frontend
     npm start
 end
 
-alias ,fe=',npm_run_frontend'
+abbr ,fe ',npm_run_frontend'
 
 function commit_diff_two_branches --argument-names first_branch second_branch
     set BOLD_WHITE "\033[1;37m"
