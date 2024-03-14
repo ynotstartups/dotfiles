@@ -59,6 +59,7 @@
     pager = delta
 [commit]
 	template = /Users/yuhao.huang/Documents/dotfiles/git_commit_template.txt
+	verbose = true
 [pager]
 	branch = false
 [rerere]
@@ -66,7 +67,11 @@
 [rebase]
 	autosquash = true
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
+[branch]
+    sort = -committerdate
+[log]
+    date = iso
 # delta setting
 [interactive]
     diffFilter = delta --color-only
@@ -92,13 +97,16 @@
     hunk-label = hunk:
     hunk-header-style = bold file line-number syntax
 
-# delta setting
 [diff]
+    # delta setting
     colorMoved = default
+    algorithm = histogram
 
+# delta setting
 [diff "markdown"]
     xfuncname = "^#.*$"
 
+# delta setting
 [diff "zsh"]
     # this regex stands for my custom header, e.g.
     ########
