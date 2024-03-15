@@ -571,24 +571,34 @@ end
 
 
 
-set --global curo_entity_names "t4a_feeprofile" "t4a_incomeprofile" "account" "t4a_curoholding"
+# set --global curo_entity_names "t4a_feeprofile" "t4a_incomeprofile" "account" "t4a_curoholding" "annotation"
+
+function _is_curo_entity_name_valid --argument-names entity_name 
+    string match --regex --quiet 'id$' $entity_name
+
+    # `string match` command above returns 
+    # 0 if match, means not valid entity name, e.g. 'annotationid'
+    # 1 if no match, means valid entity name, e.g. 'annotation'
+    if test $status -eq 0
+        echo "You don't need to add `id` for curo entity name"
+        return 1
+    end
+
+    return 0
+end
 
 function ,curo_prod_open_entity_name_with_id --argument-names entity_name record_id
-
-    if not contains $entity_name $curo_entity_names 
-        printf "please add to the function for future reference"
+    _is_curo_entity_name_valid $entity_name
+    if test $status -eq 0
+        open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
     end
-    # open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
-    open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
 end
 
 function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_id
-
-    if not contains $entity_name $curo_entity_names 
-        printf "please add to the function for future reference"
+    _is_curo_entity_name_valid $entity_name
+    if test $status -eq 0
+        open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
     end
-    # open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
-    open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
 end
 
 abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
