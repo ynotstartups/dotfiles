@@ -602,3 +602,10 @@ function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_
 end
 
 abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
+
+##################
+# docker compose #
+##################
+
+abbr ,dc_logs "docker-compose --file docker-compose-dev.yml logs --follow --timestamps" 
+
