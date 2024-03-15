@@ -372,9 +372,6 @@ end
 # Work Related #
 ################
 
-abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
-abbr ,dc 'docker compose --file docker-compose-dev.yml'
-
 function ,docker_remove_db_volume
     docker stop oneview-postgres-1
     # remove the postgres container
@@ -607,5 +604,7 @@ abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
 # docker compose #
 ##################
 
+abbr ,dc 'docker compose --file docker-compose-dev.yml'
+abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker-compose --file docker-compose-dev.yml logs --follow --timestamps" 
 
