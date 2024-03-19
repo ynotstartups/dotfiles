@@ -24,6 +24,7 @@ Plug 'ekalinin/Dockerfile.vim'         # dockerfile syntax
 Plug 'haya14busa/vim-asterisk'         # * stays where it is
 Plug 'img-paste-devs/img-paste.vim'    # leader p to paste image to markdown file
 Plug 'inkarkat/vim-visualrepeat'       # use . in selected lines in visual mode
+Plug 'jeetsukumaran/vim-pythonsense'   # ac, ic, af, if, ad, id python text object
 Plug 'jparise/vim-graphql'             # graphql syntax highlight
 Plug 'junegunn/fzf'                    # fzf
 Plug 'junegunn/fzf.vim'                # fzf vim
@@ -153,7 +154,7 @@ nnoremap <leader>yn :let @+=expand("%:t")<cr>:echo 'yanked' @+<cr>
 # copy python function & class name
 # use with pytest -k FUNCTION NAME
 nnoremap <leader>yf ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
-nnoremap <leader>yd ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
+# nnoremap <leader>yd ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
 nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
 
@@ -680,12 +681,12 @@ def g:PatchWord()
 enddef
 
 nnoremap <leader>yif :call g:ImportFunction()<cr>
-nnoremap <leader>yid :call g:ImportFunction()<cr>
+# nnoremap <leader>yid :call g:ImportFunction()<cr>
 nnoremap <leader>yic :call g:ImportClass()<cr>
 nnoremap <leader>yiw :call g:ImportWord()<cr>
 
 nnoremap <leader>ypf :call g:ImportFunction()<cr>
-nnoremap <leader>ypd :call g:PatchFunction()<cr>
+# nnoremap <leader>ypd :call g:PatchFunction()<cr>
 nnoremap <leader>ypw :call g:PatchWord()<cr>
 
 def g:YankFilenameAndPositionInVimQuickfixFormat()
