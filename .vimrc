@@ -580,6 +580,7 @@ nnoremap <leader>gc :$tab Git c<cr>
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
 nnoremap <leader>sv :source ~/.vimrc<cr>
 
+nnoremap <leader>eb :$tabedit ~/Documents/personal-notes/.bashrc<cr>
 nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>

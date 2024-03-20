@@ -283,6 +283,7 @@ function ,vfd
     vim $(fd $argv) -c 'args'
 end
 
+abbr ,eb "cd $PERSONAL_NOTES && vim .bashrc"
 abbr ,ed "cd $PERSONAL_NOTES && vim dev_notes.md"
 abbr ,ef "cd $DOTFILES       && vim config.fish"
 abbr ,ev "cd $DOTFILES       && vim .vimrc"
