@@ -333,14 +333,6 @@ abbr ,python3_9_in_docker 'docker run -it --rm --name my-running-script -v "$PWD
 abbr ,python3_10_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.10 python'
 abbr ,python3_11_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.11 python'
 
-#########
-# Pyenv #
-#########
-
-set -Ux PYENV_ROOT $HOME/.pyenv
-set PATH $PYENV_ROOT $PATH
-pyenv init - | source
-
 ############
 # Postgres #
 ############
