@@ -705,6 +705,8 @@ enddef
 
 nnoremap <leader>yq :call g:YankFilenameAndPositionInVimQuickfixFormat()<cr>
 
+autocmd FileType python nnoremap <leader>w <Plug>(PythonsensePyWhere)
+
 
 ########
 # Jedi #
