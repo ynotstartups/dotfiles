@@ -393,7 +393,7 @@ function ,docker_build_backend
 
     echo '~~~~ copy ipython config ~~~~'
     docker exec --env -t oneview-django-1 poetry run ipython profile create
-    docker compose cp $DOTFILES"ipython_config.py" django:/root/.ipython/profile_default/ipython_config.py
+    docker compose cp $PERSONAL_NOTES"ipython_config.py" django:/root/.ipython/profile_default/ipython_config.py
 
     echo '~~~~ django logs ~~~~'
     docker compose -f docker-compose-dev.yml logs -f django
