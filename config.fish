@@ -47,9 +47,10 @@ set -g fish_key_bindings fish_hybrid_key_bindings
 set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
 
 abbr e 'exit'
-abbr h 'help'
-abbr ll 'ls -lha'
-abbr m 'man'
+# long list with time format like 2024-03-14 11:58:06
+abbr ll 'ls -lha -D "%Y-%m-%d %H:%M:%S"'
+# sort by time with time format like 2024-03-14 11:58:06
+abbr lt 'ls -lhat -D "%Y-%m-%d %H:%M:%S"'
 
 ##############
 # Fish Theme #
