@@ -929,16 +929,6 @@ enddef
 # you can add the following line to your vimrc
 # autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
-def g:GetPageNumberTotalPage(): string
-    const LINES_PER_PAGE = 68
-    const current_page_in_buffer = line('.') / LINES_PER_PAGE
-    const total_number_of_pages_in_buffer = line('$') / LINES_PER_PAGE
-    return printf("P:%02s/%02s",
-        current_page_in_buffer,
-        total_number_of_pages_in_buffer
-   )
-enddef
-
 def g:GetHelpSectionName(): string
     # 'b'	search Backward instead of forward
     # 'n'	do Not move the cursor
@@ -978,7 +968,6 @@ set statusline+=%=
 set statusline+=\ [%{expand(&filetype)}]
 set statusline+=\ L:%03l/%03L # line number / total number or lines
 set statusline+=\ C:%03c    # column number
-set statusline+=\ %{GetPageNumberTotalPage()}
 
 #########
 # Black #
