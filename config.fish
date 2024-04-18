@@ -172,6 +172,14 @@ function ,gnew_branch --argument-names new_branch_name
     git switch $new_branch_name
 end
 
+function ,gnew_branch_one_fee --argument-names new_branch_name
+    # create a new branch on top of the base branch (e.g. main or development)
+    git fetch origin ON-2802-one-fee-calculator:$new_branch_name
+
+    # switch to this new branch
+    git switch $new_branch_name
+end
+
 #########
 # MacOS #
 #########
