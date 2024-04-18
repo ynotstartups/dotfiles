@@ -18,7 +18,6 @@ Plug 'Raimondi/delimitMate'            # automatic closing of quotes, parenthesi
 Plug 'SirVer/ultisnips'                # snippets
 Plug 'airblade/vim-gitgutter'          # shows a git diff in the sign column
 Plug 'arthurxavierx/vim-caser'         # `gs_` changes word casing: `gst` Foo Bar, `gs_` foo_bar, `gsm` FooBar
-# Plug 'davidhalter/jedi-vim'            # vim python, leader k to go to doc, leader d to definition
 Plug 'easymotion/vim-easymotion'       # use , to jump around the code
 Plug 'ekalinin/Dockerfile.vim'         # dockerfile syntax
 Plug 'haya14busa/vim-asterisk'         # * stays where it is
@@ -30,8 +29,8 @@ Plug 'junegunn/fzf'                    # fzf
 Plug 'junegunn/fzf.vim'                # fzf vim
 Plug 'junegunn/vim-easy-align'         # `ga=` align first =, ga2= align second =, ga*= align all =
 Plug 'liuchengxu/vista.vim'            # :Vista for tag viewer & markdown table of contents
-# Plug 'maralla/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
-Plug '~/Documents/completor.vim'           # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
+# Plug 'maralla/completor.vim'         # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
+Plug '~/Documents/completor.vim'       # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
 Plug 'markonm/traces.vim'              # Range, pattern and substitute preview for Vim
 Plug 'osyo-manga/vim-anzu'             # n, N show the number of searches
 Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' # add markdown syntax and :TableFormat to format table
@@ -70,7 +69,6 @@ set shortmess+=IW # ignore Intro, Written
 set laststatus=2 # status bar always on
 set wildmenu
 set wildmode=longest:full,full # start on the longest option when you hit tab
-# set wildignore=*.class,*.o,*~,*.pyc,.git  # Ignore certain files when finding files
 set hidden # files leave the screen become hidden buffer
 set backspace=indent,eol,start
 set tabstop=4 # show existing tab with 4 spaces width
@@ -81,10 +79,7 @@ set sidescrolloff=5 # similar to above but on the right
 set display+=lastline # otherwise last line that doesn't fit is replaced with @ lines, see :help 'display'
 set formatoptions+=j # Delete comment character when joining commented lines
 set splitright # when using :vsp put the split window to the right
-# set path+=** # recursive by default when using :find
 set autoread # automatically apply changes from outside of Vim
-# this makes autoread work, doesn't work on command-line window
-# au CursorHold * checktime # check one time after 4s of inactivity in normal mode
 set complete-=i # remove included files, it is slow
 set shiftwidth=4 # set shiftwidth - default indent
 set mouse=a # support mouse in iTerm
@@ -96,11 +91,6 @@ set spellcapcheck= # turn off spell check says first character not captical as e
 # set the default errorfile, so that vim -q automatically open quickfix.vim
 set errorfile=quickfix.vim
 
-# https://vi.stackexchange.com/questions/6/how-can-i-use-the-undofile
-# keep undo history after file is closed
-# if !isdirectory($HOME."/.vim/undo-dir")
-#     mkdir($HOME."/.vim/undo-dir", "", 0700)
-# endif
 set undodir=~/.vim/undo-dir
 set undofile
 # search
@@ -119,9 +109,6 @@ syntax on
 set termguicolors
 set background=light
 colorscheme molokai
-# colorscheme gruvbox
-# colorscheme solarized8
-# autocmd vimenter * ++nested colorscheme solarized8_flat
 
 # make the single quote works like a backtick
 # puts the cursor on the column of a mark, instead of first non-blank
@@ -135,12 +122,6 @@ nnoremap Q @q
 
 # Y to yank to the end of the line, mimic other capital commands
 nnoremap Y y$
-
-# jump to tags
-# prompt to select if there are multiple matching tags
-# jump to the only tag
-# for python tags, it works well to always jumpt to the first tag
-# nnoremap <C-]> g<C-]>
 
 # copy/paste
 # https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
@@ -169,11 +150,6 @@ autocmd FileType gitconfig setlocal commentstring=#\ %s
 def g:GitGutterNextHunkCycle()
     var line = line('.')
     execute "normal! :silent! GitGutterNextHunk\<cr>"
-    if line('.') == line
-        # go to first line
-        :1
-        execute "normal! :\<c-u>GitGutterNextHunk\<cr>"
-    endif
 enddef
 
 def g:GitGutterPrevHunkCycle()
@@ -443,14 +419,6 @@ autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
 
 autocmd BufRead,BufNewFile $HOME/Documents/personal-notes/*.md set nospell
 
-# insert filename in title case, used for personal notes
-# "%p - paste current filename (in register %)
-# gst - gst uses vim-caser to turn word in title mode
-# il  - il uses kana/vim-textobj-line to apply on whole line
-# <delete><delete> - remove the md in markdown file extension
-# I#  - adds markdown title with a space at the front
-nmap <silent> <leader>it "%pgstil<delete><delete>I# <esc>
-
 # restore cursor last position
 # from usr_05.txt
 autocmd BufReadPost *
@@ -471,7 +439,6 @@ def g:OpenCurrentFileInNewTabInSameLine()
     set nolazyredraw
 enddef
 
-# <c-o> hacks to jumps to last position
 nnoremap <leader>t :call g:OpenCurrentFileInNewTabInSameLine()<cr>
 # L, H are just jump to bottom or top of screen, not very useful
 # next tab
@@ -539,13 +506,6 @@ nnoremap <leader>fv :Helptags<cr>
 # :Rg 'a.*b' i.e. arbitrary regular expression
 # copied from https://github.com/junegunn/fzf.vim/issues/838#issuecomment-509902575
 command! -bang -nargs=* Rg g:fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. <q-args>, 1, <bang>0)
-
-# command! -bang -nargs=* EchoShellQAargs echom shellescape(<q-args>)
-# command! -bang -nargs=* EchoQAargs echom <q-args>
-
-# inoremap <expr> <C-n> fzf#vim#complete(fzf#wrap({
-#     \ 'source': uniq(sort(split(join(getline(1, '$'), "\n"), '\W\+'))),
-#     \ }))
 
 nnoremap <leader>q <esc>:qa<cr>
 
@@ -706,16 +666,6 @@ enddef
 nnoremap <leader>yq :call g:YankFilenameAndPositionInVimQuickfixFormat()<cr>
 
 autocmd FileType python nnoremap <leader>w <Plug>(PythonsensePyWhere)
-
-
-########
-# Jedi #
-########
-
-g:jedi#completions_enabled = 0
-# disable docstring window to popup during completion
-g:jedi#show_call_signatures = 0
-g:jedi#usages_command = "<leader>u"
 
 ############
 # NERDTree #
