@@ -105,7 +105,7 @@ set DOTFILES       "$HOME/Documents/dotfiles/"
 # stand up notes related
 function s
     cd $PERSONAL_NOTES
-    vim -p standup_notes.md dev_notes.md .bashrc
+    vim -p standup_notes.md
 end
 
 #######
