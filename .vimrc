@@ -853,17 +853,6 @@ cnoremap <c-k>   <up>
 cnoremap <c-h>   <left>
 cnoremap <c-l>   <right>
 
-############
-# Surround #
-############
-
-# :echo char2nr("b")
-# 98
-g:surround_98 = "**\r**"
-# :echo char2nr("c")
-# 99
-g:surround_99 = "`\r`"
-
 ##############
 # Statusline #
 ##############
