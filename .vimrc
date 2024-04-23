@@ -908,6 +908,15 @@ set statusline+=\ [%{expand(&filetype)}]
 set statusline+=\ L:%03l/%03L # line number / total number or lines
 set statusline+=\ C:%03c    # column number
 
+##########
+# Python #
+##########
+
+# Don't autowrap in python files
+# t: Auto-wrap text using 'textwidth'
+# see `:help fo-t`
+autocmd FileType python setlocal formatoptions-=t
+
 #########
 # Black #
 #########
