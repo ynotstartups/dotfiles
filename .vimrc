@@ -901,6 +901,7 @@ set statusline+=\ %{GetHelpSectionName()}
 set statusline+=%=
 set statusline+=%{NearestMethodOrFunction()}
 # set statusline+=%{GitStatus()}
+# set statusline+=%{pythonsense#echo_python_location()}
 
 # right section
 set statusline+=%=
