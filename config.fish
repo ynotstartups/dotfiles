@@ -422,6 +422,7 @@ abbr mb "make bash"
 abbr ms "make shell" 
 abbr ml "make lint" 
 abbr mt "make test" 
+abbr mp "docker exec -ti oneview-postgres-1 psql --username postgres"
 
 # abbr eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
