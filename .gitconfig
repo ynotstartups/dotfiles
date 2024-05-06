@@ -23,6 +23,7 @@
 
     f      = fetch
     fro    = !git fetch origin && git rebase --interactive origin/$GIT_BASE_BRANCH
+    froonefee = !git fetch origin && git rebase --interactive origin/ON-2802-one-fee-calculator
 
     g      = grep --ignore-case
 
