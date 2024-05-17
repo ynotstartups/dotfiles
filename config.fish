@@ -13,6 +13,7 @@ function fish_hybrid_key_bindings --description \
     end
     fish_vi_key_bindings --no-erase
 end
+set -g fish_key_bindings fish_hybrid_key_bindings
 
 function fish_prompt --description 'Informative prompt'
     #Save the return status of the previous command
@@ -130,20 +131,16 @@ end
 
 abbr ,pr_lint ',g_lint'
 
-function ,gh_actions_watch
-    while true
-        set_color --bold cyan
-        echo "... Watching github action status for$(fish_git_prompt) ..."
-        set_color normal
-        echo ""
-        gh pr checks
-        sleep 5
-    end
+abbr ,gh_actions_watch 'gh pr checks --watch'
+abbr ,gh_pr_view 'gh pr view --web'
+function ,gh_pr_create 
+    set title_from_branch_name $(git branch 2>/dev/null | sed -n '/\* /s///p' | sed 's/-/ /g' | sed 's/ /-/1')
+    gh pr create --title $title_from_branch_name --draft --template pull_request_template.md
 end
-
-abbr ,gh_pr 'gh pr view --web'
-abbr ,gh_s 'gh pr checks'
-abbr ,gh_d 'gh pr diff | delta'
+function ,gh_pr_create_onefee
+    set title_from_branch_name $(git branch 2>/dev/null | sed -n '/\* /s///p' | sed 's/-/ /g' | sed 's/ /-/1')
+    gh pr create --base ON-2802-one-fee-calculator --title $title_from_branch_name --draft --template pull_request_template.md
+end
 
 abbr g 'git'
 abbr gs 'git status'
@@ -418,11 +415,17 @@ function ,docker_attach_oneview
     docker attach $CONTAINER_ID
 end
 
-abbr mb "make bash" 
-abbr ms "make shell" 
-abbr ml "make lint" 
-abbr mt "make test" 
-abbr mp "docker exec -ti oneview-postgres-1 psql --username postgres"
+abbr mb "cd ~/Documents/oneview && make bash"
+abbr ms "cd ~/Documents/oneview && make shell"
+abbr ml "cd ~/Documents/oneview && make lint"
+abbr mt "cd ~/Documents/oneview && make test"
+abbr mp "cd ~/Documents/oneview && docker-compose --file docker-compose-dev.yml exec postgres psql --username postgres"
+
+# Usage
+# cat foo.sql | ,ovpsql
+# cat foo.py  | ,ovpython
+abbr ,ovpsql   "docker-compose --file docker-compose-dev.yml exec --no-TTY postgres psql --username postgres oneview" 
+abbr ,ovpython "docker-compose --file docker-compose-dev.yml exec --no-TTY django poetry run python manage.py shell" 
 
 # abbr eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...

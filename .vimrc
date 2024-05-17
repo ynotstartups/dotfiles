@@ -345,22 +345,17 @@ enddef
 # range allowed, default is current line
 command! -range -nargs=0 TableConvertTakesRange call g:TableConvert(<line1>, <line2>)
 
-def g:CycleListType()
-    # cycle three types of list in markdown, namely
-    # - foo 
-    # + [ ] foo 
-    # + [x] foo 
-    # execute "normal! " .v:count. "/^#\<cr>"
+def g:ToggleMarkdownTODO()
+    # complete or uncomplete TODO in markdown
+    # - [ ] foo 
+    # - [x] foo 
     var current_line = getline('.')
 
-    if current_line =~# '^[ ]*-'
-        var updated_line = substitute(current_line, '-', '+ [ ]', '')
+    if current_line =~# '^[ ]*- \[ \]'
+        var updated_line = substitute(current_line, '- \[ \]', '- [x]', '')
         setline(".", updated_line)
-    elseif current_line =~# '^[ ]*+ \[ \]'
-        var updated_line = substitute(current_line, '+ \[ \]', '+ [x]', '')
-        setline(".", updated_line)
-    elseif current_line =~# '^[ ]*+ \[x\]'
-        var updated_line = substitute(current_line, '+ \[x\]', '-', '')
+    elseif current_line =~# '^[ ]*- \[x\]'
+        var updated_line = substitute(current_line, '- \[x\]', '- [ ]', '')
         setline(".", updated_line)
     else
         echom 'Unknown line type!' current_line
@@ -368,7 +363,7 @@ def g:CycleListType()
 enddef
 
 # use <enter> to put x into readme todo [ ]
-autocmd FileType markdown nnoremap <cr> :call g:CycleListType()<cr>
+autocmd FileType markdown nnoremap <cr> :call g:ToggleMarkdownTODO()<cr>
 
 # modified from 
 # https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
@@ -549,6 +544,7 @@ nnoremap <leader>eu :UltiSnipsEdit<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 
 nnoremap <leader>et :JumpToTestFile<cr>
+nnoremap <leader>ets :JumpToTestFileSplit<cr>
 
 #############
 # UltiSnips #
@@ -578,6 +574,21 @@ EOF
 enddef
 
 command! JumpToTestFile call g:JumpToTestFile()
+
+def g:JumpToTestFileSplit()
+py3 << EOF
+import vim
+from vim_python import get_or_create_test_file
+
+# vim.eval("@%") gets the filepath in current buffer
+test_filepath = get_or_create_test_file(filepath=vim.eval("@%"))
+
+# open test_filepath in current window
+vim.command(f"vsplit {test_filepath}")
+EOF
+enddef
+
+command! JumpToTestFileSplit call g:JumpToTestFileSplit()
 
 def GetPythonFileImportPath(): string
     var posix_file_path = @%
@@ -918,11 +929,12 @@ set statusline+=\ C:%03c    # column number
 # see `:help fo-t`
 autocmd FileType python setlocal formatoptions-=t
 
-#########
-# Black #
-#########
+#######
+# Tag #
+#######
 
-# command! -range Black silent !black --quiet -
+nnoremap <leader>] <C-W><C-]>zt
+
 
 #########################
 # Vim9 Compile Function #
