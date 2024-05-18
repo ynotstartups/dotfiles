@@ -1,6 +1,6 @@
 SHELL=/bin/zsh
 
-all: format lint coverage-test
+all: format lint-python coverage-test
 
 format:
 	. .venv/bin/activate; \
@@ -10,18 +10,12 @@ format:
 # W503 conflict with black Formatter
 lint-python:
 	. .venv/bin/activate; \
-		flake8 --ignore=E501,W503 **/*.py
-
-lint-vimrc:
-	./lint_vimrc.awk .vimrc	
-
-lint-vimrc-open-vim:
-	vim -q <(./lint_vimrc.awk .vimrc)
+		flake8 --ignore=E501,W503,E266 **/*.py
 
 coverage-test:
 	. .venv/bin/activate; \
-		coverage run --source . -m pytest **/*.py; \
+		coverage run --source . -m pytest vim_python.py; \
 		coverage report --show-missing
 
 tags:
-	ctags .vimrc **/*.py *.awk *.md
+	ctags **/*.py
