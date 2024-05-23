@@ -127,6 +127,8 @@ nnoremap Y y$
 # https://vi.stackexchange.com/questions/84/how-can-i-copy-text-to-the-system-clipboard-from-vim
 set clipboard=unnamed # vim uses system clipboard
 
+# copy absolute path  e.g. ~/Documents/src/foo.txt
+nnoremap <leader>ya :let @+=expand("%:p")<cr>:echo 'yanked' @+<cr>
 # copy relative path  e.g. src/foo.txt
 nnoremap <leader>yp :let @+=expand("%")<cr>:echo 'yanked' @+<cr>
 # copy file name      e.g. foo.txt
