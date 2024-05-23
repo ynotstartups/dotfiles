@@ -394,9 +394,6 @@ function ,docker_build_backend
     echo '~~~~ poetry install dev ~~~~'
     docker exec --env -t oneview-django-1 poetry install --with dev
 
-    # quick install missing dev dependencies
-    # docker exec --env -t oneview-django-1 poetry add mypy flake8 black isort
-
     echo '~~~~ copy over bashrc ~~~~'
     docker compose cp "$PERSONAL_NOTES.bashrc" django:/root/.bashrc
 
