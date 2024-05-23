@@ -208,9 +208,6 @@ abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
 abbr ,hardcopy_5_standup_template '\
     lpr -o scaling=110 -o Resolution=360x360dpi \
     -# 5 ~/Documents/personal-notes/pdfs/standup_template.pdf'
-abbr ,hardcopy_5_solo_rpg_template '\
-    lpr -o scaling=110 -o Resolution=360x360dpi \
-    -# 5 ~/Documents/personal-notes/pdfs/solo_rpg_template.pdf'
 
 
 # Cups link: http://localhost:631/
@@ -289,11 +286,10 @@ function ,vfd
     vim $(fd $argv) -c 'args'
 end
 
-abbr ,eb "cd $PERSONAL_NOTES && vim .bashrc"
-abbr ,ed "cd $PERSONAL_NOTES && vim dev_notes.md"
-abbr ,ef "cd $DOTFILES       && vim config.fish"
-abbr ,ev "cd $DOTFILES       && vim .vimrc"
-abbr ,eg "cd $DOTFILES       && vim .gitconfig"
+abbr ,eb "vim $PERSONAL_NOTES/.bashrc"
+abbr ,ef "vim $DOTFILES/config.fish"
+abbr ,ev "vim $DOTFILES/.vimrc"
+abbr ,eg "vim $DOTFILES/.gitconfig"
 
 abbr ,vgd '  vim -c ":Git difftool"'
 abbr ,vgds ' vim -c ":Git difftool --staged"'
@@ -370,15 +366,6 @@ end
 ################
 # Work Related #
 ################
-
-function ,docker_remove_db_volume
-    docker stop oneview-postgres-1
-    # remove the postgres container
-    docker rm oneview-postgres-1
-    # drops the volume 
-    docker volume rm oneview_pgdata
-end
-
 
 # docker compose build oneview backend with dev dependencies and personal .bashrc
 function ,docker_build_backend
@@ -555,23 +542,6 @@ function ,prod_diff
     cd /Users/yuhao.huang/Documents/oneview
     ,g_branch_diff env/prod
 end
-
-function ,uat_deploy_safe
-    cd /Users/yuhao.huang/Documents/oneview
-
-    # print each command on
-    set fish_trace on
-
-    git stash
-    git switch env/uat
-    git fetch origin
-    git merge --ff-only origin/master
-    git push 
-
-    # print each command off
-    set -e fish_trace
-end
-
 
 
 # set --global curo_entity_names "t4a_feeprofile" "t4a_incomeprofile" "account" "t4a_curoholding" "annotation"
