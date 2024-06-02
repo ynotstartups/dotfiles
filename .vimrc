@@ -117,8 +117,10 @@ nnoremap ' `
 # instead of using '' to jump to previous mark use '' to jump to last edit
 nnoremap '' `.
 
+# 31/May/24: removed Q to force me to get used to use @q, to better utilize
+# registers
 # qq to record, Q to replay
-nnoremap Q @q
+# nnoremap Q @q
 
 # Y to yank to the end of the line, mimic other capital commands
 nnoremap Y y$
@@ -542,6 +544,8 @@ nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
 
+nnoremap <leader>el :cfile saltus/quickfix.vim <bar> copen<cr><c-r><c-r>
+
 nnoremap <leader>eu :UltiSnipsEdit<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 
@@ -740,7 +744,7 @@ g:completor_min_chars = 1
 
 g:EasyMotion_do_mapping = 0 # Disable default mappings
 # `s{char}{char}{label}`
-nmap , <plug>(easymotion-overwin-f)
+nmap , <plug>(easymotion-overwin-f2)
 
 g:EasyMotion_smartcase = 1
 
@@ -913,8 +917,12 @@ set statusline+=\ %{GetHelpSectionName()}
 # middle section
 set statusline+=%=
 set statusline+=%{NearestMethodOrFunction()}
-# set statusline+=%{GitStatus()}
-# set statusline+=%{pythonsense#echo_python_location()}
+
+# By default vista.vim never run if you don't call it explicitly.
+#
+# If you want to show the nearest function in your statusline automatically,
+# you can add the following line to your vimrc
+autocmd FileType python call vista#RunForNearestMethodOrFunction()
 
 # right section
 set statusline+=%=
