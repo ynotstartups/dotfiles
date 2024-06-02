@@ -286,6 +286,7 @@ function ,vfd
     vim $(fd $argv) -c 'args'
 end
 
+abbr ,ed "vim $PERSONAL_NOTES/dev_notes.md"
 abbr ,eb "vim $PERSONAL_NOTES/.bashrc"
 abbr ,ef "vim $DOTFILES/config.fish"
 abbr ,ev "vim $DOTFILES/.vimrc"
@@ -584,3 +585,19 @@ abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker-compose --file docker-compose-dev.yml logs --follow --timestamps" 
 
+##############
+# xiachufang #
+##############
+
+function ,xiachufang --description \
+    "Print out steps for Xia Chu Fang Recipes" \
+    --argument-names xia_chu_fang_url
+    curl --silent $xia_chu_fang_url |\
+        # get the line after 'step-text', this line contains the step of recipe
+        grep 'class="step-text"' -A 1 |\
+        grep -v 'class="step-text"' |\
+        # remove some not needed characters
+        sed -E 's/--|[[:space:]]//g' |\
+        # remove empty new lines
+        grep -v '^$'
+end
