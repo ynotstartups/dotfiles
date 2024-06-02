@@ -596,8 +596,8 @@ function ,xiachufang --description \
         # get the line after 'step-text', this line contains the step of recipe
         grep 'class="step-text"' -A 1 |\
         grep -v 'class="step-text"' |\
-        # remove some not needed characters
-        sed -E 's/--|[[:space:]]//g' |\
-        # remove empty new lines
-        grep -v '^$'
+        # remove grep separator lines
+        sed -E '/^--$/d' |\
+        # remove spaces in the beginning
+        sed -E 's/^ *//g'
 end
