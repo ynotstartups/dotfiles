@@ -15,7 +15,7 @@ __pycache__
 
 # vim
 quickfix.vim
-quickfix/
+temp_quickfix.vim
 Session.vim
 
 # personal workflow
