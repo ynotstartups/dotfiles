@@ -566,9 +566,23 @@ g:UltiSnipsExpandTrigger = "<cr>"
 # using python in vim #
 #######################
 
+def g:ImportWordUnderCursor()
+py3 <<EOF
+word = vim.eval('expand("<cword>")')
+
+taglists = vim.eval(f'taglist("{word}")')
+if taglists:
+    tag = taglists[0]
+    filename = tag['filename']
+    from_string = filename.removeprefix('saltus/').removesuffix('.py').replace("/", ".")
+    import_string = f"from {from_string} import {word}"
+    vim.current.buffer.append(import_string, 0)
+EOF
+enddef
+command! -nargs=0 ImportWord call g:ImportWordUnderCursor()
+
 def g:JumpToTestFile()
 py3 << EOF
-import vim
 from vim_python import get_or_create_test_file
 
 # vim.eval("@%") gets the filepath in current buffer
@@ -583,7 +597,6 @@ command! JumpToTestFile call g:JumpToTestFile()
 
 def g:JumpToTestFileSplit()
 py3 << EOF
-import vim
 from vim_python import get_or_create_test_file
 
 # vim.eval("@%") gets the filepath in current buffer
