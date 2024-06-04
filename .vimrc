@@ -190,17 +190,6 @@ nnoremap <leader>hq :GitGutterQuickFix <bar> copen<cr>
 g:markdown_minlines = 100
 g:no_markdown_maps = 1
 
-# leader l create link with link from clipboard
-# <esc> exit visual mode
-# a() insert () after the last word of visual selection
-# <esc><left> move cursor to be in the middle of ()
-# p paste link from clipboard
-# gv go back to the visual select
-# "ac[] change the visual select to [] & save to visual select to register a
-# <left><esc>"ap paste visual select from register a in the middle of []
-# P.S. register a is used to avoid changing the clipboard 
-autocmd FileType markdown,gitcommit vnoremap <leader>l <esc>a()<esc><left>pgv"ac[]<left><esc>"ap
-
 # conceal characters such as bold, italic and link
 autocmd FileType markdown set conceallevel=2
 
@@ -229,14 +218,6 @@ autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]\\s[]]\\s
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]x[]]\\s
 # pattern for number list e.g. 1. 
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d\\+[.]\\s
-
-def g:FoldLineRespectingLeadingSpace()
-    set textwidth=70
-    substitute/^\s*//g
-    execute "normal! gqq"
-    execute "normal! :\<c-u>'[,']substitute/^/          /g\<cr>"
-enddef
-
 
 # don't hide/conceal code blocks
 g:vim_markdown_conceal_code_blocks = 0
@@ -326,6 +307,14 @@ def g:InMarkdownHeader(): list<any>
   return ['V', head_pos, tail_pos]
 enddef
 
+# modified from 
+# https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
+def g:InMarkdownCodeblock(): list<any>
+  var tail = search('```$', 'Wc') - 1
+  var head = search('^```', 'Wb') + 1 
+  return ['V', [0, head, 1, 0], [0, tail, 1, 0]]
+enddef
+
 def g:TableConvert(
     start_line_number: number,
     end_line_number: number,
@@ -368,14 +357,6 @@ enddef
 
 # use <enter> to put x into readme todo [ ]
 autocmd FileType markdown nnoremap <cr> :call g:ToggleMarkdownTODO()<cr>
-
-# modified from 
-# https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
-def g:InMarkdownCodeblock(): list<any>
-  var tail = search('```$', 'Wc') - 1
-  var head = search('^```', 'Wb') + 1 
-  return ['V', [0, head, 1, 0], [0, tail, 1, 0]]
-enddef
 
 #########
 # Spell #
@@ -439,12 +420,10 @@ def g:OpenCurrentFileInNewTabInSameLine()
 enddef
 
 nnoremap <leader>t :call g:OpenCurrentFileInNewTabInSameLine()<cr>
-# L, H are just jump to bottom or top of screen, not very useful
-# next tab
+# By default, L, H are just jump to bottom or top of screen, not very useful
+# so remaps L to go to next tab, H to go to previous tab
 nnoremap L gt
-# previous tab
 nnoremap H gT
-# move tabpage to the left
 
 def g:TabmoveRightWrap()
     try
@@ -465,8 +444,11 @@ def g:TabmoveLeftWrap()
         tabmove $
     endtry
 enddef
+
+# move tabpage to the left
 nnoremap <c-h> :call g:TabmoveLeftWrap() <cr>
 nnoremap <c-l> :call g:TabmoveRightWrap() <cr>
+
 # leader number to go to tab
 nnoremap <leader>1 1gt
 nnoremap <leader>2 2gt
@@ -526,11 +508,7 @@ command! -bang -nargs=0 BindOff :call g:BindOff()
 
 nnoremap <leader>gb :Git blame<cr>
 # show a list of git diff files
-nnoremap <leader>gf :Git diff --name-only origin/master...<cr>
 nnoremap <leader>ge :Gedit<cr>
-# this G c relies on .gitconfig which is `git commit --verbose`
-nnoremap <leader>gc :$tab Git c<cr>
-# nnoremap <leader>gd :tab Git diff<cr>
 
 ###################
 # Source And Edit #
