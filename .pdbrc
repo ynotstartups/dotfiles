@@ -1,6 +1,0 @@
-# Print instance variables (usage "pi classInst")
-alias pi for k in %1.__dict__.keys(): print(f"%1.{k} = {%1.__dict__[k]}")
-# Print instance variables in self
-alias pself pi self
-# Print local variables, __ in the variable to avoid printing them
-alias plocal for __key in [__i for __i in locals() if not __i.startswith("__")]:  print(f"{__key} = {locals()[__key]}")
