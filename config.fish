@@ -220,6 +220,8 @@ abbr ,hardcopy_5_standup_template '\
 
 set --global --export RIPGREP_CONFIG_PATH $HOME/.rgrc
 
+abbr rg_python_ignore_tests 'rg -t py -g "!**/tests/**"'
+
 ########
 # Node #
 ########
@@ -409,8 +411,8 @@ abbr mp "cd ~/Documents/oneview && docker-compose --file docker-compose-dev.yml 
 # Usage
 # cat foo.sql | ,ovpsql
 # cat foo.py  | ,ovpython
-abbr ,ovpsql   "docker-compose --file docker-compose-dev.yml exec --no-TTY postgres psql --username postgres oneview" 
-abbr ,ovpython "docker-compose --file docker-compose-dev.yml exec --no-TTY django poetry run python manage.py shell" 
+alias ,ovpsql   "docker-compose --file ~/Documents/oneview/docker-compose-dev.yml exec --no-TTY postgres psql --username postgres oneview" 
+alias ,ovpython "docker-compose --file ~/Documents/oneview/docker-compose-dev.yml exec --no-TTY django poetry run python manage.py shell" 
 
 # abbr eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
@@ -594,8 +596,9 @@ function ,xiachufang --description \
     --argument-names xia_chu_fang_url
     curl --silent $xia_chu_fang_url |\
         # get the line after 'step-text', this line contains the step of recipe
-        grep 'class="step-text"' -A 1 |\
+        grep 'class="step-text"' -A 5 |\
         grep -v 'class="step-text"' |\
+        grep -v '</p>' |\
         # remove grep separator lines
         sed -E '/^--$/d' |\
         # remove spaces in the beginning
