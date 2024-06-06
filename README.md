@@ -5,5 +5,4 @@
 1. download 1password and log into 1password
 1. login to github, add ssh key, clone this repo
 1. `./install_mac`
-1. install on my zsh, zsh powerlevel10k theme 
 1. install [FiraCode Font](https://github.com/tonsky/FiraCode)
