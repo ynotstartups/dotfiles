@@ -447,13 +447,6 @@ enddef
 nnoremap <c-h> :call g:TabmoveLeftWrap() <cr>
 nnoremap <c-l> :call g:TabmoveRightWrap() <cr>
 
-# leader number to go to tab
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-
 #######
 # fzf #
 #######
@@ -485,8 +478,6 @@ nnoremap <leader>fv :Helptags<cr>
 # :Rg 'a.*b' i.e. arbitrary regular expression
 # copied from https://github.com/junegunn/fzf.vim/issues/838#issuecomment-509902575
 command! -bang -nargs=* Rg g:fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. <q-args>, 1, <bang>0)
-
-nnoremap <leader>q <esc>:qa<cr>
 
 ################
 # Git Fugitive #
@@ -739,14 +730,6 @@ g:mdip_imgdir = 'images'
 # <leader>i - i stands for image to insert image in normal mode
 autocmd FileType markdown nnoremap <buffer> <silent> <leader>i :call mdip#MarkdownClipboardImage()<cr>
 
-###############
-# delimitMate #
-###############
-
-# don't complete " in vim file
-# didn't find a way so exclude the whole file
-g:delimitMate_excluded_ft = "vim"
-
 ################
 # vim-asterisk #
 ################
@@ -758,14 +741,8 @@ map #  <plug>(asterisk-z#)
 map g* <plug>(asterisk-gz*)
 map g# <plug>(asterisk-gz#)
 
-################
-# vim-asterisk #
-################
-
 map n <plug>(anzu-n-with-echo)
 map N <plug>(anzu-N-with-echo)
-
-g:asterisk#keeppos = 1
 
 ###############
 # Man Command #
