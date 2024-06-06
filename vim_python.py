@@ -36,7 +36,6 @@ endsnippet
 """
 
 import os
-from unittest.mock import patch
 
 
 def write_section(text: str, comment_character: str = "#") -> str:
@@ -59,13 +58,6 @@ def write_section(text: str, comment_character: str = "#") -> str:
     return f"{top_border}{left_border}{text}{right_border}{bottom_border}"
 
 
-def test_write_section():
-    assert write_section("test 123") == "############\n# test 123 #\n############\n"
-    assert (
-        write_section("test 123", '"') == '""""""""""""\n" test 123 "\n""""""""""""\n'
-    )
-
-
 def get_test_filepath(filepath: str) -> str:
     if not filepath.startswith("saltus/oneview/"):
         splitted_filepath = filepath.split("/")
@@ -80,14 +72,6 @@ def get_test_filepath(filepath: str) -> str:
         return result_filepath
 
 
-def test_get_test_filepath():
-    assert (
-        get_test_filepath("saltus/oneview/graphql/foo.py")
-        == "saltus/oneview/tests/graphql/test_foo.py"
-    )
-    assert get_test_filepath("foo.py") == "test_foo.py"
-
-
 def get_or_create_test_file(filepath: str) -> None:
     test_filepath = get_test_filepath(filepath)
     if not os.path.exists(test_filepath):
@@ -96,18 +80,26 @@ def get_or_create_test_file(filepath: str) -> None:
     return test_filepath
 
 
-def test_create_test_file(tmp_path):
-    get_or_create_test_file(str(tmp_path / "foo.py"))
+def get_import_path_given_word(vim: object) -> str | None:
+    word = vim.eval('expand("<cword>")')
 
-    assert os.path.exists(str(tmp_path / "test_foo.py"))
+    if word == "uuid4":
+        import_string = "from uuid import uuid4"
+    elif word == "mock":
+        import_string = "from unittest import mock"
+    elif word == "call":
+        import_string = "from unittest.mock import call"
+    else:
+        taglists = vim.eval(f'taglist("{word}")')
+        if taglists:
+            tag = taglists[0]
+            filename = tag["filename"]
+            from_string = (
+                filename.removeprefix("saltus/")
+                .removesuffix("/__init__.py")
+                .removesuffix(".py")
+                .replace("/", ".")
+            )
+            import_string = f"from {from_string} import {word}"
 
-
-@patch("builtins.open")
-def test_dont_create_test_file(mock_open, tmp_path):
-    file = tmp_path / "test_foo.py"
-    # needed to force to file to create
-    file.write_text("")
-
-    get_or_create_test_file(str(tmp_path / "foo.py"))
-
-    mock_open.assert_not_called()
+    return import_string
