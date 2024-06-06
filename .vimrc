@@ -648,9 +648,8 @@ nnoremap <leader>yif :call g:ImportFunction()<cr>
 nnoremap <leader>yic :call g:ImportClass()<cr>
 nnoremap <leader>yiw :call g:ImportWord()<cr>
 
-nnoremap <leader>ypf :call g:ImportFunction()<cr>
-# nnoremap <leader>ypd :call g:PatchFunction()<cr>
-nnoremap <leader>ypw :call g:PatchWord()<cr>
+nnoremap <leader>ymf :call g:ImportFunction()<cr>
+nnoremap <leader>ymw :call g:PatchWord()<cr>
 
 def g:YankFilenameAndPositionInVimQuickfixFormat()
     var file_path = @%
