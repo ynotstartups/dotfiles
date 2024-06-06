@@ -117,10 +117,8 @@ nnoremap ' `
 # instead of using '' to jump to previous mark use '' to jump to last edit
 nnoremap '' `.
 
-# 31/May/24: removed Q to force me to get used to use @q, to better utilize
-# registers
 # qq to record, Q to replay
-# nnoremap Q @q
+nnoremap Q @q
 
 # Y to yank to the end of the line, mimic other capital commands
 nnoremap Y y$
