@@ -555,10 +555,10 @@ command! -nargs=0 ImportWord call g:ImportWordUnderCursor()
 
 def g:JumpToTestFile()
 py3 << EOF
-from vim_python import get_or_create_test_file
+from vim_python import get_or_create_alternative_file
 
 # vim.eval("@%") gets the filepath in current buffer
-test_filepath = get_or_create_test_file(filepath=vim.eval("@%"))
+test_filepath = get_or_create_alternative_file(filepath=vim.eval("@%"))
 
 # open test_filepath in current window
 vim.command(f"tabnew {test_filepath}")
@@ -569,10 +569,10 @@ command! JumpToTestFile call g:JumpToTestFile()
 
 def g:JumpToTestFileSplit()
 py3 << EOF
-from vim_python import get_or_create_test_file
+from vim_python import get_or_create_alternative_file
 
 # vim.eval("@%") gets the filepath in current buffer
-test_filepath = get_or_create_test_file(filepath=vim.eval("@%"))
+test_filepath = get_or_create_alternative_file(filepath=vim.eval("@%"))
 
 # open test_filepath in current window
 vim.command(f"vsplit {test_filepath}")

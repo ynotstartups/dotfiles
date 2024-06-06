@@ -9,10 +9,10 @@ this file is soft linked to ~/.vim/python3/vim_python.py, so it's able to be imp
 function! JumpToTestFile()
 py3 << EOF
 import vim
-from vim_python import get_or_create_test_file
+from vim_python import get_or_create_alternative_file
 
 # vim.eval("@%") gets the filepath in current buffer
-test_filepath = get_or_create_test_file(filepath=vim.eval("@%"))
+test_filepath = get_or_create_alternative_file(filepath=vim.eval("@%"))
 
 # open test_filepath in current window
 vim.command(f"edit {test_filepath}")
@@ -58,26 +58,31 @@ def write_section(text: str, comment_character: str = "#") -> str:
     return f"{top_border}{left_border}{text}{right_border}{bottom_border}"
 
 
-def get_test_filepath(filepath: str) -> str:
-    if not filepath.startswith("saltus/oneview/"):
-        splitted_filepath = filepath.split("/")
-        splitted_filepath[-1] = f"test_{splitted_filepath[-1]}"
-        result_filepath = "/".join(splitted_filepath)
-        return result_filepath
+def get_alternative_filepath(filepath: str) -> str:
+    if "test_" in filepath.split("/")[-1]:
+        # convert test filepath to filepath
+        return filepath.replace("test_", "").replace("tests/", "")
     else:
-        splitted_filepath = filepath.split("/")
-        splitted_filepath.insert(2, "tests")
-        splitted_filepath[-1] = f"test_{splitted_filepath[-1]}"
-        result_filepath = "/".join(splitted_filepath)
-        return result_filepath
+        # convert filepath to test filepath
+        if not filepath.startswith("saltus/oneview/"):
+            splitted_filepath = filepath.split("/")
+            splitted_filepath[-1] = f"test_{splitted_filepath[-1]}"
+            result_filepath = "/".join(splitted_filepath)
+            return result_filepath
+        else:
+            splitted_filepath = filepath.split("/")
+            splitted_filepath.insert(2, "tests")
+            splitted_filepath[-1] = f"test_{splitted_filepath[-1]}"
+            result_filepath = "/".join(splitted_filepath)
+            return result_filepath
 
 
-def get_or_create_test_file(filepath: str) -> None:
-    test_filepath = get_test_filepath(filepath)
-    if not os.path.exists(test_filepath):
-        with open(test_filepath, "w"):
+def get_or_create_alternative_file(filepath: str) -> None:
+    alternative_filepath = get_alternative_filepath(filepath)
+    if not os.path.exists(alternative_filepath):
+        with open(alternative_filepath, "w"):
             pass
-    return test_filepath
+    return alternative_filepath
 
 
 def get_import_path_given_word(vim: object) -> str | None:
