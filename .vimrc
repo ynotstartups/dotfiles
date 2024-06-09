@@ -28,7 +28,6 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeFind' } # tree folder explorers, `<l
 Plug 'inkarkat/vim-visualrepeat'       # in visual mode, use . to repeat in selected lines
 Plug 'tpope/vim-repeat'                # repeat vim-surround with .
 Plug 'tpope/vim-surround'              # `ds` to delete, `cs` to change and `ys` to add surroundings ', ", ` 
-# Plug 'tpope/vim-unimpaired'            # adds mapping like [q ]q
 
 # git
 Plug 'airblade/vim-gitgutter'          # shows git add/modify/remove symbols on the left
@@ -183,13 +182,13 @@ nnoremap <leader>hu <plug>(GitGutterUndoHunk)
 
 nnoremap <leader>hq :GitGutterQuickFix <bar> copen<cr>
 
-g:git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
+var git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
 
-def g:GoToGitConflictBelow()
-    execute $"normal! /{g:git_conflict_markers_regex}\<cr>"
+def g:GoToGitConflictNext()
+    execute $"normal! /{git_conflict_markers_regex}\<cr>"
 enddef
-def g:GoToGitConflictAbove()
-    execute $"normal! ?{g:git_conflict_markers_regex}\<cr>"
+def g:GoToGitConflictPrevious()
+    execute $"normal! ?{git_conflict_markers_regex}\<cr>"
 enddef
 
 ############
@@ -247,10 +246,10 @@ g:vim_markdown_no_default_key_mappings = 1
 # default filetype plugin maps [[ and ]], unmap it
 g:no_markdown_maps = 1
 
-def g:GoToCountHeaderBelow()
+def g:GoToCountHeaderNext()
     execute $"normal! {v:count}/^#\<cr>"
 enddef
-def g:GoToCountHeaderAbove()
+def g:GoToCountHeaderPrevious()
   execute $"normal! {v:count}?^#\<cr>"
 enddef
 
@@ -540,7 +539,6 @@ g:UltiSnipsEditSplit = "vertical"
 # by default UltiSnipsExpandTrigger uses Tab, disable it for completor
 g:UltiSnipsExpandTrigger = "<cr>"
 
-
 #######################
 # using python in vim #
 #######################
@@ -592,7 +590,6 @@ def GetPythonFileImportPath(): string
     return python_import_path
 enddef
 
-
 def YankPythonImport()
     var name = @0
     var python_import_path = GetPythonFileImportPath()
@@ -634,7 +631,6 @@ def g:ImportWord()
     YankPythonImport()
 enddef
 
-
 def g:PatchFunction()
     execute "normal! $"
     execute "normal! ?def\<cr>wyiw\<c-o>"
@@ -647,11 +643,9 @@ def g:PatchWord()
 enddef
 
 nnoremap <leader>yif :call g:ImportFunction()<cr>
-# nnoremap <leader>yid :call g:ImportFunction()<cr>
 nnoremap <leader>yic :call g:ImportClass()<cr>
 nnoremap <leader>yiw :call g:ImportWord()<cr>
 
-nnoremap <leader>ymf :call g:ImportFunction()<cr>
 nnoremap <leader>ymw :call g:PatchWord()<cr>
 
 def g:YankFilenameAndPositionInVimQuickfixFormat()
@@ -705,7 +699,6 @@ def g:TabOrComplete(): string
     return "\<tab>"
   endif
 enddef
-
 
 # Use `tab` key to select completions.  Default is arrow keys.
 
@@ -774,7 +767,7 @@ def SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 enddef
 
-command! -bang -nargs=0 SynStack call SynStack()
+command! -bang -nargs=0 Syntax call SynStack()
 
 ##############
 # diff color #
@@ -782,7 +775,7 @@ command! -bang -nargs=0 SynStack call SynStack()
 
 # #C91B00 red from iterm ansi red
 hi diffRemoved guifg=#C91B00
-# #00C200 gren from iterm ansi green
+# #00C200 green from iterm ansi green
 hi diffAdded   guifg=#00C200
 
 #####################
@@ -826,6 +819,7 @@ command! TOPrintPDF call g:SaveAsPDFToPrintInDownloads()
 #########
 # Vista #
 #########
+
 g:vista#renderer#enable_icon = 0
 
 autocmd FileType vista,vista_markdown nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
@@ -834,15 +828,6 @@ g:vista_sidebar_width = 80
 
 nnoremap <leader>v :Vista<cr>
 
-##############################
-# command line mode mappings #
-##############################
-
-cnoremap <c-j>   <down>
-cnoremap <c-k>   <up>
-cnoremap <c-h>   <left>
-cnoremap <c-l>   <right>
-
 ##############
 # Statusline #
 ##############
@@ -850,7 +835,6 @@ cnoremap <c-l>   <right>
 def g:NearestMethodOrFunction(): string
   return get(b:, 'vista_nearest_method_or_function', '')
 enddef
-
 
 # By default vista.vim never run if you don't call it explicitly.
 #
@@ -862,7 +846,7 @@ def g:GetHelpSectionName(): string
     # 'b'	search Backward instead of forward
     # 'n'	do Not move the cursor
     # 'W'	don't Wrap around the end of the file
-    const section_header_line_number = search('^=\{70,}', 'bnW')
+    var section_header_line_number = search('^=\{70,}', 'bnW')
     var section_header: string
     if section_header_line_number != 0
         section_header = getline(section_header_line_number + 1)
@@ -879,7 +863,7 @@ def g:GetHelpSectionName(): string
 enddef
 
 def g:GitStatus(): string
-  const [added, modified, removed] = g:GitGutterGetHunkSummary()
+  var [added, modified, removed] = g:GitGutterGetHunkSummary()
   return printf('+%d ~%d -%d', added, modified, removed)
 enddef
 
@@ -916,6 +900,7 @@ autocmd FileType python setlocal formatoptions-=t
 # Tag #
 #######
 
+# `ctrl shift ]` to open tag in preview window
 nnoremap <c-}> :ptag <c-r><c-w><cr>
 
 ###########
@@ -946,8 +931,8 @@ nnoremap gsu <Plug>CaserUpperCase
 # git
 nnoremap [h :<c-u>call g:GitGutterPrevHunkCycle()<cr>
 nnoremap ]h :<c-u>call g:GitGutterNextHunkCycle()<cr>
-nnoremap [m :<c-u>call g:GoToGitConflictAbove()<cr>
-nnoremap ]m :<c-u>call g:GoToGitConflictBelow()<cr>
+nnoremap [m :<c-u>call g:GoToGitConflictPrevious()<cr>
+nnoremap ]m :<c-u>call g:GoToGitConflictNext()<cr>
 
 # quickfix 
 nnoremap [q :cnext<cr>
@@ -972,8 +957,8 @@ autocmd FileType python nnoremap [f <Plug>(PythonsenseStartOfPythonFunction)
 autocmd FileType python nnoremap ]f <Plug>(PythonsenseStartOfNextPythonFunction)
 
 # markdown headers
-autocmd FileType markdown nnoremap [[ :<c-u>call g:GoToCountHeaderAbove()<cr>
-autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderBelow()<cr>
+autocmd FileType markdown nnoremap [[ :<c-u>call g:GoToCountHeaderPrevious()<cr>
+autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderNext()<cr>
 
 ###############
 # pythonsense #
