@@ -183,6 +183,15 @@ nnoremap <leader>hu <plug>(GitGutterUndoHunk)
 
 nnoremap <leader>hq :GitGutterQuickFix <bar> copen<cr>
 
+g:git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
+
+def g:GoToGitConflictBelow()
+    execute $"normal! /{g:git_conflict_markers_regex}\<cr>"
+enddef
+def g:GoToGitConflictAbove()
+    execute $"normal! ?{g:git_conflict_markers_regex}\<cr>"
+enddef
+
 ############
 # markdown #
 ############
@@ -243,15 +252,6 @@ def g:GoToCountHeaderBelow()
 enddef
 def g:GoToCountHeaderAbove()
   execute $"normal! {v:count}?^#\<cr>"
-enddef
-
-g:git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
-
-def g:GoToGitConflictBelow()
-    execute $"normal! /{g:git_conflict_markers_regex}\<cr>"
-enddef
-def g:GoToGitConflictAbove()
-    execute $"normal! ?{g:git_conflict_markers_regex}\<cr>"
 enddef
 
 # da3 to delete all contents in current header with header line
@@ -474,8 +474,8 @@ nnoremap <leader>fc :Commands<cr>
 nnoremap <leader>ff :Files<cr>
 # search all lines in open buffers
 nnoremap <leader>fl :Lines<cr>
-# nnoremap <leader>fm :Marks<cr>
-nnoremap <leader>fm :Maps<cr>
+nnoremap <leader>fm :Marks<cr>
+# nnoremap <leader>fm :Maps<cr>
 nnoremap <leader>ft :Tags<cr>
 nnoremap <leader>fw :Rg --word-regexp <c-r><c-w><cr>
 nnoremap <leader>fh :History<cr>
