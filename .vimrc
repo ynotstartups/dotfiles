@@ -516,8 +516,8 @@ nnoremap <leader>el :cfile saltus/quickfix.vim <bar> copen<cr><c-r><c-r>
 nnoremap <leader>eu :UltiSnipsEdit<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 
-nnoremap <leader>et :JumpToTestFile<cr>
-nnoremap <leader>ets :JumpToTestFileSplit<cr>
+nnoremap <leader>ea :JumpToTestFile<cr>
+nnoremap <leader>eas :JumpToTestFileSplit<cr>
 
 #############
 # UltiSnips #
@@ -904,7 +904,28 @@ autocmd FileType python setlocal formatoptions-=t
 # Tag #
 #######
 
-nnoremap <leader>] <C-W><C-]>zt
+nnoremap <c-}> :ptag <c-r><c-w><cr>
+
+###########
+# Preview #
+###########
+
+set previewheight=20
+
+#############
+# vim-caser #
+#############
+
+g:caser_no_mappings = 1
+
+# change to class casing FooBarBaz
+nnoremap gsc <Plug>CaserMixedCase
+
+# change to variable casing foo_bar_baz
+nnoremap gs_ <Plug>CaserSnakeCase
+
+# change to constant casing e.g. FOO_BAR_BAZ
+nnoremap gsu <Plug>CaserUpperCase
 
 
 #########################
