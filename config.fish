@@ -293,6 +293,7 @@ abbr ,eb "vim $PERSONAL_NOTES/.bashrc"
 abbr ,ef "vim $DOTFILES/config.fish"
 abbr ,ev "vim $DOTFILES/.vimrc"
 abbr ,eg "vim $DOTFILES/.gitconfig"
+abbr ,en "vim ~/Documents/notes/notes/"
 
 abbr ,vgd '  vim -c ":Git difftool"'
 abbr ,vgds ' vim -c ":Git difftool --staged"'

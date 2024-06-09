@@ -529,6 +529,8 @@ nnoremap <leader>es :UltiSnipsEdit<cr>
 nnoremap <leader>ea :JumpToTestFile<cr>
 nnoremap <leader>eas :JumpToTestFileSplit<cr>
 
+nnoremap <leader>en :$tabedit ~/Documents/notes/notes/<cr>
+
 #############
 # UltiSnips #
 #############
