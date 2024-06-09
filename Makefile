@@ -18,4 +18,4 @@ coverage-test:
 		coverage report --show-missing --omit 'ipython_config.py'
 
 tags:
-	ctags **/*.py
+	ctags **/*.py .vimrc
