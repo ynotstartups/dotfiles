@@ -15,39 +15,48 @@ endif
 
 plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            # automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'SirVer/ultisnips'                # snippets
-Plug 'airblade/vim-gitgutter'          # shows a git diff in the sign column
-Plug 'arthurxavierx/vim-caser'         # `gs_` changes word casing: `gst` Foo Bar, `gs_` foo_bar, `gsm` FooBar
-Plug 'easymotion/vim-easymotion'       # use , to jump around the code
-Plug 'ekalinin/Dockerfile.vim'         # dockerfile syntax
-Plug 'haya14busa/vim-asterisk'         # * stays where it is
-Plug 'img-paste-devs/img-paste.vim'    # leader p to paste image to markdown file
-Plug 'inkarkat/vim-visualrepeat'       # use . in selected lines in visual mode
-Plug 'jeetsukumaran/vim-pythonsense'   # ac, ic, af, if, ad, id python text object
-Plug 'jparise/vim-graphql'             # graphql syntax highlight
+Plug 'SirVer/ultisnips'                # snippets, snippet files are in `Documents/dotfiles/UltiSnips`
+Plug '~/Documents/completor.vim'       # fuzzy completor
+Plug 'markonm/traces.vim'              # preview substitute and regex pattern
+Plug 'osyo-manga/vim-anzu'             # `n` shows the number of searches
+Plug 'haya14busa/vim-asterisk'         # `*` stays where it is instead of jumping to next match
 Plug 'junegunn/fzf'                    # fzf
 Plug 'junegunn/fzf.vim'                # fzf vim
-Plug 'junegunn/vim-easy-align'         # `ga=` align first =, ga2= align second =, ga*= align all =
-Plug 'liuchengxu/vista.vim'            # :Vista for tag viewer & markdown table of contents
-# Plug 'maralla/completor.vim'         # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
-Plug '~/Documents/completor.vim'       # fuzzy complete, type 'fzcl' then <tab> to complete to 'fuzzy complete'
-Plug 'markonm/traces.vim'              # Range, pattern and substitute preview for Vim
-Plug 'osyo-manga/vim-anzu'             # n, N show the number of searches
-Plug 'plasticboy/vim-markdown' | Plug 'godlygeek/tabular' # add markdown syntax and :TableFormat to format table
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeFind' }             # tree explorers
-Plug 'tpope/vim-commentary'            # add shortcut gc for making a comment
-Plug 'tpope/vim-fugitive'              # using git in vim
+Plug 'liuchengxu/vista.vim'            # `:Vista` for tag viewer & markdown table of contents
+Plug 'easymotion/vim-easymotion'       # `,` to jump around the code
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeFind' } # tree folder explorers, `<leader>n` to open
+Plug 'inkarkat/vim-visualrepeat'       # in visual mode, use . to repeat in selected lines
 Plug 'tpope/vim-repeat'                # repeat vim-surround with .
-Plug 'tpope/vim-rhubarb'               # supports for :GBrowse to github
-Plug 'tpope/vim-surround'              # The plugin provides mappings to easily delete, change and add such surroundings in pairs.
-Plug 'tpope/vim-unimpaired'            # adds mapping like [q ]q
-Plug 'vim-scripts/ReplaceWithRegister' # gr{motion} go replace
+Plug 'tpope/vim-surround'              # `ds` to delete, `cs` to change and `ys` to add surroundings ', ", ` 
+# Plug 'tpope/vim-unimpaired'            # adds mapping like [q ]q
 
+# git
+Plug 'airblade/vim-gitgutter'          # shows git add/modify/remove symbols on the left
+Plug 'tpope/vim-fugitive'              # view git blame in vim
+Plug 'tpope/vim-rhubarb'               # `:GBrowse` to open code in github
+
+# additional `g` commands
+Plug 'junegunn/vim-easy-align'         # `ga=` align first =, ga2= align second =, ga*= align all =
+Plug 'tpope/vim-commentary'            # `gc` for making comments
+Plug 'vim-scripts/ReplaceWithRegister' # `gr` go replace
+Plug 'arthurxavierx/vim-caser'         # `gs` changes word casing e.g. `gsc` FooBar, `gs_` foo_bar, `gsu` FOO_BAR
+
+# syntax highlight
+Plug 'ekalinin/Dockerfile.vim'         # dockerfile syntax
+Plug 'jparise/vim-graphql'             # graphql syntax highlight
+Plug 'plasticboy/vim-markdown'         # add markdown syntax
+
+# additional text objects
+Plug 'jeetsukumaran/vim-pythonsense'   # ac, ic, af, if, ad, id python text object
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'           # al     for this line
 Plug 'kana/vim-textobj-entire'         # ie     for entire file
 Plug 'sgur/vim-textobj-parameter'      # i, a,  for parameters
 Plug 'lucapette/vim-textobj-underscore' # i_ a_ for underscore
+
+# for markdown files
+Plug 'img-paste-devs/img-paste.vim'    # `<leader>p` to paste image from system clipboard to markdown file 
+Plug 'godlygeek/tabular'               # `:TableFormat` to format table
 
 Plug 'tomasr/molokai'                  # molokar colorscheme
 plug#end()
@@ -167,8 +176,6 @@ enddef
 # see help (shortcut K) for gitgutter-mappings
 set updatetime=100 # how long (in milliseconds) the plugin will wait for GitGutter
 g:gitgutter_map_keys = 0 # disable gitgutter map
-nnoremap ]h :<c-u>call g:GitGutterNextHunkCycle()<cr>
-nnoremap [h :<c-u>call g:GitGutterPrevHunkCycle()<cr>
 nnoremap <leader>hp <plug>(GitGutterPreviewHunk)
 nnoremap <leader>ha <plug>(GitGutterStageHunk)
 nnoremap <leader>hs <plug>(GitGutterStageHunk)
@@ -234,13 +241,18 @@ g:no_markdown_maps = 1
 def g:GoToCountHeaderBelow()
     execute $"normal! {v:count}/^#\<cr>"
 enddef
-# 5]] to goes to fifth header below
-autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderBelow()<cr>
 def g:GoToCountHeaderAbove()
   execute $"normal! {v:count}?^#\<cr>"
 enddef
-# 5]] to goes to fifth header below
-autocmd FileType markdown nnoremap [[ :<c-u>call g:GoToCountHeaderAbove()<cr>
+
+g:git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
+
+def g:GoToGitConflictBelow()
+    execute $"normal! /{g:git_conflict_markers_regex}\<cr>"
+enddef
+def g:GoToGitConflictAbove()
+    execute $"normal! ?{g:git_conflict_markers_regex}\<cr>"
+enddef
 
 # da3 to delete all contents in current header with header line
 # di3 to delete all contents in current header without header line
@@ -389,8 +401,6 @@ nnoremap <silent> <leader>c :nohlsearch<cr>
 
 # leader z to autocorrect words and move cursor to the end of the word
 nnoremap <silent> <leader>z 1z=<cr>g;e
-nnoremap <silent> [z [s
-nnoremap <silent> ]z ]s
 
 # this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
 autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
@@ -927,6 +937,48 @@ nnoremap gs_ <Plug>CaserSnakeCase
 # change to constant casing e.g. FOO_BAR_BAZ
 nnoremap gsu <Plug>CaserUpperCase
 
+##############
+# [ Mappings #
+##############
+
+# git
+nnoremap [h :<c-u>call g:GitGutterPrevHunkCycle()<cr>
+nnoremap ]h :<c-u>call g:GitGutterNextHunkCycle()<cr>
+nnoremap [m :<c-u>call g:GoToGitConflictAbove()<cr>
+nnoremap ]m :<c-u>call g:GoToGitConflictBelow()<cr>
+
+# quickfix 
+nnoremap [q :cnext<cr>
+nnoremap ]q :cprevious<cr>
+nnoremap [Q :cfirst<cr>
+nnoremap ]Q :clast<cr>
+
+# files from argument list
+nnoremap [a :next<cr>
+nnoremap ]a :previous<cr>
+nnoremap [A :first<cr>
+nnoremap ]A :last<cr>
+
+# move to incorrect spelling words
+nnoremap <silent> [z [s
+nnoremap <silent> ]z ]s
+
+# python functions and classes
+autocmd FileType python nnoremap [c <Plug>(PythonsenseStartOfPythonClass)
+autocmd FileType python nnoremap ]c <Plug>(PythonsenseStartOfNextPythonClass)
+autocmd FileType python nnoremap [f <Plug>(PythonsenseStartOfPythonFunction)
+autocmd FileType python nnoremap ]f <Plug>(PythonsenseStartOfNextPythonFunction)
+
+# markdown headers
+autocmd FileType markdown nnoremap [[ :<c-u>call g:GoToCountHeaderAbove()<cr>
+autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderBelow()<cr>
+
+###############
+# pythonsense #
+###############
+
+g:is_pythonsense_suppress_motion_keymaps = 1
+g:is_pythonsense_suppress_location_keymaps = 1
 
 #########################
 # Vim9 Compile Function #
