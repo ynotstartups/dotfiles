@@ -85,28 +85,167 @@ def get_or_create_alternative_file(filepath: str) -> None:
     return alternative_filepath
 
 
+package_and_word = {
+    "abc": ["ABC", "abstractmethod"],
+    "collections": ["Counter", "defaultdict"],
+    "copy": ["copy", "deepcopy"],
+    "dataclasses": ["asdict", "dataclass"],
+    "datetime": ["datetime", "timedelta"],
+    "decimal": ["Decimal"],
+    "django.apps": ["AppConfig", "apps", "apps as django_apps"],
+    "django.conf": ["settings"],
+    "django.contrib": ["admin"],
+    "django.contrib.auth": ["get_user_model"],
+    "django.contrib.auth.hashers": ["make_password"],
+    "django.contrib.auth.models": ["Group", "Permission", "UserManager"],
+    "django.contrib.contenttypes.models": ["ContentType"],
+    "django.contrib.postgres.fields": ["ArrayField"],
+    "django.core": ["checks", "serializers"],
+    "django.core.checks": ["register"],
+    "django.core.exceptions": [
+        "BadRequest",
+        "FieldDoesNotExist",
+        "FieldError",
+        "ImproperlyConfigured",
+        "ObjectDoesNotExist",
+        "ValidationError",
+    ],
+    "django.core.mail": ["get_connection", "send_mail"],
+    "django.core.management": [
+        "BaseCommand",
+        "CommandError",
+        "CommandParser",
+        "call_command",
+        "execute_from_command_line",
+    ],
+    "django.core.management.base": ["BaseCommand", "CommandError", "SystemCheckError"],
+    "django.core.serializers.json": ["DjangoJSONEncoder"],
+    "django.core.validators": ["EmailValidator"],
+    "django.core.wsgi": ["get_wsgi_application"],
+    "django.db": [
+        "IntegrityError",
+        "connection",
+        "migrations",
+        "models",
+        "transaction",
+    ],
+    "django.db.migrations.executor": ["MigrationExecutor"],
+    "django.db.models": ["CheckConstraint", "ForeignKey", "Model", "Q", "QuerySet"],
+    "django.db.models.functions": ["Cast"],
+    "django.db.models.signals": ["m2m_changed", "post_save", "pre_save"],
+    "django.db.utils": ["IntegrityError"],
+    "django.dispatch": ["receiver"],
+    "django.http": ["HttpResponse", "JsonResponse"],
+    "django.http.response": ["HttpResponseRedirect"],
+    "django.shortcuts": ["HttpResponse"],
+    "django.test": [
+        "RequestFactory",
+        "TestCase",
+        "TransactionTestCase",
+        "override_settings",
+    ],
+    "django.test.client": ["RequestFactory"],
+    "django.test.utils": ["override_settings"],
+    "django.urls": ["path", "reverse"],
+    "django.utils": ["timezone"],
+    "django.utils.decorators": ["method_decorator"],
+    "django.utils.functional": ["classproperty", "lazy"],
+    "django.utils.html": ["format_html"],
+    "django.utils.timezone": ["make_aware"],
+    "django.views.decorators.csrf": ["csrf_exempt"],
+    "django_cognito_jwt": ["JSONWebTokenAuthentication"],
+    "django_cognito_jwt.validator": ["TokenValidator"],
+    "enum": ["Enum", "Enum as EnumOriginal"],
+    "factory": ["Faker as FactoryFaker"],
+    "factory.django": ["DjangoModelFactory"],
+    "freezegun": ["freeze_time"],
+    "functools": ["lru_cache", "reduce", "wraps"],
+    "graphene": ["Enum", "Schema", "relay"],
+    "graphene.test": ["Client"],
+    "graphene_django": ["DjangoObjectType"],
+    "graphene_django.debug": ["DjangoDebug"],
+    "graphene_django.views": ["GraphQLView"],
+    "graphql": ["GraphQLError"],
+    "graphql_relay.connection.connectiontypes": ["Edge"],
+    "guardian.shortcuts": ["assign_perm"],
+    "hashlib": ["md5"],
+    "http": ["HTTPStatus"],
+    "io": ["BytesIO"],
+    "itertools": ["chain", "groupby"],
+    "jinja2": ["Template as Jinja2Template"],
+    "json": ["JSONDecodeError"],
+    "logging.handlers": ["TimedRotatingFileHandler"],
+    "lxml": ["etree"],
+    "moto": ["mock_cognitoidp", "mock_s3"],
+    "my_app": ["views"],
+    "os": ["path"],
+    "other_app.views": ["Home"],
+    "pathlib": ["Path"],
+    "promise": ["Promise"],
+    "promise.dataloader": ["DataLoader"],
+    "public_api.views": ["XperidocDataConnector"],
+    "pymssql": ["OperationalError"],
+    "pytz": ["UTC"],
+    "re": ["compile"],
+    "requests": ["HTTPError", "Response"],
+    "requests.exceptions": ["Timeout"],
+    "rest_framework": ["HTTP_HEADER_ENCODING", "serializers", "status"],
+    "rest_framework.authentication": ["TokenAuthentication"],
+    "rest_framework.authtoken.models": ["Token"],
+    "rest_framework.exceptions": ["AuthenticationFailed", "NotFound"],
+    "rest_framework.generics": ["GenericAPIView"],
+    "rest_framework.permissions": ["BasePermission", "IsAuthenticated"],
+    "rest_framework.request": ["Request"],
+    "rest_framework.test": ["APIClient"],
+    "rest_framework.views": ["APIView"],
+    "sentry_sdk": ["capture_exception", "push_scope"],
+    "sentry_sdk.integrations.celery": ["CeleryIntegration"],
+    "sentry_sdk.integrations.django": ["DjangoIntegration"],
+    "sentry_sdk.integrations.logging": ["ignore_logger"],
+    "simple_history.admin": ["SimpleHistoryAdmin"],
+    "simple_history.models": ["HistoricalRecords"],
+    "simple_history.utils": ["update_change_reason"],
+    "socket": ["socket"],
+    "sshtunnel": ["SSHTunnelForwarder"],
+    "tempfile": ["NamedTemporaryFile"],
+    "threading": ["Thread"],
+    "time": ["time_ns"],
+    "typing": [
+        "Any",
+        "Callable",
+        "Iterable",
+        "List",
+        "Optional",
+        "Tuple",
+        "Type",
+        "Union",
+    ],
+    "unittest": ["mock"],
+    "unittest.mock": ["MagicMock", "Mock", "PropertyMock", "call", "patch"],
+    "urllib.parse": ["urlparse"],
+    "uuid": ["UUID", "uuid4"],
+}
+
+
 def get_import_path_given_word(vim: object) -> str | None:
     word = vim.eval('expand("<cword>")')
 
-    if word == "uuid4":
-        import_string = "from uuid import uuid4"
-    elif word == "UUID":
-        import_string = "from uuid import UUID"
-    elif word == "mock":
-        import_string = "from unittest import mock"
-    elif word == "call":
-        import_string = "from unittest.mock import call"
-    else:
-        taglists = vim.eval(f'taglist("{word}")')
-        if taglists:
-            tag = taglists[0]
-            filename = tag["filename"]
-            from_string = (
-                filename.removeprefix("saltus/")
-                .removesuffix("/__init__.py")
-                .removesuffix(".py")
-                .replace("/", ".")
-            )
-            import_string = f"from {from_string} import {word}"
+    for package, words in package_and_word.items():
+        if word in words:
+            import_string = f"from {package} import {word}"
+            print(import_string)
+            return import_string
 
-    return import_string
+    taglists = vim.eval(f'taglist("{word}")')
+    if taglists:
+        tag = taglists[0]
+        filename = tag["filename"]
+        from_string = (
+            filename.removeprefix("saltus/")
+            .removesuffix("/__init__.py")
+            .removesuffix(".py")
+            .replace("/", ".")
+        )
+        import_string = f"from {from_string} import {word}"
+        print(import_string)
+        return import_string
