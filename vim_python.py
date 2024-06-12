@@ -90,6 +90,8 @@ def get_import_path_given_word(vim: object) -> str | None:
 
     if word == "uuid4":
         import_string = "from uuid import uuid4"
+    elif word == "UUID":
+        import_string = "from uuid import UUID"
     elif word == "mock":
         import_string = "from unittest import mock"
     elif word == "call":
