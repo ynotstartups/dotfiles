@@ -181,6 +181,8 @@ end
 # MacOS #
 #########
 
+abbr m 'make'
+
 abbr ,make_temp_folder 'cd $(mktemp -d -t "tigertmp")'
 
 function ,convert_md_to_pdf --argument-names markdown_name pdf_name
