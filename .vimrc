@@ -456,6 +456,12 @@ enddef
 nnoremap <c-h> :call g:TabmoveLeftWrap() <cr>
 nnoremap <c-l> :call g:TabmoveRightWrap() <cr>
 
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+
 #######
 # fzf #
 #######
@@ -900,8 +906,8 @@ autocmd FileType python setlocal formatoptions-=t
 # Tag #
 #######
 
-# `ctrl shift ]` to open tag in preview window
-nnoremap <c-}> :ptag <c-r><c-w><cr>
+# `<leader>]` to open tag in preview window
+nnoremap <leader>] :ptag <c-r><c-w><cr>
 
 ###########
 # Preview #
@@ -935,8 +941,8 @@ nnoremap [m :<c-u>call g:GoToGitConflictPrevious()<cr>
 nnoremap ]m :<c-u>call g:GoToGitConflictNext()<cr>
 
 # quickfix 
-nnoremap [q :cnext<cr>
-nnoremap ]q :cprevious<cr>
+nnoremap [q :cprevious<cr>
+nnoremap ]q :cnext<cr>
 nnoremap [Q :cfirst<cr>
 nnoremap ]Q :clast<cr>
 
