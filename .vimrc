@@ -937,8 +937,8 @@ nnoremap gsu <Plug>CaserUpperCase
 # git
 nnoremap [h :<c-u>call g:GitGutterPrevHunkCycle()<cr>
 nnoremap ]h :<c-u>call g:GitGutterNextHunkCycle()<cr>
-nnoremap [m :<c-u>call g:GoToGitConflictPrevious()<cr>
-nnoremap ]m :<c-u>call g:GoToGitConflictNext()<cr>
+nnoremap [g :<c-u>call g:GoToGitConflictPrevious()<cr>
+nnoremap ]g :<c-u>call g:GoToGitConflictNext()<cr>
 
 # quickfix 
 nnoremap [q :cprevious<cr>
@@ -947,8 +947,8 @@ nnoremap [Q :cfirst<cr>
 nnoremap ]Q :clast<cr>
 
 # files from argument list
-nnoremap [a :next<cr>
-nnoremap ]a :previous<cr>
+nnoremap [a :previous<cr>
+nnoremap ]a :next<cr>
 nnoremap [A :first<cr>
 nnoremap ]A :last<cr>
 
