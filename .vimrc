@@ -545,9 +545,19 @@ g:UltiSnipsEditSplit = "vertical"
 # by default UltiSnipsExpandTrigger uses Tab, disable it for completor
 g:UltiSnipsExpandTrigger = "<cr>"
 
-#######################
-# using python in vim #
-#######################
+##########
+# Python #
+##########
+
+# Don't autowrap in python files
+# t: Auto-wrap text using 'textwidth'
+# see `:help fo-t`
+autocmd FileType python setlocal formatoptions-=t
+
+# disable python mappings such as [[ and ]] from vim source code
+# https://github.com/vim/vim/blob/master/runtime/ftplugin/python.vim
+g:no_python_maps = 1
+
 
 def g:ImportWordUnderCursor()
 py3 <<EOF
@@ -897,10 +907,6 @@ set statusline+=\ C:%03c    # column number
 # Python #
 ##########
 
-# Don't autowrap in python files
-# t: Auto-wrap text using 'textwidth'
-# see `:help fo-t`
-autocmd FileType python setlocal formatoptions-=t
 
 #######
 # Tag #
