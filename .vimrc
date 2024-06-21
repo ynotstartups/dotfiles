@@ -531,8 +531,8 @@ nnoremap <leader>el :cfile saltus/quickfix.vim <bar> copen<cr><c-r><c-r>
 nnoremap <leader>eu :UltiSnipsEdit<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 
-nnoremap <leader>ea :JumpToTestFile<cr>
-nnoremap <leader>eas :JumpToTestFileSplit<cr>
+nnoremap <leader>ea :JumpToTestFileSplit<cr>
+# nnoremap <leader>eas :JumpToTestFileSplit<cr>
 
 nnoremap <leader>en :$tabedit ~/Documents/notes/notes/<cr>
 
