@@ -117,3 +117,5 @@
     # TODO #
     ########
     xfuncname = "^#.*#$"
+[advice]
+	skippedCherryPicks = false
