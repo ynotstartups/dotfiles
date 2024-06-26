@@ -145,8 +145,7 @@ end
 abbr g 'git'
 abbr gs 'git status'
 
-# delete every branches except main & master & current branch
-abbr ,gdelete_branches 'git branch | grep -v "main" | grep -v "development" | grep -v "master" | grep -v "prod" | grep -v "uat" | grep -v "*" | xargs git branch -D'
+abbr ,gdelete_branches 'git branch | grep -v -e "main" -e "development" -e "master" -e "env/prod" -e "env/uat" -e "*" | xargs git branch -D'
 
 abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
 abbr ,g_template_enable 'git config --local --unset commit.template'
