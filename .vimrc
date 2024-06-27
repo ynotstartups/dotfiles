@@ -98,6 +98,8 @@ set belloff=all # no spell from vim
 set spellcapcheck= # turn off spell check says first character not captical as error
 # set the default errorfile, so that vim -q automatically open quickfix.vim
 set errorfile=quickfix.vim
+# for :substitude, turn on g flag by default 
+set gdefault
 
 set undodir=~/.vim/undo-dir
 set undofile
