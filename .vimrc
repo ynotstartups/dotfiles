@@ -35,14 +35,12 @@ Plug 'tpope/vim-fugitive'              # view git blame in vim
 Plug 'tpope/vim-rhubarb'               # `:GBrowse` to open code in github
 
 # additional `g` commands
-Plug 'junegunn/vim-easy-align'         # `ga=` align first =, ga2= align second =, ga*= align all =
 Plug 'tpope/vim-commentary'            # `gc` for making comments
 Plug 'vim-scripts/ReplaceWithRegister' # `gr` go replace
 Plug 'arthurxavierx/vim-caser'         # `gs` changes word casing e.g. `gsc` FooBar, `gs_` foo_bar, `gsu` FOO_BAR
 
 # syntax highlight
 Plug 'ekalinin/Dockerfile.vim'         # dockerfile syntax
-Plug 'jparise/vim-graphql'             # graphql syntax highlight
 Plug 'plasticboy/vim-markdown'         # add markdown syntax
 
 # additional text objects
