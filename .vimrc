@@ -58,6 +58,8 @@ Plug 'godlygeek/tabular'               # `:TableFormat` to format table
 Plug 'tomasr/molokai'                  # molokar colorscheme
 plug#end()
 
+packadd Cfilter
+
 # change default leader \ to space, this setting needs to be in the beginning
 nnoremap <space> <nop>
 g:mapleader = " "
@@ -97,7 +99,6 @@ set spellcapcheck= # turn off spell check says first character not captical as e
 # set the default errorfile, so that vim -q automatically open quickfix.vim
 set errorfile=quickfix.vim
 # for :substitude, turn on g flag by default 
-set gdefault
 
 set undodir=~/.vim/undo-dir
 set undofile
@@ -492,7 +493,15 @@ nnoremap <leader>fv :Helptags<cr>
 # :Rg -s foo i.e. -s is --case-sensitive
 # :Rg 'a.*b' i.e. arbitrary regular expression
 # copied from https://github.com/junegunn/fzf.vim/issues/838#issuecomment-509902575
-command! -bang -nargs=* Rg g:fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. <q-args>, 1, <bang>0)
+command! -nargs=* Rg g:fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. <q-args>, 1, <bang>0)
+
+def g:FindWordUsage()
+    var search_query = '/\(def\s\)\@<!\<' .. expand('<cword>') .. '(\_.\{-})/' 
+    execute "normal! :vimgrep " .. search_query .. " saltus/**/*.py\<cr>"
+    copen
+enddef
+
+command! -nargs=0 UsageWord :call g:FindWordUsage()
 
 ################
 # Git Fugitive #
@@ -508,7 +517,7 @@ def g:BindOff()
     windo set noscrollbind
 enddef
 
-command! -bang -nargs=0 BindOff :call g:BindOff()
+command! -nargs=0 BindOff :call g:BindOff()
 
 nnoremap <leader>gb :Git blame<cr>
 # show a list of git diff files
@@ -526,6 +535,8 @@ nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
 
+# helps `<leader>el` to read python unittest output
+set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 nnoremap <leader>el :cfile saltus/quickfix.vim <bar> copen<cr><c-r><c-r>
 
 nnoremap <leader>eu :UltiSnipsEdit<cr>
@@ -607,6 +618,7 @@ def GetPythonFileImportPath(): string
 enddef
 
 def YankPythonImport()
+    # name is last yanked text, see the caller `ImportFunction`
     var name = @0
     var python_import_path = GetPythonFileImportPath()
     var statement = printf('from %s import %s', python_import_path, name)
@@ -616,6 +628,7 @@ def YankPythonImport()
 enddef
 
 def YankPythonPatch()
+    # name is last yanked text, see the caller `ImportFunction`
     var name = @0
     var python_import_path = GetPythonFileImportPath()
     var statement = printf('@mock.patch("%s.%s")', python_import_path, name)
@@ -783,7 +796,7 @@ def SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 enddef
 
-command! -bang -nargs=0 Syntax call SynStack()
+command! -nargs=0 Syntax call SynStack()
 
 ##############
 # diff color #
@@ -1003,9 +1016,19 @@ autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderNext()<cr>
 g:is_pythonsense_suppress_motion_keymaps = 1
 g:is_pythonsense_suppress_location_keymaps = 1
 
+######
+# Rg #
+######
+
+# setting command grep to use system rg
+# see `:help :grepprg`
+if executable('rg')
+  set grepprg=rg\ --with-filename\ --no-heading\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+endif
+
 #########################
 # Vim9 Compile Function #
 #########################
-
 # Uncomment the next line to compile the functions for tests 
 defcompile
