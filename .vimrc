@@ -936,6 +936,30 @@ nnoremap gs_ <Plug>CaserSnakeCase
 # change to constant casing e.g. FOO_BAR_BAZ
 nnoremap gsu <Plug>CaserUpperCase
 
+def g:ChangeToParamStyle(type: string)
+  # 1. this is a operator pending function to
+  # change from `a: string` to `a=a`
+  # see also `:help :map-operator`
+
+  # 2. using single quote from the string starting with ':s'
+  # otherwise I need to use two backquotes `\\` to represent one `\`
+  # see also `:help expr-'`
+  var substitude_command = ':s/\(\w*\):.*/\1=\1,/g' .. "\<cr>"
+  if type == "char"
+    silent execute "normal! '[v']" .. substitude_command
+  elseif type == "line"
+    silent execute "normal! '[V']" .. substitude_command
+  elseif type == "block"
+    silent execute "normal! '[\<C-V>']" .. substitude_command
+  else
+    # Invoked from Visual mode, use '< and '> marks.
+    silent execute "normal! '<v'>" .. substitude_command
+  endif
+enddef
+
+nnoremap <silent> gsp :set opfunc=g:ChangeToParamStyle<cr>g@
+vnoremap <silent> gsp :<c-u>call g:ChangeToParamStyle("visual mode")<cr>
+
 ##############
 # [ Mappings #
 ##############
