@@ -131,15 +131,9 @@ end
 
 abbr ,pr_lint ',g_lint'
 
-abbr ,gh_actions_watch 'gh pr checks --watch'
 abbr ,gh_pr_view 'gh pr view --web'
 function ,gh_pr_create 
-    set title_from_branch_name $(git branch 2>/dev/null | sed -n '/\* /s///p' | sed 's/-/ /g' | sed 's/ /-/1')
-    gh pr create --title $title_from_branch_name --draft --template pull_request_template.md
-end
-function ,gh_pr_create_onefee
-    set title_from_branch_name $(git branch 2>/dev/null | sed -n '/\* /s///p' | sed 's/-/ /g' | sed 's/ /-/1')
-    gh pr create --base ON-2802-one-fee-calculator --title $title_from_branch_name --draft --template pull_request_template.md
+    gh pr create --base development --draft --fill-verbose --body-file ~/Documents/personal-notes/pull_request_template.md 
 end
 
 abbr g 'git'
@@ -193,9 +187,12 @@ function ,convert_md_to_pdf --argument-names markdown_name pdf_name
     echo "Converting from" $markdown_name "to" $pdf_name
     set_color normal
 
+    # pin `pandoc/extra` to tag `3.1` because latest tag `latest`
+    # has this issue https://github.com/Wandmalfarbe/pandoc-latex-template/pull/392
+    # that makes this ,convert_md_to_pdf unable to produce pdf
     docker run --rm \
         -v "$(pwd):/data" \
-        pandoc/extra \
+        pandoc/extra:3.1 \
         "$markdown_name" -o $pdf_name \
         --template eisvogel --listings \
         -V book --top-level-division chapter -V classoption=oneside
@@ -376,9 +373,6 @@ end
 function ,docker_build_backend
     echo '~~~~ cd into oneview ~~~~'
     cd ~/Documents/oneview
-
-    echo '~~~~ generating ctags ~~~~'
-    ctags **/*.py
 
     echo '~~~~ docker compose build and up backend detached ~~~~'
     docker compose -f docker-compose-dev.yml up --build --detach django
@@ -588,6 +582,7 @@ abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
 abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker-compose --file docker-compose-dev.yml logs --follow --timestamps" 
+abbr ,dc_logs_django "docker-compose --file docker-compose-dev.yml logs --follow --timestamps django"
 
 ##############
 # xiachufang #
