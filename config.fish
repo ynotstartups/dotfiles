@@ -99,37 +99,9 @@ set PERSONAL_NOTES "$HOME/Documents/personal-notes/"
 set NOTES          "$HOME/Documents/notes/"
 set DOTFILES       "$HOME/Documents/dotfiles/"
 
-#################
-# Standup Notes #
-#################
-
-# stand up notes related
-# function s
-#     cd $PERSONAL_NOTES
-#     vim -p standup_notes.md
-# end
-
 #######
 # git #
 #######
-
-function ,pr_checkout --argument-names branch_name
-    # TODO: stops if there are local changes save local changes
-    git stash
-
-    # switch to branch and fetch latest changes
-    git fetch
-    git switch $branch_name
-    git reset --hard origin/$branch_name
-end
-
-function ,g_lint
-    git diff --color=never -U0 --no-prefix --raw origin/master... | ~/Documents/dotfiles/lint_pull_requests.py
-    git diff --color=never -U0 --no-prefix --raw --cached | ~/Documents/dotfiles/lint_pull_requests.py
-    git diff --color=never -U0 --no-prefix --raw | ~/Documents/dotfiles/lint_pull_requests.py
-end
-
-abbr ,pr_lint ',g_lint'
 
 abbr ,gh_pr_view 'gh pr view --web'
 function ,gh_pr_create 
@@ -139,7 +111,7 @@ end
 abbr g 'git'
 abbr gs 'git status'
 
-abbr ,gdelete_branches 'git branch | grep -v -e "main" -e "development" -e "master" -e "env/prod" -e "env/uat" -e "*" | xargs git branch -D'
+abbr ,gdelete_branches 'git branch | grep -v -e "main" -e "development" -e "master" -e "env/prod" -e "env/uat" -e "env/test" -e "*" | xargs git branch -D'
 
 abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
 abbr ,g_template_enable 'git config --local --unset commit.template'
@@ -157,14 +129,6 @@ end
 function ,gnew_branch --argument-names new_branch_name
     # create a new branch on top of the base branch (e.g. main or development)
     git fetch origin $GIT_BASE_BRANCH:$new_branch_name
-
-    # switch to this new branch
-    git switch $new_branch_name
-end
-
-function ,gnew_branch_one_fee --argument-names new_branch_name
-    # create a new branch on top of the base branch (e.g. main or development)
-    git fetch origin ON-2802-one-fee-calculator:$new_branch_name
 
     # switch to this new branch
     git switch $new_branch_name
@@ -206,11 +170,6 @@ abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
 abbr ,hardcopy_5_standup_template '\
     lpr -o scaling=110 -o Resolution=360x360dpi \
     -# 5 ~/Documents/personal-notes/pdfs/standup_template.pdf'
-
-
-# Cups link: http://localhost:631/
-# logins with laptops's username and password
-# /private/etc/cups/ppd
 
 ######
 # rg #
@@ -303,7 +262,6 @@ abbr ,vgdot 'vim -c ":Git difftool -y origin/$GIT_BASE_BRANCH..."'
 # Tags #
 ########
 
-# abbr ,ctags_generate_for_python 'ctags --python-kinds=-v **/*.py'
 abbr ,generate_ctags_for_python 'ctags **/*.py'
 
 ##########
@@ -336,6 +294,8 @@ abbr ,python3_8_in_docker 'docker run -it --rm --name my-running-script -v "$PWD
 abbr ,python3_9_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.9 python'
 abbr ,python3_10_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.10 python'
 abbr ,python3_11_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.11 python'
+
+abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
 
 ############
 # Postgres #
@@ -374,8 +334,8 @@ function ,docker_build_backend
     echo '~~~~ cd into oneview ~~~~'
     cd ~/Documents/oneview
 
-    echo '~~~~ docker compose build and up backend detached ~~~~'
-    docker compose -f docker-compose-dev.yml up --build --detach django
+    # echo '~~~~ docker compose build and up backend detached ~~~~'
+    # docker compose -f docker-compose-dev.yml up --build --detach django
 
     echo '~~~~ poetry install dev ~~~~'
     docker exec --env -t oneview-django-1 poetry install --with dev
@@ -386,9 +346,6 @@ function ,docker_build_backend
     echo '~~~~ copy ipython config ~~~~'
     docker exec --env -t oneview-django-1 poetry run ipython profile create
     docker compose cp $PERSONAL_NOTES"ipython_config.py" django:/root/.ipython/profile_default/ipython_config.py
-
-    echo '~~~~ django logs ~~~~'
-    docker compose -f docker-compose-dev.yml logs -f django
 end
 abbr ,be ',docker_build_backend'
 
@@ -400,8 +357,6 @@ end
 
 abbr mb "cd ~/Documents/oneview && make bash"
 abbr ms "cd ~/Documents/oneview && make shell"
-abbr ml "cd ~/Documents/oneview && make lint"
-abbr mt "cd ~/Documents/oneview && make test"
 abbr mp "cd ~/Documents/oneview && docker-compose --file docker-compose-dev.yml exec postgres psql --username postgres"
 
 # Usage
@@ -423,11 +378,9 @@ function ,_ssh_oneview --argument-names env_name
         return 1
     end
 
-    # TODO: raise error if env_name is not `env` or `prod`
-
-    if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name
+    if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name && not string match --quiet 'test' $env_name
         set_color --bold red
-        echo "Only supports env 'uat' or 'prod', env '$env_name' is not supported"
+        echo "Only supports env 'uat', 'test' and 'prod', env '$env_name' is not supported"
         set_color normal
         return 1
     end
@@ -441,6 +394,10 @@ function ,_ssh_oneview --argument-names env_name
     # network
     # reduces the default ConnectTimeout to avoid hanging
     ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+end
+
+function ,ssh_test
+    ,_ssh_oneview 'test'
 end
 
 function ,ssh_uat
@@ -543,37 +500,17 @@ function ,prod_diff
 end
 
 
-# set --global curo_entity_names "t4a_feeprofile" "t4a_incomeprofile" "account" "t4a_curoholding" "annotation"
-
-function _is_curo_entity_name_valid --argument-names entity_name 
-    string match --regex --quiet 'id$' $entity_name
-
-    # `string match` command above returns 
-    # 0 if match, means not valid entity name, e.g. 'annotationid'
-    # 1 if no match, means valid entity name, e.g. 'annotation'
-    if test $status -eq 0
-        echo "You don't need to add `id` for curo entity name"
-        return 1
-    end
-
-    return 0
-end
-
 function ,curo_prod_open_entity_name_with_id --argument-names entity_name record_id
-    _is_curo_entity_name_valid $entity_name
     if test $status -eq 0
         open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
     end
 end
 
 function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_id
-    _is_curo_entity_name_valid $entity_name
     if test $status -eq 0
         open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
     end
 end
-
-abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
 
 ##################
 # docker compose #
@@ -583,21 +520,3 @@ abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker-compose --file docker-compose-dev.yml logs --follow --timestamps" 
 abbr ,dc_logs_django "docker-compose --file docker-compose-dev.yml logs --follow --timestamps django"
-
-##############
-# xiachufang #
-##############
-
-function ,xiachufang --description \
-    "Print out steps for Xia Chu Fang Recipes" \
-    --argument-names xia_chu_fang_url
-    curl --silent $xia_chu_fang_url |\
-        # get the line after 'step-text', this line contains the step of recipe
-        grep 'class="step-text"' -A 5 |\
-        grep -v 'class="step-text"' |\
-        grep -v '</p>' |\
-        # remove grep separator lines
-        sed -E '/^--$/d' |\
-        # remove spaces in the beginning
-        sed -E 's/^ *//g'
-end

@@ -943,6 +943,8 @@ g:caser_no_mappings = 1
 # change to class casing FooBarBaz
 nnoremap gsc <Plug>CaserMixedCase
 
+nnoremap gs<space> <Plug>CaserSpaceCase
+
 # change to variable casing foo_bar_baz
 nnoremap gs_ <Plug>CaserSnakeCase
 
@@ -957,7 +959,7 @@ def g:ChangeToParamStyle(type: string)
   # 2. using single quote from the string starting with ':s'
   # otherwise I need to use two backquotes `\\` to represent one `\`
   # see also `:help expr-'`
-  var substitude_command = ':s/\(\w*\):.*/\1=\1,/g' .. "\<cr>"
+  var substitude_command = ':s/\(\w*\)[:=].*/\1=\1,/g' .. "\<cr>"
   if type == "char"
     silent execute "normal! '[v']" .. substitude_command
   elseif type == "line"

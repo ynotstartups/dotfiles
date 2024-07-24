@@ -18,12 +18,10 @@
     d      = diff
     dc     = diff --cached
     do     = !git diff origin/$GIT_BASE_BRANCH...
-    doonefee = !git diff origin/ON-2802-one-fee-calculator...
     ds     = diff --staged
 
     f      = fetch
     fro    = !git fetch origin && git rebase --interactive origin/$GIT_BASE_BRANCH
-    froonefee = !git fetch origin && git rebase --interactive origin/ON-2802-one-fee-calculator
 
     g      = grep --ignore-case
 
@@ -36,8 +34,10 @@
     lg     = log --graph --oneline
     ll     = log --format='%C(yellow)%h %C(reset)%C(cyan)%C(bold)%>(20)%ah %C(reset)%>(20)%C(green)%an %C(reset)%s' --date short
     lp     = log --patch
+    lprod  = !git fetch origin && git log origin/env/prod
+    ltest  = !git fetch origin && git log origin/env/test
 
-    lo     = !git log origin/$GIT_BASE_BRANCH..
+    lo     = log --oneline
 
     p      = push
 
