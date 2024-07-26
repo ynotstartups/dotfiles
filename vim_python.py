@@ -180,6 +180,7 @@ package_and_word = {
     "os": ["path"],
     "other_app.views": ["Home"],
     "pathlib": ["Path"],
+    "pprint": ["pp"],
     "promise": ["Promise"],
     "promise.dataloader": ["DataLoader"],
     "public_api.views": ["XperidocDataConnector"],
