@@ -145,10 +145,23 @@ nnoremap <leader>yn :let @+=expand("%:t")<cr>:echo 'yanked' @+<cr>
 
 # copy python function & class name
 # use with pytest -k FUNCTION NAME
-nnoremap <leader>yf ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
-# nnoremap <leader>yd ?^[<space>]*\zsdef<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
+def g:YankWordAfterPrefix(prefix_string: string)
+  # search for the line number and column number for the prefix_string
+  # e.g. the line and column of character 'f' in `def \zsfoo` 
+  # flag `b` - search backward  
+  # flag `n` - do not move the cursor
+  # see also `:help search()`
+  var [match_line_number, match_col_number] = searchpos(prefix_string .. '\zs', 'bn')
+  var line = getline(match_line_number)
+  # get the word with matching column position - 1, `-1` is needed to include
+  # the first character of the word, e.g. word would be `foo`
+  var word = matchstr(line, '\w*', match_col_number - 1)
+  echom 'yanked' word
+  setreg('+', word)
+enddef
 
-nnoremap <leader>yc ?^class<cr>wyiw<c-o>:nohlsearch<cr>:echo 'yanked' @+<cr>
+nnoremap <leader>yf :call YankWordAfterPrefix("def ")<cr>
+nnoremap <leader>yc :call YankWordAfterPrefix("class ")<cr>
 
 # set vim's comment string to be # 
 autocmd FileType vim setlocal commentstring=#\ %s
@@ -676,21 +689,22 @@ nnoremap <leader>yic :call g:ImportClass()<cr>
 nnoremap <leader>yiw :call g:ImportWord()<cr>
 
 nnoremap <leader>ymw :call g:PatchWord()<cr>
+nnoremap <leader>ymf :call g:PatchFunction()<cr>
 
-def g:YankFilenameAndPositionInVimQuickfixFormat()
-    var file_path = @%
-    var cursor_position = getcurpos()
-    var line_number = cursor_position[1]
-    var column_number = cursor_position[2]
-    var quickfix_format_string = $"{file_path}:{line_number}:{column_number}"
+# def g:YankFilenameAndPositionInVimQuickfixFormat()
+#     var file_path = @%
+#     var cursor_position = getcurpos()
+#     var line_number = cursor_position[1]
+#     var column_number = cursor_position[2]
+#     var quickfix_format_string = $"{file_path}:{line_number}:{column_number}"
 
-    var message = printf('yanked "%s"', quickfix_format_string)
-    echomsg message
-    # puts import_statement into default yank register
-    setreg('*', quickfix_format_string, 'V')
-enddef
+#     var message = printf('yanked "%s"', quickfix_format_string)
+#     echomsg message
+#     # puts import_statement into default yank register
+#     setreg('*', quickfix_format_string, 'V')
+# enddef
 
-nnoremap <leader>yq :call g:YankFilenameAndPositionInVimQuickfixFormat()<cr>
+# nnoremap <leader>yq :call g:YankFilenameAndPositionInVimQuickfixFormat()<cr>
 
 autocmd FileType python nnoremap <leader>w <Plug>(PythonsensePyWhere)
 
