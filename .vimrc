@@ -149,11 +149,11 @@ def GetWordAfterPrefix(prefix_string: string): string
   # flag `b` - search backward  
   # flag `n` - do not move the cursor
   # see also `:help search()`
-  var [match_line_number, match_col_number] = searchpos(prefix_string .. '\zs', 'bn')
+  var [match_line_number, match_col_number] = (prefix_string .. '\zs')->searchpos('bn')
   var line = getline(match_line_number)
   # get the word with matching column position - 1, `-1` is needed to include
   # the first character of the word, e.g. word would be `foo`
-  var word = matchstr(line, '\w*', match_col_number - 1)
+  var word = line->matchstr('\w*', match_col_number - 1)
   return word
 enddef
 
@@ -253,76 +253,6 @@ g:vim_markdown_no_default_key_mappings = 1
 # default filetype plugin maps [[ and ]], unmap it
 g:no_markdown_maps = 1
 
-def g:GoToCountHeaderNext()
-    execute $"normal! {v:count}/^#\<cr>"
-enddef
-def g:GoToCountHeaderPrevious()
-  execute $"normal! {v:count}?^#\<cr>"
-enddef
-
-# da3 to delete all contents in current header with header line
-# di3 to delete all contents in current header without header line
-# 3 is because shift 3 is #, but 3 is easy to type
-augroup markdown_textobjs
-  autocmd!
-  autocmd FileType markdown call textobj#user#plugin('markdown', {
-  \   'header': {
-  \     'select-a-function': 'g:AMarkdownHeader',
-  \     'select-a': 'a3',
-  \     'select-i-function': 'g:InMarkdownHeader',
-  \     'select-i': 'i3',
-  \   },
-  \   'codeblock': {
-  \     'select-i-function': 'g:InMarkdownCodeblock',
-  \     'select-i': 'ic',
-  \   },
-  \ })
-augroup END
-
-def EndOfFileOrOneLineAboveHeader()
-  # cursor goes to oneline above the next header
-  # or end of file to if cursor is in last header
-  # regex explaination
-  # /^# next header
-  # \|  or
-  # \%$ end of file 
-  # needed the \\ to get a literal \
-  execute "normal! /^#\\|\\%$\<cr>"
-  # if current line is a header line put cursor to one line above
-  # else it's end of the file so we don't need to put cursor to one line
-  # above
-  if getline('.') =~ '^#'
-      execute "normal! \<up>"
-  endif
-enddef
-
-def g:AMarkdownHeader(): list<any>
-  set nowrapscan
-  # cursor goes to the last header
-  # or the start of file
-  execute "normal! $"
-  execute "normal! ?^#\<cr>"
-
-  var head_pos = getpos('.')
-  EndOfFileOrOneLineAboveHeader()
-  var tail_pos = getpos('.')
-  set wrapscan
-
-  return ['V', head_pos, tail_pos]
-enddef
-
-def g:InMarkdownHeader(): list<any>
-  set nowrapscan
-  execute "normal! $"
-  execute "normal! ?^#?+1\<cr>"
-
-  var head_pos = getpos('.')
-  EndOfFileOrOneLineAboveHeader()
-  var tail_pos = getpos('.')
-  set wrapscan
-  return ['V', head_pos, tail_pos]
-enddef
-
 # modified from 
 # https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
 def g:InMarkdownCodeblock(): list<any>
@@ -361,10 +291,10 @@ def g:ToggleMarkdownTODO()
     var current_line = getline('.')
 
     if current_line =~# '^[ ]*- \[ \]'
-        var updated_line = substitute(current_line, '- \[ \]', '- [x]', '')
+        var updated_line = current_line->substitute('- \[ \]', '- [x]', '')
         setline(".", updated_line)
     elseif current_line =~# '^[ ]*- \[x\]'
-        var updated_line = substitute(current_line, '- \[x\]', '- [ ]', '')
+        var updated_line = current_line->substitute('- \[x\]', '- [ ]', '')
         setline(".", updated_line)
     else
         echom 'Unknown line type!' current_line
@@ -616,17 +546,18 @@ enddef
 command! JumpToTestFileSplit call g:JumpToTestFileSplit()
 
 def GetPythonFileImportPath(): string
-    var posix_file_path = @%
-    var remove_prefix = substitute(posix_file_path, '^saltus/', '', 'g')
-    var remove_suffix = substitute(remove_prefix, '.py$', '', 'g')
-    var python_import_path   = substitute(remove_suffix, '/', '.', 'g')
+    var posix_file_path = expand("%")
+    var python_import_path = posix_file_path
+                                ->substitute('^saltus/', '', 'g')
+                                ->substitute('.py$', '', 'g')
+                                ->substitute('/', '.', 'g')
     return python_import_path
 enddef
 
 def YankPythonImport(name: string)
     var python_import_path = GetPythonFileImportPath()
     var statement = printf('from %s import %s', python_import_path, name)
-    echomsg printf('yanked "%s"', statement)
+    echomsg 'yanked' statement
     # puts statement into default yank register
     # `V` indicate line mode, so when I paste, it pastes as a line
     setreg('+', statement, "V")
@@ -635,7 +566,7 @@ enddef
 def YankPythonPatch(name: string)
     var python_import_path = GetPythonFileImportPath()
     var statement = printf('@mock.patch("%s.%s")', python_import_path, name)
-    echomsg printf('yanked "%s"', statement)
+    echomsg 'yanked' statement
     # puts statement into default yank register
     setreg('+', statement, "V")
 enddef
@@ -725,11 +656,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 g:completor_auto_trigger = 0
 g:completor_complete_options = 'menuone,preview'
 
-# if auto trigger, I have to use noselect complete option
-# otherwise it's auto completing
-# g:completor_auto_trigger = 1
-# g:completor_complete_options = 'menuone,noselect,preview'
-
 # change from default 2 chars to 1 char
 g:completor_min_chars = 1
 
@@ -815,22 +741,6 @@ def g:SaveAsHtmlToPrintInDownloads()
 enddef
 command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
 
-def g:SaveAsPDFToPrintInDownloads()
-  # save as to_print.html with delek colorscheme 
-  # delek colorscheme has a white background, more printer friendly
-  # Known bug: cannot use TOPrintHtml twice with error, 
-  # #139: file is loaded in another buffer
-  var current_colorscheme = g:colors_name
-  colorscheme delek
-  var filename = expand('%:t:r') .. '.ps'
-  var export_path = $"~/Downloads/{filename}"
-  execute $"normal! :hardcopy! > {export_path}\<cr>"
-  execute $"normal! :cd ~/Downloads\<cr>"
-  execute $"normal! :!ps2pdf {export_path}\<cr>"
-  execute $"colorscheme {current_colorscheme}"
-enddef
-command! TOPrintPDF call g:SaveAsPDFToPrintInDownloads()
-
 #########
 # Vista #
 #########
@@ -865,21 +775,15 @@ def g:GetHelpSectionName(): string
     var section_header: string
     if section_header_line_number != 0
         section_header = getline(section_header_line_number + 1)
-        section_header = substitute(
-            section_header,
-            '^\([.*0-9a-zA-Z ]*\)\t*.*',
-            '\=submatch(1)',
-            ''
-        )
+                             -> substitute(
+                                 '^\([.*0-9a-zA-Z ]*\)\t*.*',
+                                 '\=submatch(1)',
+                                 ''
+                             )
     else
         section_header = ''
     endif
     return section_header
-enddef
-
-def g:GitStatus(): string
-  var [added, modified, removed] = g:GitGutterGetHunkSummary()
-  return printf('+%d ~%d -%d', added, modified, removed)
 enddef
 
 # left section
@@ -997,10 +901,6 @@ autocmd FileType python nnoremap [c <Plug>(PythonsenseStartOfPythonClass)
 autocmd FileType python nnoremap ]c <Plug>(PythonsenseStartOfNextPythonClass)
 autocmd FileType python nnoremap [f <Plug>(PythonsenseStartOfPythonFunction)
 autocmd FileType python nnoremap ]f <Plug>(PythonsenseStartOfNextPythonFunction)
-
-# markdown headers
-autocmd FileType markdown nnoremap [[ :<c-u>call g:GoToCountHeaderPrevious()<cr>
-autocmd FileType markdown nnoremap ]] :<c-u>call g:GoToCountHeaderNext()<cr>
 
 ###############
 # pythonsense #
