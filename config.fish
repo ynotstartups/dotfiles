@@ -337,7 +337,7 @@ function ,docker_build_backend
     # echo '~~~~ docker compose build and up backend detached ~~~~'
     # docker compose -f docker-compose-dev.yml up --build --detach django
 
-    echo '~~~~ poetry install dev ~~~~'
+    echo '~~~~ poetry install dev dependencies ~~~~'
     docker exec --env -t oneview-django-1 poetry install --with dev
 
     echo '~~~~ copy over bashrc ~~~~'
