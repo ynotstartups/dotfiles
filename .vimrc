@@ -143,9 +143,7 @@ nnoremap <leader>yp :let @+=expand("%")<cr>:echo 'yanked' @+<cr>
 # copy file name      e.g. foo.txt
 nnoremap <leader>yn :let @+=expand("%:t")<cr>:echo 'yanked' @+<cr>
 
-# copy python function & class name
-# use with pytest -k FUNCTION NAME
-def g:YankWordAfterPrefix(prefix_string: string)
+def GetWordAfterPrefix(prefix_string: string): string
   # search for the line number and column number for the prefix_string
   # e.g. the line and column of character 'f' in `def \zsfoo` 
   # flag `b` - search backward  
@@ -156,6 +154,11 @@ def g:YankWordAfterPrefix(prefix_string: string)
   # get the word with matching column position - 1, `-1` is needed to include
   # the first character of the word, e.g. word would be `foo`
   var word = matchstr(line, '\w*', match_col_number - 1)
+  return word
+enddef
+
+def g:YankWordAfterPrefix(prefix_string: string)
+  var word = GetWordAfterPrefix(prefix_string)
   echom 'yanked' word
   setreg('+', word)
 enddef
@@ -195,16 +198,6 @@ nnoremap <leader>hs <plug>(GitGutterStageHunk)
 nnoremap <leader>hu <plug>(GitGutterUndoHunk)
 
 nnoremap <leader>hq :GitGutterQuickFix <bar> copen<cr>
-
-var git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
-
-def g:GoToGitConflictNext()
-    execute $"normal! /{git_conflict_markers_regex}\<cr>"
-enddef
-def g:GoToGitConflictPrevious()
-    execute $"normal! ?{git_conflict_markers_regex}\<cr>"
-enddef
-
 ############
 # markdown #
 ############
@@ -630,81 +623,60 @@ def GetPythonFileImportPath(): string
     return python_import_path
 enddef
 
-def YankPythonImport()
-    # name is last yanked text, see the caller `ImportFunction`
-    var name = @0
+def YankPythonImport(name: string)
     var python_import_path = GetPythonFileImportPath()
     var statement = printf('from %s import %s', python_import_path, name)
     echomsg printf('yanked "%s"', statement)
     # puts statement into default yank register
-    setreg('*', statement)
+    # `V` indicate line mode, so when I paste, it pastes as a line
+    setreg('+', statement, "V")
 enddef
 
-def YankPythonPatch()
-    # name is last yanked text, see the caller `ImportFunction`
-    var name = @0
+def YankPythonPatch(name: string)
     var python_import_path = GetPythonFileImportPath()
     var statement = printf('@mock.patch("%s.%s")', python_import_path, name)
     echomsg printf('yanked "%s"', statement)
     # puts statement into default yank register
-    setreg('*', statement)
+    setreg('+', statement, "V")
 enddef
 
-# known bug
-# this import function name doesn't work if the function is a method in a class
 def g:ImportFunction()
-    # after jump to tag ctrl-]
-    # the cursor is position at the start of def or class
-    # puts cursor to the end of line to get the def or class in this line
-    execute "normal! $"
-
-    execute "normal! ?def\<cr>wyiw\<c-o>"
-    YankPythonImport()
+    var word = GetWordAfterPrefix("def ")
+    YankPythonImport(word)
 enddef
 
 def g:ImportClass()
-    execute "normal! $"
-    execute "normal! ?^class\<cr>wyiw\<c-o>"
-    YankPythonImport()
+    var word = GetWordAfterPrefix("class ")
+    YankPythonImport(word)
 enddef
 
 def g:ImportWord()
-    execute "normal! yiw"
-    YankPythonImport()
+    var word = expand("<cword>")
+    YankPythonImport(word)
 enddef
 
 def g:PatchFunction()
-    execute "normal! $"
-    execute "normal! ?def\<cr>wyiw\<c-o>"
-    YankPythonPatch()
+    var word = GetWordAfterPrefix("def ")
+    YankPythonPatch(word)
+enddef
+
+def g:PatchClass()
+    var word = GetWordAfterPrefix("class ")
+    YankPythonPatch(word)
 enddef
 
 def g:PatchWord()
-    execute "normal! yiw"
-    YankPythonPatch()
+    var word = expand("<cword>")
+    YankPythonPatch(word)
 enddef
 
 nnoremap <leader>yif :call g:ImportFunction()<cr>
 nnoremap <leader>yic :call g:ImportClass()<cr>
 nnoremap <leader>yiw :call g:ImportWord()<cr>
 
-nnoremap <leader>ymw :call g:PatchWord()<cr>
 nnoremap <leader>ymf :call g:PatchFunction()<cr>
-
-# def g:YankFilenameAndPositionInVimQuickfixFormat()
-#     var file_path = @%
-#     var cursor_position = getcurpos()
-#     var line_number = cursor_position[1]
-#     var column_number = cursor_position[2]
-#     var quickfix_format_string = $"{file_path}:{line_number}:{column_number}"
-
-#     var message = printf('yanked "%s"', quickfix_format_string)
-#     echomsg message
-#     # puts import_statement into default yank register
-#     setreg('*', quickfix_format_string, 'V')
-# enddef
-
-# nnoremap <leader>yq :call g:YankFilenameAndPositionInVimQuickfixFormat()<cr>
+nnoremap <leader>ymc :call g:PatchClass()<cr>
+nnoremap <leader>ymw :call g:PatchWord()<cr>
 
 autocmd FileType python nnoremap <leader>w <Plug>(PythonsensePyWhere)
 
@@ -930,11 +902,6 @@ set statusline+=\ [%{expand(&filetype)}]
 set statusline+=\ L:%03l/%03L # line number / total number or lines
 set statusline+=\ C:%03c    # column number
 
-##########
-# Python #
-##########
-
-
 #######
 # Tag #
 #######
@@ -996,6 +963,16 @@ vnoremap <silent> gsp :<c-u>call g:ChangeToParamStyle("visual mode")<cr>
 # git
 nnoremap [h :<c-u>call g:GitGutterPrevHunkCycle()<cr>
 nnoremap ]h :<c-u>call g:GitGutterNextHunkCycle()<cr>
+
+var git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
+
+def g:GoToGitConflictNext()
+    execute $"normal! /{git_conflict_markers_regex}\<cr>"
+enddef
+def g:GoToGitConflictPrevious()
+    execute $"normal! ?{git_conflict_markers_regex}\<cr>"
+enddef
+
 nnoremap [g :<c-u>call g:GoToGitConflictPrevious()<cr>
 nnoremap ]g :<c-u>call g:GoToGitConflictNext()<cr>
 
@@ -1047,4 +1024,4 @@ endif
 # Vim9 Compile Function #
 #########################
 # Uncomment the next line to compile the functions for tests 
-defcompile
+# defcompile
