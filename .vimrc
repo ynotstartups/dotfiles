@@ -725,21 +725,30 @@ hi diffAdded   guifg=#00C200
 
 set printheader=%<%f%h\ %{GetHelpSectionName()}%=Page\ %N
 
-def g:SaveAsHtmlToPrintInDownloads()
+def g:SaveAsHtmlToPrintInDownloads(
+    start_line_number: number,
+    end_line_number: number,
+)
   # save as to_print.html with delek colorscheme 
   # delek colorscheme has a white background, more printer friendly
   # Known bug: cannot use TOPrintHtml twice with error, 
   # #139: file is loaded in another buffer
   var current_colorscheme = g:colors_name
   colorscheme delek
-  execute "normal! :TOhtml\<cr>"
+  # if line("'<") != 0 && line("'>") != 0
+  # if mode() == 'V'
+  execute $"normal :{start_line_number},{end_line_number} TOhtml\<cr>"
+  # else
+  #     execute "normal :TOhtml\<cr>"
+  # endif
   var filename = expand('%:t:r')
-  var export_path = $"~/Downloads/{filename}.html"
-  execute $"normal! :saveas! {export_path}\<cr>"
+  var time_in_seconds = strftime("%Y-%b-%d-%X")
+  execute $"saveas! ~/Downloads/{filename}_{time_in_seconds}.html"
   sleep 100m
+  # reset to previous colorscheme
   execute $"colorscheme {current_colorscheme}"
 enddef
-command! TOPrintHtml call g:SaveAsHtmlToPrintInDownloads()
+command! -range=% TOPrintHtml call g:SaveAsHtmlToPrintInDownloads(<line1>, <line2>)
 
 #########
 # Vista #
