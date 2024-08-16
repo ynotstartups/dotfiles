@@ -36,6 +36,7 @@
     lp     = log --patch
     lprod  = !git fetch origin && git log origin/env/prod
     ltest  = !git fetch origin && git log origin/env/test
+    ldevelopment   = !git fetch origin && git log origin/development
 
     lo     = log --oneline
 
