@@ -261,6 +261,16 @@ def g:InMarkdownCodeblock(): list<any>
   return ['V', [0, head, 1, 0], [0, tail, 1, 0]]
 enddef
 
+augroup markdown_textobjs
+  autocmd!
+  autocmd FileType markdown call textobj#user#plugin('markdown', {
+  \   'codeblock': {
+  \     'select-i-function': 'g:InMarkdownCodeblock',
+  \     'select-i': 'ic',
+  \   },
+  \ })
+augroup END
+
 def g:TableConvert(
     start_line_number: number,
     end_line_number: number,
