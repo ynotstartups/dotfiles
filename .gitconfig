@@ -21,7 +21,7 @@
     ds     = diff --staged
 
     f      = fetch
-    fro    = !git fetch origin && git rebase --interactive origin/$GIT_BASE_BRANCH
+    fro    = !git fetch origin && git rebase --autosquash --interactive origin/$GIT_BASE_BRANCH
 
     g      = grep --ignore-case
 
@@ -36,6 +36,8 @@
     lp     = log --patch
     lprod  = !git fetch origin && git log origin/env/prod
     ltest  = !git fetch origin && git log origin/env/test
+    ltest2  = !git fetch origin && git log origin/env/test2
+    luat   = !git fetch origin && git log origin/env/uat
     ldevelopment   = !git fetch origin && git log origin/development
 
     lo     = log --oneline
