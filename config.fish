@@ -357,13 +357,13 @@ end
 
 abbr mb "cd ~/Documents/oneview && make bash"
 abbr ms "cd ~/Documents/oneview && make shell"
-abbr mp "cd ~/Documents/oneview && docker-compose --file docker-compose-dev.yml exec postgres psql --username postgres"
+abbr mp "cd ~/Documents/oneview && docker compose --file docker-compose-dev.yml exec postgres psql --username postgres --dbname oneview"
 
 # Usage
 # cat foo.sql | ,ovpsql
 # cat foo.py  | ,ovpython
-alias ,ovpsql   "docker-compose --file ~/Documents/oneview/docker-compose-dev.yml exec --no-TTY postgres psql --username postgres oneview" 
-alias ,ovpython "docker-compose --file ~/Documents/oneview/docker-compose-dev.yml exec --no-TTY django poetry run python manage.py shell" 
+alias ,ovpsql   "docker compose --file ~/Documents/oneview/docker-compose-dev.yml exec --no-TTY postgres psql --username postgres oneview" 
+alias ,ovpython "docker compose --file ~/Documents/oneview/docker-compose-dev.yml exec --no-TTY django poetry run python manage.py shell" 
 
 # abbr eb instead of exporting the PATH suggested in https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-osx.html
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
@@ -518,5 +518,5 @@ end
 
 abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
-abbr ,dc_logs "docker-compose --file docker-compose-dev.yml logs --follow --timestamps" 
-abbr ,dc_logs_django "docker-compose --file docker-compose-dev.yml logs --follow --timestamps django"
+abbr ,dc_logs "docker compose --file docker-compose-dev.yml logs --follow --timestamps" 
+abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow --timestamps django"
