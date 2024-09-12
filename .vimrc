@@ -921,6 +921,16 @@ autocmd FileType python nnoremap ]c <Plug>(PythonsenseStartOfNextPythonClass)
 autocmd FileType python nnoremap [f <Plug>(PythonsenseStartOfPythonFunction)
 autocmd FileType python nnoremap ]f <Plug>(PythonsenseStartOfNextPythonFunction)
 
+
+##############
+# / Mappings #
+##############
+
+autocmd FileType python nmap <leader>/f vif<esc><esc>/\%V
+autocmd FileType python nmap <leader>/c vic<esc><esc>/\%V
+
+autocmd FileType markdown nmap <leader>/c /# cheatsheet 
+
 ###############
 # pythonsense #
 ###############

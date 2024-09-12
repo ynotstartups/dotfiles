@@ -37,6 +37,7 @@
     lprod  = !git fetch origin && git log origin/env/prod
     ltest  = !git fetch origin && git log origin/env/test
     ltest2  = !git fetch origin && git log origin/env/test2
+    lprepuat = !git fetch origin && git log origin/prep/uat
     luat   = !git fetch origin && git log origin/env/uat
     ldevelopment   = !git fetch origin && git log origin/development
 

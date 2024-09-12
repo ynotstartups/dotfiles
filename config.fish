@@ -111,7 +111,7 @@ end
 abbr g 'git'
 abbr gs 'git status'
 
-abbr ,gdelete_branches 'git branch | grep -v -e "main" -e "development" -e "master" -e "env/prod" -e "env/uat" -e "env/test" -e "*" | xargs git branch -D'
+abbr ,gdelete_branches 'git branch | grep -v -e "main" -e "development" -e "master" -e "env/" -e "*" -e "prep/uat" | xargs git branch -D'
 
 abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
 abbr ,g_template_enable 'git config --local --unset commit.template'
@@ -170,6 +170,8 @@ abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
 abbr ,hardcopy_5_standup_template '\
     lpr -o scaling=110 -o Resolution=360x360dpi \
     -# 5 ~/Documents/personal-notes/pdfs/standup_template.pdf'
+
+abbr ,autogui '~/Documents/autogui/.venv/bin/python ~/Documents/autogui/autogui.py'
 
 ######
 # rg #
@@ -290,11 +292,6 @@ function ,activate
     end
 end
 
-abbr ,python3_8_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.8 python'
-abbr ,python3_9_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.9 python'
-abbr ,python3_10_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.10 python'
-abbr ,python3_11_in_docker 'docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp python:3.11 python'
-
 abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
 
 ############
@@ -350,10 +347,8 @@ end
 abbr ,be ',docker_build_backend'
 
 abbr ,docker_cp_bashrc 'cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
-function ,docker_attach_oneview
-    set CONTAINER_ID (docker container ls | grep oneview-django | cut -d ' ' -f 1)
-    docker attach $CONTAINER_ID
-end
+
+abbr ,docker_attach_oneview "docker attach $(docker container ls | grep oneview-django | cut -d ' ' -f 1)"
 
 abbr mb "cd ~/Documents/oneview && make bash"
 abbr ms "cd ~/Documents/oneview && make shell"
@@ -499,17 +494,28 @@ function ,prod_diff
     ,g_branch_diff env/prod
 end
 
-
-function ,curo_prod_open_entity_name_with_id --argument-names entity_name record_id
-    if test $status -eq 0
-        open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+function _curo_help
+    argparse h/help -- $argv
+    if set -ql _flag_help
+        echo "Entity Names: t4a_curoholding, t4a_review, account"
+        return 0
+    else
+        return 1
     end
 end
 
-function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_id
-    if test $status -eq 0
-        open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+function ,curo_prod_open_entity_name_with_id --argument-names entity_name record_id
+    if _curo_help $argv
+        return 0
     end
+    open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+end
+
+function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_id
+    if _curo_help $argv
+        return 0
+    end
+    open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
 end
 
 ##################
