@@ -107,6 +107,10 @@ abbr ,gh_pr_view 'gh pr view --web'
 function ,gh_pr_create 
     gh pr create --base development --draft --fill-verbose --body-file ~/Documents/personal-notes/pull_request_template.md 
 end
+function ,gh_ci_backend_open_in_browser
+    set link $(gh pr checks --json 'workflow' --json 'link' | jq '.' | grep 'backend' -C 1 | grep 'link' | grep -o 'http[^"]*')
+    open $link
+end
 
 abbr g 'git'
 abbr gs 'git status'
@@ -373,12 +377,12 @@ function ,_ssh_oneview --argument-names env_name
         return 1
     end
 
-    if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name && not string match --quiet 'test' $env_name
-        set_color --bold red
-        echo "Only supports env 'uat', 'test' and 'prod', env '$env_name' is not supported"
-        set_color normal
-        return 1
-    end
+    # if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name && not string match --quiet 'test' $env_name
+    #     set_color --bold red
+    #     echo "Only supports env 'uat', 'test' and 'prod', env '$env_name' is not supported"
+    #     set_color normal
+    #     return 1
+    # end
 
     set ip_address (aws ec2 describe-instances \
         --filters "Name=tag:Name,Values=oneview-$env_name-leader" \
@@ -389,6 +393,10 @@ function ,_ssh_oneview --argument-names env_name
     # network
     # reduces the default ConnectTimeout to avoid hanging
     ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+end
+
+function ,ssh_test2
+    ,_ssh_oneview 'test2'
 end
 
 function ,ssh_test
