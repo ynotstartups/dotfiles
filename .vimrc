@@ -215,6 +215,7 @@ autocmd FileType markdown set conceallevel=2
 
 autocmd FileType markdown set colorcolumn=80
 autocmd FileType markdown set textwidth=78
+autocmd BufRead,BufNewFile */personal-notes/* set textwidth=0
 
 # hack: uses `>` to act as comments so that I can use gq to format it
 autocmd FileType markdown setlocal comments=:>
@@ -829,8 +830,14 @@ set statusline+=\ C:%03c    # column number
 # Tag #
 #######
 
-# `<leader>]` to open tag in preview window
-nnoremap <leader>] :ptag <c-r><c-w><cr>
+
+def g:OpenTagInVerticalSplit()
+    vsp
+    execute "normal! :tag " .. expand('<cword>') .. "\<cr>"
+enddef
+
+# `<leader>]` to open tag in vertical split
+nnoremap <leader>] :call OpenTagInVerticalSplit()<cr>
 
 ###########
 # Preview #
@@ -863,7 +870,7 @@ def g:ChangeToParamStyle(type: string)
   # 2. using single quote from the string starting with ':s'
   # otherwise I need to use two backquotes `\\` to represent one `\`
   # see also `:help expr-'`
-  var substitude_command = ':s/\(\w*\)[:=].*/\1=\1,/g' .. "\<cr>"
+  var substitude_command = ':s/\(\w*\)[:=,].*/\1=\1,/g' .. "\<cr>"
   if type == "char"
     silent execute "normal! '[v']" .. substitude_command
   elseif type == "line"
