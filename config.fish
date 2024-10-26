@@ -396,7 +396,30 @@ function ,_ssh_oneview --argument-names env_name
 end
 
 function ,ssh_test2
-    ,_ssh_oneview 'test2'
+    if not pgrep -q 'AWS VPN'
+        set_color --bold red
+        echo "Did you forget to turn on AWS VPN?"
+        set_color normal
+        return 1
+    end
+
+    # if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name && not string match --quiet 'test' $env_name
+    #     set_color --bold red
+    #     echo "Only supports env 'uat', 'test' and 'prod', env '$env_name' is not supported"
+    #     set_color normal
+    #     return 1
+    # end
+
+    set ip_address (aws ec2 describe-instances \
+        --filters "Name=tag:Name,Values=OneView-test2-leader" \
+        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
+    )
+    echo $ip_address
+
+    # don't do StrictHostKeyChecking as we are using VPC, virtual private
+    # network
+    # reduces the default ConnectTimeout to avoid hanging
+    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
 end
 
 function ,ssh_test
