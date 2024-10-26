@@ -146,6 +146,11 @@ with self.assertRaises("TODO_SOME_ERROR") as error_context_manager:
 self.assertTrue('This is broken' in str(error_context_manager.exception))
 endsnippet
 
+snippet error_raised_test_message "testing error message with django unittest" b
+with self.assertRaisesMessage(ValueError, "invalid literal for int()"):
+    pass
+endsnippet
+
 ############
 # graphene #
 ############
