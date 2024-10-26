@@ -42,6 +42,7 @@ Plug 'arthurxavierx/vim-caser'         # `gs` changes word casing e.g. `gsc` Foo
 # syntax highlight
 Plug 'ekalinin/Dockerfile.vim'         # dockerfile syntax
 Plug 'plasticboy/vim-markdown'         # add markdown syntax
+Plug 'hashivim/vim-terraform'          # add terraform syntax
 
 # additional text objects
 Plug 'jeetsukumaran/vim-pythonsense'   # ac, ic, af, if, ad, id python text object
