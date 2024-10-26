@@ -957,6 +957,22 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
+##################
+# Documentations #
+##################
+
+def g:SearchDoc()
+  set lazyredraw
+  var filetype = &filetype
+  var word_under_cursor = expand('<cword>')
+  var google_search_query = $"https://www.google.com/search?q={filetype}+doc+{word_under_cursor}&btnI"
+  silent exec $"!open '{google_search_query}'"
+  redraw!
+  set nolazyredraw
+enddef
+
+nnoremap <leader>k :call SearchDoc()<cr>
+
 #########################
 # Vim9 Compile Function #
 #########################
