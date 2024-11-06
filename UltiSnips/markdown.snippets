@@ -1,42 +1,3 @@
-###########
-# Standup #
-###########
-
-snippet sn "standup template" b
-# Today
-
-- **Reminders**
-	1. open jira board during standup
-	2. standup set up 4 minute timer for every one
-	3. permission/security
-	4. standing during standup
-- PR to review
-	+ [ ]
-
-# Yesterday
-
-- standup
-	- yesterday
-		- ${1:${VISUAL:TODO}}
-
-endsnippet
-
-snippet ` "code block" b
-\`\`\`
-
-\`\`
-endsnippet
-
-
-snippet til "Today I Learn" b
-`!p 
-from datetime import date
-
-# the length of the string is exact 79 character wide
-snip.rv = f"# TIL - TODO                                                        - {date.today().strftime('%d/%b/%y')}"
-`
-endsnippet
-
 #########
 # Table #
 #########
@@ -71,31 +32,4 @@ snippet ttttt "table with 5 columns" b
 |            |            |           |           |           |
 |            |            |           |           |           |
 |            |            |           |           |           |
-endsnippet
-
-
-###########
-# Quoting #
-###########
-
-
-snippet excerpt "excerpt from doc" b
->  TODO
-
-Excerpt from [TODO doc]()
-endsnippet
-
-########
-# Jira #
-########
-
-snippet jira "Jira ticket template" b
-### Context
-
-### Acceptence Criteria
-
-- 
-
-### Dev Notes
-
 endsnippet
