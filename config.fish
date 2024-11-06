@@ -229,7 +229,7 @@ set --global --export EDITOR vim
 # this hack below is to force homebrew's python3.12 to search for library in PYTHONPATH
 # installed python my "system python", which is python3.11 installed via pyenv `pyenv global`
 # the library I need is `thefuzz` which is a dependency of my patched `~/Document/completor.vim`
-set --global --export PYTHONPATH $HOME/.pyenv/versions/3.11.4/lib/python3.11/site-packages/
+# set --global --export PYTHONPATH $HOME/.pyenv/versions/3.11.4/lib/python3.11/site-packages/
 
 function vim
     # when count is 0 and readme exists open readme
