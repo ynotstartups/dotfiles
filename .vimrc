@@ -491,9 +491,9 @@ nnoremap <leader>eu :UltiSnipsEdit<cr>
 nnoremap <leader>es :UltiSnipsEdit<cr>
 
 nnoremap <leader>ea :JumpToTestFileSplit<cr>
-# nnoremap <leader>eas :JumpToTestFileSplit<cr>
 
 nnoremap <leader>en :$tabedit ~/Documents/notes/notes/<cr>
+nnoremap <leader>em :$tabedit ~/Documents/learn-chalice/menu/app.py<cr>
 
 #############
 # UltiSnips #
