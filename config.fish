@@ -257,6 +257,7 @@ abbr ,ef "vim $DOTFILES/config.fish"
 abbr ,ev "vim $DOTFILES/.vimrc"
 abbr ,eg "vim $DOTFILES/.gitconfig"
 abbr ,en "vim ~/Documents/notes/notes/"
+abbr ,emenu "vim ~/Documents/learn-chalice/menu/app.py"
 
 abbr ,vgd '  vim -c ":Git difftool"'
 abbr ,vgds ' vim -c ":Git difftool --staged"'
