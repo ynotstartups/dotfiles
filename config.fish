@@ -558,3 +558,13 @@ abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker compose --file docker-compose-dev.yml logs --follow --timestamps" 
 abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow --timestamps django"
+
+###########
+# aws cli #
+###########
+
+function __fish_complete_aws
+    env COMP_LINE=(commandline -pc) aws_completer | tr -d ' '
+end
+
+complete -c aws -f -a "(__fish_complete_aws)"
