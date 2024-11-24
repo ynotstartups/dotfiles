@@ -171,9 +171,8 @@ end
 abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
 abbr ,hardcopy_A5 'lpr -o media=A5 -o Resolution=720x720dpi'
 abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
-abbr ,hardcopy_5_standup_template '\
-    lpr -o scaling=110 -o Resolution=360x360dpi \
-    -# 5 ~/Documents/personal-notes/pdfs/standup_template.pdf'
+abbr ,hardcopy_5_note_papers 'lpr -o scaling=80 -o Resolution=360x360dpi \
+    -# 1 ~/Documents/dotfiles/a4-graph.pdf'
 
 abbr ,autogui '~/Documents/autogui/.venv/bin/python ~/Documents/autogui/autogui.py'
 
