@@ -28,6 +28,7 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeFind' } # tree folder explorers, `<l
 Plug 'inkarkat/vim-visualrepeat'       # in visual mode, use . to repeat in selected lines
 Plug 'tpope/vim-repeat'                # repeat vim-surround with .
 Plug 'tpope/vim-surround'              # `ds` to delete, `cs` to change and `ys` to add surroundings ', ", ` 
+Plug 'tpope/vim-unimpaired'           # [f, ]f to go to file in same directory
 
 # git
 Plug 'airblade/vim-gitgutter'          # shows git add/modify/remove symbols on the left
@@ -251,9 +252,9 @@ g:vim_markdown_new_list_item_indent = 0
 autocmd FileType markdown nnoremap gx <Plug>Markdown_OpenUrlUnderCursor
 
 # unmap all mappings need to for my custom map [[ and ]] 
-g:vim_markdown_no_default_key_mappings = 1
+# g:vim_markdown_no_default_key_mappings = 1
 # default filetype plugin maps [[ and ]], unmap it
-g:no_markdown_maps = 1
+# g:no_markdown_maps = 1
 
 # modified from 
 # https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
@@ -492,7 +493,7 @@ nnoremap <leader>es :UltiSnipsEdit<cr>
 
 nnoremap <leader>ea :JumpToTestFileSplit<cr>
 
-nnoremap <leader>en :$tabedit ~/Documents/notes/notes/<cr>
+nnoremap <leader>en :$tabedit ~/Documents/personal-notes/project_notes.py<cr>
 nnoremap <leader>em :$tabedit ~/Documents/learn-chalice/menu/app.py<cr>
 
 #############
@@ -965,7 +966,8 @@ def g:SearchDoc()
   set lazyredraw
   var filetype = &filetype
   var word_under_cursor = expand('<cword>')
-  var google_search_query = $"https://www.google.com/search?q={filetype}+doc+{word_under_cursor}&btnI"
+  # add google http query param `&btnI` if I want to jump to first result
+  var google_search_query = $"https://www.google.com/search?q={filetype}+official+documentation+{word_under_cursor}"
   silent exec $"!open '{google_search_query}'"
   redraw!
   set nolazyredraw
