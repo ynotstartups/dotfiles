@@ -169,10 +169,9 @@ function ,convert_md_to_pdf --argument-names markdown_name pdf_name
 end
 
 abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
-abbr ,hardcopy_A5 'lpr -o media=A5 -o Resolution=720x720dpi'
 abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
-abbr ,hardcopy_5_note_papers 'lpr -o scaling=80 -o Resolution=360x360dpi \
-    -# 1 ~/Documents/dotfiles/a4-graph.pdf'
+# abbr ,hardcopy_A5 'lpr -o media=A5 -o Resolution=720x720dpi'
+abbr ,hardcopy_5_note_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph.pdf'
 
 abbr ,autogui '~/Documents/autogui/.venv/bin/python ~/Documents/autogui/autogui.py'
 
