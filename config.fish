@@ -369,8 +369,7 @@ alias ,ovpython "docker compose --file ~/Documents/oneview/docker-compose-dev.ym
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 abbr eb '~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
-
-function ,_ssh_oneview --argument-names env_name 
+function ,_ssh_oneview --argument-names ec2_name
     if not pgrep -q 'AWS VPN'
         set_color --bold red
         echo "Did you forget to turn on AWS VPN?"
@@ -378,70 +377,64 @@ function ,_ssh_oneview --argument-names env_name
         return 1
     end
 
-    # if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name && not string match --quiet 'test' $env_name
-    #     set_color --bold red
-    #     echo "Only supports env 'uat', 'test' and 'prod', env '$env_name' is not supported"
-    #     set_color normal
-    #     return 1
-    # end
-
     set ip_address (aws ec2 describe-instances \
-        --filters "Name=tag:Name,Values=oneview-$env_name-leader" \
+        --filters "Name=tag:Name,Values=$ec2_name" \
         --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     )
 
-    # don't do StrictHostKeyChecking as we are using VPC, virtual private
-    # network
-    # reduces the default ConnectTimeout to avoid hanging
-    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
-end
-
-function ,ssh_test2
-    if not pgrep -q 'AWS VPN'
-        set_color --bold red
-        echo "Did you forget to turn on AWS VPN?"
-        set_color normal
-        return 1
-    end
-
-    # if not string match --quiet 'uat' $env_name && not string match --quiet 'prod' $env_name && not string match --quiet 'test' $env_name
-    #     set_color --bold red
-    #     echo "Only supports env 'uat', 'test' and 'prod', env '$env_name' is not supported"
-    #     set_color normal
-    #     return 1
-    # end
-
-    set ip_address (aws ec2 describe-instances \
-        --filters "Name=tag:Name,Values=OneView-test2-leader" \
-        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
-    )
-    echo $ip_address
-
-    # don't do StrictHostKeyChecking as we are using VPC, virtual private
-    # network
-    # reduces the default ConnectTimeout to avoid hanging
-    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
+    # 1. don't do StrictHostKeyChecking as ip always changes in virtual private
+    # cloud (VPC)
+    # 2. reduces the default ConnectTimeout to avoid hanging
+    # 3. `-i identity_file`, selects a file from which the identity (private key)
+    # for public key authentication is read.
+    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/ssh-private-key' "ec2-user@$ip_address"
 end
 
 function ,ssh_test
-    ,_ssh_oneview 'test'
+    ,_ssh_oneview 'oneview-test-leader'
+end
+
+function ,ssh_test2
+    ,_ssh_oneview 'OneView-test2-leader'
+end
+
+function ,ssh_test3
+    ,_ssh_oneview 'OneView-test3-leader'
 end
 
 function ,ssh_uat
-    ,_ssh_oneview 'uat'
+    ,_ssh_oneview 'oneview-uat-leader'
 end
 
 function ,ssh_prod
-    ,_ssh_oneview 'prod'
+    ,_ssh_oneview 'oneview-prod-leader'
 end
 
-function ,ssh --argument-names ip_address
-    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/aws-eb' "ec2-user@$ip_address"
-end
 
 function ,npm_run_frontend
     cd ~/Documents/oneview/reactapp
     npm start
+end
+
+function ,deployments
+    set oneview_app_id 'dfgwx0v13a7s4'
+    for env in 'test' 'test2' 'test3' 'uat' 'prod'
+        set_color --bold
+        echo "In environment $env..."
+        set_color normal
+
+        set_color cyan
+        echo "FE Deployment..."
+        set_color normal
+        aws amplify list-jobs --app-id "$oneview_app_id" --branch-name "env/$env" |\
+            jq '.jobSummaries[0] | {"status": .status, "job id": .jobId, "deployment time": .endTime, "commit message": .commitMessage}'
+
+        set_color cyan
+        echo "BE Deployment..."
+        set_color normal
+        aws codepipeline get-pipeline-state --name "oneview-$env" |\
+            jq '.stageStates[] | {"stage": .stageName, "status": .latestExecution.status, "deployment time": .actionStates[0].latestExecution.lastStatusChange}'
+    end
 end
 
 abbr ,fe ',npm_run_frontend'
@@ -563,8 +556,14 @@ abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow
 # aws cli #
 ###########
 
+# completion
 function __fish_complete_aws
     env COMP_LINE=(commandline -pc) aws_completer | tr -d ' '
 end
-
 complete -c aws -f -a "(__fish_complete_aws)"
+
+abbr ,aws_space 'AWS_PROFILE=space aws'
+abbr ,aws_work 'aws'
+abbr ,aws_personal 'AWS_PROFILE=personal aws'
+
+
