@@ -38,6 +38,7 @@ Plug 'tpope/vim-rhubarb'               # `:GBrowse` to open code in github
 # additional `g` commands
 Plug 'tpope/vim-commentary'            # `gc` for making comments
 Plug 'vim-scripts/ReplaceWithRegister' # `gr` go replace
+Plug 'inkarkat/vim-ReplaceWithSameIndentRegister' # grR to keep indent
 Plug 'arthurxavierx/vim-caser'         # `gs` changes word casing e.g. `gsc` FooBar, `gs_` foo_bar, `gsu` FOO_BAR
 
 # syntax highlight
