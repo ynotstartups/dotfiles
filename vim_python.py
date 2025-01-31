@@ -213,6 +213,7 @@ package_and_word = {
     "typing": [
         "Any",
         "Callable",
+        "Dict",
         "Iterable",
         "List",
         "Optional",
