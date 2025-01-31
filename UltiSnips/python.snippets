@@ -87,7 +87,7 @@ class Test${1:Class}(AdminUserMixin, GraphqlTestCase):
 			context_value=self.admin_context,
 		)
 
-		self.assertFalse(response.errors)
+		self.assertIsNone(response.errors)
 
 endsnippet
 
