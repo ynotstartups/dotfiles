@@ -417,9 +417,12 @@ function ,npm_run_frontend
     npm start
 end
 
-function ,deployments
-    set oneview_app_id 'dfgwx0v13a7s4'
-    for env in 'test' 'test2' 'test3' 'uat' 'prod'
+function ,deployments --argument-names environments
+    if not test -n "$environments"
+      set environments 'test' 'test2' 'test3' 'uat' 'prod'
+    end
+
+    for env in $environments
         set_color --bold
         echo "In environment $env..."
         set_color normal
@@ -427,6 +430,7 @@ function ,deployments
         set_color cyan
         echo "FE Deployment..."
         set_color normal
+        set oneview_app_id 'dfgwx0v13a7s4'
         aws amplify list-jobs --app-id "$oneview_app_id" --branch-name "env/$env" |\
             jq '.jobSummaries[0] | {"status": .status, "job id": .jobId, "deployment time": .endTime, "commit message": .commitMessage}'
 
