@@ -170,9 +170,8 @@ end
 
 abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
 abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
-# abbr ,hardcopy_A5 'lpr -o media=A5 -o Resolution=720x720dpi'
 abbr ,hardcopy_5_graph_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph.pdf'
-abbr ,hardcopy_5_standup_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph-standup.pdf'
+# abbr ,hardcopy_5_standup_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph-standup.pdf'
 
 abbr ,autogui '~/Documents/autogui/.venv/bin/python ~/Documents/autogui/autogui.py'
 
@@ -332,13 +331,9 @@ end
 # Work Related #
 ################
 
-# docker compose build oneview backend with dev dependencies and personal .bashrc
-function ,docker_build_backend
+function ,docker_setup_backend_utils
     echo '~~~~ cd into oneview ~~~~'
     cd ~/Documents/oneview
-
-    # echo '~~~~ docker compose build and up backend detached ~~~~'
-    # docker compose -f docker-compose-dev.yml up --build --detach django
 
     echo '~~~~ poetry install dev dependencies ~~~~'
     docker exec --env -t oneview-django-1 poetry install --with dev
@@ -350,7 +345,7 @@ function ,docker_build_backend
     docker exec --env -t oneview-django-1 poetry run ipython profile create
     docker compose cp $PERSONAL_NOTES"ipython_config.py" django:/root/.ipython/profile_default/ipython_config.py
 end
-abbr ,be ',docker_build_backend'
+abbr ,be ',docker_setup_backend_utils'
 
 abbr ,docker_cp_bashrc 'cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
 
@@ -418,6 +413,10 @@ function ,npm_run_frontend
 end
 
 function ,deployments --argument-names environments
+    # Usage: `,deployments uat` or `,deployments`
+
+    # if variable $environments is not set, 
+    # set environments to a list of environments
     if not test -n "$environments"
       set environments 'test' 'test2' 'test3' 'uat' 'prod'
     end
@@ -552,10 +551,10 @@ end
 # docker compose #
 ##################
 
+abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow --timestamps django"
 abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker compose --file docker-compose-dev.yml logs --follow --timestamps" 
-abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow --timestamps django"
 
 ###########
 # aws cli #
