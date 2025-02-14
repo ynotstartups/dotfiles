@@ -88,6 +88,7 @@ class Test${1:Class}(AdminUserMixin, GraphqlTestCase):
 		)
 
 		self.assertIsNone(response.errors)
+        self.assertTrue(response.data["fooBar"]["ok"])
 
 endsnippet
 
@@ -156,13 +157,36 @@ endsnippet
 
 
 snippet requests "raise_for_status and logger exception" b
-response = requests.post(url, headers=headers, data=json.dumps(data))
 try:
+	response = requests.post(url, headers=headers, data=json.dumps(data))
 	response.raise_for_status()
 except (HTTPError, Timeout) as error:
 	_logger.exception(error)
-	return UploadDocumentToReportPack(
-		errors=[f"Error uploading file. Error: {str(error)}"],
+	return FooBar(
+		errors=[f"foo bar"],
 		ok=False,
 	)
+endsnippet
+
+
+snippet mock_response_success "" b
+json_response = json.dumps(
+    {
+        "url": "https://fake_bucket_name.aws.com/fake_file_key",
+        "id": expected_document_client_portal_id,
+    }
+)
+mock_response = Response()
+mock_response.status_code = 200
+mock_response._content = bytes(json_response, encoding="utf-8")
+
+mock_requests.post.return_value = mock_response
+endsnippet
+
+
+snippet mock_response_raise_for_status "" b
+mock_response = mock.Mock()
+mock_response.raise_for_status.side_effect = HTTPError("Foo")
+
+mock_requests.post.return_value = mock_response
 endsnippet
