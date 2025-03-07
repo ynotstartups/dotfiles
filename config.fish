@@ -115,7 +115,19 @@ end
 abbr g 'git'
 abbr gs 'git status'
 
-abbr ,gdelete_branches 'git branch | grep -v -e "main" -e "development" -e "master" -e "env/" -e "*" -e "prep/uat" | xargs git branch -D'
+# `-e "*"` means ignore current branch
+# a space is added to the rest of the patterns to avoid branch names like `merge-prep-uat-into-developement`
+# Example output for git branch, note the spaces before the branch names
+#> git branch
+#  development
+#  env/prod
+#  env/test
+#  env/uat
+#  merge-prep-prod-into-development-24-feb-2025
+#  prep/prod
+#  prep/uat
+#* ON-5561-add-test-for-get_aws_credentials
+abbr ,gdelete_branches 'git branch | grep -v -e "*" -e " main" -e " development" -e " master" -e " env/" -e " prep/" | xargs git branch -D'
 
 abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
 abbr ,g_template_enable 'git config --local --unset commit.template'
@@ -137,6 +149,8 @@ function ,gnew_branch --argument-names new_branch_name
     # switch to this new branch
     git switch $new_branch_name
 end
+
+abbr ,g_apply_patch_faster_python_unittest 'git apply ~/Documents/personal-notes/faster_python_unittest.patch'
 
 #########
 # MacOS #
@@ -171,7 +185,7 @@ end
 abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
 abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
 abbr ,hardcopy_5_graph_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph.pdf'
-# abbr ,hardcopy_5_standup_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph-standup.pdf'
+abbr ,hardcopy_5_standup_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph-standup-hardcopy.pdf'
 
 abbr ,autogui '~/Documents/autogui/.venv/bin/python ~/Documents/autogui/autogui.py'
 
