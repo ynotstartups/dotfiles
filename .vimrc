@@ -889,6 +889,30 @@ enddef
 nnoremap <silent> gsp :set opfunc=g:ChangeToParamStyle<cr>g@
 vnoremap <silent> gsp :<c-u>call g:ChangeToParamStyle("visual mode")<cr>
 
+def g:ChangeToFakeStyle(type: string)
+  # 1. this is a operator pending function to
+  # change from `a: string` to `a=a`
+  # see also `:help :map-operator`
+
+  # 2. using single quote from the string starting with ':s'
+  # otherwise I need to use two backquotes `\\` to represent one `\`
+  # see also `:help expr-'`
+  var substitude_command = ':s/\(\w*\)[:=,].*/\1="fake_\1",/' .. "\<cr>"
+  if type == "char"
+    silent execute "normal! '[v']" .. substitude_command
+  elseif type == "line"
+    silent execute "normal! '[V']" .. substitude_command
+  elseif type == "block"
+    silent execute "normal! '[\<C-V>']" .. substitude_command
+  else
+    # Invoked from Visual mode, use '< and '> marks.
+    silent execute "normal! '<v'>" .. substitude_command
+  endif
+enddef
+
+nnoremap <silent> gsf :set opfunc=g:ChangeToFakeStyle<cr>g@
+vnoremap <silent> gsf :<c-u>call g:ChangeToFakeStyle("visual mode")<cr>
+
 ##############
 # [ Mappings #
 ##############
