@@ -15,7 +15,6 @@ endif
 
 plug#begin('~/.vim/plugged')
 Plug 'Raimondi/delimitMate'            # automatic closing of quotes, parenthesis, brackets, etc.
-Plug 'SirVer/ultisnips'                # snippets, snippet files are in `Documents/dotfiles/UltiSnips`
 Plug '~/Documents/completor.vim'       # fuzzy completor
 Plug 'markonm/traces.vim'              # preview substitute and regex pattern
 Plug 'osyo-manga/vim-anzu'             # `n` shows the number of searches
@@ -489,22 +488,18 @@ nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
 set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 nnoremap <leader>el :cfile saltus/quickfix.vim <bar> copen<cr><c-r><c-r>
 
-nnoremap <leader>eu :UltiSnipsEdit<cr>
-nnoremap <leader>es :UltiSnipsEdit<cr>
+def g:OpenLanguageReminderFile()
+    var filetype = &filetype
+    var path = $"~/Documents/dotfiles/language-reminders/{filetype}.md"
+    execute $"vsplit {path}"
+enddef
+
+nnoremap <leader>er :call g:OpenLanguageReminderFile()<cr>
 
 nnoremap <leader>ea :JumpToTestFileSplit<cr>
 
 nnoremap <leader>en :$tabedit ~/Documents/personal-notes/project_notes.py<cr>
 nnoremap <leader>em :$tabedit ~/Documents/learn-chalice/menu/app.py<cr>
-
-#############
-# UltiSnips #
-#############
-g:UltiSnipsSnippetDirectories = [$HOME .. '/Documents/dotfiles/UltiSnips']
-g:UltiSnipsEditSplit = "vertical"
-
-# by default UltiSnipsExpandTrigger uses Tab, disable it for completor
-g:UltiSnipsExpandTrigger = "<cr>"
 
 ##########
 # Python #
