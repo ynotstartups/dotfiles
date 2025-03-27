@@ -221,6 +221,7 @@ package_and_word = {
         "Type",
         "Union",
         "cast",
+        "Literal",
     ],
     "unittest": ["mock"],
     "unittest.mock": ["MagicMock", "Mock", "PropertyMock", "call", "patch"],
