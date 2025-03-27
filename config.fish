@@ -184,8 +184,8 @@ end
 
 abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
 abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
-abbr ,hardcopy_5_graph_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph.pdf'
-abbr ,hardcopy_5_standup_papers 'lpr -o Resolution=360x360dpi -# 5 ~/Documents/dotfiles/a4-graph-standup-hardcopy.pdf'
+abbr ,hardcopy_10_graph_papers 'lpr -o Resolution=360x360dpi -# 10 ~/Documents/dotfiles/a4-graph.pdf'
+abbr ,hardcopy_10_standup_papers 'lpr -o Resolution=360x360dpi -# 10 ~/Documents/dotfiles/a4-graph-standup-hardcopy.pdf'
 
 abbr ,autogui '~/Documents/autogui/.venv/bin/python ~/Documents/autogui/autogui.py'
 
@@ -583,5 +583,13 @@ complete -c aws -f -a "(__fish_complete_aws)"
 abbr ,aws_space 'AWS_PROFILE=space aws'
 abbr ,aws_work 'aws'
 abbr ,aws_personal 'AWS_PROFILE=personal aws'
+
+########
+# jira #
+########
+
+function ,jira --argument-names ticket_number
+    open "https://saltus.atlassian.net/browse/ON-$ticket_number"
+end
 
 
