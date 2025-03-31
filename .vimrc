@@ -483,6 +483,7 @@ nnoremap <leader>eb :$tabedit ~/Documents/personal-notes/.bashrc<cr>
 nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
+nnoremap <leader>ef :$tabedit ~/.config/kitty/kitty.conf<cr>
 
 # helps `<leader>el` to read python unittest output
 set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m

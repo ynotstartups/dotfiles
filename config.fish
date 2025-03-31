@@ -270,6 +270,7 @@ abbr ,en "vim $PERSONAL_NOTES/project_notes.py"
 abbr ,ef "vim $DOTFILES/config.fish"
 abbr ,ev "vim $DOTFILES/.vimrc"
 abbr ,eg "vim $DOTFILES/.gitconfig"
+abbr ,ek "vim $DOTFILES/kitty.conf"
 
 abbr ,em "vim ~/Documents/menu/app.py"
 
