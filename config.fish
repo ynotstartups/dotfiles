@@ -452,7 +452,7 @@ function ,deployments --argument-names environments
         echo "BE Deployment..."
         set_color normal
         aws codepipeline get-pipeline-state --name "oneview-$env" |\
-            jq '.stageStates[] | {"stage": .stageName, "status": .latestExecution.status, "deployment time": .actionStates[0].latestExecution.lastStatusChange}'
+            jq '.stageStates[] | {"stage": .stageName, "status": .latestExecution.status, "last status changed time": .actionStates[0].latestExecution.lastStatusChange}'
     end
 end
 
