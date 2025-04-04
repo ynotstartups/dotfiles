@@ -178,18 +178,28 @@ autocmd FileType gitconfig setlocal commentstring=#\ %s
 
 def g:GitGutterNextHunkCycle()
     var line = line('.')
-    execute "normal! :silent! GitGutterNextHunk\<cr>"
+    GitGutterNextHunk
+    if line('.') == line
+        # if line doesn't changed meaning this is the last hunk,
+        # move cursor back to first line and find next hunk
+        :0
+        GitGutterNextHunk
+    endif
 enddef
 
 def g:GitGutterPrevHunkCycle()
     var line = line('.')
-    execute "normal! :silent! GitGutterPrevHunk\<cr>"
+    GitGutterPrevHunk
     if line('.') == line
-        # go to last line
+        # if line doesn't changed meaning this is the last hunk,
+        # move cursor back to first line and find next hunk
         :$
-        execute "normal! :\<c-u>GitGutterPrevHunk\<cr>"
+        GitGutterPrevHunk
     endif
 enddef
+
+nnoremap [h :call g:GitGutterPrevHunkCycle()<cr>
+nnoremap ]h :call g:GitGutterNextHunkCycle()<cr>
 
 # see help (shortcut K) for gitgutter-mappings
 set updatetime=100 # how long (in milliseconds) the plugin will wait for GitGutter
@@ -912,10 +922,6 @@ vnoremap <silent> gsf :<c-u>call g:ChangeToFakeStyle("visual mode")<cr>
 ##############
 # [ Mappings #
 ##############
-
-# git
-nnoremap [h :<c-u>call g:GitGutterPrevHunkCycle()<cr>
-nnoremap ]h :<c-u>call g:GitGutterNextHunkCycle()<cr>
 
 var git_conflict_markers_regex = "^<<<<<<< .*$\\|^||||||| .*$\\|^>>>>>>> .*$\\|^=======$"
 
