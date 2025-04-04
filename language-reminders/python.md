@@ -87,6 +87,19 @@ with self.assertRaisesMessage(ValueError, "invalid literal for int()"):
     pass
 ```
 
+# test freeze time
+
+```python
+from freezegun import freeze_time
+
+with freeze_time("2000-01-01T00:00:00", tz_offset=0):
+    # TODO: call some function
+    pass
+
+self.assertEqual(foo, datetime(2000, 1, 1, 0, 10, 0, tzinfo=pytz.UTC))
+```
+
+
 # mock response success 
 ```python
 json_response = json.dumps(
