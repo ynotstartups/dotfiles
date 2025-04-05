@@ -57,15 +57,18 @@ def write_section(text: str, comment_character: str = "#") -> str:
     right_border = f" {COMMENT_CHARACTER}\n"
     return f"{top_border}{left_border}{text}{right_border}{bottom_border}"
 
+def _file_exists(filepath: str) -> bool:
+    return os.path.exists(filepath)
 
 def get_alternative_filepath(filepath: str) -> str:
-    # TODO this block is missing test
+    # from "saltus/oneview/tests/graphql/test_fee.py"
+    # to "saltus/oneview/graphql/api/fee.py"
     if "graphql" in filepath and "test_" in filepath:
         source_filepath = filepath.replace("test_", "").replace("tests/", "")
         splitted_filepath = source_filepath.split("/")
         splitted_filepath.insert(-1, "api")
         result_source_filepath = "/".join(splitted_filepath)
-        if os.path.exists(result_source_filepath):
+        if _file_exists(result_source_filepath):
             return result_source_filepath
 
     if "test_" in filepath.split("/")[-1]:
@@ -84,9 +87,10 @@ def get_alternative_filepath(filepath: str) -> str:
     splitted_filepath[-1] = f"test_{splitted_filepath[-1]}"
     result_filepath = "/".join(splitted_filepath)
 
+    # from "saltus/oneview/graphql/api/fee.py"
+    # to "saltus/oneview/tests/graphql/test_fee.py"
     result_filepath_without_api_folder = result_filepath.replace('api/', '')
-    # TODO this block is missing test
-    if os.path.exists(result_filepath_without_api_folder):
+    if _file_exists(result_filepath_without_api_folder):
         return result_filepath_without_api_folder
 
     return result_filepath

@@ -1,4 +1,5 @@
 import os
+from unittest import mock
 from unittest.mock import Mock, patch
 
 import pytest
@@ -41,17 +42,19 @@ def test_get_alternative_filepath_saltus_public_api_files(tmp_path):
         == "saltus/public_api/views/report_pack.py"
     )
 
-# def test_get_alternative_filepath_backup_api_files(tmp_path):
-#     # note the api is not in the test filepath
-#     assert (
-#         get_alternative_filepath("saltus/oneview/graphql/api/fee.py")
-#         == "saltus/oneview/tests/graphql/test_fee.py"
-#     )
-#     # note the api is added in the source filepath
-#     assert (
-#         get_alternative_filepath("saltus/oneview/tests/graphql/test_fee.py")
-#         == "saltus/oneview/graphql/api/fee.py"
-#     )
+@mock.patch("vim_python._file_exists")
+def test_get_alternative_filepath_backup_api_files(mock_file_exists, tmp_path):
+    mock_file_exists.return_value = True
+    # note the api is not in the test filepath
+    assert (
+        get_alternative_filepath("saltus/oneview/graphql/api/fee.py")
+        == "saltus/oneview/tests/graphql/test_fee.py"
+    )
+    # note the api is added in the source filepath
+    assert (
+        get_alternative_filepath("saltus/oneview/tests/graphql/test_fee.py")
+        == "saltus/oneview/graphql/api/fee.py"
+    )
 
 def test_create_alternative_file(tmp_path):
     get_or_create_alternative_file(str(tmp_path / "foo.py"))
