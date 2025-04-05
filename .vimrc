@@ -455,7 +455,6 @@ nnoremap <leader>ge :Gedit<cr>
 ###################
 
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
-nnoremap <leader>sv :source ~/.vimrc<cr>
 
 nnoremap <leader>eb :$tabedit ~/Documents/personal-notes/.bashrc<cr>
 nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
@@ -966,7 +965,7 @@ def g:SearchDocGoogle()
   set nolazyredraw
 enddef
 
-nnoremap <leader>kg :call SearchDocGoogle()<cr>
+nnoremap <leader>sg :call SearchDocGoogle()<cr>
 
 # leader+a to use chatgpt search for offical doc for word under cursor
 def g:SearchDocChatGPT()
@@ -981,7 +980,7 @@ def g:SearchDocChatGPT()
   redraw!
   set nolazyredraw
 enddef
-nnoremap <leader>ka :call SearchDocChatGPT()<cr>
+nnoremap <leader>sc :call SearchDocChatGPT()<cr>
 
 #########################
 # Vim9 Compile Function #
