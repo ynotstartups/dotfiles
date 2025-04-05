@@ -158,8 +158,6 @@ abbr ,g_apply_patch_faster_python_unittest 'git apply ~/Documents/personal-notes
 
 abbr m 'make'
 
-abbr ,make_temp_folder 'cd $(mktemp -d -t "tigertmp")'
-
 function ,convert_md_to_pdf --argument-names markdown_name pdf_name
     if not test (set --query pdf_name)
         set pdf_name "pdfs/$(echo $markdown_name | sed 's/.md$/.pdf/')"
@@ -253,32 +251,13 @@ function vim
     end
 end
 
-function ,vrg
-    # fish doesn't have `<(foo)` syntax instead you can do (foo | psub)
-    vim -q (rg --vimgrep $argv | psub) -c 'copen'
-end
-
-function ,vfd
-    # fish doesn't have `<(foo)` syntax instead you can do (foo | psub)
-    vim $(fd $argv) -c 'args'
-end
-
 abbr ,ed "vim $PERSONAL_NOTES/dev_notes.md"
 abbr ,eb "vim $PERSONAL_NOTES/.bashrc"
-abbr ,en "vim $PERSONAL_NOTES/project_notes.py"
-
 abbr ,ef "vim $DOTFILES/config.fish"
 abbr ,ev "vim $DOTFILES/.vimrc"
 abbr ,eg "vim $DOTFILES/.gitconfig"
 abbr ,ek "vim $DOTFILES/kitty.conf"
-
 abbr ,em "vim ~/Documents/menu/app.py"
-
-abbr ,vgd '  vim -c ":Git difftool"'
-abbr ,vgds ' vim -c ":Git difftool --staged"'
-abbr ,vgdo ' vim -c ":Git difftool origin/$GIT_BASE_BRANCH..."'
-# open in tabs
-abbr ,vgdot 'vim -c ":Git difftool -y origin/$GIT_BASE_BRANCH..."'
 
 ########
 # Tags #
@@ -313,12 +292,6 @@ function ,activate
 end
 
 abbr pytest_useful "pytest -rA --lf -x --show-capture no -vv"
-
-############
-# Postgres #
-############
-
-set PATH /Applications/Postgres.app/Contents/Versions/latest/bin $PATH
 
 #######
 # PWD #
@@ -426,6 +399,7 @@ function ,npm_run_frontend
     cd ~/Documents/oneview/reactapp
     npm start
 end
+abbr ,fe ',npm_run_frontend'
 
 function ,deployments --argument-names environments
     # Usage: `,deployments uat` or `,deployments`
@@ -454,88 +428,6 @@ function ,deployments --argument-names environments
         aws codepipeline get-pipeline-state --name "oneview-$env" |\
             jq '.stageStates[] | {"stage": .stageName, "status": .latestExecution.status, "last status changed time": .actionStates[0].latestExecution.lastStatusChange}'
     end
-end
-
-abbr ,fe ',npm_run_frontend'
-
-function commit_diff_two_branches --argument-names first_branch second_branch
-    set BOLD_WHITE "\033[1;37m"
-    set RESET "\033[0m"
-
-    set number_of_new_commits  (\
-        git log --oneline $first_branch..$second_branch |\
-          wc -l |\
-            # wc starts with tab, remove it, extract the number of lines only
-            grep -o '\d*' \
-    )
-
-   if test $number_of_new_commits -gt 0  
-       printf "$BOLD_WHITE$second_branch$RESET are ahead of $BOLD_WHITE$first_branch$RESET by $BOLD_WHITE$number_of_new_commits$RESET commits\n"
-       echo "...ordered from old commits to new commits"
-       echo
-
-       # change the format to hash, commit date, commit message
-       git --no-pager log $first_branch..$second_branch \
-           --reverse \
-           --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(18)%ad %Creset%C(green)%C(bold)%<(20)%an %Creset%s" \
-           --date human
-       echo
-   else
-       printf "$BOLD_WHITE$second_branch$RESET are $BOLD_WHITE" 
-       printf "NOT"
-       printf "$RESET ahead of $BOLD_WHITE$first_branch$RESET\n"
-   end
-
-   echo
-   printf "Lastest commit of $BOLD_WHITE$second_branch$RESET is\n"
-   git --no-pager log $second_branch \
-       -1 \
-       --pretty=format:"%C(yellow)%h %Creset%C(cyan)%C(bold)%<(18)%ad %Creset%C(green)%C(bold)%<(20)%an %Creset%s" \
-       --date human
-   echo
-end
-
-function ,g_branch_diff --argument-names branch_name
-    # get the latest changes
-    git fetch --quiet
-
-    set origin_branch_name "origin/$branch_name"
-    set origin_master "origin/master"
-
-    echo
-    commit_diff_two_branches $origin_branch_name $origin_master
-
-    echo
-    git diff --exit-code --quiet $origin_branch_name saltus/oneview/migrations
-
-    if test $status -eq 1
-        set_color --bold red
-        echo 'There are new migrations! ONLY DEPLOY AT NIGHT!'
-        set_color normal
-        git --no-pager diff --stat $origin_branch_name...$origin_master saltus/oneview/migrations
-    else
-        set_color --bold green
-        echo 'There is NO new migrations! OK to deploy anytime.'
-        set_color normal
-    end
-
-    echo
-    commit_diff_two_branches $origin_master $origin_branch_name
-end
-
-function ,branch_diff --argument-names branch
-    cd /Users/yuhao.huang/Documents/oneview
-    ,g_branch_diff $branch
-end
-
-function ,uat_diff
-    cd /Users/yuhao.huang/Documents/oneview
-    ,g_branch_diff env/uat
-end
-
-function ,prod_diff
-    cd /Users/yuhao.huang/Documents/oneview
-    ,g_branch_diff env/prod
 end
 
 function _curo_help
@@ -592,5 +484,3 @@ abbr ,aws_personal 'AWS_PROFILE=personal aws'
 function ,jira --argument-names ticket_number
     open "https://saltus.atlassian.net/browse/ON-$ticket_number"
 end
-
-
