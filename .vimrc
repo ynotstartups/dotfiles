@@ -54,7 +54,6 @@ Plug 'sgur/vim-textobj-parameter'      # i, a,  for parameters
 Plug 'lucapette/vim-textobj-underscore' # i_ a_ for underscore
 
 # for markdown files
-Plug 'img-paste-devs/img-paste.vim'    # `<leader>p` to paste image from system clipboard to markdown file 
 Plug 'godlygeek/tabular'               # `:TableFormat` to format table
 
 Plug 'tomasr/molokai'                  # molokar colorscheme
@@ -96,11 +95,10 @@ set mouse=a # support mouse in iTerm
 set noswapfile
 set regexpengine=0 # fix tsx files too slow
 set incsearch # incremental search
-set belloff=all # no spell from vim
+set belloff=all # no bell from vim
 set spellcapcheck= # turn off spell check says first character not captical as error
 # set the default errorfile, so that vim -q automatically open quickfix.vim
 set errorfile=quickfix.vim
-# for :substitude, turn on g flag by default 
 
 set undodir=~/.vim/undo-dir
 set undofile
@@ -151,7 +149,10 @@ def GetWordAfterPrefix(prefix_string: string): string
   # flag `b` - search backward  
   # flag `n` - do not move the cursor
   # see also `:help search()`
-  var [match_line_number, match_col_number] = (prefix_string .. '\zs')->searchpos('bn')
+
+  # escaping the \ , so output is 'foo \zs'
+  var prefix_regular_expression = $"{prefix_string} \\zs"
+  var [match_line_number, match_col_number] = prefix_regular_expression->searchpos('bn')
   var line = getline(match_line_number)
   # get the word with matching column position - 1, `-1` is needed to include
   # the first character of the word, e.g. word would be `foo`
@@ -165,8 +166,10 @@ def g:YankWordAfterPrefix(prefix_string: string)
   setreg('+', word)
 enddef
 
-nnoremap <leader>yf :call YankWordAfterPrefix("def ")<cr>
-nnoremap <leader>yc :call YankWordAfterPrefix("class ")<cr>
+# yank last function name
+nnoremap <leader>yf :call YankWordAfterPrefix("def")<cr>
+# yank last class name
+nnoremap <leader>yc :call YankWordAfterPrefix("class")<cr>
 
 # set vim's comment string to be # 
 autocmd FileType vim setlocal commentstring=#\ %s
@@ -205,11 +208,11 @@ nnoremap ]h :call g:GitGutterNextHunkCycle()<cr>
 set updatetime=100 # how long (in milliseconds) the plugin will wait for GitGutter
 g:gitgutter_map_keys = 0 # disable gitgutter map
 nnoremap <leader>hp <plug>(GitGutterPreviewHunk)
-nnoremap <leader>ha <plug>(GitGutterStageHunk)
-nnoremap <leader>hs <plug>(GitGutterStageHunk)
+nnoremap <leader>gp <plug>(GitGutterUndoHunk)
 nnoremap <leader>hu <plug>(GitGutterUndoHunk)
 
 nnoremap <leader>hq :GitGutterQuickFix <bar> copen<cr>
+
 ############
 # markdown #
 ############
@@ -261,11 +264,7 @@ g:vim_markdown_new_list_item_indent = 0
 
 autocmd FileType markdown nnoremap gx <Plug>Markdown_OpenUrlUnderCursor
 
-# unmap all mappings need to for my custom map [[ and ]] 
-# g:vim_markdown_no_default_key_mappings = 1
-# default filetype plugin maps [[ and ]], unmap it
-# g:no_markdown_maps = 1
-
+# `yic` to yank all code in code block ```  
 # modified from 
 # https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
 def g:InMarkdownCodeblock(): list<any>
@@ -284,13 +283,13 @@ augroup markdown_textobjs
   \ })
 augroup END
 
+# covert a list into a markdown table
+# limitation: only accepts list with 2 items
+# e.g. - `foo` - foo description
 def g:TableConvert(
     start_line_number: number,
     end_line_number: number,
 )
-    # covert a list into a markdown table
-    # limitation: only accepts list with 2 items
-    # e.g. - `foo` - foo description
     var range = $':{start_line_number},{end_line_number}'
     # changes first - to |
     silent execute $"{range} substitute/-/|/"
@@ -301,35 +300,17 @@ def g:TableConvert(
     execute "normal! {"
     execute "normal! i|||\<esc>"
     execute "normal! o|-|-|\<esc>"
-    silent execute "normal! :TableFormat\<esc>"
+    TableFormat
 enddef
 
 # range allowed, default is current line
 command! -range -nargs=0 TableConvertTakesRange call g:TableConvert(<line1>, <line2>)
 
-def g:ToggleMarkdownTODO()
-    # complete or uncomplete TODO in markdown
-    # - [ ] foo 
-    # - [x] foo 
-    var current_line = getline('.')
-
-    if current_line =~# '^[ ]*- \[ \]'
-        var updated_line = current_line->substitute('- \[ \]', '- [x]', '')
-        setline(".", updated_line)
-    elseif current_line =~# '^[ ]*- \[x\]'
-        var updated_line = current_line->substitute('- \[x\]', '- [ ]', '')
-        setline(".", updated_line)
-    else
-        echom 'Unknown line type!' current_line
-    endif
-enddef
-
-# use <enter> to put x into readme todo [ ]
-autocmd FileType markdown nnoremap <cr> :call g:ToggleMarkdownTODO()<cr>
-
 #########
 # Spell #
 #########
+
+autocmd BufRead,BufNewFile $HOME/Documents/personal-notes/*.md set nospell
 
 set spellfile=$HOME/Documents/personal-notes/spell/en.utf-8.add
 # spell check for markdown and git commit message
@@ -361,11 +342,6 @@ nnoremap <silent> <leader>c :nohlsearch<cr>
 # leader z to autocorrect words and move cursor to the end of the word
 nnoremap <silent> <leader>z 1z=<cr>g;e
 
-# this makes file autocomplete in notes auto completes other notes even when I am in the root directory `~/notes`
-autocmd BufRead,BufNewFile $HOME/Documents/notes/* set autochdir
-
-autocmd BufRead,BufNewFile $HOME/Documents/personal-notes/*.md set nospell
-
 # restore cursor last position
 # from usr_05.txt
 autocmd BufReadPost *
@@ -380,13 +356,14 @@ autocmd BufReadPost *
 def g:OpenCurrentFileInNewTabInSameLine()
     set lazyredraw
     # open current file in new tab position after the last tab
-    execute "normal! :$tabedit %\<cr>"
+    tabedit %
     execute "normal! \<c-o>"
     redraw
     set nolazyredraw
 enddef
 
 nnoremap <leader>t :call g:OpenCurrentFileInNewTabInSameLine()<cr>
+
 # By default, L, H are just jump to bottom or top of screen, not very useful
 # so remaps L to go to next tab, H to go to previous tab
 nnoremap L gt
@@ -412,7 +389,7 @@ def g:TabmoveLeftWrap()
     endtry
 enddef
 
-# move tabpage to the left
+# ctrl+h and ctrl+l to move tabpage 
 nnoremap <c-h> :call g:TabmoveLeftWrap() <cr>
 nnoremap <c-l> :call g:TabmoveRightWrap() <cr>
 
@@ -439,8 +416,7 @@ nnoremap <leader>fc :Commands<cr>
 nnoremap <leader>ff :Files<cr>
 # search all lines in open buffers
 nnoremap <leader>fl :Lines<cr>
-nnoremap <leader>fm :Marks<cr>
-# nnoremap <leader>fm :Maps<cr>
+nnoremap <leader>m :Marks<cr>
 nnoremap <leader>ft :Tags<cr>
 nnoremap <leader>fw :Rg --word-regexp <c-r><c-w><cr>
 nnoremap <leader>fh :History<cr>
@@ -452,15 +428,7 @@ nnoremap <leader>fv :Helptags<cr>
 # :Rg -s foo i.e. -s is --case-sensitive
 # :Rg 'a.*b' i.e. arbitrary regular expression
 # copied from https://github.com/junegunn/fzf.vim/issues/838#issuecomment-509902575
-command! -nargs=* Rg g:fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " .. <q-args>, 1, <bang>0)
-
-def g:FindWordUsage()
-    var search_query = '/\(def\s\)\@<!\<' .. expand('<cword>') .. '(\_.\{-})/' 
-    execute "normal! :vimgrep " .. search_query .. " saltus/**/*.py\<cr>"
-    copen
-enddef
-
-command! -nargs=0 UsageWord :call g:FindWordUsage()
+command! -nargs=* Rg g:fzf#vim#grep($"rg --column --line-number --no-heading --color=always --smart-case {<q-args>}", 1, <bang>0)
 
 ################
 # Git Fugitive #
@@ -493,9 +461,9 @@ nnoremap <leader>eb :$tabedit ~/Documents/personal-notes/.bashrc<cr>
 nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
-nnoremap <leader>ef :$tabedit ~/.config/kitty/kitty.conf<cr>
+nnoremap <leader>ek :$tabedit ~/.config/kitty/kitty.conf<cr>
 
-# helps `<leader>el` to read python unittest output
+# helps `<leader>el` to read linting output saved in `saltus/quickfix.vim`
 set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
 nnoremap <leader>el :cfile saltus/quickfix.vim <bar> copen<cr><c-r><c-r>
 
@@ -755,12 +723,7 @@ def g:SaveAsHtmlToPrintInDownloads(
   # #139: file is loaded in another buffer
   var current_colorscheme = g:colors_name
   colorscheme delek
-  # if line("'<") != 0 && line("'>") != 0
-  # if mode() == 'V'
   execute $"normal :{start_line_number},{end_line_number} TOhtml\<cr>"
-  # else
-  #     execute "normal :TOhtml\<cr>"
-  # endif
   var filename = expand('%:t:r')
   var time_in_seconds = strftime("%Y-%b-%d-%X")
   execute $"saveas! ~/Downloads/{filename}_{time_in_seconds}.html"
@@ -842,7 +805,7 @@ set statusline+=\ C:%03c    # column number
 
 def g:OpenTagInVerticalSplit()
     vsp
-    execute "normal! :tag " .. expand('<cword>') .. "\<cr>"
+    execute $"normal! :tag {expand('<cword>')}\<cr>"
 enddef
 
 # `<leader>]` to open tag in vertical split
@@ -881,14 +844,14 @@ def g:ChangeToParamStyle(type: string)
   # see also `:help expr-'`
   var substitude_command = ':s/\(\w*\)[:=,].*/\1=\1,/g' .. "\<cr>"
   if type == "char"
-    silent execute "normal! '[v']" .. substitude_command
+    silent execute $"normal! '[v'] {substitude_command}"
   elseif type == "line"
-    silent execute "normal! '[V']" .. substitude_command
+    silent execute $"normal! '[V']" {substitude_command}""
   elseif type == "block"
-    silent execute "normal! '[\<C-V>']" .. substitude_command
+    silent execute $"normal! '[\<C-V>']{substitude_command}"
   else
     # Invoked from Visual mode, use '< and '> marks.
-    silent execute "normal! '<v'>" .. substitude_command
+    silent execute $"normal! '<v'>{substitude_command}"
   endif
 enddef
 
@@ -905,14 +868,14 @@ def g:ChangeToFakeStyle(type: string)
   # see also `:help expr-'`
   var substitude_command = ':s/\(\w*\)[:=,].*/\1="fake_\1",/' .. "\<cr>"
   if type == "char"
-    silent execute "normal! '[v']" .. substitude_command
+    silent execute $"normal! '[v']{substitude_command}"
   elseif type == "line"
-    silent execute "normal! '[V']" .. substitude_command
+    silent execute $"normal! '[V']{substitude_command}"
   elseif type == "block"
-    silent execute "normal! '[\<C-V>']" .. substitude_command
+    silent execute $"normal! '[\<C-V>']{substitude_command}"
   else
     # Invoked from Visual mode, use '< and '> marks.
-    silent execute "normal! '<v'>" .. substitude_command
+    silent execute $"normal! '<v'>{substitude_command}"
   endif
 enddef
 
@@ -932,8 +895,8 @@ def g:GoToGitConflictPrevious()
     execute $"normal! ?{git_conflict_markers_regex}\<cr>"
 enddef
 
-nnoremap [g :<c-u>call g:GoToGitConflictPrevious()<cr>
-nnoremap ]g :<c-u>call g:GoToGitConflictNext()<cr>
+nnoremap [g :call g:GoToGitConflictPrevious()<cr>
+nnoremap ]g :call g:GoToGitConflictNext()<cr>
 
 # quickfix 
 nnoremap [q :cprevious<cr>
@@ -965,20 +928,22 @@ autocmd FileType python nnoremap ]f <Plug>(PythonsenseStartOfNextPythonFunction)
 autocmd FileType python nmap <leader>/f vif<esc><esc>/\%V
 autocmd FileType python nmap <leader>/c vic<esc><esc>/\%V
 
-autocmd FileType markdown nmap <leader>/c /# cheatsheet 
-
 ###############
 # pythonsense #
 ###############
 
+# remove the default motion key mappings
+# See https://github.com/jeetsukumaran/vim-pythonsense?tab=readme-ov-file#python-object-motions
 g:is_pythonsense_suppress_motion_keymaps = 1
+# remove the defult localtion key mappings
+# See https://github.com/jeetsukumaran/vim-pythonsense?tab=readme-ov-file#python-location-information
 g:is_pythonsense_suppress_location_keymaps = 1
 
-######
-# Rg #
-######
+########
+# grep #
+########
 
-# setting command grep to use system rg
+# set command `grep` to use system rg
 # see `:help :grepprg`
 if executable('rg')
   set grepprg=rg\ --with-filename\ --no-heading\ --vimgrep
@@ -989,18 +954,34 @@ endif
 # Documentations #
 ##################
 
-def g:SearchDoc()
+# leader+k to use google search for official doc for word under cursor
+def g:SearchDocGoogle()
   set lazyredraw
   var filetype = &filetype
   var word_under_cursor = expand('<cword>')
-  # add google http query param `&btnI` if I want to jump to first result
-  var google_search_query = $"https://www.google.com/search?q={filetype}+official+documentation+{word_under_cursor}"
-  silent exec $"!open '{google_search_query}'"
+  var query = $"official+documentation+for+{filetype}+{word_under_cursor}"
+  var search_query = $"https://www.google.com/search?q={query}"
+  silent exec $"!open '{search_query}'"
   redraw!
   set nolazyredraw
 enddef
 
-nnoremap <leader>k :call SearchDoc()<cr>
+nnoremap <leader>kg :call SearchDocGoogle()<cr>
+
+# leader+a to use chatgpt search for offical doc for word under cursor
+def g:SearchDocChatGPT()
+  set lazyredraw
+  var filetype = &filetype
+  var word_under_cursor = expand('<cword>')
+  # add google http query param `&btnI` if I want to jump to first result
+  var query = $"please+explain+{filetype}+{word_under_cursor}"
+  query = $"{query}+and+give+me+a+link+to+official+documentation"
+  var search_url = $"https://chat.openai.com/?q={query}"
+  silent exec $"!open '{search_url}'"
+  redraw!
+  set nolazyredraw
+enddef
+nnoremap <leader>ka :call SearchDocChatGPT()<cr>
 
 #########################
 # Vim9 Compile Function #
