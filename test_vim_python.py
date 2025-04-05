@@ -17,20 +17,41 @@ def test_write_section():
         write_section("test 123", '"') == '""""""""""""\n" test 123 "\n""""""""""""\n'
     )
 
+def test_get_alternative_filepath_non_saltus_file():
+    assert get_alternative_filepath("foo.py") == "test_foo.py"
+    assert get_alternative_filepath("test_foo.py") == "foo.py"
 
-def test_get_alternative_filepath():
+def test_get_alternative_filepath_saltus_file():
     assert (
         get_alternative_filepath("saltus/oneview/graphql/foo.py")
         == "saltus/oneview/tests/graphql/test_foo.py"
     )
-    assert get_alternative_filepath("foo.py") == "test_foo.py"
-
     assert (
         get_alternative_filepath("saltus/oneview/tests/graphql/test_foo.py")
         == "saltus/oneview/graphql/foo.py"
     )
-    assert get_alternative_filepath("test_foo.py") == "foo.py"
 
+def test_get_alternative_filepath_saltus_public_api_files(tmp_path):
+    assert (
+        get_alternative_filepath("saltus/public_api/views/report_pack.py")
+        == "saltus/public_api/tests/views/test_report_pack.py"
+    )
+    assert (
+        get_alternative_filepath("saltus/public_api/tests/views/test_report_pack.py")
+        == "saltus/public_api/views/report_pack.py"
+    )
+
+# def test_get_alternative_filepath_backup_api_files(tmp_path):
+#     # note the api is not in the test filepath
+#     assert (
+#         get_alternative_filepath("saltus/oneview/graphql/api/fee.py")
+#         == "saltus/oneview/tests/graphql/test_fee.py"
+#     )
+#     # note the api is added in the source filepath
+#     assert (
+#         get_alternative_filepath("saltus/oneview/tests/graphql/test_fee.py")
+#         == "saltus/oneview/graphql/api/fee.py"
+#     )
 
 def test_create_alternative_file(tmp_path):
     get_or_create_alternative_file(str(tmp_path / "foo.py"))
