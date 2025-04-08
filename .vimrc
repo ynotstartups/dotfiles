@@ -982,6 +982,18 @@ def g:SearchDocChatGPT()
 enddef
 nnoremap <leader>sc :call SearchDocChatGPT()<cr>
 
+# To make `autoread` vim option works to autoreload changed files
+# https://stackoverflow.com/a/53860166
+g:CheckUpdateStarted = false
+if ! g:CheckUpdateStarted
+    g:CheckUpdateStarted = true
+    timer_start(1, 'g:CheckUpdate')
+endif
+def g:CheckUpdate(timer_id: number)
+    silent! checktime
+    timer_start(1000, 'g:CheckUpdate')
+enddef
+
 #########################
 # Vim9 Compile Function #
 #########################
