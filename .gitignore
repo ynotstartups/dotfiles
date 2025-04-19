@@ -10,3 +10,4 @@ __pycache__/
 
 # python log files
 *.log
+notes_website_output/
