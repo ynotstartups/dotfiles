@@ -4,12 +4,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from vim_python import (
-    get_alternative_filepath,
-    get_import_path_given_word,
-    get_or_create_alternative_file,
-    write_section,
-)
+from vim_python import (get_alternative_filepath, get_import_path_given_word,
+                        get_or_create_alternative_file, write_section)
 
 
 def test_write_section():

@@ -109,7 +109,7 @@ package_and_word = {
     "collections": ["Counter", "defaultdict"],
     "copy": ["copy", "deepcopy"],
     "dataclasses": ["asdict", "dataclass"],
-    "datetime": ["datetime", "timedelta"],
+    "datetime": ["date", "datetime", "timedelta"],
     "decimal": ["Decimal"],
     "django.apps": ["AppConfig", "apps", "apps as django_apps"],
     "django.conf": ["settings"],
