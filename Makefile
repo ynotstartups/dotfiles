@@ -1,6 +1,18 @@
 SHELL=/bin/zsh
 
-all: format lint coverage-test
+build_notes_website:
+	./notes_website.py --private
+	./notes_website.py --public
+
+reset_notes_website_hash:
+	echo '{}' > 'notes_website_data/.hash_private.json'
+	echo '{}' > 'notes_website_data/.hash_public.json'
+
+deploy_public_notes_website:
+	git -C ../notes/ status
+	git -C ../notes/ add .
+	git -C ../notes/ commit -v
+	git -C ../notes/ push
 
 format:
 	. .venv/bin/activate; \
