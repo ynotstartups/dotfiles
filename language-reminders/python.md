@@ -81,11 +81,16 @@ self.assertEqual(
 )
 ```
 
-# test error raised with message
+# test error raised
 ```python
 with self.assertRaisesMessage(ValueError, "invalid literal for int()"):
     pass
 ```
+```python
+with self.assertRaises(ValueError):
+    pass
+```
+
 
 # test freeze time
 
@@ -145,3 +150,17 @@ try:
 except RequestException as error:
     _logger.exception(error)
 ```
+
+# Graphene
+
+## `required=True` and `NonNull`
+
+- `required=True` means that the itself must not be null.
+
+`risk_profiles = graphene.List(graphene.NonNull(lambda: RiskProfileType),
+required=True)`
+
+- `graphene.NonNull` means that each risk profile cannot be null.
+- `required=True` means that the list itself must not be null.
+
+Translate to graphql schema `riskProfiles: [RiskProfileType!]!`
