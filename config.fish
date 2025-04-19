@@ -129,6 +129,8 @@ abbr gs 'git status'
 #* ON-5561-add-test-for-get_aws_credentials
 abbr ,gdelete_branches 'git branch | grep -v -e "*" -e " main" -e " development" -e " master" -e " env/" -e " prep/" | xargs git branch -D'
 
+abbr ,gdisable_hooks 'git config core.hooksPath /dev/null'
+
 abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
 abbr ,g_template_enable 'git config --local --unset commit.template'
 
@@ -484,3 +486,14 @@ abbr ,aws_personal 'AWS_PROFILE=personal aws'
 function ,jira --argument-names ticket_number
     open "https://saltus.atlassian.net/browse/ON-$ticket_number"
 end
+
+# put jira ticket link to clipboard
+function ,jira! --argument-names ticket_number
+    printf "https://saltus.atlassian.net/browse/ON-$ticket_number" | pbcopy
+end
+
+#########
+# tfenv #
+#########
+
+# set PATH $HOME/.tfenv/bin $PATH
