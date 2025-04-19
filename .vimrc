@@ -500,6 +500,7 @@ from vim_python import get_import_path_given_word
 import_string = get_import_path_given_word(vim)
 
 vim.current.buffer.append(import_string, 0)
+
 EOF
 enddef
 command! -nargs=0 ImportWord call g:ImportWordUnderCursor()
