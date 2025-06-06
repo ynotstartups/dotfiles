@@ -846,7 +846,7 @@ def g:ChangeToParamStyle(type: string)
   if type == "char"
     silent execute $"normal! '[v'] {substitude_command}"
   elseif type == "line"
-    silent execute $"normal! '[V']" {substitude_command}""
+    silent execute $"normal! '[V'] {substitude_command}"
   elseif type == "block"
     silent execute $"normal! '[\<C-V>']{substitude_command}"
   else
