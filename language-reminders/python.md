@@ -48,9 +48,9 @@ class TestFoo(AdminUserMixin, GraphqlTestCase):
 ```python
 from django.test import TestCase
 
-class Test${1:Class}(TestCase):
-    def test_${2:name}(self):
-        ${3:${VISUAL:pass}}
+class TestFoo(TestCase):
+    def test_foo(self):
+        pass
 ```
 
 # unittest subtest
@@ -91,19 +91,28 @@ with self.assertRaises(ValueError):
     pass
 ```
 
-
 # test freeze time
 
 ```python
 from freezegun import freeze_time
+import pytz
 
 with freeze_time("2000-01-01T00:00:00", tz_offset=0):
     # TODO: call some function
     pass
 
-self.assertEqual(foo, datetime(2000, 1, 1, 0, 10, 0, tzinfo=pytz.UTC))
+self.assertEqual(foo, datetime(2000, 1, 1, 0, 0, 0, tzinfo=pytz.UTC))
 ```
 
+# test with override_settings
+
+```python
+from django.test import override_settings
+
+@override_settings(ENABLE_TRUSTS=True)
+def test_foo(self):
+    pass
+```
 
 # mock response success 
 ```python
@@ -126,6 +135,17 @@ mock_response = mock.Mock()
 mock_response.raise_for_status.side_effect = HTTPError("Foo")
 
 mock_requests.post.return_value = mock_response
+```
+
+# test multiple calls
+```python
+self.assertEqual(
+    mock_submit_entity.call_args_list,
+    [
+        call(entity=pot, data=pot.to_curo(), info=mock.ANY),
+        call(entity=task, data=task.to_curo(), info=mock.ANY),
+    ],
+)
 ```
 
 # handle raise for status
