@@ -246,6 +246,7 @@ package_and_word = {
     "unittest.mock": ["MagicMock", "Mock", "PropertyMock", "call", "patch"],
     "urllib.parse": ["urlparse"],
     "uuid": ["UUID", "uuid4"],
+    "dateutil.relativedelta": ["relativedelta"],
 }
 
 
