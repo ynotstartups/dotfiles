@@ -114,6 +114,7 @@ end
 
 abbr g 'git'
 abbr gs 'git status'
+abbr gd 'git diff'
 
 # `-e "*"` means ignore current branch
 # a space is added to the rest of the patterns to avoid branch names like `merge-prep-uat-into-developement`
@@ -201,7 +202,7 @@ abbr rg_python_ignore_tests 'rg -t py -g "!**/tests/**"'
 # Node #
 ########
 
-set PATH /opt/homebrew/opt/node@16/bin $PATH
+set PATH /opt/homebrew/opt/node@20/bin $PATH
 
 ############
 # Man Page #
@@ -446,14 +447,18 @@ function ,curo_prod_open_entity_name_with_id --argument-names entity_name record
     if _curo_help $argv
         return 0
     end
-    open "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+    set url "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+    echo $url 
+    open $url
 end
 
 function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_id
     if _curo_help $argv
         return 0
     end
-    open "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+    set url "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
+    echo $url
+    open $url
 end
 
 ##################
