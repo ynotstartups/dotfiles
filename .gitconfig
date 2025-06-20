@@ -23,6 +23,7 @@
 
     f      = fetch
     fro    = !git fetch origin && git rebase --autosquash --interactive origin/$GIT_BASE_BRANCH
+    fru    = !git fetch origin && git rebase --autosquash --interactive origin/prep/uat
 
     g      = grep --ignore-case
 
@@ -54,6 +55,7 @@
 
     rs     = restore
     rso    = !git restore --source=origin/$GIT_BASE_BRANCH
+    rsu    = !git restore --source=origin/prep/uat
     rss    = restore --staged
 
     s      = status
