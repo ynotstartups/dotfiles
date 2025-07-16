@@ -430,6 +430,9 @@ nnoremap <leader>fv :Helptags<cr>
 # copied from https://github.com/junegunn/fzf.vim/issues/838#issuecomment-509902575
 command! -nargs=* Rg g:fzf#vim#grep($"rg --column --line-number --no-heading --color=always --smart-case {<q-args>}", 1, <bang>0)
 
+# disable fzf preview
+g:fzf_preview_window = []
+
 ################
 # Git Fugitive #
 ################
