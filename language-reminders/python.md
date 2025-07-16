@@ -9,6 +9,14 @@ if __name__ == "__main__":
     main()
 ```
 
+# add logger
+
+```
+import logging
+_logger = logging.getLogger(__name__)
+_logger.debug("foo")
+```
+
 # test GraphQL endpoint
 ```python
 from oneview.tests.graphql import AdminUserMixin, GraphqlTestCase
