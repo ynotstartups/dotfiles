@@ -355,7 +355,7 @@ alias ,ovpython "docker compose --file ~/Documents/oneview/docker-compose-dev.ym
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 abbr eb '~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
-function ,_ssh_oneview --argument-names ec2_name
+function ,_ssh_oneview --argument-names ec2_name command
     if not pgrep -q 'AWS VPN'
         set_color --bold red
         echo "Did you forget to turn on AWS VPN?"
@@ -373,27 +373,48 @@ function ,_ssh_oneview --argument-names ec2_name
     # 2. reduces the default ConnectTimeout to avoid hanging
     # 3. `-i identity_file`, selects a file from which the identity (private key)
     # for public key authentication is read.
-    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/ssh-private-key' "ec2-user@$ip_address"
+    ssh -t -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/ssh-private-key' "ec2-user@$ip_address" "$command"
 end
 
-function ,ssh_test
-    ,_ssh_oneview 'oneview-test-leader'
+function ,ssh_test_python
+    ,_ssh_oneview 'oneview-test-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
 end
 
-function ,ssh_test2
-    ,_ssh_oneview 'OneView-test2-leader'
+function ,ssh_test2_python
+    ,_ssh_oneview 'OneView-test2-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
 end
 
-function ,ssh_test3
-    ,_ssh_oneview 'OneView-test3-leader'
+function ,ssh_test3_python
+    ,_ssh_oneview 'OneView-test3-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
 end
 
-function ,ssh_uat
-    ,_ssh_oneview 'oneview-uat-leader'
+function ,ssh_uat_python
+    ,_ssh_oneview 'oneview-uat-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
 end
 
-function ,ssh_prod
-    ,_ssh_oneview 'oneview-prod-leader'
+function ,ssh_prod_python
+    ,_ssh_oneview 'oneview-prod-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
+end
+
+
+function ,ssh_test_bash
+    ,_ssh_oneview 'oneview-test-leader' "sudo docker exec -it oneview-django bash" 
+end
+
+function ,ssh_test2_bash
+    ,_ssh_oneview 'OneView-test2-leader' "sudo docker exec -it oneview-django bash" 
+end
+
+function ,ssh_test3_bash
+    ,_ssh_oneview 'OneView-test3-leader' "sudo docker exec -it oneview-django bash" 
+end
+
+function ,ssh_uat_bash
+    ,_ssh_oneview 'oneview-uat-leader' "sudo docker exec -it oneview-django bash" 
+end
+
+function ,ssh_prod_bash
+    ,_ssh_oneview 'oneview-prod-leader' "sudo docker exec -it oneview-django bash" 
 end
 
 
