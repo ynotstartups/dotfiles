@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
 # add logger
 
-```
+```python
 import logging
 _logger = logging.getLogger(__name__)
 _logger.debug("foo")
