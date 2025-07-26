@@ -376,6 +376,27 @@ function ,_ssh_oneview --argument-names ec2_name command
     ssh -t -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/ssh-private-key' "ec2-user@$ip_address" "$command"
 end
 
+function ,ssh_test
+    ,_ssh_oneview 'oneview-test-leader'
+end
+
+function ,ssh_test2
+    ,_ssh_oneview 'OneView-test2-leader'
+end
+
+function ,ssh_test3
+    ,_ssh_oneview 'OneView-test3-leader'
+end
+
+function ,ssh_uat
+    ,_ssh_oneview 'oneview-uat-leader'
+end
+
+function ,ssh_prod
+    ,_ssh_oneview 'oneview-prod-leader'
+end
+
+
 function ,ssh_test_python
     ,_ssh_oneview 'oneview-test-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
 end
