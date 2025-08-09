@@ -1,3 +1,16 @@
+# python function documentation
+
+```
+    Args:
+        review (int): The first number.
+        b (int): The second number.
+
+    Returns:
+        int: The sum of the two numbers.
+
+    Raises:
+        HTTPError: when call to Calendar API failed
+```
 # python script
 ```python
 #!/usr/bin/env python3
