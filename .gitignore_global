@@ -17,6 +17,3 @@ __pycache__
 quickfix.vim
 temp_quickfix.vim
 Session.vim
-
-# personal workflow
-pr.md
