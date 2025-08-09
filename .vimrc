@@ -507,6 +507,7 @@ vim.current.buffer.append(import_string, 0)
 EOF
 enddef
 command! -nargs=0 ImportWord call g:ImportWordUnderCursor()
+autocmd FileType python nnoremap <buffer> <silent> <leader>i :call ImportWordUnderCursor()<cr>
 
 def g:JumpToTestFile()
 py3 << EOF
@@ -665,7 +666,7 @@ g:EasyMotion_smartcase = 1
 ####################
 g:mdip_imgdir = 'images'
 # <leader>i - i stands for image to insert image in normal mode
-autocmd FileType markdown nnoremap <buffer> <silent> <leader>i :call mdip#MarkdownClipboardImage()<cr>
+# autocmd FileType markdown nnoremap <buffer> <silent> <leader>i :call mdip#MarkdownClipboardImage()<cr>
 
 ################
 # vim-asterisk #
