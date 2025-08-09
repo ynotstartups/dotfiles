@@ -241,12 +241,14 @@ package_and_word = {
         "Union",
         "cast",
         "Literal",
+        "TypedDict",
     ],
     "unittest": ["mock"],
     "unittest.mock": ["MagicMock", "Mock", "PropertyMock", "call", "patch"],
     "urllib.parse": ["urlparse"],
     "uuid": ["UUID", "uuid4"],
     "dateutil.relativedelta": ["relativedelta"],
+    "boto3": [],
 }
 
 
