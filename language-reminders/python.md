@@ -1,4 +1,4 @@
-# python function documentation
+# Function Documentation
 
 ```
     Args:
@@ -11,7 +11,7 @@
     Raises:
         HTTPError: when call to Calendar API failed
 ```
-# python script
+# script
 ```python
 #!/usr/bin/env python3
 
@@ -27,7 +27,8 @@ if __name__ == "__main__":
 ```python
 import logging
 _logger = logging.getLogger(__name__)
-_logger.debug("foo")
+_logger.error("foo", exc_info=True)
+_logger.exception("foo", exc_info=True)
 ```
 
 # test GraphQL endpoint
@@ -99,6 +100,13 @@ self.assertEqual(
     [
         "INFO:foo.foo.foo:logger message"
     ]
+)
+
+# if using _logger.error('foo', exc_info=True)
+# test like this
+self.assertIn(
+    "ERROR:foo.foo.foo.foo:Foo",
+    logger_context_manager.output[0],
 )
 ```
 
@@ -192,9 +200,9 @@ except RequestException as error:
     _logger.exception(error)
 ```
 
-# Graphene
+# Graphene - set required for a list of objects
 
-## `required=True` and `NonNull`
+`required=True` and `NonNull`
 
 - `required=True` means that the itself must not be null.
 
@@ -205,3 +213,7 @@ required=True)`
 - `required=True` means that the list itself must not be null.
 
 Translate to graphql schema `riskProfiles: [RiskProfileType!]!`
+
+# Graphene - set required for a field
+
+`review = graphene.Field(ReviewType, required=True)`
