@@ -530,13 +530,13 @@ abbr ,aws_personal 'AWS_PROFILE=personal aws'
 ########
 
 function ,jira --argument-names ticket_number
-    set ticket_number (string replace -r '^ON-' '' $ticket_number)
+    set ticket_number (string replace --regex '^ON-' '' $ticket_number)
     open "https://saltus.atlassian.net/browse/ON-$ticket_number"
 end
 
 # put jira ticket link to clipboard
 function ,jira! --argument-names ticket_number
-    set ticket_number (string replace -r '^ON-' '' $ticket_number)
+    set ticket_number (string replace --regex '^ON-' '' $ticket_number)
     printf "https://saltus.atlassian.net/browse/ON-$ticket_number" | pbcopy
 end
 
