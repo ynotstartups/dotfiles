@@ -540,6 +540,20 @@ function ,jira! --argument-names ticket_number
     printf "https://saltus.atlassian.net/browse/ON-$ticket_number" | pbcopy
 end
 
+###########
+# chatgpt #
+###########
+
+function ,chatgpt_work
+    set question (string replace ' ' '+' $argv)
+    open "https://chat.openai.com/?q=I+am+working+as+a+python+backend+dev+in+a+financial+planning+company+in+london,+can+you+explain+to+me+$question"
+end
+
+function ,chatgpt
+    set question (string replace ' ' '+' $argv)
+    open "https://chat.openai.com/?q=I+am+working+as+a+python+backend+dev,$question"
+end
+
 #########
 # tfenv #
 #########
