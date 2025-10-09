@@ -753,10 +753,6 @@ nnoremap <leader>v :Vista<cr>
 # Statusline #
 ##############
 
-def g:NearestMethodOrFunction(): string
-  return get(b:, 'vista_nearest_method_or_function', '')
-enddef
-
 # By default vista.vim never run if you don't call it explicitly.
 #
 # If you want to show the nearest function in your statusline automatically,
@@ -786,15 +782,10 @@ enddef
 set statusline=\ %f    # filename
 set statusline+=\ %{GetHelpSectionName()}
 
-# middle section
-set statusline+=%=
-set statusline+=%{NearestMethodOrFunction()}
-
 # By default vista.vim never run if you don't call it explicitly.
 #
 # If you want to show the nearest function in your statusline automatically,
 # you can add the following line to your vimrc
-autocmd FileType python call vista#RunForNearestMethodOrFunction()
 
 # right section
 set statusline+=%=
