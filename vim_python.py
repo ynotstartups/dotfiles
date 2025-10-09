@@ -149,7 +149,7 @@ package_and_word = {
         "transaction",
     ],
     "django.db.migrations.executor": ["MigrationExecutor"],
-    "django.db.models": ["CheckConstraint", "ForeignKey", "Model", "Q", "QuerySet"],
+    "django.db.models": ["CheckConstraint", "ForeignKey", "Model", "Q", "QuerySet", "F"],
     "django.db.models.signals": ["m2m_changed", "post_save", "pre_save"],
     "django.db.utils": ["IntegrityError"],
     "django.dispatch": ["receiver"],
