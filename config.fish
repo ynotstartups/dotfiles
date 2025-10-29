@@ -198,6 +198,8 @@ set --global --export RIPGREP_CONFIG_PATH $HOME/.rgrc
 
 abbr rg_python_ignore_tests 'rg -t py -g "!**/tests/**"'
 
+abbr rg_js_ignore_tests 'rg -g "!**/*test.ts" -g "!**/*.snap"'
+
 ########
 # Node #
 ########
