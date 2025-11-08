@@ -1,5 +1,5 @@
 # essential
-requests
+httpx
 
 # tests
 pdbpp
