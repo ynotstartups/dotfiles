@@ -255,13 +255,14 @@ function vim
     end
 end
 
-abbr ,ed "vim $PERSONAL_NOTES/dev_notes.md"
 abbr ,eb "vim $PERSONAL_NOTES/.bashrc"
+abbr ,ed "vim $PERSONAL_NOTES/dev_notes.md"
 abbr ,ef "vim $DOTFILES/config.fish"
-abbr ,ev "vim $DOTFILES/.vimrc"
 abbr ,eg "vim $DOTFILES/.gitconfig"
 abbr ,ek "vim $DOTFILES/kitty.conf"
 abbr ,em "vim ~/Documents/menu/app.py"
+abbr ,ep "vim $DOTFILES/language-reminders/python.md"
+abbr ,ev "vim $DOTFILES/.vimrc"
 
 ########
 # Tags #

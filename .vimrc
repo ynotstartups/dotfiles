@@ -460,10 +460,11 @@ nnoremap <leader>ge :Gedit<cr>
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
 
 nnoremap <leader>eb :$tabedit ~/Documents/personal-notes/.bashrc<cr>
-nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
+nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
 nnoremap <leader>ek :$tabedit ~/.config/kitty/kitty.conf<cr>
+nnoremap <leader>ep :$tabedit ~/Documents/dotfiles/language-reminders/python.md<cr>
 
 # helps `<leader>el` to read linting output saved in `saltus/quickfix.vim`
 set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
@@ -989,6 +990,18 @@ def g:CheckUpdate(timer_id: number)
     silent! checktime
     timer_start(1000, 'g:CheckUpdate')
 enddef
+
+##############################
+# search with magic mode on #
+##############################
+
+# with magic mode on, I don't need to use \ to prefix the regular expressions'
+# special character
+
+nnoremap / /\v
+vnoremap / /\v
+cnoremap %s/ %smagic/
+cnoremap \>s/ \>smagic/
 
 #########################
 # Vim9 Compile Function #
