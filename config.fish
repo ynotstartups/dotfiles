@@ -376,7 +376,7 @@ function ,_ssh_oneview --argument-names ec2_name command
     # 2. reduces the default ConnectTimeout to avoid hanging
     # 3. `-i identity_file`, selects a file from which the identity (private key)
     # for public key authentication is read.
-    ssh -t -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/ssh-private-key' "ec2-user@$ip_address" "$command"
+    TERM=xterm-256color ssh -t -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/ssh-private-key' "ec2-user@$ip_address" "$command"
 end
 
 function ,ssh_test
