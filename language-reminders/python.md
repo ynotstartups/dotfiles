@@ -181,6 +181,20 @@ self.assertEqual(
 )
 ```
 
+# test failure CuroCode doesn't exists
+
+
+```python
+oneview.errors.OneViewCuroCodeDoesNotExistError: Curo code does not exist. CuroCode.get is called with args: (), kwargs: {'entity': 't4a_review', 'field': 'review_reason', 'value': 'Initial client meeting'}
+
+CuroCode.objects.create(
+    entity='t4a_review',
+    field='review_reason',
+    value='Initial client meeting',
+)
+```
+
+
 # handle raise for status
 ```python
 try:
