@@ -4,8 +4,12 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from vim_python import (get_alternative_filepath, get_import_path_given_word,
-                        get_or_create_alternative_file, write_section)
+from vim_python import (
+    get_alternative_filepath,
+    get_import_path_given_word,
+    get_or_create_alternative_file,
+    write_section,
+)
 
 
 def test_write_section():
@@ -14,9 +18,11 @@ def test_write_section():
         write_section("test 123", '"') == '""""""""""""\n" test 123 "\n""""""""""""\n'
     )
 
+
 def test_get_alternative_filepath_non_saltus_file():
     assert get_alternative_filepath("foo.py") == "test_foo.py"
     assert get_alternative_filepath("test_foo.py") == "foo.py"
+
 
 def test_get_alternative_filepath_saltus_file():
     assert (
@@ -28,6 +34,7 @@ def test_get_alternative_filepath_saltus_file():
         == "saltus/oneview/graphql/foo.py"
     )
 
+
 def test_get_alternative_filepath_saltus_public_api_files(tmp_path):
     assert (
         get_alternative_filepath("saltus/public_api/views/report_pack.py")
@@ -37,6 +44,7 @@ def test_get_alternative_filepath_saltus_public_api_files(tmp_path):
         get_alternative_filepath("saltus/public_api/tests/views/test_report_pack.py")
         == "saltus/public_api/views/report_pack.py"
     )
+
 
 @mock.patch("vim_python._file_exists")
 def test_get_alternative_filepath_backup_api_files(mock_file_exists, tmp_path):
@@ -51,6 +59,7 @@ def test_get_alternative_filepath_backup_api_files(mock_file_exists, tmp_path):
         get_alternative_filepath("saltus/oneview/tests/graphql/test_fee.py")
         == "saltus/oneview/graphql/api/fee.py"
     )
+
 
 def test_create_alternative_file(tmp_path):
     get_or_create_alternative_file(str(tmp_path / "foo.py"))

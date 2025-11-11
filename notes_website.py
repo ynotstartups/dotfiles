@@ -39,7 +39,9 @@ TOPICS = [
     "personal",
 ]
 
-DEV_NOTES_MARKDOWN_FILEPATH = Path("/Users/yuhao.huang/Documents/personal-notes/dev_notes.md")
+DEV_NOTES_MARKDOWN_FILEPATH = Path(
+    "/Users/yuhao.huang/Documents/personal-notes/dev_notes.md"
+)
 DEV_NOTES_IMAGES_FILEPATH = Path("/Users/yuhao.huang/Documents/personal-notes/images")
 INPUT_DIR = Path("/Users/yuhao.huang/Documents/dotfiles/")
 OUTPUT_PRIVATE_FOLDER = Path(
@@ -114,7 +116,7 @@ def _parse_dev_notes_md_to_notes(output_private_notes: bool) -> list[Note]:
             if not is_in_code_block and line.startswith("# "):
                 # this block means we are entering a new markdown file
                 if title is not None:
-                    notes.append(Note(title, contents))
+                    notes.append(Note(title, contents))  # noqa: F821
                 title = line
                 contents = []  # noqa: F821
             else:
@@ -165,7 +167,7 @@ def _build_topic_md_from_notes(notes: list[Note], topic: str) -> list[str]:
         if matching_notes:
             markdown.append(f"# {topic.title()} - {formatted_document_type}\n\n")
             for note in matching_notes:
-                markdown.append(f'# {note.title}')
+                markdown.append(f"# {note.title}")
                 markdown.extend(note.markdown)
     return markdown
 
@@ -244,7 +246,9 @@ def main():
         )
 
         shutil.copy2(STYLES_CSS_FILEPATH, output_folder / STYLES_CSS_FILENAME)
-        shutil.copytree(DEV_NOTES_IMAGES_FILEPATH, output_folder / "images", dirs_exist_ok=True)
+        shutil.copytree(
+            DEV_NOTES_IMAGES_FILEPATH, output_folder / "images", dirs_exist_ok=True
+        )
 
         for topic in TOPICS:
             topic_markdown_name = f"{topic}.md"

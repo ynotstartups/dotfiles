@@ -358,90 +358,6 @@ alias ,ovpython "docker compose --file ~/Documents/oneview/docker-compose-dev.ym
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 abbr eb '~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
-function ,_ssh_oneview --argument-names ec2_name command
-    if not pgrep -q 'AWS VPN'
-        set_color --bold red
-        echo "Did you forget to turn on AWS VPN?"
-        set_color normal
-        return 1
-    end
-
-    set ip_address (aws ec2 describe-instances \
-        --filters "Name=tag:Name,Values=$ec2_name" \
-        --output text --query 'Reservations[*].Instances[*].PrivateIpAddress' \
-    )
-
-    # 1. don't do StrictHostKeyChecking as ip always changes in virtual private
-    # cloud (VPC)
-    # 2. reduces the default ConnectTimeout to avoid hanging
-    # 3. `-i identity_file`, selects a file from which the identity (private key)
-    # for public key authentication is read.
-    TERM=xterm-256color ssh -t -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i '~/.ssh/ssh-private-key' "ec2-user@$ip_address" "$command"
-end
-
-function ,ssh_test
-    ,_ssh_oneview 'oneview-test-leader'
-end
-
-function ,ssh_test2
-    ,_ssh_oneview 'OneView-test2-leader'
-end
-
-function ,ssh_test3
-    ,_ssh_oneview 'OneView-test3-leader'
-end
-
-function ,ssh_uat
-    ,_ssh_oneview 'oneview-uat-leader'
-end
-
-function ,ssh_prod
-    ,_ssh_oneview 'oneview-prod-leader'
-end
-
-
-function ,ssh_test_python
-    ,_ssh_oneview 'oneview-test-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
-end
-
-function ,ssh_test2_python
-    ,_ssh_oneview 'OneView-test2-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
-end
-
-function ,ssh_test3_python
-    ,_ssh_oneview 'OneView-test3-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
-end
-
-function ,ssh_uat_python
-    ,_ssh_oneview 'oneview-uat-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
-end
-
-function ,ssh_prod_python
-    ,_ssh_oneview 'oneview-prod-leader' "sudo docker exec -it oneview-django poetry run python manage.py shell" 
-end
-
-
-function ,ssh_test_bash
-    ,_ssh_oneview 'oneview-test-leader' "sudo docker exec -it oneview-django bash" 
-end
-
-function ,ssh_test2_bash
-    ,_ssh_oneview 'OneView-test2-leader' "sudo docker exec -it oneview-django bash" 
-end
-
-function ,ssh_test3_bash
-    ,_ssh_oneview 'OneView-test3-leader' "sudo docker exec -it oneview-django bash" 
-end
-
-function ,ssh_uat_bash
-    ,_ssh_oneview 'oneview-uat-leader' "sudo docker exec -it oneview-django bash" 
-end
-
-function ,ssh_prod_bash
-    ,_ssh_oneview 'oneview-prod-leader' "sudo docker exec -it oneview-django bash" 
-end
-
-
 function ,npm_run_frontend
     cd ~/Documents/oneview/reactapp
     npm start
@@ -477,34 +393,6 @@ function ,deployments --argument-names environments
     end
 end
 
-function _curo_help
-    argparse h/help -- $argv
-    if set -ql _flag_help
-        echo "Entity Names: t4a_curoholding, t4a_review, account"
-        return 0
-    else
-        return 1
-    end
-end
-
-function ,curo_prod_open_entity_name_with_id --argument-names entity_name record_id
-    if _curo_help $argv
-        return 0
-    end
-    set url "https://saltus.curo3.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
-    echo $url 
-    open $url
-end
-
-function ,curo_uat_open_entity_name_with_id --argument-names entity_name record_id
-    if _curo_help $argv
-        return 0
-    end
-    set url "https://saltus.curo3uat.net/main.aspx?etn=$entity_name&pagetype=entityrecord&id=%7B$record_id%7D"
-    echo $url
-    open $url
-end
-
 ##################
 # docker compose #
 ##################
@@ -532,16 +420,9 @@ abbr ,aws_personal 'AWS_PROFILE=personal aws'
 # jira #
 ########
 
-function ,jira --argument-names ticket_number
-    set ticket_number (string replace --regex '^ON-' '' $ticket_number)
-    open "https://saltus.atlassian.net/browse/ON-$ticket_number"
-end
-
-# put jira ticket link to clipboard
-function ,jira! --argument-names ticket_number
-    set ticket_number (string replace --regex '^ON-' '' $ticket_number)
-    printf "https://saltus.atlassian.net/browse/ON-$ticket_number" | pbcopy
-end
+alias ,jira "~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/jira.py" 
+alias ,curo "~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/curo.py" 
+alias ,ssh "TERM=xterm-256color ~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/ssh.py" 
 
 ###########
 # chatgpt #

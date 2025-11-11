@@ -20,3 +20,6 @@ thefuzz
 
 # m3u8_downloader for ssl
 pip_system_certs
+
+dotenv
+

@@ -31,3 +31,7 @@ coverage-test:
 
 tags:
 	ctags **/*.py .vimrc
+
+brew-upgrade-libraries:
+	brew update
+	brew upgrade

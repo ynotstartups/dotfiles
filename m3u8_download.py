@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import asyncio
+
 import httpx
 
 FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -76,7 +78,7 @@ def download_m3u8(m3u8_url: str, video_name: str):
 
 if __name__ == "__main__":
     """
-    works for 
+    works for
 
     - 欧乐
     - 努努
@@ -84,11 +86,14 @@ if __name__ == "__main__":
     - 西瓜动漫
     """
     import argparse
+
     parser = argparse.ArgumentParser()
-    parser.add_argument("m3u8_url", type=str,
-                        help="index file for m3u8, response contains a list of video ts fragments")
-    parser.add_argument("filename", type=str,
-                        help="download to this filename")
+    parser.add_argument(
+        "m3u8_url",
+        type=str,
+        help="index file for m3u8, response contains a list of video ts fragments",
+    )
+    parser.add_argument("filename", type=str, help="download to this filename")
 
     args = parser.parse_args()
     download_m3u8(

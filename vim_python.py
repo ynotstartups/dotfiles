@@ -57,8 +57,10 @@ def write_section(text: str, comment_character: str = "#") -> str:
     right_border = f" {COMMENT_CHARACTER}\n"
     return f"{top_border}{left_border}{text}{right_border}{bottom_border}"
 
+
 def _file_exists(filepath: str) -> bool:
     return os.path.exists(filepath)
+
 
 def get_alternative_filepath(filepath: str) -> str:
     # from "saltus/oneview/tests/graphql/test_fee.py"
@@ -89,7 +91,7 @@ def get_alternative_filepath(filepath: str) -> str:
 
     # from "saltus/oneview/graphql/api/fee.py"
     # to "saltus/oneview/tests/graphql/test_fee.py"
-    result_filepath_without_api_folder = result_filepath.replace('api/', '')
+    result_filepath_without_api_folder = result_filepath.replace("api/", "")
     if _file_exists(result_filepath_without_api_folder):
         return result_filepath_without_api_folder
 
@@ -149,7 +151,14 @@ package_and_word = {
         "transaction",
     ],
     "django.db.migrations.executor": ["MigrationExecutor"],
-    "django.db.models": ["CheckConstraint", "ForeignKey", "Model", "Q", "QuerySet", "F"],
+    "django.db.models": [
+        "CheckConstraint",
+        "ForeignKey",
+        "Model",
+        "Q",
+        "QuerySet",
+        "F",
+    ],
     "django.db.models.signals": ["m2m_changed", "post_save", "pre_save"],
     "django.db.utils": ["IntegrityError"],
     "django.dispatch": ["receiver"],
