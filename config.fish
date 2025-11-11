@@ -159,36 +159,11 @@ abbr ,g_apply_patch_faster_python_unittest 'git apply ~/Documents/personal-notes
 # MacOS #
 #########
 
-abbr m 'make'
-
-function ,convert_md_to_pdf --argument-names markdown_name pdf_name
-    if not test (set --query pdf_name)
-        set pdf_name "pdfs/$(echo $markdown_name | sed 's/.md$/.pdf/')"
-    end
-
-    set_color --bold green
-    echo "Converting from" $markdown_name "to" $pdf_name
-    set_color normal
-
-    # pin `pandoc/extra` to tag `3.1` because latest tag `latest`
-    # has this issue https://github.com/Wandmalfarbe/pandoc-latex-template/pull/392
-    # that makes this ,convert_md_to_pdf unable to produce pdf
-    docker run --rm \
-        -v "$(pwd):/data" \
-        pandoc/extra:3.1 \
-        "$markdown_name" -o $pdf_name \
-        --template eisvogel --listings \
-        -V book --top-level-division chapter -V classoption=oneside
-    and echo "Done, please see $pdf_name."
-    or echo "Failed!"
-end
-
 abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
 abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
 abbr ,hardcopy_10_graph_papers 'lpr -o Resolution=360x360dpi -# 10 ~/Documents/dotfiles/a4-graph.pdf'
 abbr ,hardcopy_10_standup_papers 'lpr -o Resolution=360x360dpi -# 10 ~/Documents/dotfiles/a4-graph-standup-hardcopy.pdf'
 
-abbr ,autogui '~/Documents/autogui/.venv/bin/python ~/Documents/autogui/autogui.py'
 
 ######
 # rg #
@@ -416,13 +391,14 @@ abbr ,aws_space 'AWS_PROFILE=space aws'
 abbr ,aws_work 'aws'
 abbr ,aws_personal 'AWS_PROFILE=personal aws'
 
-########
-# jira #
-########
+###########
+# scripts #
+###########
 
 alias ,jira "~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/jira.py" 
 alias ,curo "~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/curo.py" 
 alias ,ssh "TERM=xterm-256color ~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/ssh.py" 
+alias ,autogui '~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/autogui.py'
 
 ###########
 # chatgpt #
