@@ -1,4 +1,5 @@
 # essential
+dotenv
 httpx
 
 # tests
@@ -24,6 +25,4 @@ pip_system_certs
 # autogui
 pyautogui
 
-dotenv
-
-
+openai

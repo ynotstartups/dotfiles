@@ -395,10 +395,11 @@ abbr ,aws_personal 'AWS_PROFILE=personal aws'
 # scripts #
 ###########
 
-alias ,jira "~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/jira.py" 
-alias ,curo "~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/curo.py" 
-alias ,ssh "TERM=xterm-256color ~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/ssh.py" 
-alias ,autogui '~/Documents/dotfiles/.venv/bin/python3 ~/Documents/dotfiles/autogui.py'
+alias ,jira "$DOTFILES/.venv/bin/python3 $DOTFILES/jira.py" 
+alias ,curo "$DOTFILES/.venv/bin/python3 $DOTFILES/curo.py" 
+alias ,ssh "TERM=xterm-256color $DOTFILES/.venv/bin/python3 $DOTFILES/ssh.py" 
+alias ,autogui "$DOTFILES/.venv/bin/python3 $DOTFILES/autogui.py"
+alias ,ai "$DOTFILES/.venv/bin/python3 $DOTFILES/ai.py"
 
 ###########
 # chatgpt #
