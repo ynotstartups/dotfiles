@@ -22,7 +22,7 @@ format:
 # W503 conflict with black Formatter
 lint:
 	. .venv/bin/activate; \
-		flake8 --ignore=E501,W503,E266 **/*.py
+		flake8 --ignore=E501,W503,E266 **/*.py | tee quickfix.vim
 
 coverage-test:
 	. .venv/bin/activate; \

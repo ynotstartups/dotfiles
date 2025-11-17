@@ -473,7 +473,7 @@ nnoremap <leader>ep :$tabedit ~/Documents/dotfiles/language-reminders/python.md<
 
 # helps `<leader>el` to read linting output saved in `saltus/quickfix.vim`
 set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-nnoremap <leader>el :cfile saltus/quickfix.vim <bar> copen<cr><c-r><c-r>
+nnoremap <leader>el :cfile quickfix.vim <bar> copen<cr><c-r><c-r>
 
 def g:OpenLanguageReminderFile()
     var filetype = &filetype
