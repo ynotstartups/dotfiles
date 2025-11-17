@@ -12,7 +12,16 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "entity_name",
-        choices=["t4a_review", "account", "t4a_atr", "t4a_curoholding", "contact"],
+        choices=[
+            "t4a_review",
+            "account",
+            "t4a_atr",
+            "t4a_curoholding",
+            "contact",
+            "t4a_activitysubgroup",
+            "systemuser",
+            "lead",
+        ],
         help="curo entity name",
     )
     parser.add_argument(
@@ -25,11 +34,15 @@ if __name__ == "__main__":
 
     if args.environment == "prod":
         subprocess.run(
-            "open",
-            f"https://saltus.curo3.net/main.aspx?etn={args.entity_name}&pagetype=entityrecord&id=%7B{args.curo_id}%7D",
+            [
+                "open",
+                f"https://saltus.curo3.net/main.aspx?etn={args.entity_name}&pagetype=entityrecord&id=%7B{args.curo_id}%7D",
+            ]
         )
     else:
         subprocess.run(
-            "open",
-            f"https://saltus.curo3uat.net/main.aspx?etn={args.entity_name}&pagetype=entityrecord&id=%7B{args.curo_id}%7D",
+            [
+                "open",
+                f"https://saltus.curo3uat.net/main.aspx?etn={args.entity_name}&pagetype=entityrecord&id=%7B{args.curo_id}%7D",
+            ]
         )
