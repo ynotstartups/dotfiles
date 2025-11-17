@@ -339,35 +339,6 @@ function ,npm_run_frontend
 end
 abbr ,fe ',npm_run_frontend'
 
-function ,deployments --argument-names environments
-    # Usage: `,deployments uat` or `,deployments`
-
-    # if variable $environments is not set, 
-    # set environments to a list of environments
-    if not test -n "$environments"
-      set environments 'test' 'test2' 'test3' 'uat' 'prod'
-    end
-
-    for env in $environments
-        set_color --bold
-        echo "In environment $env..."
-        set_color normal
-
-        set_color cyan
-        echo "FE Deployment..."
-        set_color normal
-        set oneview_app_id 'dfgwx0v13a7s4'
-        aws amplify list-jobs --app-id "$oneview_app_id" --branch-name "env/$env" |\
-            jq '.jobSummaries[0] | {"status": .status, "job id": .jobId, "deployment time": .endTime, "commit message": .commitMessage}'
-
-        set_color cyan
-        echo "BE Deployment..."
-        set_color normal
-        aws codepipeline get-pipeline-state --name "oneview-$env" |\
-            jq '.stageStates[] | {"stage": .stageName, "status": .latestExecution.status, "last status changed time": .actionStates[0].latestExecution.lastStatusChange}'
-    end
-end
-
 ##################
 # docker compose #
 ##################
@@ -400,6 +371,7 @@ alias ,curo "$DOTFILES/.venv/bin/python3 $DOTFILES/curo.py"
 alias ,ssh "TERM=xterm-256color $DOTFILES/.venv/bin/python3 $DOTFILES/ssh.py" 
 alias ,autogui "$DOTFILES/.venv/bin/python3 $DOTFILES/autogui.py"
 alias ,ai "$DOTFILES/.venv/bin/python3 $DOTFILES/ai.py"
+alias ,deployment "$DOTFILES/.venv/bin/python3 $DOTFILES/deployment.py"
 alias ,pydoc "python3 -m pydoc"
 alias ,json "python3 -m json"
 alias ,calendar "python3 -m calendar"
