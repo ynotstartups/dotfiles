@@ -446,14 +446,6 @@ set diffopt=vertical
 # use wrap for diff
 set diffopt+=followwrap
 
-def g:BindOff()
-    # disable the moving together in git diff tab with vertical split
-    windo set nocursorbind
-    windo set noscrollbind
-enddef
-
-command! -nargs=0 BindOff :call g:BindOff()
-
 nnoremap <leader>gb :Git blame<cr>
 # show a list of git diff files
 nnoremap <leader>ge :Gedit<cr>
