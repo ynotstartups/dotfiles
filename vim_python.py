@@ -38,26 +38,6 @@ endsnippet
 import os
 
 
-def write_section(text: str, comment_character: str = "#") -> str:
-    """
-    from:
-    example text
-
-    to:
-    ################
-    # example text #
-    ################
-    """
-
-    COMMENT_CHARACTER = comment_character
-
-    length_text = len(text)
-    top_border = bottom_border = COMMENT_CHARACTER * (length_text + 4) + "\n"
-    left_border = f"{COMMENT_CHARACTER} "
-    right_border = f" {COMMENT_CHARACTER}\n"
-    return f"{top_border}{left_border}{text}{right_border}{bottom_border}"
-
-
 def _file_exists(filepath: str) -> bool:
     return os.path.exists(filepath)
 

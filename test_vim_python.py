@@ -8,15 +8,7 @@ from vim_python import (
     get_alternative_filepath,
     get_import_path_given_word,
     get_or_create_alternative_file,
-    write_section,
 )
-
-
-def test_write_section():
-    assert write_section("test 123") == "############\n# test 123 #\n############\n"
-    assert (
-        write_section("test 123", '"') == '""""""""""""\n" test 123 "\n""""""""""""\n'
-    )
 
 
 def test_get_alternative_filepath_non_saltus_file():
