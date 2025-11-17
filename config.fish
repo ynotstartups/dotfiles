@@ -145,16 +145,6 @@ function ,gs_notes
     end
 end
 
-function ,gnew_branch --argument-names new_branch_name
-    # create a new branch on top of the base branch (e.g. main or development)
-    git fetch origin $GIT_BASE_BRANCH:$new_branch_name
-
-    # switch to this new branch
-    git switch $new_branch_name
-end
-
-abbr ,g_apply_patch_faster_python_unittest 'git apply ~/Documents/personal-notes/faster_python_unittest.patch'
-
 #########
 # MacOS #
 #########
@@ -376,20 +366,6 @@ alias ,pydoc "python3 -m pydoc"
 alias ,json "python3 -m json"
 alias ,calendar "python3 -m calendar"
 alias ,oneview_pydoc_server "docker run --rm -it -p 40423:40423 oneview-django poetry run python -m pydoc -b -p 40423 -n 0.0.0.0"
-
-###########
-# chatgpt #
-###########
-
-function ,chatgpt_work
-    set question (string replace ' ' '+' $argv)
-    open "https://chat.openai.com/?q=I+am+working+as+a+python+backend+dev+in+a+financial+planning+company+in+london,+can+you+explain+to+me+$question"
-end
-
-function ,chatgpt
-    set question (string replace ' ' '+' $argv)
-    open "https://chat.openai.com/?q=I+am+working+as+a+python+backend+dev,$question"
-end
 
 #########
 # tfenv #
