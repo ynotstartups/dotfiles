@@ -17,7 +17,11 @@
 
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(
+    level=logging.DEBUG,
+    filename='foo.log',
+    format='%(asctime)s:%(levelname)s:%(module)s:%(message)s',
+)
 
 def main():
     pass
