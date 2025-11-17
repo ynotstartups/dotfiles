@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 import subprocess
 
-SSH_PRIVATE_KEY = "/Users/yuhao.huang/.ssh/ssh-private-key"
-
+SSH_PRIVATE_KEY = "~/.ssh/ssh-private-key"
 
 if __name__ == "__main__":
     import argparse
@@ -14,8 +13,10 @@ if __name__ == "__main__":
         help="oneview environment",
     )
     parser.add_argument(
-        "command",
+        "-c",
+        "--command",
         choices=["root", "bash", "shell"],
+        default="shell",
         help="base",
     )
     args = parser.parse_args()
