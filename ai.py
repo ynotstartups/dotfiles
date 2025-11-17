@@ -61,22 +61,23 @@ def get_answer_from_api(question: str, continue_conversation: bool, debug: bool)
             },
         ]
 
-    # client = OpenAI(api_key=OPENAI_API_KEY)
-    client = OpenAI(
-        base_url="http://localhost:11434/v1",  # Local Ollama API
-        api_key="ollama"                       # Dummy key
-    )
+    client = OpenAI(api_key=OPENAI_API_KEY)
+    # client = OpenAI(
+    #     base_url="http://localhost:11434/v1",  # Local Ollama API
+    #     api_key="ollama",  # Dummy key
+    # )
     if not debug:
         completion = client.chat.completions.create(
             # model="qwen2.5-coder:7b",
-            model="gpt-oss:20b",
+            # model="gpt-oss:20b",
+            model="gpt-5-nano",
             messages=inputs,
             verbosity="low",
-            reasoning_effort="none",
+            reasoning_effort="minimal",
             stream=True,
             store=False,
             stream_options={
-                "include_usage":True,
+                "include_usage": True,
             },
         )
     else:
@@ -86,9 +87,10 @@ def get_answer_from_api(question: str, continue_conversation: bool, debug: bool)
     answer = ""
     for chunk in completion:
         if chunk.choices:
-            delta_answer = chunk.choices[0].delta.content
-            print(delta_answer, end="")
-            answer += chunk.choices[0].delta.content
+            if chunk.choices[0].delta.content:
+                delta_answer = chunk.choices[0].delta.content
+                print(delta_answer, end="")
+                answer += delta_answer
 
     print()
     print("============================")
@@ -96,7 +98,6 @@ def get_answer_from_api(question: str, continue_conversation: bool, debug: bool)
     print(f"input token {chunk.usage.prompt_tokens}")
     print(f"output token {chunk.usage.completion_tokens}")
     print(chunk.usage)
-
 
     inputs.append({"role": "assistant", "content": answer})
     with open(SCRIPT_PATH / "ai_db.jsonl", "a") as f:
