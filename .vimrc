@@ -950,35 +950,6 @@ endif
 # Documentations #
 ##################
 
-# leader+k to use google search for official doc for word under cursor
-def g:SearchDocGoogle()
-  set lazyredraw
-  var filetype = &filetype
-  var word_under_cursor = expand('<cword>')
-  var query = $"official+documentation+for+{filetype}+{word_under_cursor}"
-  var search_query = $"https://www.google.com/search?q={query}"
-  silent exec $"!open '{search_query}'"
-  redraw!
-  set nolazyredraw
-enddef
-
-nnoremap <leader>sg :call SearchDocGoogle()<cr>
-
-# leader+a to use chatgpt search for offical doc for word under cursor
-def g:SearchDocChatGPT()
-  set lazyredraw
-  var filetype = &filetype
-  var word_under_cursor = expand('<cword>')
-  # add google http query param `&btnI` if I want to jump to first result
-  var query = $"please+explain+{filetype}+{word_under_cursor}"
-  query = $"{query}+and+give+me+a+link+to+official+documentation"
-  var search_url = $"https://chat.openai.com/?q={query}"
-  silent exec $"!open '{search_url}'"
-  redraw!
-  set nolazyredraw
-enddef
-nnoremap <leader>sc :call SearchDocChatGPT()<cr>
-
 # To make `autoread` vim option works to autoreload changed files
 # https://stackoverflow.com/a/53860166
 g:CheckUpdateStarted = false
