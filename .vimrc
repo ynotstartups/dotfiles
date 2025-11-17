@@ -168,8 +168,13 @@ enddef
 
 # yank last function name
 nnoremap <leader>yf :call YankWordAfterPrefix("def")<cr>
+
 # yank last class name
-nnoremap <leader>yc :call YankWordAfterPrefix("class")<cr>
+# `^` is added to avoid the following case
+# class Foo(graphene.Mutation):
+#    class Arguments:
+#        ...
+nnoremap <leader>yc :call YankWordAfterPrefix("^class")<cr>
 
 # set vim's comment string to be # 
 autocmd FileType vim setlocal commentstring=#\ %s
