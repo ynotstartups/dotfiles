@@ -669,13 +669,6 @@ nmap , <plug>(easymotion-overwin-f2)
 
 g:EasyMotion_smartcase = 1
 
-####################
-# img paste plugin #
-####################
-g:mdip_imgdir = 'images'
-# <leader>i - i stands for image to insert image in normal mode
-# autocmd FileType markdown nnoremap <buffer> <silent> <leader>i :call mdip#MarkdownClipboardImage()<cr>
-
 ################
 # vim-asterisk #
 ################
