@@ -500,7 +500,17 @@ from vim_python import get_import_path_given_word
 
 import_string = get_import_path_given_word(vim)
 
-vim.current.buffer.append(import_string, 0)
+if vim.current.buffer[0] == '"""' or vim.current.buffer[1] == '"""':
+    if vim.current.buffer[0] == '"""':
+        line_number = 1
+    else:
+        line_number = 2
+    for line in vim.current.buffer[line_number:]:
+        if line == '"""':
+            vim.current.buffer.append(import_string, line_number + 1)
+        line_number += 1
+else:
+    vim.current.buffer.append(import_string, 0)
 
 EOF
 enddef
