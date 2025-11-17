@@ -400,6 +400,10 @@ alias ,curo "$DOTFILES/.venv/bin/python3 $DOTFILES/curo.py"
 alias ,ssh "TERM=xterm-256color $DOTFILES/.venv/bin/python3 $DOTFILES/ssh.py" 
 alias ,autogui "$DOTFILES/.venv/bin/python3 $DOTFILES/autogui.py"
 alias ,ai "$DOTFILES/.venv/bin/python3 $DOTFILES/ai.py"
+alias ,pydoc "python3 -m pydoc"
+alias ,json "python3 -m json"
+alias ,calendar "python3 -m calendar"
+alias ,oneview_pydoc_server "docker run --rm -it -p 40423:40423 oneview-django poetry run python -m pydoc -b -p 40423 -n 0.0.0.0"
 
 ###########
 # chatgpt #
