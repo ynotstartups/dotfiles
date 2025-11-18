@@ -53,9 +53,6 @@ Plug 'kana/vim-textobj-entire'         # ie     for entire file
 Plug 'sgur/vim-textobj-parameter'      # i, a,  for parameters
 Plug 'lucapette/vim-textobj-underscore' # i_ a_ for underscore
 
-# for markdown files
-Plug 'godlygeek/tabular'               # `:TableFormat` to format table
-
 Plug 'tomasr/molokai'                  # molokar colorscheme
 plug#end()
 
@@ -305,7 +302,7 @@ def g:TableConvert(
     execute "normal! {"
     execute "normal! i|||\<esc>"
     execute "normal! o|-|-|\<esc>"
-    TableFormat
+    FormatTable
 enddef
 
 # range allowed, default is current line
@@ -973,6 +970,19 @@ nnoremap / /\v
 vnoremap / /\v
 cnoremap %s/ %smagic/
 cnoremap \>s/ \>smagic/
+
+###############
+# FormatTable #
+###############
+
+def g:FormatTable()
+py3 <<EOF
+from vim_python import format_markdown_table
+format_markdown_table(vim)
+EOF
+enddef
+
+command! -nargs=0 FormatTable call g:FormatTable()
 
 #########################
 # Vim9 Compile Function #

@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 import pytest
 
 from vim_python import (
+    format_markdown_table,
     get_alternative_filepath,
     get_import_path_given_word,
     get_or_create_alternative_file,
@@ -92,3 +93,44 @@ def test_get_import_path_given_word_in_tag():
     ]
 
     assert get_import_path_given_word(mock_vim) == "from oneview.email import foo"
+
+
+def test_format_markdown_table_malform_table():
+    mock_vim = Mock()
+    mock_vim.current.buffer = [
+        "",
+        "|||",
+        "|-|-|",
+        "|abc|def|",
+        "",
+    ]
+    mock_vim.current.range.start = 1
+
+    formatted_table = format_markdown_table(mock_vim)
+    assert mock_vim.current.buffer == [
+        "",
+        "|     |     |",
+        "|-----|-----|",
+        "| abc | def |",
+        "",
+    ]
+
+def test_format_markdown_table_correct_table():
+    mock_vim = Mock()
+    mock_vim.current.buffer = [
+        "",
+        "|     |     |",
+        "|-----|-----|",
+        "| abc | def |",
+        "",
+    ]
+    mock_vim.current.range.start = 1
+
+    formatted_table = format_markdown_table(mock_vim)
+    assert mock_vim.current.buffer == [
+        "",
+        "|     |     |",
+        "|-----|-----|",
+        "| abc | def |",
+        "",
+    ]
