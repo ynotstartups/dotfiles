@@ -51,7 +51,10 @@ def print_deployment_summaries(environment: str, number_of_deployments: int):
     for fe_summary, be_summary in zip(fe_summaries, be_summaries):
         print("Start Time:\t", fe_summary["startTime"])
         print("FE Status:\t", fe_summary["status"])
-        print("End Time:\t", fe_summary["endTime"])
+        if "endTime" in fe_summary:
+            print("End Time:\t", fe_summary["endTime"])
+        else:
+            print("End Time:\t", "Running")
         print("BE Status:\t", be_summary["status"].upper())
         print("Update Time:\t", be_summary["lastUpdateTime"])
         print("====")
