@@ -56,8 +56,6 @@ Plug 'lucapette/vim-textobj-underscore' # i_ a_ for underscore
 Plug 'tomasr/molokai'                  # molokar colorscheme
 plug#end()
 
-packadd Cfilter
-
 # change default leader \ to space, this setting needs to be in the beginning
 nnoremap <space> <nop>
 g:mapleader = " "
@@ -751,39 +749,8 @@ nnoremap <leader>v :Vista<cr>
 # Statusline #
 ##############
 
-# By default vista.vim never run if you don't call it explicitly.
-#
-# If you want to show the nearest function in your statusline automatically,
-# you can add the following line to your vimrc
-# autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
-def g:GetHelpSectionName(): string
-    # 'b'	search Backward instead of forward
-    # 'n'	do Not move the cursor
-    # 'W'	don't Wrap around the end of the file
-    var section_header_line_number = search('^=\{70,}', 'bnW')
-    var section_header: string
-    if section_header_line_number != 0
-        section_header = getline(section_header_line_number + 1)
-                             -> substitute(
-                                 '^\([.*0-9a-zA-Z ]*\)\t*.*',
-                                 '\=submatch(1)',
-                                 ''
-                             )
-    else
-        section_header = ''
-    endif
-    return section_header
-enddef
-
 # left section
 set statusline=\ %f    # filename
-set statusline+=\ %{GetHelpSectionName()}
-
-# By default vista.vim never run if you don't call it explicitly.
-#
-# If you want to show the nearest function in your statusline automatically,
-# you can add the following line to your vimrc
 
 # right section
 set statusline+=%=
@@ -794,7 +761,6 @@ set statusline+=\ C:%03c    # column number
 #######
 # Tag #
 #######
-
 
 def g:OpenTagInVerticalSplit()
     vsp
@@ -826,54 +792,6 @@ nnoremap gs_ <Plug>CaserSnakeCase
 
 # change to constant casing e.g. FOO_BAR_BAZ
 nnoremap gsu <Plug>CaserUpperCase
-
-def g:ChangeToParamStyle(type: string)
-  # 1. this is a operator pending function to
-  # change from `a: string` to `a=a`
-  # see also `:help :map-operator`
-
-  # 2. using single quote from the string starting with ':s'
-  # otherwise I need to use two backquotes `\\` to represent one `\`
-  # see also `:help expr-'`
-  var substitude_command = ':s/\(\w*\)[:=,].*/\1=\1,/g' .. "\<cr>"
-  if type == "char"
-    silent execute $"normal! '[v'] {substitude_command}"
-  elseif type == "line"
-    silent execute $"normal! '[V'] {substitude_command}"
-  elseif type == "block"
-    silent execute $"normal! '[\<C-V>']{substitude_command}"
-  else
-    # Invoked from Visual mode, use '< and '> marks.
-    silent execute $"normal! '<v'>{substitude_command}"
-  endif
-enddef
-
-nnoremap <silent> gsp :set opfunc=g:ChangeToParamStyle<cr>g@
-vnoremap <silent> gsp :<c-u>call g:ChangeToParamStyle("visual mode")<cr>
-
-def g:ChangeToFakeStyle(type: string)
-  # 1. this is a operator pending function to
-  # change from `a: string` to `a=a`
-  # see also `:help :map-operator`
-
-  # 2. using single quote from the string starting with ':s'
-  # otherwise I need to use two backquotes `\\` to represent one `\`
-  # see also `:help expr-'`
-  var substitude_command = ':s/\(\w*\)[:=,].*/\1="fake_\1",/' .. "\<cr>"
-  if type == "char"
-    silent execute $"normal! '[v']{substitude_command}"
-  elseif type == "line"
-    silent execute $"normal! '[V']{substitude_command}"
-  elseif type == "block"
-    silent execute $"normal! '[\<C-V>']{substitude_command}"
-  else
-    # Invoked from Visual mode, use '< and '> marks.
-    silent execute $"normal! '<v'>{substitude_command}"
-  endif
-enddef
-
-nnoremap <silent> gsf :set opfunc=g:ChangeToFakeStyle<cr>g@
-vnoremap <silent> gsf :<c-u>call g:ChangeToFakeStyle("visual mode")<cr>
 
 ##############
 # [ Mappings #
