@@ -367,6 +367,10 @@ alias ,json "python3 -m json"
 alias ,calendar "python3 -m calendar"
 alias ,oneview_pydoc_server "docker run --rm -it -p 40423:40423 oneview-django poetry run python -m pydoc -b -p 40423 -n 0.0.0.0"
 
+function ,doc --argument-names query
+    open "https://devdocs.io/#q=$query"
+end
+
 #########
 # tfenv #
 #########
