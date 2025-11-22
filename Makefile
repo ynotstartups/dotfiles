@@ -31,7 +31,7 @@ lint:
 
 coverage_test:
 	. .venv/bin/activate; \
-		coverage run --source . -m pytest vim_python.py test_vim_python.py; \
+		coverage run --source . -m pytest vim_python.py test_vim_python.py notes_website.py test_notes_website.py; \
 		coverage report --show-missing --omit 'ipython_config.py'
 
 tags:
