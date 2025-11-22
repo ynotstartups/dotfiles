@@ -106,7 +106,7 @@ def test_format_markdown_table_malform_table():
     ]
     mock_vim.current.range.start = 1
 
-    formatted_table = format_markdown_table(mock_vim)
+    format_markdown_table(mock_vim)
     assert mock_vim.current.buffer == [
         "",
         "|     |     |",
@@ -114,6 +114,7 @@ def test_format_markdown_table_malform_table():
         "| abc | def |",
         "",
     ]
+
 
 def test_format_markdown_table_correct_table():
     mock_vim = Mock()
@@ -126,7 +127,7 @@ def test_format_markdown_table_correct_table():
     ]
     mock_vim.current.range.start = 1
 
-    formatted_table = format_markdown_table(mock_vim)
+    format_markdown_table(mock_vim)
     assert mock_vim.current.buffer == [
         "",
         "|     |     |",
