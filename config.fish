@@ -370,6 +370,7 @@ alias ,oneview_pydoc_server "docker run --rm -it -p 40423:40423 oneview-django p
 function ,doc --argument-names query
     open "https://devdocs.io/#q=$query"
 end
+alias ,d ",doc"
 
 #########
 # tfenv #
