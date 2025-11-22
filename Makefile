@@ -4,9 +4,11 @@ build-notes-website:
 	./notes_website.py --private
 	./notes_website.py --public
 
-reset-notes-website-hash:
+reset-notes-website-hash-and-clear-htmls:
 	echo '{}' > 'notes_website_data/.hash_private.json'
 	echo '{}' > 'notes_website_data/.hash_public.json'
+	rm ../notes/*.html
+	rm notes_website_output/*.html
 
 open-local-public-notes-website:
 	open ../notes/index.html
