@@ -1,19 +1,19 @@
 SHELL=/bin/zsh
 
-build-notes-website:
+build_notes_website:
 	./notes_website.py --private
 	./notes_website.py --public
 
-reset-notes-website-hash-and-clear-htmls:
+reset_notes_website_hash_and_clear_htmls:
 	echo '{}' > 'notes_website_data/.hash_private.json'
 	echo '{}' > 'notes_website_data/.hash_public.json'
 	rm ../notes/*.html
 	rm notes_website_output/*.html
 
-open-local-public-notes-website:
+open_local_public_notes_website:
 	open ../notes/index.html
 
-deploy-public-notes-website:
+deploy_public_notes_website:
 	git -C ../notes/ status
 	git -C ../notes/ add .
 	git -C ../notes/ commit -v
@@ -29,7 +29,7 @@ lint:
 	. .venv/bin/activate; \
 		flake8 --ignore=E501,W503,E266 **/*.py | tee quickfix.vim
 
-coverage-test:
+coverage_test:
 	. .venv/bin/activate; \
 		coverage run --source . -m pytest vim_python.py test_vim_python.py; \
 		coverage report --show-missing --omit 'ipython_config.py'
@@ -37,6 +37,6 @@ coverage-test:
 tags:
 	ctags **/*.py .vimrc
 
-brew-upgrade-libraries:
+brew_upgrade_libraries:
 	brew update
 	brew upgrade

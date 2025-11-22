@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build markdowns based on dev_note.md
+Build markdowns based on dev_note.md and language reminders
 """
 import glob
 import json
@@ -25,6 +25,7 @@ DEV_NOTES_MARKDOWN_FILEPATH = Path(
 )
 DEV_NOTES_IMAGES_FILEPATH = Path("/Users/yuhao.huang/Documents/personal-notes/images")
 INPUT_DIR = Path("/Users/yuhao.huang/Documents/dotfiles/")
+PYTHON_REMINDER_FILEPATH = INPUT_DIR / "language-reminders" / "python.md"
 OUTPUT_PRIVATE_FOLDER = Path(
     "/Users/yuhao.huang/Documents/dotfiles/notes_website_output/"
 )
@@ -38,15 +39,16 @@ HEADER_HTML_FILEPATH = DATA_PATH / "header.html"
 
 
 class Note:
-
-    def __init__(self, title: str, contents: list[str], topics: list[str]):
+    def __init__(
+        self, title: str, tags_line: str, contents: list[str], topics: list[str]
+    ):
         self.title = title.removeprefix("# ").strip()
-        self.markdown = contents[1:]
+        self.markdown = contents
         self.topics = []
         self.is_pinned = False
         self.is_private = False
 
-        raw_tags = contents[0].strip().split(",")
+        raw_tags = tags_line.removeprefix("tags:").strip().split(",")
         tags = [i.strip() for i in raw_tags if i]
 
         for tag in tags:
@@ -87,6 +89,11 @@ class Note:
         )
         return md5(each_note_to_string.encode()).hexdigest()
 
+    def __repr__(self) -> str:
+        return (
+            f"title:\t{self.title}\ntags:\t{self.topics}\nlines:\t{len(self.markdown)}\n"
+        )
+
 
 def _parse_dev_notes_md_to_notes(
     output_private_notes: bool, topics: list[str]
@@ -96,29 +103,40 @@ def _parse_dev_notes_md_to_notes(
     important! filter out private (work) notes!
     """
     notes = []
-    is_in_code_block = False
-    title = None
     with open(DEV_NOTES_MARKDOWN_FILEPATH, "r") as file:
-        for line in file:
-            if line.strip().startswith("```"):
-                is_in_code_block = not is_in_code_block
-            if not is_in_code_block and line.startswith("# "):
-                # this block means we are entering a new markdown file
-                if title is not None:
-                    notes.append(Note(title, contents, topics))  # noqa: F821
-                title = line
-                contents = []  # noqa: F821
-            else:
-                contents.append(line)
-        else:
-            # add the last note
-            notes.append(Note(title, contents, topics))
+        lines = file.readlines()
 
+    # parsing the readme file backward this simplifies logics
+    index = len(lines) - 1
+    contents = []
+    while index > 0:
+        line = lines[index]
+        if line.startswith("tags:") and lines[index - 1].startswith("# "):
+            tags_line = line
+            title = lines[index - 1]
+            notes.append(
+                Note(
+                    title=title,
+                    tags_line=tags_line,
+                    # reversing the contents as the file is read in reverse
+                    contents=contents[::-1],
+                    topics=topics,
+                )
+            )
+            contents = []
+            index -= 2
+        else:
+            contents.append(line)
+            index -= 1
+
+    # Note: the order of the notes is the file is read in reverse
+    notes = notes[::-1]
     if output_private_notes:
         pass
     else:
         # remove work notes if outputing public notes
         notes = [i for i in notes if not i.is_private]
+
     return notes
 
 
@@ -221,6 +239,17 @@ def main():
     notes = _parse_dev_notes_md_to_notes(
         output_private_notes=output_private_notes,
         topics=TOPICS,
+    )
+
+    with open(PYTHON_REMINDER_FILEPATH, "r") as file:
+        contents = file.readlines()
+    notes.append(
+        Note(
+            title="# Python Language Reminders",
+            tags_line="tags: reference, python,",
+            contents=contents,
+            topics=TOPICS,
+        )
     )
     notes_updated = []
     with open(hash_filepath, "r") as file:
