@@ -1,5 +1,4 @@
 # Function Documentation
-
 ```
     Args:
         review (int): The first number.
@@ -11,6 +10,7 @@
     Raises:
         HTTPError: when call to Calendar API failed
 ```
+
 # script
 ```python
 #!/usr/bin/env python3
