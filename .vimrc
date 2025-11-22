@@ -908,19 +908,18 @@ command! -nargs=0 FormatTable call g:FormatTable()
 
 nnoremap K <nop>
 
-# leader+k to search devdocs.io
 def g:SearchDevDocs()
   set lazyredraw
-  var filetype = &filetype
   var word_under_cursor = expand('<cword>')
-  var search_query = $"https://devdocs.io/?q={filetype}+{word_under_cursor}"
+  var search_query = $"https://devdocs.io/?q={word_under_cursor}"
   # var search_query = $"https://devdocs.io/"
   silent exec $"!open '{search_query}'"
   redraw!
   set nolazyredraw
 enddef
 
-nnoremap <leader>k :call SearchDevDocs()<cr>
+# leader+d to search devdocs.io
+nnoremap <leader>d :call SearchDevDocs()<cr>
 
 #########################
 # Vim9 Compile Function #
