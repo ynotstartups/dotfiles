@@ -19,25 +19,6 @@ DOCUMENT_TYPES = [
     "explanation",
 ]
 PIN = "pin"
-TOPICS = [
-    # topics in html will follow this order
-    "engineering",
-    "aws",
-    "devops",
-    "terraform",
-    "python",
-    "rg",
-    "work",
-    "sql",
-    "vim",
-    "book",
-    "docker",
-    "git",
-    "django",
-    "sh",
-    "career",
-    "personal",
-]
 
 DEV_NOTES_MARKDOWN_FILEPATH = Path(
     "/Users/yuhao.huang/Documents/personal-notes/dev_notes.md"
@@ -58,26 +39,28 @@ HEADER_HTML_FILEPATH = DATA_PATH / "header.html"
 
 class Note:
 
-    def __init__(self, title: str, contents: list[str]):
+    def __init__(self, title: str, contents: list[str], topics: list[str]):
         self.title = title.removeprefix("# ").strip()
         self.markdown = contents[1:]
         self.topics = []
         self.is_pinned = False
+        self.is_private = False
 
         raw_tags = contents[0].strip().split(",")
         tags = [i.strip() for i in raw_tags if i]
 
         for tag in tags:
-            if tag in TOPICS:
+            if tag == "work":
+                self.is_private = True
+            if tag in topics:
                 self.topics.append(tag)
             elif tag in DOCUMENT_TYPES:
                 self.document_type = tag
             elif tag == PIN:
                 self.is_pinned = True
-            else:
-                print(f"!!! Unknown tag: {tag}")
 
-        assert self.topics, f"{self.title} has no tags!"
+        if not self.is_private:
+            assert self.topics, f"`{self.title}` in dev_notes.md has no tags!"
 
     @property
     def link(self) -> str:
@@ -105,7 +88,13 @@ class Note:
         return md5(each_note_to_string.encode()).hexdigest()
 
 
-def _parse_dev_notes_md_to_notes(output_private_notes: bool) -> list[Note]:
+def _parse_dev_notes_md_to_notes(
+    output_private_notes: bool, topics: list[str]
+) -> list[Note]:
+    """
+    read dev_notes.md, convert to `Note` object
+    important! filter out private (work) notes!
+    """
     notes = []
     is_in_code_block = False
     title = None
@@ -116,30 +105,30 @@ def _parse_dev_notes_md_to_notes(output_private_notes: bool) -> list[Note]:
             if not is_in_code_block and line.startswith("# "):
                 # this block means we are entering a new markdown file
                 if title is not None:
-                    notes.append(Note(title, contents))  # noqa: F821
+                    notes.append(Note(title, contents, topics))  # noqa: F821
                 title = line
                 contents = []  # noqa: F821
             else:
                 contents.append(line)
         else:
             # add the last note
-            notes.append(Note(title, contents))
+            notes.append(Note(title, contents, topics))
 
     if output_private_notes:
         pass
     else:
-        # remove work notes if we only output public notes
-        notes = [i for i in notes if "work" not in i.topics]
+        # remove work notes if outputing public notes
+        notes = [i for i in notes if not i.is_private]
     return notes
 
 
-def _build_index_md_from_notes(notes: list[Note]) -> list[str]:
+def _build_index_md_from_notes(notes: list[Note], topics: list[str]) -> list[str]:
     markdown = []
     for note in notes:
         if note.is_pinned:
             markdown.append(f"- {note.link}\n\n")
 
-    for topic in TOPICS:
+    for topic in topics:
         markdown.append(f"# [{topic.title()}]({topic}.html)\n\n")
         for document_type in DOCUMENT_TYPES:
             matching_notes = []
@@ -198,17 +187,41 @@ def main():
     # by default we don't show work notes, work notes are private,
     # unless --private is passed in
     assert len(sys.argv) > 1, "missing --public or --private"
+    TOPICS = [
+        # topics in html will follow this order
+        "engineering",
+        "aws",
+        "devops",
+        "terraform",
+        "python",
+        "rg",
+        "work",
+        "sql",
+        "vim",
+        "book",
+        "docker",
+        "git",
+        "django",
+        "sh",
+        "career",
+        "personal",
+    ]
     if sys.argv[1] == "--private":
         output_folder = OUTPUT_PRIVATE_FOLDER
-        notes = _parse_dev_notes_md_to_notes(output_private_notes=True)
+        output_private_notes = True
         hash_filepath = HASH_PRIVATE_FILEPATH
     elif sys.argv[1] == "--public":
         output_folder = OUTPUT_PUBLIC_FOLDER
-        notes = _parse_dev_notes_md_to_notes(output_private_notes=False)
+        output_private_notes = False
         hash_filepath = HASH_PUBLIC_FILEPATH
+        TOPICS.remove("work")
     else:
         raise ValueError(f"Unknown args {sys.argv[1]}")
 
+    notes = _parse_dev_notes_md_to_notes(
+        output_private_notes=output_private_notes,
+        topics=TOPICS,
+    )
     notes_updated = []
     with open(hash_filepath, "r") as file:
         existing_note_hash = json.load(file)
@@ -238,7 +251,7 @@ def main():
     if notes_updated:
         # write index.html
         with open(output_folder / "index.md", "w") as file:
-            file.writelines(_build_index_md_from_notes(notes))
+            file.writelines(_build_index_md_from_notes(notes, TOPICS))
         _convert_md_to_html(
             md_filepath=output_folder / "index.md",
             html_filepath=output_folder / "index.html",
@@ -251,6 +264,8 @@ def main():
         )
 
         for topic in TOPICS:
+            if not output_private_notes and topic == "work":
+                continue
             topic_markdown_name = f"{topic}.md"
             topic_html_name = f"{topic}.html"
             print(f'>>> writing "{topic_markdown_name}" ...')

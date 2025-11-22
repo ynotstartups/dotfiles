@@ -1,14 +1,17 @@
 SHELL=/bin/zsh
 
-build_notes_website:
+build-notes-website:
 	./notes_website.py --private
 	./notes_website.py --public
 
-reset_notes_website_hash:
+reset-notes-website-hash:
 	echo '{}' > 'notes_website_data/.hash_private.json'
 	echo '{}' > 'notes_website_data/.hash_public.json'
 
-deploy_public_notes_website:
+open-local-public-notes-website:
+	open ../notes/index.html
+
+deploy-public-notes-website:
 	git -C ../notes/ status
 	git -C ../notes/ add .
 	git -C ../notes/ commit -v
