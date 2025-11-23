@@ -1,12 +1,10 @@
 SHELL=/bin/zsh
 
 build_notes_website:
-	./notes_website.py --private
-	./notes_website.py --public
+	./notes_website.py
 
 reset_notes_website_hash_and_clear_htmls:
 	echo '{}' > 'notes_website_data/.hash_private.json'
-	echo '{}' > 'notes_website_data/.hash_public.json'
 	rm ../notes/*.html
 	rm notes_website_output/*.html
 
@@ -29,7 +27,7 @@ lint:
 	. .venv/bin/activate; \
 		flake8 --ignore=E501,W503,E266 **/*.py | tee quickfix.vim
 
-coverage_test:
+test:
 	. .venv/bin/activate; \
 		coverage run --source . -m pytest vim_python.py test_vim_python.py notes_website.py test_notes_website.py; \
 		coverage report --show-missing --omit 'ipython_config.py'

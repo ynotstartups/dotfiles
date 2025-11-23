@@ -3,18 +3,14 @@
 Build markdowns based on dev_note.md and language reminders
 
 TODO:
-    - output both private and public notes in a single run
     - change to argparser
-        - add option to reset_notes_website_hash_and_clear_htmls:
-
+        - add option to replace reset_notes_website_hash_and_clear_htmls
+    - use regex to parse markdown?
 """
-import glob
 import json
-import os
 import re
 import shutil
 import subprocess
-import sys
 from hashlib import md5
 from pathlib import Path
 
@@ -44,26 +40,29 @@ TOPICS = [
     "personal",
 ]
 
-DEV_NOTES_MARKDOWN_FILEPATH = Path(
-    "/Users/yuhao.huang/Documents/personal-notes/dev_notes.md"
-)
-DEV_NOTES_IMAGES_FILEPATH = Path("/Users/yuhao.huang/Documents/personal-notes/images")
-INPUT_DIR = Path("/Users/yuhao.huang/Documents/dotfiles/")
-PYTHON_REMINDER_FILEPATH = INPUT_DIR / "language-reminders" / "python.md"
-OUTPUT_PRIVATE_FOLDER = Path(
-    "/Users/yuhao.huang/Documents/dotfiles/notes_website_output/"
-)
-OUTPUT_PUBLIC_FOLDER = Path("/Users/yuhao.huang/Documents/notes/")
-DATA_PATH = Path("/Users/yuhao.huang/Documents/dotfiles/notes_website_data")
+DOCUMENTS = Path("~/Documents/").expanduser()
+PERSONAL_NOTES = DOCUMENTS / "personal-notes"
+DOTFILES = DOCUMENTS / "dotfiles"
+
+# notes files
+DEV_NOTES_MARKDOWN_FILEPATH = PERSONAL_NOTES / "dev_notes.md"
+PYTHON_REMINDER_FILEPATH = DOTFILES / "language-reminders" / "python.md"
+
+# images, cache file, css, and header html
+DEV_NOTES_IMAGES_FILEPATH = PERSONAL_NOTES / "images"
+DATA_PATH = DOTFILES / "notes_website_data"
 HASH_PRIVATE_FILEPATH = DATA_PATH / ".hash_private.json"
-HASH_PUBLIC_FILEPATH = DATA_PATH / ".hash_public.json"
 STYLES_CSS_FILENAME = "styles.css"
 STYLES_CSS_FILEPATH = DATA_PATH / STYLES_CSS_FILENAME
 HEADER_HTML_FILEPATH = DATA_PATH / "header.html"
 
+# output folders
+OUTPUT_PRIVATE_FOLDER = DOTFILES / "notes_website_output"
+OUTPUT_PUBLIC_FOLDER = DOCUMENTS / "notes"
+
 
 class Note:
-    def __init__(self, title: str, tags_line: str, contents: list[str]):
+    def __init__(self, title: str, tags_line: str, contents: str):
         self.title = title.removeprefix("# ").strip()
         self.markdown = contents
         self.topics = []
@@ -136,8 +135,8 @@ def _parse_dev_notes_md_to_notes(
                 Note(
                     title=title,
                     tags_line=tags_line,
-                    # reversing the contents as the file is read in reverse
-                    contents=contents[::-1],
+                    # reversing the lines as the file is read in reverse
+                    contents="".join(contents[::-1]),
                 )
             )
             contents = []
@@ -146,27 +145,25 @@ def _parse_dev_notes_md_to_notes(
             contents.append(line)
             index -= 1
 
-    # Note: the order of the notes is the file is read in reverse
+    # reverse the order of the notes because the file is read in reverse
     notes = notes[::-1]
-    if output_private_notes:
-        pass
-    else:
-        # remove work notes if outputing public notes
-        notes = [i for i in notes if not i.is_private]
-
     return notes
 
 
-def _build_index_md_from_notes(notes: list[Note]) -> list[str]:
-    markdown = []
+def _build_index_md_from_notes(notes: list[Note], is_for_public=False) -> list[str]:
+    markdown = ""
     # put pinned notes at the top
     for note in notes:
+        if is_for_public and note.is_private:
+            continue
         if note.is_pinned:
-            markdown.append(f"- {note.link}\n\n")
+            markdown += f"- {note.link}\n\n"
 
     # write each topic
     for topic in TOPICS:
-        markdown.append(f"# [{topic.title()}]({topic}.html)\n\n")
+        if is_for_public and topic == "work":
+            continue
+        markdown += f"# [{topic.title()}]({topic}.html)\n\n"
         for document_type in DOCUMENT_TYPES:
             matching_notes = []
             for note in notes:
@@ -175,17 +172,18 @@ def _build_index_md_from_notes(notes: list[Note]) -> list[str]:
 
             formatted_document_type = document_type.replace("_", " ").title()
             if matching_notes:
-                markdown.append(f"**{formatted_document_type}**\n\n")
+                markdown += f"**{formatted_document_type}**\n\n"
                 for note in matching_notes:
-                    markdown.append(f"- {note.link}\n\n")
+                    markdown += f"- {note.link}\n\n"
     return markdown
 
 
-def _convert_md_to_html(md_filepath, html_filepath, title):
+def _convert_markdown_string_to_html(markdown: str, html_filepath: Path, title: str):
     subprocess.run(
         [
             "pandoc",
-            md_filepath,
+            # pass file in stdin
+            "-",
             "-o",
             html_filepath,
             # create table of content in <nav>
@@ -199,36 +197,29 @@ def _convert_md_to_html(md_filepath, html_filepath, title):
             HEADER_HTML_FILEPATH,
             "--metadata",
             f"title={title}",
-        ]
+        ],
+        # pass file from stdin
+        input=markdown,
+        # use text mode, this will automatically use utf-8 encoding of markdown
+        # pass in
+        text=True,
+        # raises subprocess.CalledProcessError if the process exits with a
+        # non-zero exit code
+        check=True,
     )
 
 
 def main():
-    # by default we don't show work notes, work notes are private,
-    # unless --private is passed in
-    assert len(sys.argv) > 1, "missing --public or --private"
-    if sys.argv[1] == "--private":
-        output_folder = OUTPUT_PRIVATE_FOLDER
-        output_private_notes = True
-        hash_filepath = HASH_PRIVATE_FILEPATH
-    elif sys.argv[1] == "--public":
-        output_folder = OUTPUT_PUBLIC_FOLDER
-        output_private_notes = False
-        hash_filepath = HASH_PUBLIC_FILEPATH
-        TOPICS.remove("work")
-    else:
-        raise ValueError(f"Unknown args {sys.argv[1]}")
-
     with open(DEV_NOTES_MARKDOWN_FILEPATH, "r") as file:
         lines = file.readlines()
 
     notes = _parse_dev_notes_md_to_notes(
         lines=lines,
-        output_private_notes=output_private_notes,
+        output_private_notes=True,
     )
 
     with open(PYTHON_REMINDER_FILEPATH, "r") as file:
-        contents = file.readlines()
+        contents = file.read()
     notes.append(
         Note(
             title="# Python Language Reminders",
@@ -239,7 +230,7 @@ def main():
 
     # check hash, only update changed file
     changed_notes = []
-    with open(hash_filepath, "r") as file:
+    with open(HASH_PRIVATE_FILEPATH, "r") as file:
         existing_note_hash = json.load(file)
     for note in notes:
         if note.title not in existing_note_hash:
@@ -252,39 +243,46 @@ def main():
 
     # update hash
     note_hash = {note.title: note.hash for note in notes}
-    with open(hash_filepath, "w") as file:
+    with open(HASH_PRIVATE_FILEPATH, "w") as file:
         json.dump(note_hash, file)
 
-    # write updated notes as htmls
+    # write changed notes as htmls
     for note in changed_notes:
-        print(f'>>> writing "{note.title}" ...')
-        md_filepath = output_folder / note.md_filename
-        with open(md_filepath, "w") as file:
-            file.writelines(note.markdown)
-        html_filepath = output_folder / note.html_filename
-        _convert_md_to_html(md_filepath, html_filepath, note.title)
-
-    # write index.html if any note is updated
-    if changed_notes:
-        with open(output_folder / "index.md", "w") as file:
-            file.writelines(_build_index_md_from_notes(notes))
-        _convert_md_to_html(
-            md_filepath=output_folder / "index.md",
-            html_filepath=output_folder / "index.html",
-            title="index",
+        # write to private
+        print(f'>>> writing private "{note.title}"')
+        private_html_filepath = OUTPUT_PRIVATE_FOLDER / note.html_filename
+        _convert_markdown_string_to_html(
+            note.markdown, private_html_filepath, note.title
         )
 
-        # copy css and images if any note is updated
-        shutil.copy2(STYLES_CSS_FILEPATH, output_folder / STYLES_CSS_FILENAME)
-        shutil.copytree(
-            DEV_NOTES_IMAGES_FILEPATH, output_folder / "images", dirs_exist_ok=True
-        )
+        if not note.is_private:
+            print(f'>>> writing public  "{note.title}"')
+            public_html_filepath = OUTPUT_PUBLIC_FOLDER / note.html_filename
+            shutil.copy2(private_html_filepath, public_html_filepath)
 
-    # remove temporary markdown files
-    files = glob.glob(str(output_folder / "*.md"))
-    for f in files:
-        os.remove(f)
+    print(">>> writing private index.html")
+    _convert_markdown_string_to_html(
+        markdown=_build_index_md_from_notes(notes, is_for_public=False),
+        html_filepath=OUTPUT_PRIVATE_FOLDER / "index.html",
+        title="index",
+    )
 
+    print(">>> writing public index.html")
+    _convert_markdown_string_to_html(
+        markdown=_build_index_md_from_notes(notes, is_for_public=True),
+        html_filepath=OUTPUT_PUBLIC_FOLDER / "index.html",
+        title="index",
+    )
+
+    # copy css and images
+    shutil.copy2(STYLES_CSS_FILEPATH, OUTPUT_PRIVATE_FOLDER / STYLES_CSS_FILENAME)
+    shutil.copytree(
+        DEV_NOTES_IMAGES_FILEPATH, OUTPUT_PRIVATE_FOLDER / "images", dirs_exist_ok=True
+    )
+    shutil.copy2(STYLES_CSS_FILEPATH, OUTPUT_PUBLIC_FOLDER / STYLES_CSS_FILENAME)
+    shutil.copytree(
+        DEV_NOTES_IMAGES_FILEPATH, OUTPUT_PUBLIC_FOLDER / "images", dirs_exist_ok=True
+    )
     print("Done")
 
 
