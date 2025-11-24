@@ -163,7 +163,7 @@ def _build_index_md_from_notes(notes: list[Note], is_for_public=False) -> list[s
     for topic in TOPICS:
         if is_for_public and topic == "work":
             continue
-        markdown += f"# [{topic.title()}]({topic}.html)\n\n"
+        markdown += f"# {topic.title()}\n\n"
         for document_type in DOCUMENT_TYPES:
             matching_notes = []
             for note in notes:
