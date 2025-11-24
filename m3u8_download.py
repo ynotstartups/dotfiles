@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 import asyncio
+import sys
 
 import httpx
-
-import sys
 
 FAKE_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
 
@@ -18,7 +17,9 @@ async def log_request(request):
 NUMBER_CONCURRENT_DOWNLOADS = 16
 
 
-async def download_part(client, part_name, semaphore, result_dict, total_number_of_parts) -> None:
+async def download_part(
+    client, part_name, semaphore, result_dict, total_number_of_parts
+) -> None:
     async with semaphore:
         response = await client.get(part_name)
         response.raise_for_status()
@@ -27,7 +28,9 @@ async def download_part(client, part_name, semaphore, result_dict, total_number_
         sys.stdout.flush()
 
 
-async def download_episode(base_url: str, part_names: list[str], result_dict: dict, total_number_of_parts: int) -> None:
+async def download_episode(
+    base_url: str, part_names: list[str], result_dict: dict, total_number_of_parts: int
+) -> None:
     async with httpx.AsyncClient(
         base_url=base_url,
         timeout=None,
@@ -83,7 +86,10 @@ def download_m3u8(m3u8_url: str, video_name: str, remove_ads: bool):
     base_url = "/".join(m3u8_url.split("/")[:-1])
     asyncio.run(
         download_episode(
-            base_url=base_url, part_names=part_names, result_dict=result_dict, total_number_of_parts=len(part_names),
+            base_url=base_url,
+            part_names=part_names,
+            result_dict=result_dict,
+            total_number_of_parts=len(part_names),
         )
     )
 
