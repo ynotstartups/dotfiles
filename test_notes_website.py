@@ -59,13 +59,13 @@ class TestBuildIndexMdFromNotes:
         assert markdown == "".join(
             [
                 "- [test use git](git_how_to_test_use_git.html)\n\n",
-                "# [Python](python.html)\n\n",
+                "# Python\n\n",
                 "**How To**\n\n",
                 "- [test use python](python_how_to_test_use_python.html)\n\n",
-                "# [Git](git.html)\n\n",
+                "# Git\n\n",
                 "**How To**\n\n",
                 "- [test use git](git_how_to_test_use_git.html)\n\n",
-                "# [Work](work.html)\n\n",
+                "# Work\n\n",
                 "**How To**\n\n",
                 "- [test use work](work_how_to_test_use_work.html)\n\n",
             ]
@@ -96,10 +96,10 @@ class TestBuildIndexMdFromNotes:
         assert markdown == "".join(
             [
                 "- [test use git](git_how_to_test_use_git.html)\n\n",
-                "# [Python](python.html)\n\n",
+                "# Python\n\n",
                 "**How To**\n\n",
                 "- [test use python](python_how_to_test_use_python.html)\n\n",
-                "# [Git](git.html)\n\n",
+                "# Git\n\n",
                 "**How To**\n\n",
                 "- [test use git](git_how_to_test_use_git.html)\n\n",
             ]
