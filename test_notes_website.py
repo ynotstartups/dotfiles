@@ -1,5 +1,7 @@
 from unittest import mock
 
+import pytest
+
 from notes_website import Note, _build_index_md_from_notes, _parse_dev_notes_md_to_notes
 
 
@@ -30,6 +32,17 @@ class TestParseDevNotesMdToNotesPrivateNotes:
         assert note.link == "[test title](python_reference_test_title.html)"
         assert note.hash
         assert str(note)
+
+    def test_missing_tags_line(self):
+        lines = [
+            "# test title",
+            "python, reference, pin",
+        ]
+        with pytest.raises(ValueError, match="Missing `tags:`"):
+            _parse_dev_notes_md_to_notes(
+                lines=lines,
+                output_private_notes=True,
+            )
 
 
 class TestBuildIndexMdFromNotes:

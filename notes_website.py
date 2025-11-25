@@ -123,6 +123,18 @@ def _parse_dev_notes_md_to_notes(
     """
     notes = []
 
+    is_in_codeblock = False
+    for index, line in enumerate(lines):
+        if line.startswith("```"):
+            is_in_codeblock = not is_in_codeblock
+
+        if not is_in_codeblock and line.startswith("# "):
+            next_line = lines[index + 1]
+            if not next_line.startswith("tags:"):
+                raise ValueError(
+                    f"Missing `tags:` in {next_line.strip()}, following title {line.strip()}"
+                )
+
     # parsing the readme file backward this simplifies logics
     index = len(lines) - 1
     contents = []
