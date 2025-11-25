@@ -18,12 +18,15 @@ deploy_public_notes_website:
 	git -C ../notes/ push
 
 format:
-	. .venv/bin/activate; \
-		isort **/*.py; black **/*.py
+	. .venv/bin/activate
+	black **/*.py
+	isort **/*.py
 
 lint:
-	. .venv/bin/activate; \
-		flake8 **/*.py | tee quickfix.vim
+	. .venv/bin/activate
+	flake8 **/*.py | tee quickfix.vim
+	isort --check-only **/*.py | tee quickfix.vim
+
 
 test:
 	. .venv/bin/activate; \
