@@ -323,11 +323,11 @@ alias ,ovpython "docker compose --file ~/Documents/oneview/docker-compose-dev.ym
 # because exporting the PATH pollutes it with unwanted executables within that virtualenv ! e.g. python, pip ...
 abbr eb '~/Documents/elastic-beanstalk-cli/.venv/bin/eb'
 
-function ,npm_run_frontend
+function ,pnpm_run_frontend
     cd ~/Documents/oneview/reactapp
-    npm start
+    pnpm start
 end
-abbr ,fe ',npm_run_frontend'
+abbr ,fe ',pnpm_run_frontend'
 
 ##################
 # docker compose #
@@ -377,3 +377,12 @@ alias ,d ",doc"
 #########
 
 # set PATH $HOME/.tfenv/bin $PATH
+
+# pnpm
+set -gx PNPM_HOME "/Users/yuhao.huang/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+
+alias npm 'pnpm'
+# pnpm end
