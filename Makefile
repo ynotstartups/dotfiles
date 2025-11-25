@@ -17,24 +17,24 @@ deploy_public_notes_website:
 	git -C ../notes/ commit -v
 	git -C ../notes/ push
 
+format_lint_test: format lint test
+
+# `. .venv/bin/activate; \` is required to ensure using executables (such as black)
+# in python virtual environments
 format:
-	. .venv/bin/activate
-	black **/*.py
-	isort **/*.py
+	. .venv/bin/activate; \
+		black **/*.py; \
+		isort **/*.py
 
 lint:
-	. .venv/bin/activate
-	flake8 **/*.py | tee quickfix.vim
-	isort --check-only **/*.py | tee quickfix.vim
-
+	. .venv/bin/activate; \
+		flake8 **/*.py | tee quickfix.vim; \
+		isort --check-only **/*.py | tee quickfix.vim
 
 test:
 	. .venv/bin/activate; \
-		coverage run --source . -m pytest vim_python.py test_vim_python.py notes_website.py test_notes_website.py; \
+		coverage run --source . -m pytest --ignore ipython_config.py; \
 		coverage report --show-missing --omit 'ipython_config.py'
-
-tags:
-	ctags **/*.py .vimrc
 
 brew_upgrade_libraries:
 	brew update
