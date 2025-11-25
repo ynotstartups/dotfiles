@@ -21,11 +21,9 @@ format:
 	. .venv/bin/activate; \
 		isort **/*.py; black **/*.py
 
-# E501 ignoer line too long: Line too long (82 > 79 characters)
-# W503 conflict with black Formatter
 lint:
 	. .venv/bin/activate; \
-		flake8 --ignore=E501,W503,E266 **/*.py | tee quickfix.vim
+		flake8 **/*.py | tee quickfix.vim
 
 test:
 	. .venv/bin/activate; \
