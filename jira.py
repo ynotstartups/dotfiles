@@ -39,6 +39,10 @@ def show_my_tickets_in_sprint(statuses=STATUSES):
         # sort by status 'Code Review', 'In Progress', 'TODO', 'Done'
         issues.append((ticket_number, status, title))
 
+    if not issues:
+        print("there is no issues!")
+        print("Check if the Jira Token is expired, Jira Token will expire on Nov/2026")
+
     priority = {
         "Blocked": 0,
         "In Review": 1,
