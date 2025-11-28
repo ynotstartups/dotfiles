@@ -29,7 +29,7 @@ TOPICS = [
     "python",
     "rg",
     "work",
-    "sql",
+    "db",
     "vim",
     "book",
     "docker",
