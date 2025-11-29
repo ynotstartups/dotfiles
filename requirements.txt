@@ -13,9 +13,6 @@ flake8
 ipython
 isort
 
-# vim
-jedi
-
 # vim - completer
 thefuzz
 
@@ -24,5 +21,8 @@ pip_system_certs
 
 # autogui
 pyautogui
+
+# notes website
+pypinyin
 
 openai
