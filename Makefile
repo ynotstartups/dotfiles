@@ -1,7 +1,8 @@
 SHELL=/bin/zsh
 
 build_notes_website:
-	./notes_website.py
+	. .venv/bin/activate; \
+		./notes_website.py;
 
 reset_notes_website_hash_and_clear_htmls:
 	echo '{}' > 'notes_website_data/.hash_private.json'

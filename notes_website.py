@@ -11,8 +11,13 @@ import json
 import re
 import shutil
 import subprocess
+from base64 import urlsafe_b64encode
 from hashlib import md5
 from pathlib import Path
+
+from pypinyin import lazy_pinyin
+
+from recipes import RECIPES
 
 DOCUMENT_TYPES = [
     # document types in html will follow this order
@@ -38,6 +43,7 @@ TOPICS = [
     "sh",
     "career",
     "personal",
+    "recipe",
 ]
 
 DOCUMENTS = Path("~/Documents/").expanduser()
@@ -87,7 +93,9 @@ class Note:
 
     @property
     def md_filename(self) -> str:
-        slug = re.sub(r"[^a-zA-Z0-9]", "_", self.title)
+        # TODO: is there a better way to remove these charaters?
+        slug = re.sub(r"[/ `&,+...;?':-]", "_", self.title)
+        slug = "".join(lazy_pinyin(slug))
         topic = "_".join(self.topics)
         return f"{topic}_{self.document_type}_{slug}.md"
 
@@ -240,6 +248,16 @@ def main():
         )
     )
 
+    notes.append(
+        Note(
+            title="# Menu",
+            tags_line="tags: reference, recipe,",
+            contents=parse_recipe_readme(),
+        )
+    )
+
+    notes.extend(parse_recipes_notes())
+
     # check hash, only update changed file
     changed_notes = []
     with open(HASH_PRIVATE_FILEPATH, "r") as file:
@@ -252,6 +270,8 @@ def main():
         else:
             # hash hit
             pass
+
+    print(changed_notes)
 
     # update hash
     note_hash = {note.title: note.hash for note in notes}
@@ -279,7 +299,7 @@ def main():
         title="index",
     )
 
-    print(">>> writing public index.html")
+    print(">>> writing public  index.html")
     _convert_markdown_string_to_html(
         markdown=_build_index_md_from_notes(notes, is_for_public=True),
         html_filepath=OUTPUT_PUBLIC_FOLDER / "index.html",
@@ -296,6 +316,59 @@ def main():
         DEV_NOTES_IMAGES_FILEPATH, OUTPUT_PUBLIC_FOLDER / "images", dirs_exist_ok=True
     )
     print("Done")
+
+
+def to_id(title: str) -> str:
+    return urlsafe_b64encode(title.encode("utf-8")).decode("utf-8")
+
+
+def parse_recipe_readme():
+    menu_markdown = ""
+    menu_category = None
+    menu_subcategory = None
+    for recipe in RECIPES:
+        # handle category logic
+        last_menu_category = menu_category
+        menu_category = recipe["menu_category"]
+        if menu_category != last_menu_category:
+            # New Category
+            menu_markdown += f"\n\n## {menu_category}\n\n"
+            menu_subcategory = None
+
+        # handle sub_category logic
+        last_menu_subcategory = menu_subcategory
+        menu_subcategory = recipe.get("menu_subcategory", None)
+        if menu_subcategory != last_menu_subcategory:
+            if last_menu_subcategory is not None:
+                menu_markdown += "\n\n"
+
+        title = recipe["title"]
+        if "instructions" in recipe:
+            slug = "".join(lazy_pinyin(title.replace("/ ", "_")))
+            menu_markdown += f"[{title}](./recipe_how_to_{slug}.html), "
+        else:
+            menu_markdown += f"{title}, "
+    return menu_markdown
+
+
+def parse_recipes_notes() -> list[Note]:
+    notes = []
+    for recipe in RECIPES:
+        if not "instructions" in recipe:
+            continue
+        recipe_markdown = ""
+        for instruction in recipe["instructions"]:
+            recipe_markdown += f"- {instruction}\n"
+
+        notes.append(
+            Note(
+                title=f"# {recipe['title']}",
+                tags_line="tags: how_to, recipe, ",
+                contents=recipe_markdown,
+            )
+        )
+
+    return notes
 
 
 if __name__ == "__main__":
