@@ -271,8 +271,6 @@ def main():
             # hash hit
             pass
 
-    print(changed_notes)
-
     # update hash
     note_hash = {note.title: note.hash for note in notes}
     with open(HASH_PRIVATE_FILEPATH, "w") as file:
