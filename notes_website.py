@@ -19,29 +19,33 @@ from pypinyin import lazy_pinyin
 
 from recipes import RECIPES
 
+# document types in html will follow this order
 DOCUMENT_TYPES = [
-    # document types in html will follow this order
     "reference",
     "how_to",
     "explanation",
 ]
+# topics in html will follow this order
 TOPICS = [
-    # topics in html will follow this order
+    # fundamentals
     "engineering",
-    "aws",
-    "devops",
-    "terraform",
+    # high level tools
     "python",
-    "rg",
-    "work",
     "db",
-    "vim",
-    "book",
-    "docker",
-    "git",
     "django",
+    # shell based tools
     "sh",
+    "vim",
+    "git",
+    "rg",
+    # dev ops
+    "docker",
+    "aws",
+    "terraform",
+    # career related
+    "work",
     "career",
+    # personal
     "personal",
     "recipe",
 ]
