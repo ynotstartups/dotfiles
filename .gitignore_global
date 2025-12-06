@@ -1,5 +1,6 @@
 # ctags
 tags
+tags_temp
 
 # vim swap files
 *.swp
