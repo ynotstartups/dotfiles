@@ -268,8 +268,8 @@ autocmd FileType markdown nnoremap gx <Plug>Markdown_OpenUrlUnderCursor
 # modified from 
 # https://github.com/coachshea/vim-textobj-markdown/blob/master/autoload/textobj/markdown/chunk.vim
 def g:InMarkdownCodeblock(): list<any>
-  var tail = search('```$', 'Wc') - 1
   var head = search('^```', 'Wb') + 1 
+  var tail = search('```$', 'Wc') - 1
   return ['V', [0, head, 1, 0], [0, tail, 1, 0]]
 enddef
 
@@ -407,20 +407,12 @@ nnoremap <leader>5 5gt
 # use bang to open in full screen, e.g. `:Rg! foo` opens fzf rg in full screen
 # in fzf interface, use <ctrl-/> to toggle preview
 
-nnoremap <leader>fs :Snippets<cr>
 nnoremap <leader><leader> :Files<cr>
 # leader b to jump to previous buffer
-nnoremap <leader>b :Buffers<cr>
-# nnoremap <leader>fb :Buffers<cr>
-nnoremap <leader>fc :Commands<cr>
-nnoremap <leader>ff :Files<cr>
+nnoremap <leader>fb :Buffers<cr>
 # search all lines in open buffers
-nnoremap <leader>fl :Lines<cr>
-nnoremap <leader>m :Marks<cr>
 nnoremap <leader>ft :Tags<cr>
 nnoremap <leader>fw :Rg --word-regexp <c-r><c-w><cr>
-nnoremap <leader>fh :History<cr>
-nnoremap <leader>fv :Helptags<cr>
 
 # this allows vim command Rg to be invoked with the same as how rg is invoked
 # in the command line e.g.
@@ -478,6 +470,21 @@ nnoremap <leader>em :$tabedit ~/Documents/learn-chalice/menu/app.py<cr>
 ##########
 # Python #
 ##########
+
+def g:BlackFormatPythonFile()
+    # remember line number using mark
+    execute "normal! mp"
+    # use black to format whole python file
+    execute "normal! :%!black\<space>-q\<space>-\<cr>"
+    # jump back to line
+    execute "normal! 'p"
+enddef
+autocmd FileType python nnoremap = :call BlackFormatPythonFile()<cr>
+
+# format current line with black
+nnoremap == :.!black<space>-q<space>-<cr>
+
+vnoremap = :!black<space>-q<space>-<cr>
 
 # Don't autowrap in python files
 # t: Auto-wrap text using 'textwidth'
@@ -699,7 +706,7 @@ enddef
 command! -nargs=0 Syntax call SynStack()
 
 ##############
-# diff color #
+# Diff color #
 ##############
 
 # #C91B00 red from iterm ansi red
@@ -851,7 +858,7 @@ g:is_pythonsense_suppress_motion_keymaps = 1
 g:is_pythonsense_suppress_location_keymaps = 1
 
 ########
-# grep #
+# Grep #
 ########
 
 # set command `grep` to use system rg
@@ -878,7 +885,7 @@ def g:CheckUpdate(timer_id: number)
 enddef
 
 ##############################
-# search with magic mode on #
+# Search with magic mode on #
 ##############################
 
 # with magic mode on, I don't need to use \ to prefix the regular expressions'
