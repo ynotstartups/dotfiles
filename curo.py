@@ -14,6 +14,9 @@ if __name__ == "__main__":
         "entity_name",
         choices=[
             "t4a_review",
+            "t4a_feecomponent",
+            "t4a_feeprofile",
+            "t4a_incomeprofile",
             "account",
             "t4a_atr",
             "t4a_curoholding",
