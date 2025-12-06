@@ -136,8 +136,7 @@ abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
 abbr ,g_template_enable 'git config --local --unset commit.template'
 
 function ,gs_notes
-    set directories personal-notes dotfiles notes menu
-
+    set directories personal-notes dotfiles notes
     for directory in $directories
         set_color --bold cyan; echo ===== $directory =====; set_color normal;
         git -C "$HOME/Documents/$directory" status
