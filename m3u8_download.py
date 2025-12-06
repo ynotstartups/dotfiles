@@ -108,6 +108,7 @@ if __name__ == "__main__":
     - 努努 (use --remove-ads)
     - myself-bbs
     - 西瓜动漫
+    - 小鸭看看
     """
     import argparse
 
