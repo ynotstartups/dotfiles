@@ -27,7 +27,8 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeFind' } # tree folder explorers, `<l
 Plug 'inkarkat/vim-visualrepeat'       # in visual mode, use . to repeat in selected lines
 Plug 'tpope/vim-repeat'                # repeat vim-surround with .
 Plug 'tpope/vim-surround'              # `ds` to delete, `cs` to change and `ys` to add surroundings ', ", ` 
-Plug 'tpope/vim-unimpaired'           # [f, ]f to go to file in same directory
+Plug 'tpope/vim-unimpaired'            # [f, ]f to go to file in same directory
+Plug 'mbbill/undotree'                 # :UndotreeToggle 
 
 # git
 Plug 'airblade/vim-gitgutter'          # shows git add/modify/remove symbols on the left
