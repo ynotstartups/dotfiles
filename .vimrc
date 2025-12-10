@@ -410,7 +410,7 @@ nnoremap <leader>5 5gt
 
 nnoremap <leader><leader> :Files<cr>
 # leader b to jump to previous buffer
-nnoremap <leader>fb :Buffers<cr>
+nnoremap <leader>b :Buffers<cr>
 # search all lines in open buffers
 nnoremap <leader>ft :Tags<cr>
 nnoremap <leader>fw :Rg --word-regexp <c-r><c-w><cr>
@@ -444,7 +444,6 @@ nnoremap <leader>ge :Gedit<cr>
 
 nnoremap <leader>ev :$tabedit ~/.vimrc<cr>
 
-nnoremap <leader>eb :$tabedit ~/Documents/personal-notes/.bashrc<cr>
 nnoremap <leader>ed :$tabedit ~/Documents/personal-notes/dev_notes.md<cr>
 nnoremap <leader>ef :$tabedit ~/.config/fish/config.fish<cr>
 nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
@@ -838,14 +837,6 @@ autocmd FileType python nnoremap [c <Plug>(PythonsenseStartOfPythonClass)
 autocmd FileType python nnoremap ]c <Plug>(PythonsenseStartOfNextPythonClass)
 autocmd FileType python nnoremap [f <Plug>(PythonsenseStartOfPythonFunction)
 autocmd FileType python nnoremap ]f <Plug>(PythonsenseStartOfNextPythonFunction)
-
-
-##############
-# / Mappings #
-##############
-
-autocmd FileType python nmap <leader>/f vif<esc><esc>/\%V
-autocmd FileType python nmap <leader>/c vic<esc><esc>/\%V
 
 ###############
 # pythonsense #
