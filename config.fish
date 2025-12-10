@@ -219,7 +219,6 @@ function vim
     end
 end
 
-abbr ,eb "vim $PERSONAL_NOTES/.bashrc"
 abbr ,ed "vim $PERSONAL_NOTES/dev_notes.md"
 abbr ,ef "vim $DOTFILES/config.fish"
 abbr ,eg "vim $DOTFILES/.gitconfig"
@@ -295,16 +294,11 @@ function ,docker_setup_backend_utils
     echo '~~~~ poetry install dev dependencies ~~~~'
     docker exec --env -t oneview-django-1 poetry install --with dev
 
-    echo '~~~~ copy over bashrc ~~~~'
-    docker compose cp "$PERSONAL_NOTES.bashrc" django:/root/.bashrc
-
     echo '~~~~ copy ipython config ~~~~'
     docker exec --env -t oneview-django-1 poetry run ipython profile create
     docker compose cp $PERSONAL_NOTES"ipython_config.py" django:/root/.ipython/profile_default/ipython_config.py
 end
 abbr ,be ',docker_setup_backend_utils'
-
-abbr ,docker_cp_bashrc 'cd ~/Documents/oneview && docker compose cp $PERSONAL_NOTES".bashrc" django:/root/.bashrc'
 
 abbr ,docker_attach_oneview "docker attach $(docker container ls | grep oneview-django | cut -d ' ' -f 1)"
 
@@ -361,27 +355,66 @@ alias ,ssh "TERM=xterm-256color $DOTFILES/.venv/bin/python3 $DOTFILES/ssh.py"
 alias ,autogui "$DOTFILES/.venv/bin/python3 $DOTFILES/autogui.py"
 alias ,ai "$DOTFILES/.venv/bin/python3 $DOTFILES/ai.py"
 alias ,deployment "$DOTFILES/.venv/bin/python3 $DOTFILES/deployment.py"
-alias ,pydoc "python3 -m pydoc"
 alias ,json "python3 -m json"
 alias ,calendar "python3 -m calendar"
-alias ,oneview_pydoc_server "docker run --rm -it -p 40423:40423 oneview-django poetry run python -m pydoc -b -p 40423 -n 0.0.0.0"
 
 function ,doc --argument-names query
     open "https://devdocs.io/?q=$query"
 end
 alias ,d ",doc"
 
-#########
-# tfenv #
-#########
-
-# set PATH $HOME/.tfenv/bin $PATH
-
-# pnpm
+########
+# pnpm #
+########
 set -gx PNPM_HOME "/Users/yuhao.huang/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 
 alias npm 'pnpm'
-# pnpm end
+
+##########
+# saltus #
+##########
+
+set POETRY_RUN_PREFIX "docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 --interactive --tty oneview-django-1 poetry run"
+
+alias django-admin "$POETRY_RUN_PREFIX python manage.py"
+alias django-admin-showmigrations "$POETRY_RUN_PREFIX python manage.py showmigrations"
+alias django-admin-migrate-oneview "$POETRY_RUN_PREFIX python manage.py migrate oneview"
+
+alias tk "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb -v 3 --force-color -k"
+alias tk_pdb "$POETRY_RUN_PREFIX python manage.py test --pdb --timing --keepdb -v 3 --force-color -k"
+alias tk_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --pdb --no-input -v 3 --force-color -k"
+alias tk_profile "$POETRY_RUN_PREFIX python -m cProfile -o stats manage.py test --timing --keepdb -v 3 --force-color -k"
+# run all tests for a file such as `foo.py`
+alias tn "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb -v 3 --force-color -p"
+alias tn_pdb "$POETRY_RUN_PREFIX python manage.py test --timing --pdb --keepdb -v 3 --force-color -p"
+alias ta "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb --no-input --parallel --force-color"
+alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --no-input --parallel --force-color "
+
+function la --description 'lint diff'
+    set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
+    echo '>>> Running black...'
+    docker exec oneview-django-1 poetry run black --no-color --quiet . 2>&1 | sed -E $docker_to_local_path_s_command | tee quickfix.vim
+    echo '>>> Running flake8...'
+    docker exec oneview-django-1 poetry run flake8 --color never . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    echo '>>> Running mypy...'
+    docker exec oneview-django-1 poetry run mypy --no-color-output --no-error-summary . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    echo '>>> Running isort...'
+    docker exec oneview-django-1 poetry run isort --quiet . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+end
+
+function ld --description 'lint all'
+    set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
+    set git_diff_files $(git diff --name-only | sed 's;saltus/;;1')
+    test (count $git_diff_files) -eq 0; and echo "No changed files."; and return
+    echo ">>> Running black on $git_diff_files"
+    docker exec oneview-django-1 poetry run black --no-color --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee quickfix.vim
+    echo ">>> Running flake8 on $git_diff_files"
+    docker exec oneview-django-1 poetry run flake8 --color never $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    echo ">>> Running mypy on $git_diff_files"
+    docker exec oneview-django-1 poetry run mypy --no-color-output --no-error-summary $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    echo ">>> Running isort on $git_diff_files"
+    docker exec oneview-django-1 poetry run isort --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+end
