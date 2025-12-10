@@ -245,6 +245,11 @@ def get_import_path_given_word(vim: object) -> str | None:
     word = vim.eval('expand("<cword>")')
 
     for package, words in package_and_word.items():
+        if word == package:
+            import_string = f"import {word}"
+            print(import_string)
+            return import_string
+
         if word in words:
             import_string = f"from {package} import {word}"
             print(import_string)
