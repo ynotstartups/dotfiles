@@ -50,6 +50,16 @@ RECIPES = [
         "menu_subcategory": "猪",
     },
     {
+        "title": "椰子鸡",
+        "menu_category": "肉类",
+        "menu_subcategory": "鸡",
+        "instructions": [
+            "只下椰子水饮料不用下水",
+            "闷鸡肉, 红枣, 枸杞, 龙眼干",
+            "酱: 青柠,香菜,蒜,醋,酱油,麻油",
+        ],
+    },
+    {
         "title": "咕噜鸡腿肉",
         "menu_category": "肉类",
         "menu_subcategory": "鸡",
