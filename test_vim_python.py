@@ -95,43 +95,87 @@ def test_get_import_path_given_word_in_tag():
     assert get_import_path_given_word(mock_vim) == "from oneview.email import foo"
 
 
-def test_format_markdown_table_malform_table():
-    mock_vim = Mock()
-    mock_vim.current.buffer = [
-        "",
-        "|||",
-        "|-|-|",
-        "|abc|def|",
-        "",
-    ]
-    mock_vim.current.range.start = 1
+class TestFormatMarkdown:
+    def test_malform_table(self):
+        mock_vim = Mock()
+        mock_vim.current.buffer = [
+            "",
+            "|||",
+            "|-|-|",
+            "|abc|def|",
+            "|foobar|def|",
+            "",
+        ]
+        mock_vim.current.range.start = 1
 
-    format_markdown_table(mock_vim)
-    assert mock_vim.current.buffer == [
-        "",
-        "|     |     |",
-        "|-----|-----|",
-        "| abc | def |",
-        "",
-    ]
+        format_markdown_table(mock_vim)
+        assert mock_vim.current.buffer == [
+            "",
+            "|        |     |",
+            "|--------|-----|",
+            "| abc    | def |",
+            "| foobar | def |",
+            "",
+        ]
 
+    def test_format_title_row(self):
+        mock_vim = Mock()
+        mock_vim.current.buffer = [
+            "",
+            "|foo|bar|",
+            "|-|-|",
+            "|abc|def|",
+            "",
+        ]
+        mock_vim.current.range.start = 1
 
-def test_format_markdown_table_correct_table():
-    mock_vim = Mock()
-    mock_vim.current.buffer = [
-        "",
-        "|     |     |",
-        "|-----|-----|",
-        "| abc | def |",
-        "",
-    ]
-    mock_vim.current.range.start = 1
+        format_markdown_table(mock_vim)
+        assert mock_vim.current.buffer == [
+            "",
+            "| foo | bar |",
+            "|-----|-----|",
+            "| abc | def |",
+            "",
+        ]
 
-    format_markdown_table(mock_vim)
-    assert mock_vim.current.buffer == [
-        "",
-        "|     |     |",
-        "|-----|-----|",
-        "| abc | def |",
-        "",
-    ]
+    def test_already_correct_table(self):
+        mock_vim = Mock()
+        mock_vim.current.buffer = [
+            "",
+            "|     |     |",
+            "|-----|-----|",
+            "| abc | def |",
+            "",
+        ]
+        mock_vim.current.range.start = 1
+
+        format_markdown_table(mock_vim)
+        assert mock_vim.current.buffer == [
+            "",
+            "|     |     |",
+            "|-----|-----|",
+            "| abc | def |",
+            "",
+        ]
+
+    def test_do_not_change_table_with_extra_seperator(self):
+        mock_vim = Mock()
+        mock_vim.current.buffer = [
+            "",
+            "|||",
+            "|-----|-----|",
+            "|abc|def|",
+            "||||",
+            "",
+        ]
+        mock_vim.current.range.start = 1
+
+        format_markdown_table(mock_vim)
+        assert mock_vim.current.buffer == [
+            "",
+            "|||",
+            "|-----|-----|",
+            "|abc|def|",
+            "||||",
+            "",
+        ]

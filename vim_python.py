@@ -274,11 +274,11 @@ def format_markdown_table(vim: object) -> None:
     """
     Convert to
 
-    |||
+    |foo|bar|
     |-|-|
     |abc|def|
 
-    |     |     |
+    | foo | bar |
     |-----|-----|
     | abc | def |
     """
@@ -288,31 +288,47 @@ def format_markdown_table(vim: object) -> None:
     look_behind_index = vim.current.range.start
     while True:
         if not vim.current.buffer[look_behind_index].startswith("|"):
-            table_start_index = look_behind_index + 1
+            table_start_row_number = look_behind_index + 1
             break
         look_behind_index -= 1
 
     look_ahead_index = vim.current.range.start
     while True:
         if not vim.current.buffer[look_ahead_index].startswith("|"):
-            table_end_index = look_ahead_index
+            table_end_row_number = look_ahead_index
             break
         look_ahead_index += 1
 
-    table_range = vim.current.buffer[table_start_index:table_end_index]
+    table_rows = vim.current.buffer[table_start_row_number:table_end_row_number]
 
-    number_of_columns = table_range[0].count("|") - 1
+    number_of_columns = table_rows[0].count("|") - 1
+    for line_number, line in enumerate(table_rows):
+        if line.count("|") - 1 > number_of_columns:
+            print(
+                f"Not support table with extra number of '|' seperator. Extra '|' in row {line_number}"
+            )
+            return
+
     formatted_table = [[] for i in range(number_of_columns)]
+    # loop for each column
     for column_number in range(number_of_columns):
         max_words_length = 0
-        for line in table_range[2:]:
+        # loop for each row
+        for line_number, line in enumerate(table_rows):
+            # ignores the title and table content seperator line
+            if line_number == 1:
+                continue
             word_in_column = line.split("|")[1:-1][column_number].strip()
             if len(word_in_column) > max_words_length:
                 max_words_length = len(word_in_column)
         max_words_length = max_words_length + 2
-        formatted_table[column_number].append("|" + " " * max_words_length)
-        formatted_table[column_number].append("|" + "-" * max_words_length)
-        for line in table_range[2:]:
+
+        for line_number, line in enumerate(table_rows):
+            # write the table content seperator line
+            if line_number == 1:
+                formatted_table[column_number].append("|" + "-" * max_words_length)
+                continue
+
             word_in_column = line.split("|")[1:-1][column_number].strip()
             formatted_table[column_number].append(
                 "| " + word_in_column.ljust(max_words_length - 1)
@@ -321,5 +337,4 @@ def format_markdown_table(vim: object) -> None:
     transposed_table = list(map(list, zip(*formatted_table)))
     for line_number, line in enumerate(transposed_table):
         vim.current.buffer[look_behind_index + 1 + line_number] = "".join(line) + "|"
-
     return formatted_table
