@@ -274,12 +274,20 @@ def g:InMarkdownCodeblock(): list<any>
   return ['V', [0, head, 1, 0], [0, tail, 1, 0]]
 enddef
 
+def g:AMarkdownCodeblock(): list<any>
+  var head = search('^```', 'Wb')
+  var tail = search('```$', 'Wc')
+  return ['V', [0, head, 1, 0], [0, tail, 1, 0]]
+enddef
+
 augroup markdown_textobjs
   autocmd!
   autocmd FileType markdown call textobj#user#plugin('markdown', {
   \   'codeblock': {
   \     'select-i-function': 'g:InMarkdownCodeblock',
   \     'select-i': 'ic',
+  \     'select-a-function': 'g:AMarkdownCodeblock',
+  \     'select-a': 'ac',
   \   },
   \ })
 augroup END
@@ -919,6 +927,90 @@ enddef
 
 # leader+d to search devdocs.io
 nnoremap <leader>d :call SearchDevDocs()<cr>
+
+######################
+# custom user object #
+######################
+
+call textobj#user#plugin('dot', {
+\  'dot': {
+\    'select-a-function': 'g:ADot',
+\    'select-a': 'a.',
+\    'select-i-function': 'g:InDot',
+\    'select-i': 'i.',
+\  }
+\})
+
+def g:ADot(): list<any>
+  # abc.def.ghi.jkl
+  # 
+  # if cursor at `b`, delete `abc.`
+  # if cursor at `e`, delete `def.`
+  # if cursor at `k`, delete `.jkl`
+  normal! T.
+  var end_pos = getpos('.')
+  normal! f.
+  var start_pos = getpos('.')
+
+  if end_pos == start_pos
+      # e.g. cursor at `k`
+      normal! $
+      end_pos = getpos('.')
+      normal! F.
+      start_pos = getpos('.')
+  endif 
+  return ['v', start_pos, end_pos]
+enddef
+
+def g:InDot(): list<any>
+  # abc.def.ghi.jkl
+  # 
+  # if cursor at `b`, delete `abc`
+  # if cursor at `e`, delete `def`
+  # if cursor at `k`, delete `jkl`
+  normal! T.
+  var end_pos = getpos('.')
+  normal! t.
+  var start_pos = getpos('.')
+
+  if end_pos == start_pos
+      # e.g. cursor at `k`
+      normal! $
+      end_pos = getpos('.')
+  endif 
+  return ['v', start_pos, end_pos]
+enddef
+
+call textobj#user#plugin('pipe', {
+\  'pipe': {
+\    'select-a-function': 'g:APipe',
+\    'select-a': 'a\|',
+\    'select-i-function': 'g:InPipe',
+\    'select-i': 'i\|',
+\  }
+\})
+
+def g:APipe(): list<any>
+  # |abc|def|
+  # 
+  # if cursor at `b`, delete `abc|`
+  normal! T|
+  var end_pos = getpos('.')
+  normal! f|
+  var start_pos = getpos('.')
+  return ['v', start_pos, end_pos]
+enddef
+
+def g:InPipe(): list<any>
+  # |abc|def|
+  # 
+  # if cursor at `b`, delete `abc`
+  normal! T|
+  var end_pos = getpos('.')
+  normal! t|
+  var start_pos = getpos('.')
+  return ['v', start_pos, end_pos]
+enddef
 
 #########################
 # Vim9 Compile Function #
