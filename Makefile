@@ -40,3 +40,9 @@ test:
 brew_upgrade_libraries:
 	brew update
 	brew upgrade
+
+cron_print:
+	crontab -l
+
+cron_edit:
+	crontab -e

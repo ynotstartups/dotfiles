@@ -22,3 +22,6 @@ notes_website_data/
 # ai.py
 ai_db.jsonl
 ai_output/
+
+# cron
+cron_run_results/

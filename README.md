@@ -7,10 +7,10 @@
 
 # Crontab
 
-- `crontab -l` to print cron to stdout
-- `crontab -e` to edit cron
+- `make cron_print` to print cron to stdout
+- `make cron_edit` to edit cron
 
-```
-# build oneview ctags every hour
-0 * * * * cd __FULL_PATH__ && /opt/homebrew/bin/ctags --recurse --languages=python -f 'tags_temp' && mv 'tags_temp' 'tags' && /usr/bin/touch __FULL_PATH__/cron_run_results/ctags-"$(date)".txt
+```bash
+# build oneview ctags every 10 minutes
+0 * * * * cd __FULL_PATH__ && /opt/homebrew/bin/fd .py | /opt/homebrew/bin/ctags -f tags_temp -L - && mv tags_temp tags && /usr/bin/touch __FULL_PATH__/cron_run_results/ctags-"$(date)".txt
 ```
