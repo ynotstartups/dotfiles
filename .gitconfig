@@ -19,7 +19,7 @@
     dc     = diff --cached
     do     = !git diff origin/$GIT_BASE_BRANCH...
     dos     = !git diff origin/$GIT_BASE_BRANCH... --stat
-    ds     = diff --staged
+    ds     = diff --stat
 
     f      = fetch
     fro    = !git fetch origin && git rebase --autosquash --interactive origin/$GIT_BASE_BRANCH
