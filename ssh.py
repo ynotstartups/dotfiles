@@ -46,7 +46,7 @@ if __name__ == "__main__":
         case "test3":
             ec2_name = "OneView-test3-leader"
         case _:
-            raise ValueError()
+            raise ValueError(f"Unexpected ec2 environment name {args.environment}")
 
     result = subprocess.run(
         [
@@ -63,6 +63,10 @@ if __name__ == "__main__":
         capture_output=True,
         text=True,
     )
+
+    if result.stdout.count("\n") > 1:
+        raise ValueError("There are more than 1 leader instance.")
+
     ip_address = result.stdout.strip()
 
     command = [
