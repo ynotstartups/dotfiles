@@ -33,6 +33,23 @@ class TestParseDevNotesMdToNotesPrivateNotes:
         assert note.hash
         assert str(note)
 
+    def test_unmatch_code_block(self):
+        lines = [
+            "# test title",
+            "tags:python, reference, pin",
+            "\n",
+            "```python\n",
+            "```bash\n",
+            "\n",
+        ]
+
+        with pytest.raises(ValueError, match="The line to end a code block must be '```'"):
+            _parse_dev_notes_md_to_notes(
+                lines=lines,
+                output_private_notes=True,
+            )
+
+
     def test_missing_tags_line(self):
         lines = [
             "# test title",

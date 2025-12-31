@@ -24,6 +24,7 @@ DOCUMENT_TYPES = [
     "reference",
     "how_to",
     "explanation",
+    "til",
 ]
 # topics in html will follow this order
 TOPICS = [
@@ -46,8 +47,8 @@ TOPICS = [
     "work",
     "career",
     # personal
-    "personal",
     "recipe",
+    "personal",
 ]
 
 DOCUMENTS = Path("~/Documents/").expanduser()
@@ -91,6 +92,8 @@ class Note:
                 self.document_type = tag
             elif tag == "pin":
                 self.is_pinned = True
+
+        assert self.document_type, f"`{self.title}` in dev_notes.md has no document_type!"
 
         if not self.is_private:
             assert self.topics, f"`{self.title}` in dev_notes.md has no tags!"
@@ -139,6 +142,9 @@ def _parse_dev_notes_md_to_notes(
     for index, line in enumerate(lines):
         if line.startswith("```"):
             is_in_codeblock = not is_in_codeblock
+            if not is_in_codeblock and line.removesuffix("\n") != "```":
+                raise ValueError(f"The line to end a code block must be '```', but the line is {line}, this is likely an unmatched code block.")
+
 
         if not is_in_codeblock and line.startswith("# "):
             next_line = lines[index + 1]
