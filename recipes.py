@@ -177,6 +177,14 @@ RECIPES = [
         ],
     },
     {
+        "title": "牛肉干",
+        "menu_category": "肉类",
+        "menu_subcategory": "牛",
+        "instructions": [
+            "short ribs,切成0.5cm小片,调味,180度两面各烤20分钟",
+        ],
+    },
+    {
         "title": "平锅牛肉生煎蛋",
         "menu_category": "肉类",
         "menu_subcategory": "牛",
