@@ -8,10 +8,6 @@ MAX_WIDTH, MAX_HEIGHT = pyautogui.size()
 SLEEP_TIME = 60  # seconds
 
 
-def _get_random_position():
-    return (int(random() * MAX_WIDTH), int(random() * MAX_HEIGHT))
-
-
 def main():
     old_position = pyautogui.position()
 
@@ -29,10 +25,10 @@ def main():
             continue
 
         if current_position == old_position:
-            print("cursor didn't move, auto move cursor")
-            random_position = _get_random_position()
-            pyautogui.moveTo(*random_position)
-            old_position = random_position
+            print("cursor didn't move, auto move cursor for 1 pixel to the right")
+            next_position = (current_position[0] + 1, current_position[1])
+            pyautogui.moveTo(*next_position)
+            old_position = next_position
         else:
             print("cursor moved, don't move cursor")
             old_position = current_position
