@@ -291,12 +291,15 @@ function ,docker_setup_backend_utils
     echo '~~~~ cd into oneview ~~~~'
     cd ~/Documents/oneview
 
-    echo '~~~~ poetry install dev dependencies ~~~~'
-    docker exec --env -t oneview-django-1 poetry install --with dev
-
     echo '~~~~ copy ipython config ~~~~'
     docker exec --env -t oneview-django-1 poetry run ipython profile create
-    docker compose cp $PERSONAL_NOTES"ipython_config.py" django:/root/.ipython/profile_default/ipython_config.py
+    docker compose --file docker-compose-dev.yml cp $PERSONAL_NOTES"ipython_config.py" django:/home/oneview/.ipython/profile_default/ipython_config.py
+
+    echo '~~~~ set django bash to have vim key binding  ~~~~'
+    docker compose --file docker-compose-dev.yml cp $PERSONAL_NOTES".inputrc" django:/home/oneview/.inputrc
+
+    echo '~~~~ set postgres `psql` to have vim key binding  ~~~~'
+    docker compose --file docker-compose-dev.yml cp $PERSONAL_NOTES".inputrc" postgres:/root/.inputrc
 end
 abbr ,be ',docker_setup_backend_utils'
 
