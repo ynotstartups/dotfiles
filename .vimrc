@@ -1012,6 +1012,15 @@ def g:InPipe(): list<any>
   return ['v', start_pos, end_pos]
 enddef
 
+#####################
+# elastic beanstalk #
+#####################
+
+augroup elastic_beanstalk_config_file_syntax
+  au!
+  autocmd BufNewFile,BufRead *.config set syntax=yaml
+augroup END
+
 #########################
 # Vim9 Compile Function #
 #########################
