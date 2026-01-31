@@ -22,6 +22,7 @@ if __name__ == "__main__":
             "t4a_curoholding",
             "contact",
             "t4a_activitysubgroup",
+            "t4a_transferreason",
             "systemuser",
             "lead",
         ],

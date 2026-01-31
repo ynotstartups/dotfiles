@@ -6,6 +6,7 @@ import pytest
 
 from vim_python import (
     format_markdown_table,
+    format_to_factory_style,
     get_alternative_filepath,
     get_import_path_given_word,
     get_or_create_alternative_file,
@@ -178,4 +179,18 @@ class TestFormatMarkdown:
             "|abc|def|",
             "||||",
             "",
+        ]
+
+
+class TestFormatToFactoryStyle:
+    def test_format(self):
+        mock_vim = Mock()
+        mock_vim.current.buffer = [
+            "    parent_rec = Recommendation()",
+            "    parent_rec.product_scheme = product_4",
+        ]
+        format_to_factory_style(mock_vim, 1, 2)
+        assert mock_vim.current.buffer == [
+            "    parent_rec = RecommendationFactory(",
+            "    product_scheme = product_4,)",
         ]

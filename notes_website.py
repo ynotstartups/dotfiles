@@ -93,7 +93,9 @@ class Note:
             elif tag == "pin":
                 self.is_pinned = True
 
-        assert self.document_type, f"`{self.title}` in dev_notes.md has no document_type!"
+        assert (
+            self.document_type
+        ), f"`{self.title}` in dev_notes.md has no document_type!"
 
         if not self.is_private:
             assert self.topics, f"`{self.title}` in dev_notes.md has no tags!"
@@ -143,8 +145,9 @@ def _parse_dev_notes_md_to_notes(
         if line.startswith("```"):
             is_in_codeblock = not is_in_codeblock
             if not is_in_codeblock and line.removesuffix("\n") != "```":
-                raise ValueError(f"The line to end a code block must be '```', but the line is {line}, this is likely an unmatched code block.")
-
+                raise ValueError(
+                    f"The line to end a code block must be '```', but the line is {line}, this is likely an unmatched code block."
+                )
 
         if not is_in_codeblock and line.startswith("# "):
             next_line = lines[index + 1]

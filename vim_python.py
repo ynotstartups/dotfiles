@@ -142,7 +142,7 @@ package_and_word = {
     "django.db.models.signals": ["m2m_changed", "post_save", "pre_save"],
     "django.db.utils": ["IntegrityError"],
     "django.dispatch": ["receiver"],
-    "django.http": ["HttpResponse", "JsonResponse"],
+    "django.http": ["HttpResponse", "JsonResponse", "HttpRequest"],
     "django.http.response": ["HttpResponseRedirect"],
     "django.shortcuts": ["HttpResponse"],
     "django.test": [
@@ -223,6 +223,7 @@ package_and_word = {
         "Callable",
         "Dict",
         "Iterable",
+        "Iterator",
         "List",
         "Optional",
         "Tuple",
@@ -338,3 +339,48 @@ def format_markdown_table(vim: object) -> None:
     for line_number, line in enumerate(transposed_table):
         vim.current.buffer[look_behind_index + 1 + line_number] = "".join(line) + "|"
     return formatted_table
+
+
+def format_to_factory_style(
+    vim: object, start_line_number: int, end_line_number: int
+) -> None:
+    """
+    start_line_number: start line number of vim range (line number starts with 1)
+    end_line_number:     end line number of vim range
+    They are passed in from vim function FormatToFactoryStyle using `py3eval` trick.
+
+    convert from
+        ```
+        parent_rec = Recommendation()
+        parent_rec.product_scheme = product_4
+        ```
+    to
+        ```
+        parent_rec = RecommendationFactory(
+        product_scheme = product_4,)
+        ```
+    """
+    updated_lines = []
+    for line in vim.current.buffer[start_line_number - 1 : end_line_number]:
+        # first line
+        if line == vim.current.buffer[start_line_number - 1]:
+            # calculate the indentation for the rest of the lines
+            number_of_indented_spaces = len(line) - len(line.lstrip(" "))
+            indentation = " " * number_of_indented_spaces
+            new_line = line
+            new_line = new_line.replace("(", "Factory(").replace(")", "")
+        else:
+            # this simple logics removes the indentation at the front of the line logics
+            new_line = "".join(line.split(".")[1:])
+            new_line = indentation + new_line
+            new_line += ","
+            # closes the Factory class with ')'
+            if line == vim.current.buffer[end_line_number - 1]:
+                new_line += ")"
+
+        updated_lines.append(new_line)
+
+    for lines in updated_lines:
+        print(lines)
+    vim.current.buffer[start_line_number - 1 : end_line_number] = updated_lines
+    return None

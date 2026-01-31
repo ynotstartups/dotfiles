@@ -396,28 +396,37 @@ alias tn_pdb "$POETRY_RUN_PREFIX python manage.py test --timing --pdb --keepdb -
 alias ta "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb --no-input --parallel --force-color"
 alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --no-input --parallel --force-color "
 
-function la --description 'lint diff'
+function la --description 'lint all'
     set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
+    echo "" > quickfix.vim
     echo '>>> Running black...'
-    docker exec oneview-django-1 poetry run black --no-color --quiet . 2>&1 | sed -E $docker_to_local_path_s_command | tee quickfix.vim
+    docker exec oneview-django-1 poetry run black --no-color --quiet . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
     echo '>>> Running flake8...'
     docker exec oneview-django-1 poetry run flake8 --color never . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
     echo '>>> Running mypy...'
-    docker exec oneview-django-1 poetry run mypy --no-color-output --no-error-summary . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
     echo '>>> Running isort...'
     docker exec oneview-django-1 poetry run isort --quiet . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
 end
 
-function ld --description 'lint all'
+function lamypy --description 'lint all mypy only'
     set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
-    set git_diff_files $(git diff --name-only | sed 's;saltus/;;1')
+    echo "" > quickfix.vim
+    echo '>>> Running mypy...'
+    docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+end
+
+function ld --description 'lint diff'
+    set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
+    set git_diff_files $(git diff --name-only '*.py' | sed 's;saltus/;;1')
     test (count $git_diff_files) -eq 0; and echo "No changed files."; and return
-    echo ">>> Running black on $git_diff_files"
-    docker exec oneview-django-1 poetry run black --no-color --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee quickfix.vim
-    echo ">>> Running flake8 on $git_diff_files"
-    docker exec oneview-django-1 poetry run flake8 --color never $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    echo '' > quickfix.vim
+    # echo ">>> Running black on $git_diff_files"
+    # docker exec oneview-django-1 poetry run black --no-color --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    # echo ">>> Running flake8 on $git_diff_files"
+    # docker exec oneview-django-1 poetry run flake8 --color never $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
     echo ">>> Running mypy on $git_diff_files"
-    docker exec oneview-django-1 poetry run mypy --no-color-output --no-error-summary $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    echo ">>> Running isort on $git_diff_files"
-    docker exec oneview-django-1 poetry run isort --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    docker exec oneview-django-1 poetry run mypy $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    # echo ">>> Running isort on $git_diff_files"
+    # docker exec oneview-django-1 poetry run isort --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
 end

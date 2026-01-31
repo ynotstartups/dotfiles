@@ -43,12 +43,13 @@ class TestParseDevNotesMdToNotesPrivateNotes:
             "\n",
         ]
 
-        with pytest.raises(ValueError, match="The line to end a code block must be '```'"):
+        with pytest.raises(
+            ValueError, match="The line to end a code block must be '```'"
+        ):
             _parse_dev_notes_md_to_notes(
                 lines=lines,
                 output_private_notes=True,
             )
-
 
     def test_missing_tags_line(self):
         lines = [

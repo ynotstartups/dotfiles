@@ -505,7 +505,7 @@ g:no_python_maps = 1
 
 
 def g:ImportWordUnderCursor()
-py3 <<EOF
+python3 <<EOF
 from vim_python import get_import_path_given_word
 
 import_string = get_import_path_given_word(vim)
@@ -528,7 +528,7 @@ command! -nargs=0 ImportWord call g:ImportWordUnderCursor()
 autocmd FileType python nnoremap <buffer> <silent> <leader>i :call ImportWordUnderCursor()<cr>
 
 def g:JumpToTestFile()
-py3 << EOF
+python3 << EOF
 from vim_python import get_or_create_alternative_file
 
 # vim.eval("@%") gets the filepath in current buffer
@@ -542,7 +542,7 @@ enddef
 command! JumpToTestFile call g:JumpToTestFile()
 
 def g:JumpToTestFileSplit()
-py3 << EOF
+python3 << EOF
 from vim_python import get_or_create_alternative_file
 
 # vim.eval("@%") gets the filepath in current buffer
@@ -843,6 +843,8 @@ nnoremap <silent> ]z ]s
 # python functions and classes
 autocmd FileType python nnoremap [c <Plug>(PythonsenseStartOfPythonClass)
 autocmd FileType python nnoremap ]c <Plug>(PythonsenseStartOfNextPythonClass)
+autocmd FileType python nnoremap [d <Plug>(PythonsenseStartOfPythonFunction)
+autocmd FileType python nnoremap ]d <Plug>(PythonsenseStartOfNextPythonFunction)
 autocmd FileType python nnoremap [f <Plug>(PythonsenseStartOfPythonFunction)
 autocmd FileType python nnoremap ]f <Plug>(PythonsenseStartOfNextPythonFunction)
 
@@ -901,13 +903,39 @@ cnoremap \>s/ \>smagic/
 ###############
 
 def g:FormatTable()
-py3 <<EOF
+python3 <<EOF
 from vim_python import format_markdown_table
 format_markdown_table(vim)
 EOF
 enddef
 
 command! -nargs=0 FormatTable call g:FormatTable()
+
+def g:FormatToFactoryStyle(start_line_number: number, end_line_number: number ): any
+python3 <<EOF
+from vim_python import format_to_factory_style
+
+# use `partial` to pass `vim` as first argument
+# py3eval has no access to `vim` object
+from functools import partial
+_format_to_factory_style = partial(format_to_factory_style, vim)
+EOF
+
+# this is an example to pass vim function arguments into python function
+# see more https://github.com/vim/vim/pull/10594
+return py3eval(
+    '_format_to_factory_style(start_line_number, end_line_number)',
+    {
+        'start_line_number': start_line_number,
+        'end_line_number': end_line_number
+    }
+)
+enddef
+
+# see doc in vim_python format_to_factory_style
+# <line1>	The starting line of the command range.
+# <line2>	The final line of the command range.
+command! -range -nargs=0 FormatToFactoryStyle call g:FormatToFactoryStyle(<line1>, <line2>)
 
 ##################
 # Documentations #

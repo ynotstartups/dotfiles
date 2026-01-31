@@ -41,7 +41,11 @@ def print_deployment_summaries(environment: str, number_of_deployments: int):
             "--max-items",
             str(number_of_deployments),
             "--pipeline-name",
-            f"oneview-{environment}",
+            (
+                f"oneview-pipeline-{environment}"
+                if environment != "prod"
+                else f"oneview-{environment}"
+            ),
         ],
         capture_output=True,
     )
