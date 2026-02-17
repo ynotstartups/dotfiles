@@ -146,6 +146,7 @@ RECIPES = [
         "menu_subcategory": "羊",
         "instructions": [
             "小丑娃半包腌4个羊排 (每块羊排大概4g腌肉粉),腌越久越好",
+            "如果没有小丑娃可使用: 孜然,孜然粉,白芝麻,味精,盐,糖,花椒粉,胡椒粉",
             "热锅每边煎三分钟至金黄",
             "烤箱风扇180度烤10分钟",
         ],
@@ -747,6 +748,14 @@ RECIPES = [
         "title": "韩国拌饭",
         "menu_category": "主食",
         "image": "bibimbap.webp",
+    },
+    {
+        "title": "Ton Ka 海鲜汤河粉",
+        "menu_category": "主食",
+    },
+    {
+        "title": "酸菜牛肉粉",
+        "menu_category": "主食",
     },
     {
         "title": "炒米粉",
