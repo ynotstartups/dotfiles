@@ -371,7 +371,7 @@ def format_to_factory_style(
             new_line = new_line.replace("(", "Factory(").replace(")", "")
         else:
             # this simple logics removes the indentation at the front of the line logics
-            new_line = "".join(line.split(".")[1:])
+            new_line = "".join(line.split(".")[2:])
             new_line = indentation + new_line
             new_line += ","
             # closes the Factory class with ')'
