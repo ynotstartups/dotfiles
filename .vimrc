@@ -112,8 +112,9 @@ set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,spac
 
 syntax on
 set termguicolors
-set background=light
 colorscheme molokai
+# set background to the blackest possible to improve contrast
+highlight Normal guibg=#000000
 
 # make the single quote works like a backtick
 # puts the cursor on the column of a mark, instead of first non-blank
