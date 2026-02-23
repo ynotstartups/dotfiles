@@ -42,7 +42,6 @@ _logger.exception("foo", exc_info=True)
 # test GraphQL endpoint
 ```python
 from oneview.tests.graphql import AdminUserMixin, GraphqlTestCase
-from oneview.tests.model_mocks import TodoFactory
 
 class TestFoo(AdminUserMixin, GraphqlTestCase):
     def test_bar(self):
