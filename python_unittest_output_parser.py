@@ -2,10 +2,8 @@
 import re
 import sys
 
+FILE_LINE_RE = re.compile(r'^\s*File "(?P<file>.+?)", line (?P<line>\d+)(?:, in .+)?')
 
-FILE_LINE_RE = re.compile(
-    r'^\s*File "(?P<file>.+?)", line (?P<line>\d+)(?:, in .+)?'
-)
 
 def parse_unittest_output(stream):
     current_file = None
@@ -15,6 +13,7 @@ def parse_unittest_output(stream):
 
     for raw_line in stream:
         line = raw_line.rstrip("\n")
+        yield line
 
         if line.startswith("Traceback"):
             collecting_traceback = True
@@ -34,14 +33,14 @@ def parse_unittest_output(stream):
             if current_file and current_line and line and not line.startswith(" "):
                 file = current_file.replace("/app/backend", "saltus")
                 error_message = line.strip()
-                yield f"{file}:{current_line}:9: {error_message}"
+                with open("quickfix_test.vim", "a") as f:
+                    f.write(f"{file}:{current_line}:9: {error_message}")
                 collecting_traceback = False
 
 
 def main():
-    if sys.stdin.isatty():
-        print("Pipe unittest output into this script.")
-        sys.exit(1)
+    with open("quickfix_test.vim", "w") as f:
+        f.write("")
 
     for qf_line in parse_unittest_output(sys.stdin):
         print(qf_line)

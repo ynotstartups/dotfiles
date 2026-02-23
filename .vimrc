@@ -459,9 +459,10 @@ nnoremap <leader>eg :$tabedit ~/.gitconfig<cr>
 nnoremap <leader>ek :$tabedit ~/.config/kitty/kitty.conf<cr>
 nnoremap <leader>ep :$tabedit ~/Documents/dotfiles/language-reminders/python.md<cr>
 
-# helps `<leader>el` to read linting output saved in `saltus/quickfix.vim`
-set errorformat+=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+# helps `<leader>el` to read linting output saved in `quickfix.vim`
 nnoremap <leader>el :cfile quickfix.vim <bar> copen<cr><c-r><c-r>
+# helps `<leader>et` to read error output saved in `test_quickfix.vim`
+nnoremap <leader>et :cfile quickfix_test.vim <bar> copen<cr><c-r><c-r>
 
 def g:OpenLanguageReminderFile()
     var filetype = &filetype

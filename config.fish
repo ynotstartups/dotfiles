@@ -98,6 +98,7 @@ abbr fd_all_files 'fd --hidden --no-ignore'
 set PERSONAL_NOTES "$HOME/Documents/personal-notes/"
 set NOTES          "$HOME/Documents/notes/"
 set DOTFILES       "$HOME/Documents/dotfiles/"
+set ONEVIEW        "$HOME/Documents/oneview/"
 
 #######
 # git #
@@ -330,6 +331,7 @@ abbr ,fe ',pnpm_run_frontend'
 ##################
 
 abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow --timestamps django"
+abbr ,dc_logs_celery "docker compose --file docker-compose-dev.yml logs --follow --timestamps celery_worker"
 abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker compose --file docker-compose-dev.yml logs --follow --timestamps" 
@@ -344,17 +346,18 @@ function __fish_complete_aws
 end
 complete -c aws -f -a "(__fish_complete_aws)"
 
-abbr ,aws_space 'AWS_PROFILE=space aws'
-abbr ,aws_work 'aws'
-abbr ,aws_personal 'AWS_PROFILE=personal aws'
+abbr ,aws_sso_login "aws sso login"
+# abbr ,aws_space 'AWS_PROFILE=space aws'
+# abbr ,aws_work 'aws'
+# abbr ,aws_personal 'AWS_PROFILE=personal aws'
 
 ###########
 # scripts #
 ###########
 
+alias ,ssh "TERM=xterm-256color python3 $ONEVIEW/scripts/ssh.py" 
 alias ,jira "$DOTFILES/.venv/bin/python3 $DOTFILES/jira.py" 
 alias ,curo "$DOTFILES/.venv/bin/python3 $DOTFILES/curo.py" 
-alias ,ssh "TERM=xterm-256color $DOTFILES/.venv/bin/python3 $DOTFILES/ssh.py" 
 alias ,autogui "$DOTFILES/.venv/bin/python3 $DOTFILES/autogui.py"
 alias ,ai "$DOTFILES/.venv/bin/python3 $DOTFILES/ai.py"
 alias ,deployment "$DOTFILES/.venv/bin/python3 $DOTFILES/deployment.py"
@@ -396,17 +399,21 @@ alias tn_pdb "$POETRY_RUN_PREFIX python manage.py test --timing --pdb --keepdb -
 alias ta "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb --no-input --parallel --force-color"
 alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --no-input --parallel --force-color "
 
-function la --description 'lint all'
+function tk_quickfix --description 'test put result in quickfix' --argument-names testname
+    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 --interactive --tty \
+        oneview-django-1 poetry run python manage.py test --timing --keepdb -v 3 --force-color -k "$testname" | python3 ~/Documents/dotfiles/python_unittest_output_parser.py
+end
+
+
+function la --description 'lint all' 
     set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
     echo "" > quickfix.vim
-    echo '>>> Running black...'
-    docker exec oneview-django-1 poetry run black --no-color --quiet . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    echo '>>> Running flake8...'
-    docker exec oneview-django-1 poetry run flake8 --color never . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    echo '>>> Running ruff lint with fix...'
+    docker exec oneview-django-1 poetry run ruff format --output-format concise --quiet 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+    echo '>>> Running ruff format...'
+    docker exec oneview-django-1 poetry run ruff check --fix --output-format concise --quiet 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
     echo '>>> Running mypy...'
     docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    echo '>>> Running isort...'
-    docker exec oneview-django-1 poetry run isort --quiet . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
 end
 
 function lamypy --description 'lint all mypy only'
@@ -414,19 +421,4 @@ function lamypy --description 'lint all mypy only'
     echo "" > quickfix.vim
     echo '>>> Running mypy...'
     docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-end
-
-function ld --description 'lint diff'
-    set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
-    set git_diff_files $(git diff --name-only '*.py' | sed 's;saltus/;;1')
-    test (count $git_diff_files) -eq 0; and echo "No changed files."; and return
-    echo '' > quickfix.vim
-    # echo ">>> Running black on $git_diff_files"
-    # docker exec oneview-django-1 poetry run black --no-color --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    # echo ">>> Running flake8 on $git_diff_files"
-    # docker exec oneview-django-1 poetry run flake8 --color never $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    echo ">>> Running mypy on $git_diff_files"
-    docker exec oneview-django-1 poetry run mypy $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    # echo ">>> Running isort on $git_diff_files"
-    # docker exec oneview-django-1 poetry run isort --quiet $git_diff_files 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
 end
