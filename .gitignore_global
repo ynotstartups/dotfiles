@@ -16,5 +16,4 @@ __pycache__
 
 # vim
 quickfix.vim
-temp_quickfix.vim
-Session.vim
+quickfix_test.vim
