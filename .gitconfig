@@ -68,6 +68,7 @@
 [user]
 	email = ynotstartups@gmail.com
 	name = ynotstartups
+	signingkey = 3288C713EFF3A076
 [init]
 	defaultBranch = main
 [core]
@@ -75,6 +76,7 @@
     pager = delta
 [commit]
 	verbose = true
+	gpgsign = true
 [pager]
 	branch = false
 [rerere]
@@ -130,3 +132,5 @@
     xfuncname = "^#.*#$"
 [advice]
 	skippedCherryPicks = false
+[tag]
+	gpgSign = true
