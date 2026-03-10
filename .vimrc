@@ -802,6 +802,10 @@ g:caser_no_mappings = 1
 # change to class casing FooBarBaz
 nnoremap gsc <Plug>CaserMixedCase
 
+# change to snake casing fooBarBaz
+nnoremap gss <Plug>CaserCamelCase
+
+# change to class casing foo bar baz
 nnoremap gs<space> <Plug>CaserSpaceCase
 
 # change to variable casing foo_bar_baz
