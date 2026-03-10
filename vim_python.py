@@ -88,6 +88,8 @@ def get_or_create_alternative_file(filepath: str) -> None:
 
 package_and_word = {
     "abc": ["ABC", "abstractmethod"],
+    "base64": [],
+    "binascii": [],
     "collections": ["Counter", "defaultdict"],
     "copy": ["copy", "deepcopy"],
     "dataclasses": ["asdict", "dataclass"],
