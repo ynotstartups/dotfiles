@@ -383,7 +383,7 @@ alias npm 'pnpm'
 # saltus #
 ##########
 
-set POETRY_RUN_PREFIX "docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 --interactive --tty oneview-django-1 poetry run"
+set POETRY_RUN_PREFIX "docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run"
 
 alias django-admin "$POETRY_RUN_PREFIX python manage.py"
 alias django-admin-showmigrations "$POETRY_RUN_PREFIX python manage.py showmigrations"
@@ -422,3 +422,9 @@ function lamypy --description 'lint all mypy only'
     echo '>>> Running mypy...'
     docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
 end
+
+#######
+# gpg #
+#######
+
+set -gx GPG_TTY (tty)
