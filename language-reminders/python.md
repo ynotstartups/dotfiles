@@ -30,13 +30,24 @@ if __name__ == "__main__":
     main()
 ```
 
+# time code
+
+```
+import time
+from datetime import timedelta
+start_time = time.monotonic()
+
+end_time = time.monotonic()
+print(timedelta(seconds=end_time - start_time))
+```
+
 # add logger
 
 ```python
 import logging
 _logger = logging.getLogger(__name__)
 _logger.error("foo", exc_info=True)
-_logger.exception("foo", exc_info=True)
+_logger.exception("foo")
 ```
 
 # test GraphQL endpoint
@@ -70,8 +81,14 @@ class TestFoo(AdminUserMixin, GraphqlTestCase):
         )
 
         self.assertIsNone(response.errors)
+        self.assertEqual(response.data["fooBar"]["errors"], None) # None might be []
         self.assertTrue(response.data["fooBar"]["ok"])
 ```
+Note: assertEqual `errors` first to see the possible error string.
+
+Note: to see the real python error when `response.errors` is not None,
+do this `raise response.errors[0].original_error`!
+See https://graphql-core-3.readthedocs.io/en/latest/modules/error.html#graphql.error.GraphQLError.original_error
 
 # django test class
 ```python
