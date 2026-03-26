@@ -346,10 +346,7 @@ function __fish_complete_aws
 end
 complete -c aws -f -a "(__fish_complete_aws)"
 
-abbr ,aws_sso_login "aws sso login"
-# abbr ,aws_space 'AWS_PROFILE=space aws'
-# abbr ,aws_work 'aws'
-# abbr ,aws_personal 'AWS_PROFILE=personal aws'
+abbr ,aws_sso_login_restart_containers "aws sso login && docker restart oneview-django-1 && docker restart oneview-celery-1"
 
 ###########
 # scripts #

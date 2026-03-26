@@ -43,16 +43,6 @@ def _file_exists(filepath: str) -> bool:
 
 
 def get_alternative_filepath(filepath: str) -> str:
-    # from "saltus/oneview/tests/graphql/test_fee.py"
-    # to "saltus/oneview/graphql/api/fee.py"
-    if "graphql" in filepath and "test_" in filepath:
-        source_filepath = filepath.replace("test_", "").replace("tests/", "")
-        splitted_filepath = source_filepath.split("/")
-        splitted_filepath.insert(-1, "api")
-        result_source_filepath = "/".join(splitted_filepath)
-        if _file_exists(result_source_filepath):
-            return result_source_filepath
-
     if "test_" in filepath.split("/")[-1]:
         # convert test filepath to filepath
         return filepath.replace("test_", "").replace("tests/", "")
@@ -68,13 +58,6 @@ def get_alternative_filepath(filepath: str) -> str:
     splitted_filepath.insert(2, "tests")
     splitted_filepath[-1] = f"test_{splitted_filepath[-1]}"
     result_filepath = "/".join(splitted_filepath)
-
-    # from "saltus/oneview/graphql/api/fee.py"
-    # to "saltus/oneview/tests/graphql/test_fee.py"
-    result_filepath_without_api_folder = result_filepath.replace("api/", "")
-    if _file_exists(result_filepath_without_api_folder):
-        return result_filepath_without_api_folder
-
     return result_filepath
 
 
