@@ -324,6 +324,14 @@ function ,pnpm_run_frontend
     cd ~/Documents/oneview/reactapp
     pnpm start
 end
+function ,pnpm_run_lint
+    cd ~/Documents/oneview/reactapp
+    pnpm run lint
+end
+function ,pnpm_run_test
+    cd ~/Documents/oneview/reactapp
+    pnpm run test
+end
 abbr ,fe ',pnpm_run_frontend'
 
 ##################
