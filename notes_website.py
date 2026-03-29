@@ -24,7 +24,6 @@ DOCUMENT_TYPES = [
     "reference",
     "how_to",
     "explanation",
-    "til",
 ]
 # topics in html will follow this order
 TOPICS = [
