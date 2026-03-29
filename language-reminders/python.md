@@ -58,11 +58,11 @@ class TestFoo(AdminUserMixin, GraphqlTestCase):
     def test_bar(self):
         query = """
             mutation query(
-                $todoTodo: ID!,
+                $todoTodo: ID!
             ) {
                 todoTodo(
-                    todoTodo: $todoTodo,
-                    todoTodo: $todoTodo,
+                    todoTodo: $todoTodo
+                    todoTodo: $todoTodo
                 ) {
                     ok
                     errors
