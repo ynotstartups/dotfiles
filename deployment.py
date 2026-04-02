@@ -66,7 +66,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "environment",
-        choices=["prod", "uat", "test", "test2", "test3"],
+        choices=["prod", "uat", "test", "test2", "test3", "test4"],
         help="oneview environment",
     )
     parser.add_argument(
