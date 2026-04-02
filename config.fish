@@ -45,7 +45,7 @@ end
 
 set -g fish_key_bindings fish_hybrid_key_bindings
 
-set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $PATH
+set PATH /opt/homebrew/bin /usr/local/bin /usr/sbin $HOME/.local/bin $PATH
 
 abbr e 'exit'
 # long list with time format like 2024-03-14 11:58:06
@@ -367,7 +367,6 @@ alias ,autogui "$DOTFILES/.venv/bin/python3 $DOTFILES/autogui.py"
 alias ,ai "$DOTFILES/.venv/bin/python3 $DOTFILES/ai.py"
 alias ,deployment "$DOTFILES/.venv/bin/python3 $DOTFILES/deployment.py"
 alias ,json "python3 -m json"
-alias ,calendar "python3 -m calendar"
 
 function ,doc --argument-names query
     open "https://devdocs.io/?q=$query"
@@ -433,3 +432,17 @@ end
 #######
 
 set -gx GPG_TTY (tty)
+
+##########
+# claude #
+##########
+
+function ,claude_pull_request_review_last_commit
+    echo (cat "$DOTFILES/notes_website_output/work_reference_README_WORK.html") \
+         (git log -1) |\
+              claude --print --model 'opus' --effort 'max' \
+                  --system-prompt "you are a django pyhon dev doing code review, you should say which Anthropic-schema tools you used in the output." \
+                  'based on this reminder, can you do a PR review for me?' 
+end
+
+alias ,c "claude --print" 
