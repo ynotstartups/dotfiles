@@ -80,9 +80,9 @@ class TestFoo(AdminUserMixin, GraphqlTestCase):
             context_value=self.admin_context,
         )
 
-        self.assertIsNone(response.errors)
+        self.assertEqual(response.errors, None)
         self.assertEqual(response.data["fooBar"]["errors"], None) # None might be []
-        self.assertTrue(response.data["fooBar"]["ok"])
+        self.assertEqual(response.data["fooBar"]["ok"], True)
 ```
 Note: assertEqual `errors` first to see the possible error string.
 
