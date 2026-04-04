@@ -274,6 +274,10 @@ RECIPES = [
     },
     # 海鲜类
     {
+        "title": "鱼蓉粥",
+        "menu_category": "海鲜类",
+    },
+    {
         "title": "广式蒸鱼",
         "menu_category": "海鲜类",
         "image": "steam-fish.webp",
@@ -489,6 +493,11 @@ RECIPES = [
         ],
     },
     # 酱汁类
+    {
+        "title": "重庆火锅底料",
+        "menu_category": "酱汁类",
+        "instructions": ["炒料配方： 油加热  干辣椒花椒蒜姜爆香 然后放入料包中火熬化 然后烧热水倒入 爆香之后放入葱段和番茄片 提鲜 ➕1 or 2 只🦐 可以提鲜味 "],
+    },
     {
         "title": "鱼香酱",
         "menu_category": "酱汁类",
@@ -724,6 +733,13 @@ RECIPES = [
     },
     # 主食
     {
+        "title": "手工饺子",
+        "menu_category": "主食",
+        "instructions": [
+            "饺子馅: 虾,木耳,香菇,鸡蛋",
+        ],
+    },
+    {
         "title": "馒头",
         "menu_category": "点心",
         "instructions": [
@@ -805,10 +821,6 @@ RECIPES = [
             "no need for kneading or waiting",
             "fold and pass through pasta machine about 10 times until smooth",
         ],
-    },
-    {
-        "title": "手工饺子",
-        "menu_category": "主食",
     },
     {
         "title": "手工包子",
