@@ -427,6 +427,10 @@ function lamypy --description 'lint all mypy only'
     docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
 end
 
+function ,gh_pr_description_update_with_commit_message --description "Push last commit message to current GitHub PR description"                                                                                            
+    git log -1 --pretty=%B | gh pr edit --body-file -
+end
+
 #######
 # gpg #
 #######
@@ -437,12 +441,11 @@ set -gx GPG_TTY (tty)
 # claude #
 ##########
 
-function ,claude_pull_request_review_last_commit
-    echo (cat "$DOTFILES/notes_website_output/work_reference_README_WORK.html") \
-         (git log -1) |\
-              claude --print --model 'opus' --effort 'max' \
-                  --system-prompt "you are a django pyhon dev doing code review, you should say which Anthropic-schema tools you used in the output." \
-                  'based on this reminder, can you do a PR review for me?' 
-end
+alias claude "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
 
-alias ,c "claude --print" 
+function ,c
+    # TODO: store the output file in a hidden directory! .claude-personal/datetime.md
+    # allow for resume previous conversation too
+    claude --print $argv > test.md
+    bat --language md --terminal-width 80 --style plain --pager '/usr/bin/less' test.md
+end
