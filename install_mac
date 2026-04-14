@@ -52,3 +52,5 @@ ln -s -v -F "$PWD"/ipython_config.py "$HOME"/.ipython/profile_default/ipython_co
 ln -s -v -F "$PWD"/kitty.conf "$HOME"/.config/kitty/kitty.conf
 
 ln -s -v -F "$PWD"/gpg-agent.conf "$HOME"/.gnupg/gpg-agent.conf
+
+ln -s -v -F "$PWD"/claude_settings.json "$HOME"/.claude/settings.json
