@@ -231,11 +231,14 @@ g:no_markdown_maps = 1
 autocmd FileType markdown set conceallevel=2
 
 autocmd FileType markdown set colorcolumn=80
+autocmd FileType gitcommit set textwidth=78
 autocmd FileType markdown set textwidth=78
+autocmd FileType gitcommit set textwidth=78
 autocmd BufRead,BufNewFile */personal-notes/* set textwidth=0
 
 # hack: uses `>` to act as comments so that I can use gq to format it
 autocmd FileType markdown setlocal comments=:>
+autocmd FileType gitcommit setlocal comments=:>
 # r: Automatically insert the current comment leader after hitting <Enter> in
 # Insert mode.
 # o: Automatically insert the current comment leader after hitting 'o' or 'O'
@@ -247,15 +250,20 @@ autocmd FileType markdown setlocal comments=:>
 # n: gq to format list e.g. - , using formatlistpat below
 # t: Auto-wrap text using 'textwidth'
 autocmd FileType markdown setlocal formatoptions=rojcqnt
+autocmd FileType gitcommit setlocal formatoptions=rojcqnt
 # pattern for list e.g. - 
 # explanation: each \ needs to becomes \\ so patten '^\\s*[-]\\s' is actually '^\s*[-]\s'
 autocmd FileType markdown setlocal formatlistpat=^\\s*[-]\\s
+autocmd FileType gitcommit setlocal formatlistpat=^\\s*[-]\\s
 # pattern for todo list e.g. + [ ]
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]\\s[]]\\s
+autocmd FileType gitcommit setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]\\s[]]\\s
 # pattern for completed todo list e.g. + [x]
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]x[]]\\s
+autocmd FileType gitcommit setlocal formatlistpat+=\\\|^\\s*[+]\\s[[]x[]]\\s
 # pattern for number list e.g. 1. 
 autocmd FileType markdown setlocal formatlistpat+=\\\|^\\s*\\d\\+[.]\\s
+autocmd FileType gitcommit setlocal formatlistpat+=\\\|^\\s*\\d\\+[.]\\s
 
 # don't hide/conceal code blocks
 g:vim_markdown_conceal_code_blocks = 0
