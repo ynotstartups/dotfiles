@@ -400,8 +400,8 @@ alias tk_profile "$POETRY_RUN_PREFIX python -m cProfile -o stats manage.py test 
 # run all tests for a file such as `foo.py`
 alias tn "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb -v 3 --force-color -p"
 alias tn_pdb "$POETRY_RUN_PREFIX python manage.py test --timing --pdb --keepdb -v 3 --force-color -p"
-alias ta "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb --no-input --parallel --force-color"
-alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --no-input --parallel --force-color "
+alias ta "$POETRY_RUN_PREFIX python manage.py test --keepdb --no-input --parallel --force-color --exclude-tag=slow"
+alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --no-input --parallel --force-color --exclude-tag=slow"
 
 function tk_quickfix --description 'test put result in quickfix' --argument-names testname
     docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 --interactive --tty \
@@ -409,18 +409,16 @@ function tk_quickfix --description 'test put result in quickfix' --argument-name
 end
 
 
-function la --description 'lint all' 
+function la --description 'lint all without mypy, use la_mypy for mypy' 
     set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
     echo "" > quickfix.vim
     echo '>>> Running ruff lint with fix...'
     docker exec oneview-django-1 poetry run ruff format --output-format concise --quiet 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
     echo '>>> Running ruff format...'
     docker exec oneview-django-1 poetry run ruff check --fix --output-format concise --quiet 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    echo '>>> Running mypy...'
-    docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
 end
 
-function lamypy --description 'lint all mypy only'
+function la_mypy --description 'lint all mypy only'
     set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
     echo "" > quickfix.vim
     echo '>>> Running mypy...'
@@ -441,6 +439,7 @@ set -gx GPG_TTY (tty)
 # claude #
 ##########
 
+alias c "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
 alias claude "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
 
 function ,c
