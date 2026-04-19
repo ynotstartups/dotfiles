@@ -5,5 +5,8 @@
       "Thinking"
     ]
   },
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true
+  }
 }
