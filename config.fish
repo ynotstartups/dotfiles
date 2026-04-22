@@ -408,17 +408,9 @@ function tk_quickfix --description 'test put result in quickfix' --argument-name
         oneview-django-1 poetry run python manage.py test --timing --keepdb -v 3 --force-color -k "$testname" | python3 ~/Documents/dotfiles/python_unittest_output_parser.py
 end
 
+alias la "/opt/homebrew/bin/python3 /Users/yuhao.huang/Documents/dotfiles/lint.py"
 
-function la --description 'lint all without mypy, use la_mypy for mypy' 
-    set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
-    echo "" > quickfix.vim
-    echo '>>> Running ruff lint with fix...'
-    docker exec oneview-django-1 poetry run ruff format --output-format concise --quiet 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-    echo '>>> Running ruff format...'
-    docker exec oneview-django-1 poetry run ruff check --fix --output-format concise --quiet 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
-end
-
-function la_mypy --description 'lint all mypy only'
+function lamypy --description 'lint all mypy only'
     set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
     echo "" > quickfix.vim
     echo '>>> Running mypy...'

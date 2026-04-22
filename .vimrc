@@ -380,7 +380,21 @@ def g:OpenCurrentFileInNewTabInSameLine()
     set nolazyredraw
 enddef
 
-nnoremap <leader>t :call g:OpenCurrentFileInNewTabInSameLine()<cr>
+def g:RunTestCase(prefix_string: string)
+  var word = GetWordAfterPrefix(prefix_string)
+  echom 'Running test' word
+  call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tk {word} \\n")
+enddef
+
+def g:RunTestFile()
+  var filename = expand("%:t")
+  echom 'Running test file' filename
+  call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tn {filename} \\n")
+enddef
+
+nnoremap <leader>uf :call g:RunTestCase("def")<cr>
+nnoremap <leader>uc :call g:RunTestCase("^class")<cr>
+nnoremap <leader>un :call g:RunTestFile()<cr>
 
 # By default, L, H are just jump to bottom or top of screen, not very useful
 # so remaps L to go to next tab, H to go to previous tab
@@ -442,6 +456,16 @@ command! -nargs=* Rg g:fzf#vim#grep($"rg --column --line-number --no-heading --c
 
 # disable fzf preview
 g:fzf_preview_window = []
+
+#################
+# lint commands #
+#################
+
+command! -nargs=* L     call system("/opt/homebrew/bin/python3 /Users/yuhao.huang/Documents/dotfiles/lint.py") | cfile quickfix.vim | copen
+command! -nargs=* LMYPY call system("/opt/homebrew/bin/fish /Users/yuhao.huang/Documents/dotfiles/lamypy.fish") | cfile quickfix.vim | copen
+command! -nargs=1 TK    call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tk {<q-args>} \\n")
+command! -nargs=1 TN    call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tn {<q-args>} \\n")
+
 
 ################
 # Git Fugitive #
