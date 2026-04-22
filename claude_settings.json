@@ -1,4 +1,7 @@
 {
+  "enabledPlugins": {
+    "code-review@claude-plugins-official": true
+  },
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -6,7 +9,5 @@
     ]
   },
   "skipDangerousModePermissionPrompt": true,
-  "enabledPlugins": {
-    "code-review@claude-plugins-official": true
-  }
+  "skipAutoPermissionPrompt": true
 }
