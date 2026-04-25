@@ -31,6 +31,10 @@ brew install tree
 
 brew install 1password-cli
 
+brew install terminal-notifier
+
+brew install watchexec
+
 ln -s -v -F "$PWD"/.vimrc "$HOME"/.vimrc
 
 ln -s -v -F "$PWD"/.gitconfig "$HOME"/.gitconfig
