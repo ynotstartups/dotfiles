@@ -463,11 +463,12 @@ g:fzf_preview_window = []
 # lint commands #
 #################
 
-command! -nargs=* L     call system("/opt/homebrew/bin/python3 /Users/yuhao.huang/Documents/dotfiles/lint.py") | cfile quickfix.vim | copen
-command! -nargs=* LMYPY call system("/opt/homebrew/bin/fish /Users/yuhao.huang/Documents/dotfiles/lamypy.fish") | cfile quickfix.vim | copen
-command! -nargs=1 TK    call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tk {<q-args>} \\n")
-command! -nargs=1 TN    call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tn {<q-args>} \\n")
+# command! -nargs=* L     call system("/opt/homebrew/bin/python3 /Users/yuhao.huang/Documents/dotfiles/lint.py") | cfile quickfix.vim | copen
+# nnoremap <leader>l :L<cr>
 
+# command! -nargs=* LMYPY call system("/opt/homebrew/bin/fish /Users/yuhao.huang/Documents/dotfiles/lamypy.fish") | cfile quickfix.vim | copen
+# command! -nargs=1 TK    call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tk {<q-args>} \\n")
+# command! -nargs=1 TN    call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tn {<q-args>} \\n")
 
 ################
 # Git Fugitive #
