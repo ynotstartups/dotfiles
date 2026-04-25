@@ -393,28 +393,95 @@ alias django-admin "$POETRY_RUN_PREFIX python manage.py"
 alias django-admin-showmigrations "$POETRY_RUN_PREFIX python manage.py showmigrations"
 alias django-admin-migrate-oneview "$POETRY_RUN_PREFIX python manage.py migrate oneview"
 
-alias tk "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb -v 3 --force-color -k"
-alias tk_pdb "$POETRY_RUN_PREFIX python manage.py test --pdb --timing --keepdb -v 3 --force-color -k"
-alias tk_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --pdb --no-input -v 3 --force-color -k"
-alias tk_profile "$POETRY_RUN_PREFIX python -m cProfile -o stats manage.py test --timing --keepdb -v 3 --force-color -k"
+# alias tk "$POETRY_RUN_PREFIX python manage.py test --keepdb -v 3 --force-color -k"
+alias tk_pdb "$POETRY_RUN_PREFIX python manage.py test --pdb --keepdb -v 3 --force-color -k"
+alias tk_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --pdb --no-input -v 3 --force-color -k"
+alias tk_profile "$POETRY_RUN_PREFIX python -m cProfile -o stats manage.py test --keepdb -v 3 --force-color -k"
 # run all tests for a file such as `foo.py`
-alias tn "$POETRY_RUN_PREFIX python manage.py test --timing --keepdb -v 3 --force-color -p"
-alias tn_pdb "$POETRY_RUN_PREFIX python manage.py test --timing --pdb --keepdb -v 3 --force-color -p"
+# alias tn "$POETRY_RUN_PREFIX python manage.py test --keepdb -v 3 --force-color -p"
+alias tn_pdb "$POETRY_RUN_PREFIX python manage.py test --pdb --keepdb -v 3 --force-color -p"
 alias ta "$POETRY_RUN_PREFIX python manage.py test --keepdb --no-input --parallel --force-color --exclude-tag=slow"
-alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --timing --no-input --parallel --force-color --exclude-tag=slow"
+alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --no-input --parallel --force-color --exclude-tag=slow"
+
+function tk
+    # run tests, capture output
+    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run python manage.py test --keepdb -v 3 --force-color -k $argv
+
+    if test $status -eq 0
+        terminal-notifier \
+            -title "✅" \
+            -message "Tests pass." \
+            -group "unittests"
+    else
+        terminal-notifier \
+            -title "❌" \
+            -message "Tests fail." \
+            -sound default \
+            -group "unittests"
+    end
+    return $status
+end
+
+function tn
+    # run tests, capture output
+    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run python manage.py test --timing --keepdb -v 3 --force-color -p $argv
+
+    if test $status -eq 0
+        terminal-notifier \
+            -title "✅" \
+            -message "Tests Pass." \
+            -group "unittests"
+    else
+        terminal-notifier \
+            -title "❌" \
+            -message "Tests Fail" \
+            -sound default \
+            -group "unittests"
+    end
+    return $status
+end
+
 
 function tk_quickfix --description 'test put result in quickfix' --argument-names testname
     docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 --interactive --tty \
         oneview-django-1 poetry run python manage.py test --timing --keepdb -v 3 --force-color -k "$testname" | python3 ~/Documents/dotfiles/python_unittest_output_parser.py
 end
 
-alias la "/opt/homebrew/bin/python3 /Users/yuhao.huang/Documents/dotfiles/lint.py"
+function la 
+    /opt/homebrew/bin/python3 /Users/yuhao.huang/Documents/dotfiles/lint.py
+
+    if test $status -eq 0
+        terminal-notifier \
+            -title "✅" \
+            -message "Lint all Pass" \
+            -group "lint"
+    else
+        terminal-notifier \
+            -title "❌" \
+            -message "Lint all Fail" \
+            -sound default \
+            -group "lint"
+    end
+end
 
 function lamypy --description 'lint all mypy only'
     set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
     echo "" > quickfix.vim
     echo '>>> Running mypy...'
     docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+
+    if test $pipestatus[1] -eq 0
+        terminal-notifier \
+            -title "✅" \
+            -message "Mypy Pass" \
+            -group "mypy"
+    else
+        terminal-notifier \
+            -title "❌" \
+            -message "Mypy Fail" \
+            -sound default \
+            -group "mypy"
+    end
 end
 
 function ,gh_pr_description_update_with_commit_message --description "Push last commit message to current GitHub PR description"                                                                                            
@@ -431,12 +498,60 @@ set -gx GPG_TTY (tty)
 # claude #
 ##########
 
-alias c "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
-alias claude "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
+alias ,c "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
+alias ,claude "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
+function ,c_quick_review_changes
+    claude --print 'Please QUICKLY review code changes from git diff, if there is no diff, review last commit' > /tmp/c_quick_review_changes.md
+    bat --language md --terminal-width 80 --style plain --pager '/usr/bin/less' /tmp/c_quick_review_changes.md
+end
 
-function ,c
+function ,c_print_bat
     # TODO: store the output file in a hidden directory! .claude-personal/datetime.md
     # allow for resume previous conversation too
     claude --print $argv > test.md
     bat --language md --terminal-width 80 --style plain --pager '/usr/bin/less' test.md
+end
+
+#########
+# kitty #
+#########
+
+#ce6a6b, #f07173 (muted red)
+#ebaca2, #ffc9c2 (light peach)
+#bed3c3, #d9efe0 (soft green)
+#4a919e, #6fc2d0 (cyan)
+#212e53, #3a4f85 (dark navy)
+
+function ,setup_vim_tab
+    kitten @ set-tab-title vim
+    # cyan
+    kitten @ set-tab-color inactive_bg=#4a919e active_bg=#6fc2d0
+end
+
+function ,setup_lint_test_tab
+    # Sets up two horizonal tabs
+    # Top tab
+    #   - ruff lint   watch in foreground
+    #   - ruff format watch in background
+    # Bottom tab
+    #   - tab with title runtest, in vim use <leader>u to trigger tests to run
+    cd $ONEVIEW
+    kitten @ set-tab-title lint_test
+    # light peach
+    kitten @ set-tab-color inactive_bg=#ebaca2 active_bg=#ffc9c2
+
+    kitten @ launch --type=window --title runtest --keep-focus
+    kitten @ resize-window --self --axis vertical --increment -8
+
+    # format
+    watchexec --shell=none -e py --quiet -- docker exec -t oneview-django-1 poetry run ruff format &
+    # lint with autofix
+    watchexec --shell=none -e py --quiet -- python3 "$DOTFILES/lint.py"
+end
+
+function ,setup_la_lamypy_ta
+    kitten @ set-tab-title pre_pr_check
+    kitten @ launch --type=window --keep-focus fish -c "la; exec $SHELL"
+    kitten @ launch --type=window --keep-focus fish -c "lamypy; exec $SHELL"
+    ta
 end
