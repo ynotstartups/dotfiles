@@ -49,6 +49,20 @@ def main():
             file.write(quickfix_line + "\n")
             print(quickfix_line)
 
+    print(">>> Running mypy ...")
+    command = "docker exec oneview-django-1 poetry run mypy --show-column-numbers --no-error-summary ."
+    result = subprocess.run(
+        command.split(' '),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    with open(QUICKFIX_FILE, "a") as file:
+        for line in result.stdout.split('/n'):
+            error_message = line.replace('oneview/', './saltus/oneview/')
+            file.write(error_message)
+            print(error_message)
+
     sys.exit(result.returncode)
 
 if __name__ == "__main__":
