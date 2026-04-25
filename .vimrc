@@ -371,6 +371,8 @@ autocmd BufReadPost *
 # tab #
 #######
 
+nnoremap <leader>t :call g:OpenCurrentFileInNewTabInSameLine()<cr>
+
 def g:OpenCurrentFileInNewTabInSameLine()
     set lazyredraw
     # open current file in new tab position after the last tab
