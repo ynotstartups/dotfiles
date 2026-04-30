@@ -25,6 +25,8 @@ if __name__ == "__main__":
             "t4a_transferreason",
             "systemuser",
             "lead",
+            "task",
+            "t4a_curorecommendation",
         ],
         help="curo entity name",
     )

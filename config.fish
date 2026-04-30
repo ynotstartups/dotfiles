@@ -15,10 +15,52 @@ function fish_hybrid_key_bindings --description \
 end
 set -g fish_key_bindings fish_hybrid_key_bindings
 
+function __fish_print_pipestatus_tiger --description "Print pipestatus for prompt"
+    # Tiger changes
+    # show status 0 too
+    # different to https://github.com/fish-shell/fish-shell/blob/master/share/functions/__fish_print_pipestatus.fish
+    set -l last_status
+    if set -q __fish_last_status
+        set last_status $__fish_last_status
+    else
+        set last_status $argv[-1] # default to $pipestatus[-1]
+    end
+    set -l left_brace $argv[1]
+    set -l right_brace $argv[2]
+    set -l separator $argv[3]
+    set -l brace_sep_color $argv[4]
+    set -l status_color $argv[5]
+
+    set -e argv[1 2 3 4 5]
+
+    if not set -q argv[1]
+        echo error: missing argument >&2
+        status print-stack-trace >&2
+        return 1
+    end
+
+    # Only print status codes if the job failed.
+    # SIGPIPE (141 = 128 + 13) is usually not a failure, see #6375.
+    if not contains $last_status 141
+        set -l sep $brace_sep_color$separator$status_color
+        set -l last_pipestatus_string (fish_status_to_signal $argv | string join "$sep")
+        set -l last_status_string ""
+        if test "$last_status" -ne "$argv[-1]"
+            set last_status_string " "$status_color$last_status
+        end
+        set -l normal (set_color normal)
+        # The "normal"s are to reset modifiers like bold - see #7771.
+        printf "%s" $normal $brace_sep_color $left_brace \
+            $status_color $last_pipestatus_string \
+            $normal $brace_sep_color $right_brace $normal $last_status_string $normal
+    end
+end
+
 function fish_prompt --description 'Informative prompt'
     #Save the return status of the previous command
     set -l last_pipestatus $pipestatus
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
+
     set --global __fish_git_prompt_show_informative_status yes
     set --global __fish_git_prompt_showdirtystate yes
     set --global __fish_git_prompt_showupstream auto
@@ -32,13 +74,21 @@ function fish_prompt --description 'Informative prompt'
     else
         set -l status_color (set_color $fish_color_status)
         set -l statusb_color (set_color --bold $fish_color_status)
-        set -l pipestatus_string (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
+        set -l pipestatus_string (__fish_print_pipestatus_tiger " Return Code [" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
 
-        printf '[%s] %s%s %s%s%s%s \n> ' \
+        jobs >/dev/null 2>&1 ; set jobs_return_code $status
+        if test $jobs_return_code -eq 0
+            set jobs_status '(has background job)'
+        else
+            set jobs_status ''
+        end
+
+        printf '[%s] %s%s %s%s%s%s%s\n> ' \
             (date "+%H:%M:%S") \
             (set_color $fish_color_cwd) $PWD  \
             (set_color white) (fish_git_prompt) \
             $pipestatus_string \
+            $jobs_status \
             (set_color normal)
     end
 end
@@ -106,11 +156,14 @@ set ONEVIEW        "$HOME/Documents/oneview/"
 
 abbr ,gh_pr_view 'gh pr view --web'
 function ,gh_pr_create 
-    gh pr create --base development --draft --fill-verbose --body-file ~/Documents/personal-notes/pull_request_template.md 
+    gh pr create --base development --draft --fill-verbose 
 end
 function ,gh_ci_backend_open_in_browser
     set link $(gh pr checks --json 'workflow' --json 'link' | jq '.' | grep 'backend' -C 1 | grep 'link' | grep -o 'http[^"]*')
     open $link
+end
+function ,gh_pr_description_update_with_commit_message --description "Push last commit message to current GitHub PR description"
+    git log -1 --pretty=%B | gh pr edit --body-file -
 end
 
 abbr g 'git'
@@ -129,9 +182,15 @@ abbr gd 'git diff'
 #  prep/prod
 #  prep/uat
 #* ON-5561-add-test-for-get_aws_credentials
-abbr ,gdelete_branches 'git branch | grep -v -e "*" -e " main" -e " development" -e " master" -e " env/" -e " prep/" | xargs git branch -D'
+abbr ,g_delete_branches 'git branch | grep -v -e "*" -e " main" -e " development" -e " master" -e " env/" -e " prep/" | xargs git branch -D'
 
-abbr ,gdisable_hooks 'git config core.hooksPath /dev/null'
+function ,g_new_branch --argument-names branch_name
+    git switch $GIT_BASE_BRANCH
+    git pull
+    git switch -c "$branch_name"
+end
+
+abbr ,g_disable_hooks 'git config core.hooksPath /dev/null'
 
 abbr ,g_template_disable 'git config --local commit.template "/dev/null"'
 abbr ,g_template_enable 'git config --local --unset commit.template'
@@ -144,16 +203,6 @@ function ,gs_notes
         echo ""
     end
 end
-
-#########
-# MacOS #
-#########
-
-abbr ,hardcopy 'lpr -o Resolution=720x720dpi'
-abbr ,hardcopy_normal_quality 'lpr -o Resolution=360x360dpi'
-abbr ,hardcopy_10_graph_papers 'lpr -o Resolution=360x360dpi -# 10 ~/Documents/dotfiles/a4-graph.pdf'
-abbr ,hardcopy_10_standup_papers 'lpr -o Resolution=360x360dpi -# 10 ~/Documents/dotfiles/a4-graph-standup-hardcopy.pdf'
-
 
 ######
 # rg #
@@ -224,7 +273,6 @@ abbr ,ed "vim $PERSONAL_NOTES/dev_notes.md"
 abbr ,ef "vim $DOTFILES/config.fish"
 abbr ,eg "vim $DOTFILES/.gitconfig"
 abbr ,ek "vim $DOTFILES/kitty.conf"
-abbr ,em "vim ~/Documents/menu/app.py"
 abbr ,ep "vim $DOTFILES/language-reminders/python.md"
 abbr ,ev "vim $DOTFILES/.vimrc"
 
@@ -364,14 +412,11 @@ alias ,ssh "TERM=xterm-256color python3 $ONEVIEW/scripts/ssh.py"
 alias ,jira "$DOTFILES/.venv/bin/python3 $DOTFILES/jira.py" 
 alias ,curo "$DOTFILES/.venv/bin/python3 $DOTFILES/curo.py" 
 alias ,autogui "$DOTFILES/.venv/bin/python3 $DOTFILES/autogui.py"
-alias ,ai "$DOTFILES/.venv/bin/python3 $DOTFILES/ai.py"
 alias ,deployment "$DOTFILES/.venv/bin/python3 $DOTFILES/deployment.py"
-alias ,json "python3 -m json"
 
 function ,doc --argument-names query
     open "https://devdocs.io/?q=$query"
 end
-alias ,d ",doc"
 
 ########
 # pnpm #
@@ -393,99 +438,44 @@ alias django-admin "$POETRY_RUN_PREFIX python manage.py"
 alias django-admin-showmigrations "$POETRY_RUN_PREFIX python manage.py showmigrations"
 alias django-admin-migrate-oneview "$POETRY_RUN_PREFIX python manage.py migrate oneview"
 
-# alias tk "$POETRY_RUN_PREFIX python manage.py test --keepdb -v 3 --force-color -k"
-alias tk_pdb "$POETRY_RUN_PREFIX python manage.py test --pdb --keepdb -v 3 --force-color -k"
-alias tk_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --pdb --no-input -v 3 --force-color -k"
-alias tk_profile "$POETRY_RUN_PREFIX python -m cProfile -o stats manage.py test --keepdb -v 3 --force-color -k"
-# run all tests for a file such as `foo.py`
-# alias tn "$POETRY_RUN_PREFIX python manage.py test --keepdb -v 3 --force-color -p"
-alias tn_pdb "$POETRY_RUN_PREFIX python manage.py test --pdb --keepdb -v 3 --force-color -p"
-alias ta "$POETRY_RUN_PREFIX python manage.py test --keepdb --no-input --parallel --force-color --exclude-tag=slow"
-alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --no-input --parallel --force-color --exclude-tag=slow"
+alias t_pdb "python3 $DOTFILES/test.py --pdb --keepdb -v 3 --force-color -k"
+alias t_no_keep_db "python3 $DOTFILES/test.py --pdb --no-input -v 3 --force-color -k"
+alias t_profile "python3 $DOTFILES/test.py stats manage.py test --keepdb -v 3 --force-color"
 
-function tk
-    # run tests, capture output
-    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run python manage.py test --keepdb -v 3 --force-color -k $argv
+alias ta "$POETRY_RUN_PREFIX python manage.py test --keepdb --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py"
+alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py"
 
-    if test $status -eq 0
-        terminal-notifier \
-            -title "✅" \
-            -message "Tests pass." \
-            -group "unittests"
-    else
-        terminal-notifier \
-            -title "❌" \
-            -message "Tests fail." \
-            -sound default \
-            -group "unittests"
-    end
-    return $status
-end
-
-function tn
-    # run tests, capture output
-    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run python manage.py test --timing --keepdb -v 3 --force-color -p $argv
-
-    if test $status -eq 0
-        terminal-notifier \
-            -title "✅" \
-            -message "Tests Pass." \
-            -group "unittests"
-    else
-        terminal-notifier \
-            -title "❌" \
-            -message "Tests Fail" \
-            -sound default \
-            -group "unittests"
-    end
-    return $status
-end
-
-
-function tk_quickfix --description 'test put result in quickfix' --argument-names testname
-    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 --interactive --tty \
-        oneview-django-1 poetry run python manage.py test --timing --keepdb -v 3 --force-color -k "$testname" | python3 ~/Documents/dotfiles/python_unittest_output_parser.py
-end
-
-function la 
-    /opt/homebrew/bin/python3 /Users/yuhao.huang/Documents/dotfiles/lint.py
-
-    if test $status -eq 0
-        terminal-notifier \
-            -title "✅" \
-            -message "Lint all Pass" \
-            -group "lint"
-    else
-        terminal-notifier \
-            -title "❌" \
-            -message "Lint all Fail" \
-            -sound default \
-            -group "lint"
-    end
-end
-
-function lamypy --description 'lint all mypy only'
-    set docker_to_local_path_s_command 's;^|^[.][/];saltus/;1'
-    echo "" > quickfix.vim
-    echo '>>> Running mypy...'
-    docker exec oneview-django-1 poetry run mypy . 2>&1 | sed -E $docker_to_local_path_s_command | tee -a quickfix.vim
+function t
+    python3 $DOTFILES/test.py $argv | tee /tmp/quickfix.vim
+    # python3 $DOTFILES/test.py $argv | python3 $DOTFILES/python_unittest_output_parser.py
+    cat /tmp/quickfix.vim | python3 $DOTFILES/python_unittest_output_parser.py
 
     if test $pipestatus[1] -eq 0
         terminal-notifier \
             -title "✅" \
-            -message "Mypy Pass" \
-            -group "mypy"
+            -message "Tests pass."
     else
         terminal-notifier \
             -title "❌" \
-            -message "Mypy Fail" \
-            -sound default \
-            -group "mypy"
+            -message "Tests fail." \
+            -sound default
     end
+    return $status
 end
 
-function ,gh_pr_description_update_with_commit_message --description "Push last commit message to current GitHub PR description"                                                                                            
-    git log -1 --pretty=%B | gh pr edit --body-file -
+function la 
+    python3 /Users/yuhao.huang/Documents/dotfiles/lint.py
+
+    if test $status -eq 0
+        terminal-notifier \
+            -title "✅" \
+            -message "Lint all Pass"
+    else
+        terminal-notifier \
+            -title "❌" \
+            -message "Lint all Fail" \
+            -sound default
+    end
 end
 
 #######
@@ -501,7 +491,7 @@ set -gx GPG_TTY (tty)
 alias ,c "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
 alias ,claude "claude --add-dir '/Users/yuhao.huang/Documents/personal-notes' --add-dir '/Users/yuhao.huang/Documents/dotfiles'"
 function ,c_quick_review_changes
-    claude --print 'Please QUICKLY review code changes from git diff, if there is no diff, review last commit' > /tmp/c_quick_review_changes.md
+    claude --print 'Please QUICKLY tell me what is wrong with the code changes from git diff, if there is no diff, review last commit' > /tmp/c_quick_review_changes.md
     bat --language md --terminal-width 80 --style plain --pager '/usr/bin/less' /tmp/c_quick_review_changes.md
 end
 
@@ -530,9 +520,7 @@ end
 
 function ,setup_lint_test_tab
     # Sets up two horizonal tabs
-    # Top tab
-    #   - ruff lint   watch in foreground
-    #   - ruff format watch in background
+    # Top tab: run lint on watch python file changes
     # Bottom tab
     #   - tab with title runtest, in vim use <leader>u to trigger tests to run
     cd $ONEVIEW
@@ -540,18 +528,13 @@ function ,setup_lint_test_tab
     # light peach
     kitten @ set-tab-color inactive_bg=#ebaca2 active_bg=#ffc9c2
 
-    kitten @ launch --type=window --title runtest --keep-focus
+    kitten @ launch --type=window --title runtest --keep-focus --cwd current
     kitten @ resize-window --self --axis vertical --increment -8
 
-    # format
-    watchexec --shell=none -e py --quiet -- docker exec -t oneview-django-1 poetry run ruff format &
+    # watchexec --exts py --quiet -- 'fd .py | ctags -f /tmp/tags_temp -L - && mv /tmp/tags_temp tags' &
     # lint with autofix
-    watchexec --shell=none -e py --quiet -- python3 "$DOTFILES/lint.py"
-end
-
-function ,setup_la_lamypy_ta
-    kitten @ set-tab-title pre_pr_check
-    kitten @ launch --type=window --keep-focus fish -c "la; exec $SHELL"
-    kitten @ launch --type=window --keep-focus fish -c "lamypy; exec $SHELL"
-    ta
+    # --postpone: Wait until first change before running command
+    # --restart: Restart the process if it's still running
+    # --interactive: Respond to keypresses to quit (q), restart (r), or pause (p)
+    watchexec --exts py --quiet --postpone --restart --interactive -- python3 "$DOTFILES/lint.py"
 end

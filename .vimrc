@@ -385,13 +385,13 @@ enddef
 def g:RunTestCase(prefix_string: string)
   var word = GetWordAfterPrefix(prefix_string)
   echom 'Running test' word
-  call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tk {word} \\n")
+  call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest t {word} \\n")
 enddef
 
 def g:RunTestFile()
   var filename = expand("%:t")
   echom 'Running test file' filename
-  call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest tn {filename} \\n")
+  call system($"/Applications/kitty.app/Contents/MacOS/kitty @ send-text --match title:runtest t {filename} \\n")
 enddef
 
 nnoremap <leader>uf :call g:RunTestCase("def")<cr>

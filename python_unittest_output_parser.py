@@ -2,49 +2,43 @@
 import re
 import sys
 
-FILE_LINE_RE = re.compile(r'^\s*File "(?P<file>.+?)", line (?P<line>\d+)(?:, in .+)?')
+def main():
+    # FILE_LINE_RE = re.compile(r'^\s*File "(?P<file>.+?)", line (?P<line>\d+)(?:, in +)?')
 
+    # clear file
+    with open("quickfix.vim", "w") as f:
+        f.write("")
 
-def parse_unittest_output(stream):
-    current_file = None
-    current_line = None
     collecting_traceback = False
-    error_message = None
 
-    for raw_line in stream:
+    for raw_line in sys.stdin:
         line = raw_line.rstrip("\n")
-        yield line
+        print(line)
 
         if line.startswith("Traceback"):
             collecting_traceback = True
-            current_file = None
-            current_line = None
-            error_message = None
+            error_filename = None
+            error_line_number = None
             continue
 
         if collecting_traceback:
-            m = FILE_LINE_RE.match(line)
-            if m:
-                current_file = m.group("file")
-                current_line = m.group("line")
-                continue
+            if line.startswith("  File "):
+                # First Error Stack trace on File
+                # e.g. File "/app/backend/oneview/tests/graphql/api/test_account.py", line 712, in test_foo
+                _, raw_error_filename, _ , raw_line_number, _, testcase_function_name = line.strip().split(' ')
 
-            # Final error line (e.g. AssertionError: ...)
-            if current_file and current_line and line and not line.startswith(" "):
-                file = current_file.replace("/app/backend", "saltus")
+                # raw_error_filename e.g. '"/app/backend/oneview/tests/graphql/api/test_account.py",'
+                error_filename = raw_error_filename.replace('"',"").replace(",", "").replace("/app/backend", "saltus")
+                # raw_line_number e.g. '712,'
+                error_line_number = raw_line_number.replace(",", "")
+
+            if line[0] != " ":
+                # last error message line e.g. AssertionError: 1 != 2
                 error_message = line.strip()
-                with open("quickfix_test.vim", "a") as f:
-                    f.write(f"{file}:{current_line}:9: {error_message}")
+                with open("quickfix.vim", "a") as f:
+                    f.write(f"{error_filename}:{error_line_number}:9: {error_message}\n")
+
                 collecting_traceback = False
-
-
-def main():
-    with open("quickfix_test.vim", "w") as f:
-        f.write("")
-
-    for qf_line in parse_unittest_output(sys.stdin):
-        print(qf_line)
-
 
 if __name__ == "__main__":
     main()

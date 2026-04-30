@@ -2,11 +2,22 @@
 import subprocess
 import sys
 import json
+import os
+from glob import glob
 
 QUICKFIX_FILE = "quickfix.vim"
 
 def main():
-    print(">>> Running ruff check --fix...")
+    print(">>> Running format...")
+    command = "docker exec oneview-django-1 poetry run ruff format"
+    subprocess.run(
+        command.split(' '),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+
+    print(">>> Running lint with fix...")
     command = "docker exec oneview-django-1 poetry run ruff check --fix --output-format json --quiet"
     result = subprocess.run(
         command.split(' '),
@@ -63,7 +74,22 @@ def main():
             file.write(error_message)
             print(error_message)
 
-    sys.exit(result.returncode)
+    # TODO: do ctags as well
+    # need to write to temp file then overwrite tags file
+
+    files = glob("**/*.py", recursive=True)
+    files = [f for f in files if '/migrations/' not in f]
+    print(">>> Running ctags ...")
+    command = "/opt/homebrew/bin/ctags -f /tmp/tags"
+    command_with_python_files = command.split(' ') + files
+    result = subprocess.run(
+        command_with_python_files,
+        text=True,
+        # shell is needed for the glob '**/*.py'
+        shell=False,
+        capture_output = True,
+    )
+    os.replace("/tmp/tags", "./tags")
 
 if __name__ == "__main__":
     main()
