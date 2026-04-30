@@ -9,5 +9,5 @@
     ]
   },
   "skipDangerousModePermissionPrompt": true,
-  "skipAutoPermissionPrompt": true
+  "editorMode": "vim"
 }
