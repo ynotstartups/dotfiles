@@ -463,14 +463,9 @@ function t
     cat /tmp/quickfix.vim | python3 $DOTFILES/python_unittest_output_parser.py
 
     if test $pipestatus[1] -eq 0
-        terminal-notifier \
-            -title "✅" \
-            -message "Tests pass."
+        kitten notify "✅ Tests pass"
     else
-        terminal-notifier \
-            -title "❌" \
-            -message "Tests fail." \
-            -sound default
+        kitten notify "❌ Tests fail"
     end
     return $status
 end
@@ -479,14 +474,9 @@ function la
     python3 /Users/yuhao.huang/Documents/dotfiles/lint.py
 
     if test $status -eq 0
-        terminal-notifier \
-            -title "✅" \
-            -message "Lint all Pass"
+        kitten notify "✅ Lint pass"
     else
-        terminal-notifier \
-            -title "❌" \
-            -message "Lint all Fail" \
-            -sound default
+        kitten notify "❌ Lint fail"
     end
 end
 
