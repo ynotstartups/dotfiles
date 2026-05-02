@@ -386,8 +386,9 @@ abbr ,fe ',pnpm_run_frontend'
 # docker compose #
 ##################
 
-abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow --timestamps django"
-abbr ,dc_logs_celery "docker compose --file docker-compose-dev.yml logs --follow --timestamps celery_worker"
+abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow django"
+abbr ,dc_logs_celery "docker compose --file docker-compose-dev.yml logs --follow celery_worker"
+abbr ,dc_logs_postgres "docker compose --file docker-compose-dev.yml logs --follow postgres"
 abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker compose --file docker-compose-dev.yml logs --follow --timestamps" 
@@ -438,12 +439,23 @@ alias django-admin "$POETRY_RUN_PREFIX python manage.py"
 alias django-admin-showmigrations "$POETRY_RUN_PREFIX python manage.py showmigrations"
 alias django-admin-migrate-oneview "$POETRY_RUN_PREFIX python manage.py migrate oneview"
 
-alias t_pdb "python3 $DOTFILES/test.py --pdb --keepdb -v 3 --force-color -k"
-alias t_no_keep_db "python3 $DOTFILES/test.py --pdb --no-input -v 3 --force-color -k"
+alias t_pdb "python3 $DOTFILES/test.py --pdb --keepdb -v 3 --force-color"
+alias t_no_keep_db "python3 $DOTFILES/test.py --pdb --no-input -v 3 --force-color"
 alias t_profile "python3 $DOTFILES/test.py stats manage.py test --keepdb -v 3 --force-color"
 
-alias ta "$POETRY_RUN_PREFIX python manage.py test --keepdb --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py"
-alias ta_no_keep_db "$POETRY_RUN_PREFIX python manage.py test --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py"
+function ta
+    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run \
+        python manage.py test --keepdb --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py
+end
+
+function ta_no_keep_db
+    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run \
+        python manage.py test --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py
+
+    # run a fake test just to set up database with --keepdb
+    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run \
+        python manage.py test --keepdb foo >/dev/null 2>&1 &
+end
 
 function t
     python3 $DOTFILES/test.py $argv | tee /tmp/quickfix.vim
@@ -496,8 +508,6 @@ function ,c_quick_review_changes
 end
 
 function ,c_print_bat
-    # TODO: store the output file in a hidden directory! .claude-personal/datetime.md
-    # allow for resume previous conversation too
     claude --print $argv > test.md
     bat --language md --terminal-width 80 --style plain --pager '/usr/bin/less' test.md
 end
@@ -527,9 +537,10 @@ function ,setup_lint_test_tab
     kitten @ set-tab-title lint_test
     # light peach
     kitten @ set-tab-color inactive_bg=#ebaca2 active_bg=#ffc9c2
+    kitten @ resize-window --self --axis vertical --increment -8
 
     kitten @ launch --type=window --title runtest --keep-focus --cwd current
-    kitten @ resize-window --self --axis vertical --increment -8
+    kitten @ create-marker --match 'title:runtest' regex 3 \\bERROR\\b 3 \\bFAIL\\b
 
     # watchexec --exts py --quiet -- 'fd .py | ctags -f /tmp/tags_temp -L - && mv /tmp/tags_temp tags' &
     # lint with autofix
@@ -537,4 +548,8 @@ function ,setup_lint_test_tab
     # --restart: Restart the process if it's still running
     # --interactive: Respond to keypresses to quit (q), restart (r), or pause (p)
     watchexec --exts py --quiet --postpone --restart --interactive -- python3 "$DOTFILES/lint.py"
+end
+
+function ,kitty_detach_window
+    kitten @ detach-window --target-tab new
 end
