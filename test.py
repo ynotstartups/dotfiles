@@ -4,9 +4,7 @@ import sys
 
 def main():
     command = "docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run python manage.py test --keepdb -v 3 --force-color".split(' ')
-    # parse 
 
-    print(sys.argv)
     if len(sys.argv) > 2:
         command += sys.argv[1:-1]
 
