@@ -27,6 +27,7 @@ if __name__ == "__main__":
             "lead",
             "task",
             "t4a_curorecommendation",
+            "t4a_provider",
         ],
         help="curo entity name",
     )
