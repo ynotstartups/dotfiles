@@ -9,20 +9,18 @@ QUICKFIX_FILE = "quickfix.vim"
 
 def main():
     print(">>> Running format...")
-    command = "docker exec oneview-django-1 poetry run ruff format"
+    command = "docker compose exec --no-tty django poetry run ruff format"
     subprocess.run(
         command.split(' '),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        capture_output=True,
         text=True,
     )
 
     print(">>> Running lint with fix...")
-    command = "docker exec oneview-django-1 poetry run ruff check --fix --output-format json --quiet"
+    command = "docker compose exec --no-tty django poetry run ruff check --fix --output-format json --quiet"
     result = subprocess.run(
         command.split(' '),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        capture_output=True,
         text=True,
     )
     with open(QUICKFIX_FILE, "w") as file:
@@ -61,18 +59,20 @@ def main():
             print(quickfix_line)
 
     print(">>> Running mypy ...")
-    command = "docker exec oneview-django-1 poetry run mypy --show-column-numbers --no-error-summary ."
+    command = "docker compose exec --no-tty django poetry run mypy --show-column-numbers --no-error-summary ."
     result = subprocess.run(
         command.split(' '),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
+        # stdout=subprocess.DEVNULL,
+        # stderr=subprocess.STDOUT,
+        capture_output=True,
         text=True,
     )
-    with open(QUICKFIX_FILE, "a") as file:
-        for line in result.stdout.split('/n'):
-            error_message = line.replace('oneview/', './saltus/oneview/')
-            file.write(error_message)
-            print(error_message)
+    if result.stdout:
+        with open(QUICKFIX_FILE, "a") as file:
+            for line in result.stdout.split('/n'):
+                error_message = line.replace('oneview/', './saltus/oneview/')
+                file.write(error_message)
+                print(error_message)
 
     # TODO: do ctags as well
     # need to write to temp file then overwrite tags file

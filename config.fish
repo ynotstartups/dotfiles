@@ -341,7 +341,7 @@ function ,docker_setup_backend_utils
     cd ~/Documents/oneview
 
     echo '~~~~ copy ipython config ~~~~'
-    docker exec --env -t oneview-django-1 poetry run ipython profile create
+    docker compose --env django poetry run ipython profile create
     docker compose --file docker-compose-dev.yml cp $PERSONAL_NOTES"ipython_config.py" django:/home/oneview/.ipython/profile_default/ipython_config.py
 
     echo '~~~~ set django bash to have vim key binding  ~~~~'
@@ -386,9 +386,11 @@ abbr ,fe ',pnpm_run_frontend'
 # docker compose #
 ##################
 
-abbr ,dc_logs_django "docker compose --file docker-compose-dev.yml logs --follow django"
-abbr ,dc_logs_celery "docker compose --file docker-compose-dev.yml logs --follow celery_worker"
-abbr ,dc_logs_postgres "docker compose --file docker-compose-dev.yml logs --follow postgres"
+abbr ,dc_logs_django "docker compose logs --follow django"
+abbr ,dc_logs_celery "docker compose logs --follow celery_worker"
+abbr ,dc_logs_postgres "docker compose logs --follow postgres"
+abbr ,dc_root_bash_django "docker compose exec --user root django /bin/bash"
+abbr ,dc_root_bash_postgres "docker compose exec --user root postgres /bin/bash"
 abbr ,dc 'docker compose --file docker-compose-dev.yml'
 abbr ,dc_e2e 'docker compose --file docker-compose-e2e.yml'
 abbr ,dc_logs "docker compose --file docker-compose-dev.yml logs --follow --timestamps" 
@@ -433,45 +435,53 @@ alias npm 'pnpm'
 # saltus #
 ##########
 
-set POETRY_RUN_PREFIX "docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run"
+set POETRY_RUN_PREFIX "docker compose exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 django poetry run"
 
 alias django-admin "$POETRY_RUN_PREFIX python manage.py"
 alias django-admin-showmigrations "$POETRY_RUN_PREFIX python manage.py showmigrations"
 alias django-admin-migrate-oneview "$POETRY_RUN_PREFIX python manage.py migrate oneview"
 
-alias t_pdb "python3 $DOTFILES/test.py --pdb --keepdb -v 3 --force-color"
-alias t_no_keep_db "python3 $DOTFILES/test.py --pdb --no-input -v 3 --force-color"
-alias t_profile "python3 $DOTFILES/test.py stats manage.py test --keepdb -v 3 --force-color"
-
-function ta
-    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run \
-        python manage.py test --keepdb --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py
-end
-
-function ta_no_keep_db
-    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run \
-        python manage.py test --no-input --parallel --force-color --exclude-tag=slow | python3 $DOTFILES/python_unittest_output_parser.py
-
-    # run a fake test just to set up database with --keepdb
-    docker exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 --interactive --tty oneview-django-1 poetry run \
-        python manage.py test --keepdb foo >/dev/null 2>&1 &
-end
+alias t_pdb "python3 $DOTFILES/test.py --pdb"
+alias t_no_keep_db "python3 $DOTFILES/test.py --no-keep-db"
 
 function t
-    python3 $DOTFILES/test.py $argv | tee /tmp/quickfix.vim
-    # python3 $DOTFILES/test.py $argv | python3 $DOTFILES/python_unittest_output_parser.py
-    cat /tmp/quickfix.vim | python3 $DOTFILES/python_unittest_output_parser.py
+    python3 $DOTFILES/test.py $argv | tee /tmp/test_data.txt
+    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
 
     if test $pipestatus[1] -eq 0
         kitten notify "✅ Tests pass"
     else
         kitten notify "❌ Tests fail"
     end
-    return $status
+end
+
+function ta
+    python3 $DOTFILES/test.py | tee /tmp/test_data.txt
+    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
+
+    if test $pipestatus[1] -eq 0
+        kitten notify "✅ Tests pass"
+    else
+        kitten notify "❌ Tests fail"
+    end
+end
+
+function ta_no_keep_db
+    python3 $DOTFILES/test.py --no-keep-db | tee /tmp/test_data.txt
+    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
+
+    if test $pipestatus[1] -eq 0
+        kitten notify "✅ Tests pass"
+    else
+        kitten notify "❌ Tests fail"
+    end
+
+    # run a fake test just to set up database with --keepdb
+    python3 $DOTFILES/test.py >/dev/null 2>&1 &
 end
 
 function la 
-    python3 /Users/yuhao.huang/Documents/dotfiles/lint.py
+    python3 $DOTFILES/lint.py
 
     if test $status -eq 0
         kitten notify "✅ Lint pass"
@@ -505,6 +515,9 @@ end
 #########
 # kitty #
 #########
+
+alias icat "kitten icat"
+
 
 #ce6a6b, #f07173 (muted red)
 #ebaca2, #ffc9c2 (light peach)
