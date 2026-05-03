@@ -207,13 +207,18 @@ end
 ######
 # rg #
 ######
-
 set --global --export RIPGREP_CONFIG_PATH $HOME/.rgrc
 
-abbr rg_python_ignore_tests 'rg -t py -g "!**/tests/**"'
+function rg_vim
+    rg --vimgrep $argv > ./quickfix.vim
+    vim -q ./quickfix.vim -c ':copen'
+end
 
-abbr rg_js_ignore_tests 'rg -g "!**/*test.ts" -g "!**/*.snap"'
-
+alias rg_usage 'rg --type py --glob "!**/tests/**"'
+function rg_usage_vim
+    rg --type py --glob '!**/tests/**' --vimgrep $argv > ./quickfix.vim
+    vim -q ./quickfix.vim -c ':copen'
+end
 ########
 # Node #
 ########
