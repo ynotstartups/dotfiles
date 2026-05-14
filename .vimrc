@@ -28,6 +28,7 @@ Plug 'inkarkat/vim-visualrepeat'       # in visual mode, use . to repeat in sele
 Plug 'tpope/vim-repeat'                # repeat vim-surround with .
 Plug 'tpope/vim-surround'              # `ds` to delete, `cs` to change and `ys` to add surroundings ', ", ` 
 Plug 'tpope/vim-unimpaired'            # [f, ]f to go to file in same directory
+Plug 'tpope/vim-rsi'                   # ctrl-f, ctrl-b, alt-f, alt-b to move around command line mode
 Plug 'mbbill/undotree'                 # :UndotreeToggle 
 
 # git
@@ -55,6 +56,7 @@ Plug 'sgur/vim-textobj-parameter'      # i, a,  for parameters
 Plug 'lucapette/vim-textobj-underscore' # i_ a_ for underscore
 
 Plug 'tomasr/molokai'                  # molokar colorscheme
+
 plug#end()
 
 # change default leader \ to space, this setting needs to be in the beginning
