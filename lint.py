@@ -9,7 +9,7 @@ QUICKFIX_FILE = "quickfix.vim"
 
 def main():
     print(">>> Running format...")
-    command = "docker compose exec --no-tty django poetry run ruff format"
+    command = "docker compose exec --no-tty django ruff format"
     subprocess.run(
         command.split(' '),
         capture_output=True,
@@ -17,7 +17,7 @@ def main():
     )
 
     print(">>> Running lint with fix...")
-    command = "docker compose exec --no-tty django poetry run ruff check --fix --output-format json --quiet"
+    command = "docker compose exec --no-tty django ruff check --fix --output-format json --quiet"
     result = subprocess.run(
         command.split(' '),
         capture_output=True,
@@ -59,7 +59,7 @@ def main():
             print(quickfix_line)
 
     print(">>> Running mypy ...")
-    command = "docker compose exec --no-tty django poetry run mypy --show-column-numbers --no-error-summary ."
+    command = "docker compose exec --no-tty django mypy --show-column-numbers --no-error-summary ."
     result = subprocess.run(
         command.split(' '),
         # stdout=subprocess.DEVNULL,

@@ -39,7 +39,7 @@ def main():
             action='store_true')  # on/off flag
     args = parser.parse_args()
 
-    command = "docker compose exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 django poetry run python manage.py test --exclude-tag=slow -v 3 --force-color".split(' ')
+    command = "docker compose exec -e PYTHONWARNINGS=ignore -e DISABLE_LOGS=1 -e IS_RUNNING_UNITTEST=1 django python manage.py test --exclude-tag=slow -v 3 --force-color".split(' ')
 
     if args.pdb:
         command.append("--pdb")
