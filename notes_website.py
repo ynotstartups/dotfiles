@@ -268,7 +268,7 @@ def main():
         )
     )
 
-    notes.extend(parse_recipes_notes())
+    # notes.extend(parse_recipes_notes())
 
     # check hash, only update changed file
     changed_notes = []
