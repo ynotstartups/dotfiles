@@ -13,7 +13,7 @@ def main():
 
     for raw_line in sys.stdin:
         line = raw_line.rstrip("\n")
-        print(line)
+        # print(line)
 
         if line.startswith("Traceback"):
             collecting_traceback = True

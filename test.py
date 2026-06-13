@@ -59,6 +59,9 @@ def main():
         else:
             # testing a test case, function or class
             command += ['-k', to_test_name]
+    else:
+        # test all test cases
+        command += ['--parallel']
 
     print('>>>Running test:')
     print(" ".join(command))
