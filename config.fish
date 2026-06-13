@@ -450,30 +450,33 @@ alias t_pdb "python3 $DOTFILES/test.py --pdb"
 alias t_no_keep_db "python3 $DOTFILES/test.py --no-keep-db"
 
 function t
+    # tee is used instead of `> /tmp/test_data.txt` to support setting
+    # `breakpoint()`
     python3 $DOTFILES/test.py $argv | tee /tmp/test_data.txt
-    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
 
     if test $pipestatus[1] -eq 0
         kitten notify "✅ Tests pass"
     else
         kitten notify "❌ Tests fail"
     end
+    
+    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
 end
 
 function ta
     python3 $DOTFILES/test.py | tee /tmp/test_data.txt
-    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
 
     if test $pipestatus[1] -eq 0
         kitten notify "✅ Tests pass"
     else
         kitten notify "❌ Tests fail"
     end
+
+    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
 end
 
 function ta_no_keep_db
     python3 $DOTFILES/test.py --no-keep-db | tee /tmp/test_data.txt
-    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
 
     if test $pipestatus[1] -eq 0
         kitten notify "✅ Tests pass"
@@ -481,6 +484,7 @@ function ta_no_keep_db
         kitten notify "❌ Tests fail"
     end
 
+    cat /tmp/test_data.txt | python3 $DOTFILES/python_unittest_output_parser.py
     # run a fake test just to set up database with --keepdb
     python3 $DOTFILES/test.py >/dev/null 2>&1 &
 end
